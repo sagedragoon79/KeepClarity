@@ -1,0 +1,312 @@
+================================================================================
+  FF UI OVERHAUL MOD — SESSION HANDOFF
+  Project: C:\Users\saged\source\repos\FFUIOverhaul\
+  Last Updated: 2026-04-22
+  Game: Farthest Frontier (Crate Entertainment) — Mono/MelonLoader build
+  Mod Version: 1.0.0 (in active development, not yet published)
+================================================================================
+
+--------------------------------------------------------------------------------
+BUILD & DEPLOY
+--------------------------------------------------------------------------------
+Source:   C:\Users\saged\source\repos\FFUIOverhaul\src\
+DLL Out:  src\bin\Debug\net46\FFUIOverhaul_FF.dll
+Mods dir: G:\SteamLibrary\steamapps\common\Farthest Frontier\Farthest Frontier (Mono)\Mods\
+Log file: G:\SteamLibrary\steamapps\common\Farthest Frontier\Farthest Frontier (Mono)\MelonLoader\Latest.log
+         (ALWAYS use Latest.log, NOT the dated logs — dated ones are throttled/truncated)
+
+Build command:
+  cd "C:\Users\saged\source\repos\FFUIOverhaul\src"
+  dotnet build -p:GameDir="G:\SteamLibrary\steamapps\common\Farthest Frontier"
+
+Deploy (after build):
+  cp src/bin/Debug/net46/FFUIOverhaul_FF.dll "<mods dir>/FFUIOverhaul_FF.dll"
+
+--------------------------------------------------------------------------------
+PROJECT STRUCTURE
+--------------------------------------------------------------------------------
+src/
+  Plugin.cs                                — Main MelonMod entry, OnUpdate dispatch
+  BuildingActions.cs                       — U/R/E/Del action implementations
+  UI/
+    PinnedResourceOverlay.cs               — IMGUI pinnable resource sidebar
+  Utils/
+    InputStateHelper.cs                    — State machine inspector (currently unused in guards)
+    ResourceHelper.cs                      — Category enum + color map for all resources
+    ReflectionHelper.cs                    — GetPrivateField / CallPrivateMethod helpers
+  Patches/
+    TopBarTooltipPatches.cs                — Iron bar entry + enhanced grouped tooltips
+    VillagerTooltipPatch.cs                — Enhanced villager hover tooltip
+    ManufacturingTooltipPatch.cs           — "Work Required" on recipe tooltips
+    TraderWarningPatch.cs                  — Trader departure warning notification
+    HotkeySuppressPatch.cs                 — Blocks HotkeyManager when mod owns input context
+    HotkeySuppressPatch.cs (placeholder)   — Modal hotkeys are in Plugin.HandleModalHotkeys
+    EscapeKeyPatch.cs (placeholder)        — Escape key is in Plugin.HandleEscapeKey
+    ConfirmDialogPatch.cs (placeholder)    — Confirm dialog handled in Plugin.HandleModalHotkeys
+  _research/ (decompiled game classes for reference)
+    Input_Default.decompiled.cs
+    Input_ModalWindow.decompiled.cs
+    InputManager.decompiled.cs
+    StateMachine.decompiled.cs
+
+--------------------------------------------------------------------------------
+IMPLEMENTED FEATURES
+--------------------------------------------------------------------------------
+
+1. IRON IN TOP RESOURCE BAR
+   File: Patches/TopBarTooltipPatches.cs — PatchUITopBarStart
+   How: Clones the Brick entry at UITopBar.Start(), swaps sprite to Iron icon,
+        inserts before the last child. Updates via PatchUITopBarUpdateValues.
+   Status: Working (confirmed in earlier test sessions).
+
+2. ENHANCED TOP BAR TOOLTIPS (Grouped)
+   File: Patches/TopBarTooltipPatches.cs — PatchUITopBarUpdateValues
+   How: Postfix on UpdateResourceValues() clears and re-populates tooltip rows
+        for Logs, Wood Planks, Stone, Brick entries with related item counts.
+        Groupings:
+          Logs     → shows Wood Planks, Firewood
+          Planks   → shows Logs, Firewood
+          Stone    → shows Iron Ore, Gold Ore, Clay, Sand
+          Brick    → shows Iron, Gold Ingots, Glass
+   Known issue: Using ItemSetupData.ItemEntry.name (not displayName) for labels.
+   Status: Implemented, needs in-game verification that groupings look right.
+
+3. ENHANCED VILLAGER TOOLTIP
+   File: Patches/VillagerTooltipPatch.cs
+   Adds to the villager hover tooltip:
+     - Housing: adds surplus count as percentage (e.g. "24 (+8%)")
+     - Educated: adds absolute count alongside percent (e.g. "12 (40%)")
+     - Fit to Work: adds percentage
+     - Livestock section: Cattle / Goats / Chickens
+     - Workforce section: Employed X/Y, Free Laborers Z
+       (Employed/Free via reflection on ResourceManager.employedCount/fitToWorkCount)
+   Status: Implemented, needs in-game verification.
+
+4. MANUFACTURING TOOLTIP — WORK REQUIRED
+   File: Patches/ManufacturingTooltipPatch.cs
+   Patches UIBuildingInfoWindowSubWidgetManufacturingSliders.PopulateManufacturingInfo
+   and UpdateWidgets to prepend "Work Required: Xs" to recipe tooltips.
+   Status: Implemented, needs in-game verification.
+
+5. TRADER DEPARTURE WARNING
+   File: Patches/TraderWarningPatch.cs
+   Patches TradeWagon.OnDayPassed. When GetDaysUntilDeparture() == TraderWarningDays
+   preference (default 5), fires TradeWagonLeftEvent + TradeWagonArrivedEvent to
+   surface the "trader leaving soon" notification.
+   Status: Implemented, needs in-game verification of event types used.
+
+6. ONI-STYLE PINNABLE RESOURCE OVERLAY
+   File: UI/PinnedResourceOverlay.cs
+   IMGUI panel anchored upper-right (x = Screen.width - 178, y = 44).
+   Features:
+     - All 58 resources across 5 categories pinnable individually
+     - Category color coding: Food=green, Raw=tan, Produced=blue, Usable=gold, Livestock=soft-green
+     - Critical items (stored == 0, non-livestock) turn label+value red
+     - Thin separator lines between category groups (no labels, cleaner look)
+     - [+]/[-] toggle button in header opens config pane
+     - Config pane: 210px wide scrollable panel left of the overlay, grouped by category,
+       checkbox-style toggle with gold checkmark
+     - Persistence: saved to MelonPreferences as semicolon-delimited
+       "ItemId:DisplayName:Category" strings in PinnedResourcesJson pref
+     - Default pins: Food, Logs, Firewood, Heavy Tools, Clothing
+     - Toggle hotkey: F5 (configurable)
+     - Escape key closes config pane if open
+   Status: Working (confirmed in earlier tests — [+]/[-] button visible, values show).
+   Note: "Food_Total" ItemId in default pins may not resolve to a real ResourceManager
+         item — might need to be replaced with a specific food item or removed.
+
+7. BUILDING PANEL HOTKEYS
+   Files: Plugin.cs, BuildingActions.cs
+   Active when UIBuildingInfoWindow is visible (FrameBuildingWindowActive flag).
+   Hotkeys (all configurable in MelonPreferences):
+     U = Upgrade   → Building.UpgradeBuilding()
+     R = Relocate  → ReflectionHelper.CallPrivateMethod("RelocateButtonPressed", infoWindow)
+     E = Toggle Employment → reflects "employmentEnabled" field on Building, flips it
+     Del = Demolish → ReflectionHelper.CallPrivateMethod("OnConfirmDelete", infoWindow)
+   Status: PARTIALLY WORKING
+     - Del triggers Y/N pane ✓
+     - Y/N confirm is STILL BLEEDING to game hotkeys (see Pending Issues)
+     - R is not triggering relocate — opens road placement instead (see Pending Issues)
+     - U and E untested
+
+8. MODAL Y/N/ENTER/ESC HOTKEYS
+   File: Plugin.cs — HandleModalHotkeys / ClickModalButton
+   Active when IsModalVisible() returns true (FrameModalVisible flag).
+   How: Finds active child of UIModalWindowManager with 2+ Button components.
+        Searches buttons by name for confirm/cancel keywords, fallback to index [0]/[last].
+        Hotkeys: Y / Enter = confirm,  N / Esc = cancel
+   Status: PARTIALLY WORKING
+     - Modal handler fires and clicks button (demolish confirmed) ✓
+     - Game ALSO processes Y/N in the same frame (see Pending Issues)
+
+9. ESCAPE KEY CLOSES TOPMOST WINDOW
+   File: Plugin.cs — HandleEscapeKey
+   How: If overlay config is open, closes it. Otherwise calls
+        gm.uiManager.windowManager.CloseMostRecentMenu()
+   Status: Implemented, needs verification.
+
+10. HOTKEY SUPPRESSION (HotkeyManager patch)
+    File: Patches/HotkeySuppressPatch.cs
+    Patches HotkeyManager.GetKeyComboDown prefix to return false when:
+      - FrameModalVisible == true  (our Y/N dialog showing)
+      - FrameBuildingWindowActive == true  (building info window showing)
+    These flags are set ONCE per frame in OnUpdate (not per-GetKeyComboDown-call)
+    to avoid the massive performance hit from per-call UI traversals.
+    Status: Just deployed (as of this session end). Performance fix applied.
+            UNTESTED whether it actually stops Y bleed to achievements.
+
+--------------------------------------------------------------------------------
+CONFIGURABLE PREFERENCES (MelonPreferences "FFUIOverhaul" category)
+--------------------------------------------------------------------------------
+ReportsHotkey       KeyCode.CapsLock   Toggle 12-month report window
+UpgradeHotkey       KeyCode.U          Upgrade selected building
+RelocateHotkey      KeyCode.R          Relocate selected building
+ToggleEmployHotkey  KeyCode.E          Toggle employment on selected building
+DemolishHotkey      KeyCode.Delete     Open demolish confirmation
+ConfirmHotkey       KeyCode.Y          Confirm modal dialog
+CancelHotkey        KeyCode.N          Cancel modal dialog
+ToggleOverlayHotkey KeyCode.F5         Show/hide pinned resource overlay
+TraderWarningDays   5                  Days before departure to warn
+PinnedResourcesJson ""                 Serialized pinned items (managed by overlay UI)
+
+--------------------------------------------------------------------------------
+KNOWN GAME API FACTS (hard-won from decompilation)
+--------------------------------------------------------------------------------
+- unusedCount on ItemInfo is uint — must cast to int explicitly
+- HotkeyManager is both a namespace AND a class name:
+    use global::HotkeyManager.HotkeyManager and global::HotkeyManager.KeyCombo
+- UIWindowManager methods: CloseMostRecentMenu(), CloseAllMenus(), ToggleReportWindow()
+    NO: CloseTopWindow, IsAnyWindowOpen, Update
+- UIModalWindowManager fields: modalWindowPrefab, modalWindowCustomContentSlot, customContent
+    NO: modalWindowInstance, Update method
+- UIManager fields: _windowManager, _modalWindowManager
+    NO: building info window reference of any kind
+- UIBuildingInfoWindow: found via Object.FindObjectsOfType<UIBuildingInfoWindow>(true)
+- InputManager.selectedObject = currently selected GameObject (public field)
+- Building.UpgradeBuilding() is the upgrade method (NO CanUpgrade/Upgrade pair)
+- ItemSetupData.ItemEntry uses .name field (NOT .displayName)
+- Input state machine: InputManager.inputStateMachine (StateMachine component)
+    States: Input_Default, Input_SelectGameObject, Input_ModalWindow,
+            Input_PlaceBuilding, Input_TechTree, Input_OptionsMenu, etc.
+- StateMachine.currentState = private field with current active state
+    NOTE: state machine MAY use a stack — currentState may not reflect pushed states
+    like Input_ModalWindow if it's pushed on top. This is why IsInModalState()
+    was unreliable and we switched to IsModalVisible() UI check instead.
+- Modal buttons: found by searching active UIModalWindowManager children for
+    GameObjects with 2+ Button components, then searching by name for
+    confirm/yes/ok vs cancel/no/close keywords
+
+--------------------------------------------------------------------------------
+PENDING ISSUES (as of session end 2026-04-22)
+--------------------------------------------------------------------------------
+
+ISSUE 1: Y/N still bleeds to game hotkeys when modal visible
+  Symptom: Del → Y/N pane appears, Y confirms demolish BUT ALSO opens achievement
+           window. N cancels BUT ALSO enters road placement mode.
+  Root cause: Our OnUpdate fires and handles the modal correctly, BUT the game's
+              input state is apparently NOT in Input_ModalWindow when the demolish
+              confirmation shows — so the game's Input_Default or Input_SelectGameObject
+              also processes Y/N through HotkeyManager in the same frame.
+  Latest fix deployed: HotkeySuppressPatch now blocks ALL HotkeyManager.GetKeyComboDown
+              calls when FrameModalVisible==true. If this works, Y/N bleed stops.
+              NOT YET TESTED after this fix.
+  If still failing: The demolish dialog may not be a standard UIModalWindowManager
+              modal at all — it may be a UIBuildingInfoWindow-internal dialog that
+              IsModalVisible() doesn't detect. Need to add Log.Msg("[Modal] visible=X")
+              inside OnUpdate to confirm detection.
+
+ISSUE 2: R key doesn't trigger relocate — opens road placement instead
+  Symptom: With building selected, pressing R opens road placement (game hotkey)
+           instead of triggering relocate. No log output from TryRelocate visible.
+  Possible causes:
+    A) GetActiveBuildingInfoWindow() is returning null → guard fails → R falls through
+       to game. (Most likely — same frame same issue as modal)
+    B) Window IS found but "RelocateButtonPressed" is the wrong method name.
+       BuildingActions.TryRelocate now dumps ALL UIBuildingInfoWindow methods on
+       first call — check Latest.log for "[Dump] UIBuildingInfoWindow methods:" after
+       pressing R. This will reveal the correct method name.
+    C) HotkeySuppressPatch is now blocking the game's R hotkey when building window
+       is active, so if A is happening, R will now do NOTHING (better, but still broken).
+  Next step: Load game, select a building, press R, paste Latest.log.
+             Look for: "[Dump] UIBuildingInfoWindow methods:" or
+                       "Relocate: no active info window" or
+                       "Relocate failed: ..."
+
+ISSUE 3: Performance (FIXED this session)
+  Was: HotkeySuppressPatch was calling IsModalVisible() and GetActiveBuildingInfoWindow()
+       on EVERY GetKeyComboDown call (many times per frame) → caused massive lag.
+  Fix: OnUpdate now computes FrameModalVisible and FrameBuildingWindowActive ONCE
+       per frame. HotkeySuppressPatch reads these cached bools — zero overhead.
+
+ISSUE 4: U/E hotkeys untested
+  U (upgrade) calls Building.UpgradeBuilding() — this is a confirmed public method,
+  should work. Needs in-game test.
+  E (toggle employment) reflects "employmentEnabled" on Building and flips it —
+  needs verification that the field name is correct and that flipping it is enough
+  (game may need to be notified via an event/method after the field change).
+
+ISSUE 5: TraderWarning event types may be wrong
+  The patch raises TradeWagonLeftEvent + TradeWagonArrivedEvent. These were chosen
+  to surface a notification, but the actual events the game uses for "trader arrived"
+  notifications may be different. If no notification appears, dump EventManager
+  event types or check what the game raises on actual arrival.
+
+ISSUE 6: "Food_Total" in default pins
+  PinnedResourceOverlay.LoadPinnedItems() adds "Food_Total" as first default pin.
+  This is not a real item ID from ResourceManager — it was a placeholder.
+  Either remove it or replace with a specific food item (e.g., "ItemBread").
+
+--------------------------------------------------------------------------------
+ARCHITECTURE: HOW HOTKEY DISPATCH WORKS
+--------------------------------------------------------------------------------
+Unity runs our OnUpdate() every frame. The game runs its own Update() chain.
+Both see the same Input.GetKeyDown() state — there's no "consuming" a key press.
+
+Our approach:
+1. OnUpdate() runs first in our mod.
+2. We compute FrameModalVisible and FrameBuildingWindowActive (UI state checks).
+3. If modal visible: we handle Y/N by clicking the modal button, then return early
+   so none of our OTHER handlers run. But the game still processes Y/N.
+4. HotkeySuppressPatch prefix on HotkeyManager.GetKeyComboDown returns false
+   when either context flag is set — this stops the GAME from processing hotkeys
+   in those contexts (they route through HotkeyManager, not raw Input).
+5. If building window active: our handlers fire via direct Input.GetKeyDown().
+   Game's hotkeys for the same keys are suppressed via HotkeySuppressPatch.
+
+Why not use the state machine (InputStateHelper)?
+  InputManager.inputStateMachine.currentState reflection was tried but proved
+  unreliable — IsInModalState() and IsSelectingGameObject() returned false even
+  when those contexts were active. Likely a stack vs. single-state issue.
+  InputStateHelper.cs still exists but is no longer used in the main dispatch.
+  Could be investigated further but direct UI checks are working well enough.
+
+--------------------------------------------------------------------------------
+NEXT SESSION PRIORITIES
+--------------------------------------------------------------------------------
+1. TEST: Load game, check if Y/N bleed is fixed (HotkeySuppressPatch deployed).
+   If still bleeding, add log output to confirm IsModalVisible detection works.
+
+2. TEST: Select building, press R, paste Latest.log to find correct relocate
+   method name from the UIBuildingInfoWindow method dump.
+
+3. FIX: Update TryRelocate with correct method name once found from log.
+
+4. TEST: U (upgrade) and E (toggle employment) with a building selected.
+   For E: if toggle doesn't visually update the UI, may need to call a
+   refresh/update method on UIBuildingInfoWindow after the field flip.
+
+5. VERIFY: All other implemented features work in-game:
+   - Enhanced tooltips on top bar (hover over Logs, Stone, Brick icons)
+   - Villager tooltip enhancements (hover over villager count)
+   - Manufacturing tooltip "Work Required" (open a production building)
+   - Trader warning notification
+   - Escape key closes topmost window
+
+6. CLEANUP: Remove diagnostic method dump from BuildingActions.TryRelocate
+   once correct method name is confirmed.
+
+7. FUTURE: Publish to Steam Workshop / Nexus Mods when stable.
+
+--------------------------------------------------------------------------------
+END OF HANDOFF
+--------------------------------------------------------------------------------

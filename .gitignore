@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Decompiled game classes (kept locally for reference, not redistributed)
+_research/
+
+# OS / misc
+Thumbs.db
+.DS_Store
