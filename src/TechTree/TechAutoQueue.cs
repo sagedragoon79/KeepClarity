@@ -83,15 +83,9 @@ namespace FFUIOverhaul.TechTree
         {
             if (id < 0) return;
             if (_queue.Contains(id))
-            {
                 _queue.Remove(id);
-                FFUIOverhaulMod.Log.Msg($"[TechQueue] Removed tech id={id}; queue=[{string.Join(",", _queue)}]");
-            }
             else
-            {
                 _queue.Add(id);
-                FFUIOverhaulMod.Log.Msg($"[TechQueue] Added tech id={id}; queue=[{string.Join(",", _queue)}]");
-            }
             Save();
             TechNodePinWidget.RefreshAll();
             TechQueueStrip.RefreshText();
@@ -141,7 +135,6 @@ namespace FFUIOverhaul.TechTree
                 Save();
                 TechNodePinWidget.RefreshAll();
             TechQueueStrip.RefreshText();
-                FFUIOverhaulMod.Log.Msg($"[TechQueue] Auto-spent {spent} knowledge point(s)");
             }
             return spent;
         }

@@ -22,13 +22,9 @@ namespace FFUIOverhaul.Patches
     [HarmonyPatch(typeof(TechTreeManager), "AddKnowledgePoints")]
     static class TechAutoSpendPatch
     {
-        static void Postfix(int numPoints)
+        static void Postfix()
         {
-            try
-            {
-                FFUIOverhaulMod.Log.Msg($"[TechQueue] AddKnowledgePoints({numPoints}) fired; queue size={TechAutoQueue.Count}");
-                TechAutoQueue.TrySpendAll();
-            }
+            try { TechAutoQueue.TrySpendAll(); }
             catch (System.Exception e)
             {
                 FFUIOverhaulMod.Log.Warning($"[TechQueue] Auto-spend failed: {e.Message}");

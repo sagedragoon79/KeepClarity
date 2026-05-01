@@ -29,7 +29,6 @@ namespace FFUIOverhaul.Patches
             try
             {
                 var buttons = __instance.GetComponentsInChildren<UIToolbarBuildingButton>(includeInactive: true);
-                FFUIOverhaulMod.Log.Msg($"[BuildingsWindow] Awake postfix: found {buttons?.Length ?? 0} UIToolbarBuildingButton(s)");
                 if (buttons == null) return;
 
                 // Bump vertical spacing on every grid in the window so each row has
@@ -74,8 +73,6 @@ namespace FFUIOverhaul.Patches
                         }
                     }
                 }
-                FFUIOverhaulMod.Log.Msg(
-                    $"[BuildingsWindow] Attached={attached}, failed={failed}, skipped(null/noPrefab/existing)={skippedNull}/{skippedNoPrefab}/{skippedExisting}, gridsScanned={allGrids.Length}, gridsExpanded={gridsExpanded}");
             }
             catch (System.Exception e)
             {

@@ -57,17 +57,12 @@ namespace FFUIOverhaul.Patches
             }
 
             FFUIOverhaulMod.UITopBarLaborerBuilderEntry = clone;
-            FFUIOverhaulMod.Log.Msg(
-                $"[TopBar] Laborer/Builder entry added (icon found: {toolSprite != null}, " +
-                $"siblings before: {villagerEntry.transform.GetSiblingIndex()})");
         }
     }
 
     [HarmonyPatch(typeof(UITopBar), "UpdateResourceValues")]
     public class PatchUITopBarLaborerBuilderUpdate
     {
-        private static int _logCount;
-
         public static void Postfix(UITopBar __instance)
         {
             var entry = FFUIOverhaulMod.UITopBarLaborerBuilderEntry;
@@ -95,14 +90,6 @@ namespace FFUIOverhaul.Patches
             int recBuilders = rm.GetRecommendedBuilders();
             bool laborersLow = laborers < recLaborers;
             bool buildersLow = builders < recBuilders;
-
-            // Log first few updates so we can verify wiring.
-            if (_logCount < 3)
-            {
-                _logCount++;
-                FFUIOverhaulMod.Log.Msg(
-                    $"[LaborerBuilder] L={laborers} (rec {recLaborers}) B={builders} (rec {recBuilders}, desired {desiredBuilders}) villagersRO.Count={rm.villagersRO?.Count ?? -1}");
-            }
 
             var valueText = entry.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             if (valueText != null)

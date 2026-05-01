@@ -28,7 +28,6 @@ namespace FFUIOverhaul
                 }
 
                 building.UpgradeBuilding();
-                FFUIOverhaulMod.Log.Msg("[Action] Upgrade triggered");
             }
             catch (System.Exception e)
             {
@@ -41,7 +40,6 @@ namespace FFUIOverhaul
             try
             {
                 building.Relocate();
-                FFUIOverhaulMod.Log.Msg("[Action] Relocate triggered");
             }
             catch (System.Exception e)
             {
@@ -65,7 +63,6 @@ namespace FFUIOverhaul
                         return;
                     }
                     infoWindow.productionToggle.isOn = !infoWindow.productionToggle.isOn;
-                    FFUIOverhaulMod.Log.Msg($"[Action] Production toggle flipped — isOn={infoWindow.productionToggle.isOn}");
                     return;
                 }
 
@@ -73,7 +70,6 @@ namespace FFUIOverhaul
                 // the underlying state; the UI panel may not exist for this building.
                 bool current = building.playerDesiresWorkEnabled;
                 building.SetWorkEnabled(!current, isPlayerDecision: true);
-                FFUIOverhaulMod.Log.Msg($"[Action] Employment toggled to {!current} (no toggle UI)");
             }
             catch (System.Exception e)
             {
@@ -86,7 +82,6 @@ namespace FFUIOverhaul
             try
             {
                 building.Salvage();
-                FFUIOverhaulMod.Log.Msg("[Action] Demolish (Salvage with confirmation) triggered");
             }
             catch (System.Exception e)
             {
@@ -123,7 +118,6 @@ namespace FFUIOverhaul
                     return;
                 }
                 btn.onClick.Invoke();
-                FFUIOverhaulMod.Log.Msg($"[Action] Cycle building {(left ? "left" : "right")}");
             }
             catch (System.Exception e)
             {

@@ -10,7 +10,6 @@ namespace FFUIOverhaul
             try
             {
                 buildSite.Salvage(showConfirmation: true);
-                FFUIOverhaulMod.Log.Msg("[Action] Build site cancel (Salvage with confirmation) triggered");
             }
             catch (System.Exception e)
             {
@@ -39,10 +38,8 @@ namespace FFUIOverhaul
                     // exceeding maxBuilders and raises UserDefinedBuildersChangedEvent
                     // for UI refresh — same path the + button takes.
                     infoWindow.IncrementBuilders();
-                    FFUIOverhaulMod.Log.Msg($"[Action] Increment builders → {buildSite.userDefinedBuilders}/{buildSite.maxBuilders}");
                     return;
                 }
-                FFUIOverhaulMod.Log.Warning("Increment builders: no info window cached");
             }
             catch (System.Exception e)
             {
@@ -58,10 +55,8 @@ namespace FFUIOverhaul
                 if (infoWindow != null)
                 {
                     infoWindow.DecrementBuilders();
-                    FFUIOverhaulMod.Log.Msg($"[Action] Decrement builders → {buildSite.userDefinedBuilders}/{buildSite.maxBuilders}");
                     return;
                 }
-                FFUIOverhaulMod.Log.Warning("Decrement builders: no info window cached");
             }
             catch (System.Exception e)
             {
@@ -93,7 +88,6 @@ namespace FFUIOverhaul
                     if (toggle != null && toggle.gameObject.activeInHierarchy && toggle.interactable)
                     {
                         toggle.isOn = !toggle.isOn;
-                        FFUIOverhaulMod.Log.Msg($"[Action] {label} toggle flipped — isOn={toggle.isOn}");
                         return;
                     }
                     if (toggle != null && !toggle.gameObject.activeInHierarchy)
@@ -110,7 +104,6 @@ namespace FFUIOverhaul
 
                 bool current = getCurrent();
                 setCurrent(!current);
-                FFUIOverhaulMod.Log.Msg($"[Action] {label} flipped to {!current} (no info window)");
             }
             catch (System.Exception e)
             {

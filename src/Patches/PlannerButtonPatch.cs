@@ -69,7 +69,6 @@ namespace FFUIOverhaul.Patches
 
             FFUIOverhaulMod.UITopBarPlannerButton = entry;
             RefreshTooltip(entry);
-            FFUIOverhaulMod.Log.Msg("[TopBar] FF Planner button added");
         }
 
         /// <summary>
@@ -100,7 +99,6 @@ namespace FFUIOverhaul.Patches
 
         private static void OnPlannerClicked()
         {
-            FFUIOverhaulMod.Log.Msg($"[Planner] Opening URL: {PlannerUrl}");
             Application.OpenURL(PlannerUrl);
         }
     }

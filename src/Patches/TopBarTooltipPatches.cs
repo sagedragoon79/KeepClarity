@@ -22,7 +22,6 @@ namespace FFUIOverhaul.Patches
             FFUIOverhaulMod.UITopBarGlassEntry ??= AddItemEntry(__instance, "ItemGlass", "Glass Resource Entry");
             FFUIOverhaulMod.UITopBarCoalEntry  ??= AddItemEntry(__instance, "ItemCoal",  "Coal Resource Entry");
             FFUIOverhaulMod.UITopBarIronEntry  ??= AddItemEntry(__instance, "ItemIron",  "Iron Resource Entry");
-            EnhanceResourceTooltips(__instance);
         }
 
         /// <summary>
@@ -61,15 +60,10 @@ namespace FFUIOverhaul.Patches
             var rowKeys = (List<string>)ReflectionHelper.GetPrivateField("tooltipRowKeyLocalizationTags", tooltipProvider);
             rowKeys?.Clear();
 
-            FFUIOverhaulMod.Log.Msg($"[TopBar] Added '{entryName}' for {itemId} (sprite found: {sprite != null})");
             return entry;
         }
 
-        private static void EnhanceResourceTooltips(UITopBar __instance)
-        {
-            // Resource tooltips are enhanced in UpdateResourceValues via postfix
-            FFUIOverhaulMod.Log.Msg("Resource tooltip enhancement initialized");
-        }
+        // Resource tooltip enhancement happens in UpdateResourceValues postfix.
     }
 
     [HarmonyPatch(typeof(UITopBar), "UpdateResourceValues")]
@@ -208,7 +202,6 @@ namespace FFUIOverhaul.Patches
             if (counts.Count == 0)
             {
                 provider.AddKeyValue("No active producers", "");
-                DiagnoseEmptyTooltip(itemId, rm);
                 return;
             }
 
@@ -318,46 +311,6 @@ namespace FFUIOverhaul.Patches
             { "ItemCoal", "Coal" },
         };
 
-        // ── Diagnostic helpers ─────────────────────────────────────────────
-        // Cap log output by tracking the dict-state hash we last reported per
-        // itemId. We re-log only when the set of keys-in-scene changes, so we
-        // don't spam the log every frame but DO update once production starts.
-        private static readonly Dictionary<string, int> _lastReportedHash = new();
-
-        public static void DiagnoseEmptyTooltip(string itemId, ResourceManager rm)
-        {
-            if (_talliesField == null)
-            {
-                _talliesField = typeof(Building).GetField("monthlyProductionTallies",
-                    BindingFlags.Instance | BindingFlags.NonPublic);
-            }
-            if (_talliesField == null) return;
-
-            // Per-building report: "<TypeName>(displayName)=[keys]"
-            var perBuilding = new List<string>();
-            int totalKeys = 0;
-            foreach (var b in rm.allBuildingsRO)
-            {
-                if (b == null) continue;
-                if (_talliesField.GetValue(b) is not System.Collections.IDictionary dict) continue;
-                if (dict.Count == 0) continue;
-                var keys = new List<string>();
-                foreach (var k in dict.Keys)
-                    if (k is string s) keys.Add(s);
-                if (keys.Count == 0) continue;
-                totalKeys += keys.Count;
-                perBuilding.Add($"{b.GetType().Name}('{b.displayName}')=[{string.Join(",", keys)}]");
-            }
-
-            int hash = string.Concat(perBuilding).GetHashCode();
-            if (_lastReportedHash.TryGetValue(itemId, out int prev) && prev == hash) return;
-            _lastReportedHash[itemId] = hash;
-
-            FFUIOverhaulMod.Log.Msg(
-                $"[Diagnostic] No producer found for '{itemId}'. " +
-                $"Scene has {totalKeys} key(s) across {perBuilding.Count} building(s). " +
-                (perBuilding.Count == 0 ? "<all empty>" : string.Join(" | ", perBuilding)));
-        }
     }
 
     [HarmonyPatch(typeof(UITopBar), "UpdateResourceAlerts")]

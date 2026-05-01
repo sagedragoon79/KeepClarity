@@ -48,6 +48,7 @@ namespace FFUIOverhaul
 
         // Pause on load
         public static MelonPreferences_Entry<bool> PauseOnLoad { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> PauseOnLoadDelay { get; private set; } = null!;
 
         // Runtime state
         public static GameObject? UITopBarIronEntry;
@@ -66,7 +67,6 @@ namespace FFUIOverhaul
         public static bool FrameBuildingWindowActive { get; private set; }
         public static bool FrameBuildSiteWindowActive { get; private set; }
 
-        private static string? _lastStateName;
 
         public override void OnInitializeMelon()
         {
@@ -146,9 +146,13 @@ namespace FFUIOverhaul
                 display_name: "Tech Research Queue",
                 description: "Comma-separated list of tech node IDs queued for auto-research");
 
-            PauseOnLoad = _prefs.CreateEntry("PauseOnLoad", true,
+            PauseOnLoad = _prefs.CreateEntry("PauseOnLoad", false,
                 display_name: "Pause on Load",
                 description: "Automatically pause the game once it finishes loading a save");
+
+            PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
+                display_name: "Pause on Load Delay (seconds)",
+                description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
 
             TechAutoQueue.Load();
 
@@ -157,7 +161,7 @@ namespace FFUIOverhaul
             // register every patch twice — we observed double-firing of postfixes
             // ([BuildingsWindow] Awake postfix logs appearing twice) when this was
             // duplicated. So we don't call it again.
-            LoggerInstance.Msg("FF UI Overhaul initialized");
+            LoggerInstance.Msg("Keep Clarity initialized");
         }
 
         public override void OnUpdate()
@@ -192,12 +196,6 @@ namespace FFUIOverhaul
             FrameBuildingWindowActive = selectedBuilding != null;
             FrameBuildSiteWindowActive = selectedBuildSite != null;
 
-            // Diagnostic: log on state change so we can verify the chain walk
-            if (stateName != _lastStateName)
-            {
-                Log.Msg($"[State] → {stateName ?? "<none>"} (modal={FrameModalVisible}, building={FrameBuildingWindowActive}, buildSite={FrameBuildSiteWindowActive})");
-                _lastStateName = stateName;
-            }
 
             // Order matters: modal handler first (consumes Y/N/Enter/Esc in dialogs)
             if (FrameModalVisible)
@@ -228,16 +226,14 @@ namespace FFUIOverhaul
             // Use unscaled time so a paused-by-something-else state doesn't
             // freeze the timer.
             _pauseOnLoadTimer += Time.unscaledDeltaTime;
-            if (_pauseOnLoadTimer < PauseOnLoadDelaySeconds) return;
+            if (_pauseOnLoadTimer < PauseOnLoadDelay.Value) return;
 
             gm.TogglePause();
             _pauseOnLoadDone = true;
-            Log.Msg($"[PauseOnLoad] Game paused {PauseOnLoadDelaySeconds:F1}s after load");
         }
 
         private bool _pauseOnLoadDone;
         private float _pauseOnLoadTimer;
-        private const float PauseOnLoadDelaySeconds = 2.5f;
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
@@ -457,7 +453,6 @@ namespace FFUIOverhaul
                 }
 
                 targetBtn.onClick.Invoke();
-                Log.Msg($"[Modal] Clicked {(confirm ? "confirm" : "cancel")} button: {targetBtn.gameObject.name}");
                 return;
             }
 
