@@ -96,49 +96,85 @@ namespace FFUIOverhaul.Patches
             if (valueText != null) ((TMP_Text)valueText).text = info.unusedCount.ToString();
         }
 
+        // Tooltip rebuild scheduling.
+        //
+        // PopulateProducerTooltip iterates rm.allBuildingsRO (~200 buildings late
+        // game) and runs a LINQ sort. Doing that 10× per UITopBar tick was the
+        // hottest path in the mod. Strategy: stagger + throttle.
+        //
+        //   - Stagger: one resource per tick, round-robin via _tooltipCursor.
+        //   - Throttle: skip if that resource was rebuilt < TooltipRefreshInterval ago.
+        //
+        // Producer counts come from a 12-month rolling average — being up to 5s
+        // stale is invisible to the player. Cached GenericTooltipDataProvider per
+        // resource avoids re-running reflection on every tick.
+        private const float TooltipRefreshInterval = 5f;
+        private static int _tooltipCursor;
+
+        private sealed class TooltipTarget
+        {
+            public string ItemId = "";
+            public string? VanillaFieldName;            // for built-in resources, looked up via reflection
+            public Func<GameObject?>? CustomEntryGetter; // for resources we inject (Iron/Sand/Glass/Coal)
+            public GenericTooltipDataProvider? CachedProvider;
+            public float LastBuiltUnscaledTime = -999f;
+        }
+
+        private static readonly TooltipTarget[] _tooltipTargets =
+        {
+            new() { ItemId = "ItemLogs",       VanillaFieldName = "logsValueText" },
+            new() { ItemId = "ItemWoodPlanks", VanillaFieldName = "planksValueText" },
+            new() { ItemId = "ItemFirewood",   VanillaFieldName = "firewoodValueText" },
+            new() { ItemId = "ItemStone",      VanillaFieldName = "stoneValueText" },
+            new() { ItemId = "ItemClay",       VanillaFieldName = "clayValueText" },
+            new() { ItemId = "ItemBrick",      VanillaFieldName = "brickValueText" },
+            new() { ItemId = "ItemIron",       CustomEntryGetter = () => FFUIOverhaulMod.UITopBarIronEntry  },
+            new() { ItemId = "ItemSand",       CustomEntryGetter = () => FFUIOverhaulMod.UITopBarSandEntry  },
+            new() { ItemId = "ItemGlass",      CustomEntryGetter = () => FFUIOverhaulMod.UITopBarGlassEntry },
+            new() { ItemId = "ItemCoal",       CustomEntryGetter = () => FFUIOverhaulMod.UITopBarCoalEntry  },
+        };
+
         private static void EnhanceTooltipValues(UITopBar __instance)
         {
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
-
             var rm = gm.resourceManager;
             if (rm == null) return;
 
-            EnhanceResourceTooltip(__instance, "logsValueText", "ItemLogs", rm);
-            EnhanceResourceTooltip(__instance, "planksValueText", "ItemWoodPlanks", rm);
-            EnhanceResourceTooltip(__instance, "firewoodValueText", "ItemFirewood", rm);
-            EnhanceResourceTooltip(__instance, "stoneValueText", "ItemStone", rm);
-            EnhanceResourceTooltip(__instance, "clayValueText", "ItemClay", rm);
-            EnhanceResourceTooltip(__instance, "brickValueText", "ItemBrick", rm);
+            // Pick one resource this tick; advance cursor regardless of outcome
+            // so a transiently-unresolvable target doesn't stall the rotation.
+            int i = _tooltipCursor;
+            _tooltipCursor = (i + 1) % _tooltipTargets.Length;
 
-            // Custom entries we added: tooltip provider lives on each cloned entry.
-            EnhanceCustomEntryTooltip(FFUIOverhaulMod.UITopBarIronEntry,  "ItemIron",  rm);
-            EnhanceCustomEntryTooltip(FFUIOverhaulMod.UITopBarSandEntry,  "ItemSand",  rm);
-            EnhanceCustomEntryTooltip(FFUIOverhaulMod.UITopBarGlassEntry, "ItemGlass", rm);
-            EnhanceCustomEntryTooltip(FFUIOverhaulMod.UITopBarCoalEntry,  "ItemCoal",  rm);
+            var target = _tooltipTargets[i];
+            if (Time.unscaledTime - target.LastBuiltUnscaledTime < TooltipRefreshInterval) return;
+
+            var provider = ResolveTooltipProvider(target, __instance);
+            if (provider == null) return;
+
+            PopulateProducerTooltip(provider, target.ItemId, rm);
+            target.LastBuiltUnscaledTime = Time.unscaledTime;
         }
 
-        private static void EnhanceCustomEntryTooltip(GameObject? entry, string itemId, ResourceManager rm)
+        private static GenericTooltipDataProvider? ResolveTooltipProvider(TooltipTarget target, UITopBar __instance)
         {
-            if (entry == null) return;
-            var tooltip = entry.GetComponent<GenericTooltipDataProvider>();
-            if (tooltip != null) PopulateProducerTooltip(tooltip, itemId, rm);
-        }
+            if (target.CachedProvider != null) return target.CachedProvider;
 
-        /// <summary>
-        /// UITopBar only stores the per-resource value TMP as a private field — the
-        /// GenericTooltipDataProvider lives on the entry's parent GameObject (same
-        /// pattern as the iron entry we instantiate). So we walk: TMP → parent → provider.
-        /// Silently no-ops if the field name doesn't match this game version.
-        /// </summary>
-        private static void EnhanceResourceTooltip(UITopBar __instance, string valueTextFieldName,
-            string itemId, ResourceManager rm)
-        {
-            var valueText = ReflectionHelper.GetPrivateField(valueTextFieldName, __instance) as TextMeshProUGUI;
-            if (valueText == null) return;
-            var tooltipProvider = valueText.transform.parent.gameObject.GetComponent<GenericTooltipDataProvider>();
-            if (tooltipProvider == null) return;
-            PopulateProducerTooltip(tooltipProvider, itemId, rm);
+            GenericTooltipDataProvider? provider = null;
+            if (target.VanillaFieldName != null)
+            {
+                var valueText = ReflectionHelper.GetPrivateField(target.VanillaFieldName, __instance) as TextMeshProUGUI;
+                if (valueText != null)
+                    provider = valueText.transform.parent.gameObject.GetComponent<GenericTooltipDataProvider>();
+            }
+            else if (target.CustomEntryGetter != null)
+            {
+                var entry = target.CustomEntryGetter();
+                if (entry != null) provider = entry.GetComponent<GenericTooltipDataProvider>();
+            }
+
+            target.CachedProvider = provider;
+            return provider;
         }
 
         /// <summary>
