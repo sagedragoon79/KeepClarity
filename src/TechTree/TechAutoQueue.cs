@@ -165,6 +165,10 @@ namespace FFUIOverhaul.TechTree
             if (state == TechTreeNodeData.State.PrereqsMet)
             {
                 tm.ActivateTechOrRank(targetId, 1, onLoad: false);
+                // Audit log so if a player reports a research-completed-but-
+                // building-still-locked desync, we can correlate the spend to
+                // the affected tech. Single line per KP spent.
+                FFUIOverhaulMod.Log.Msg($"[TechQueue] Spent KP on tech id={targetId} rank {curRank + 1}/{numRanks}");
                 return true;
             }
 

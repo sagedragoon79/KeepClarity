@@ -103,8 +103,21 @@ namespace FFUIOverhaul.Settings.UI
         private void BuildSearchBox(Transform parent, RectTransform topRT)
         {
             // Pin to bottom of the top strip — 32px tall, full width.
+            // Hierarchy mirrors FF's working inputs (Trading Post BuyText_Input):
+            //   SearchBox (Image + TMP_InputField)
+            //     └── Text Area (RectMask2D)
+            //           ├── Caret (created by TMP_InputField on first focus)
+            //           ├── Placeholder (TMP_Text)
+            //           └── Text (TMP_Text)
+            //
+            // The Text Area + RectMask2D is what clips the caret/selection
+            // mesh; without it TMP's caret can render outside the box.
             var bgGo = new GameObject("SearchBox", typeof(RectTransform), typeof(Image));
             bgGo.transform.SetParent(parent, false);
+            // Hold the GO inactive until the TMP_InputField has its
+            // textComponent/viewport assigned — see SettingControls.BuildInputField
+            // for the why (OnEnable wires the caret subsystem).
+            bgGo.SetActive(false);
             var bgRT = (RectTransform)bgGo.transform;
             bgRT.anchorMin = new Vector2(0, 0);
             bgRT.anchorMax = new Vector2(1, 0);
@@ -114,24 +127,18 @@ namespace FFUIOverhaul.Settings.UI
             var bgImg = bgGo.GetComponent<Image>();
             SettingsCanvas.ApplyBorderSprite(bgImg, FFNativeAssets.PanelBorderSimple, FFNativeAssets.PanelTintDefault);
 
-            // Text component for the input field
-            var textGo = new GameObject("Text", typeof(RectTransform));
-            textGo.transform.SetParent(bgGo.transform, false);
-            var txt = textGo.AddComponent<TextMeshProUGUI>();
-            if (FFNativeAssets.FontBody != null) txt.font = FFNativeAssets.FontBody;
-            txt.fontSize = 13;
-            txt.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
-            txt.color = FFNativeAssets.TextPrimary;
-            txt.alignment = TextAlignmentOptions.MidlineLeft;
-            var txtRT = txt.rectTransform;
-            txtRT.anchorMin = Vector2.zero;
-            txtRT.anchorMax = Vector2.one;
-            txtRT.offsetMin = new Vector2(8, 2);
-            txtRT.offsetMax = new Vector2(-8, -2);
+            // Text Area (textViewport) — RectMask2D for caret clipping
+            var areaGo = new GameObject("Text Area", typeof(RectTransform), typeof(RectMask2D));
+            areaGo.transform.SetParent(bgGo.transform, false);
+            var areaRT = (RectTransform)areaGo.transform;
+            areaRT.anchorMin = Vector2.zero;
+            areaRT.anchorMax = Vector2.one;
+            areaRT.offsetMin = new Vector2(8, 2);
+            areaRT.offsetMax = new Vector2(-8, -2);
 
-            // Placeholder
+            // Placeholder (added before Text so Text renders on top)
             var phGo = new GameObject("Placeholder", typeof(RectTransform));
-            phGo.transform.SetParent(bgGo.transform, false);
+            phGo.transform.SetParent(areaGo.transform, false);
             var ph = phGo.AddComponent<TextMeshProUGUI>();
             if (FFNativeAssets.FontBody != null) ph.font = FFNativeAssets.FontBody;
             ph.fontSize = 13;
@@ -142,16 +149,49 @@ namespace FFUIOverhaul.Settings.UI
             var phRT = ph.rectTransform;
             phRT.anchorMin = Vector2.zero;
             phRT.anchorMax = Vector2.one;
-            phRT.offsetMin = new Vector2(8, 2);
-            phRT.offsetMax = new Vector2(-8, -2);
+            phRT.offsetMin = Vector2.zero;
+            phRT.offsetMax = Vector2.zero;
+
+            // Text component
+            var textGo = new GameObject("Text", typeof(RectTransform));
+            textGo.transform.SetParent(areaGo.transform, false);
+            var txt = textGo.AddComponent<TextMeshProUGUI>();
+            if (FFNativeAssets.FontBody != null) txt.font = FFNativeAssets.FontBody;
+            txt.fontSize = 13;
+            txt.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
+            txt.color = FFNativeAssets.TextPrimary;
+            txt.alignment = TextAlignmentOptions.MidlineLeft;
+            txt.enableWordWrapping = false;
+            txt.richText = false;
+            txt.overflowMode = TextOverflowModes.Masking;
+            var txtRT = txt.rectTransform;
+            txtRT.anchorMin = Vector2.zero;
+            txtRT.anchorMax = Vector2.one;
+            txtRT.offsetMin = Vector2.zero;
+            txtRT.offsetMax = Vector2.zero;
 
             // The actual TMP_InputField
             var input = bgGo.AddComponent<TMP_InputField>();
+            input.textViewport = areaRT;
             input.textComponent = txt;
             input.placeholder = ph;
             input.targetGraphic = bgImg;
+            input.lineType = TMP_InputField.LineType.SingleLine;
+            input.richText = false;
+            if (txt.font != null)
+            {
+                input.fontAsset = txt.font;
+                input.pointSize = 13;
+            }
+            input.customCaretColor = true;
+            input.caretColor = new Color(0.84f, 0.84f, 0.82f, 1f);
+            input.caretWidth = 2;
+            input.caretBlinkRate = 0.85f;
+            input.selectionColor = new Color(0.86f, 0.83f, 0.73f, 0.75f);
             input.onValueChanged.AddListener(v => { _search = v ?? ""; Refresh(); FireFilterChanged(); });
             _searchInput = input;
+
+            bgGo.SetActive(true);
         }
 
         private void BuildOnlyChangedToggle(Transform parent, RectTransform topRT)

@@ -354,8 +354,18 @@ namespace FFUIOverhaul.Settings.UI
             //
             // Plus textViewport explicitly set, fontAsset/pointSize on the
             // input itself, caret/selection colors matching FF.
+            //
+            // CRITICAL: TMP_InputField.OnEnable is what wires up the caret
+            // CanvasRenderer and selection mesh. If OnEnable runs while
+            // m_TextComponent is null (which happens if we AddComponent
+            // before assigning textComponent), the caret subsystem is dead
+            // for the lifetime of this input — assigning textComponent
+            // afterward does NOT re-init it. We deactivate the GO before
+            // adding the component, configure props, then reactivate so
+            // OnEnable fires with everything wired.
             var go = new GameObject("Input", typeof(RectTransform), typeof(Image));
             go.transform.SetParent(parent, false);
+            go.SetActive(false);
             var rt = (RectTransform)go.transform;
             if (widthOverride > 0f)
             {
@@ -410,6 +420,11 @@ namespace FFUIOverhaul.Settings.UI
             txt.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
             txt.color = FFNativeAssets.TextPrimary;
             txt.alignment = TextAlignmentOptions.MidlineLeft;
+            // Single-line input: wrapping off, rich text off so the input
+            // doesn't try to interpret <tag> markup as formatting.
+            txt.enableWordWrapping = false;
+            txt.richText = false;
+            txt.overflowMode = TextOverflowModes.Masking;
             var txtRT = txt.rectTransform;
             txtRT.anchorMin = Vector2.zero;
             txtRT.anchorMax = Vector2.one;
@@ -421,6 +436,8 @@ namespace FFUIOverhaul.Settings.UI
             input.textComponent = txt;
             input.placeholder = ph;
             input.targetGraphic = img;
+            input.lineType = TMP_InputField.LineType.SingleLine;
+            input.richText = false;
             // Some TMP versions need fontAsset on the input itself for its
             // internal caret/selection rendering. FF's working inputs all set it.
             if (txt.font != null)
@@ -429,12 +446,19 @@ namespace FFUIOverhaul.Settings.UI
                 input.pointSize = 13;
             }
             // Caret + selection colors copied from FF's working trading post input.
+            // customCaretColor MUST be true for caretColor to take effect —
+            // when false, TMP falls back to textComponent.color.
+            input.customCaretColor = true;
             input.caretColor = new Color(0.84f, 0.84f, 0.82f, 1f);     // FF #D6D5D1
-            input.caretWidth = 1;
+            input.caretWidth = 2;                                       // bumped from 1 — easier to see
             input.caretBlinkRate = 0.85f;
             input.selectionColor = new Color(0.86f, 0.83f, 0.73f, 0.75f); // FF #DBD4B9C0
             input.text = initial;
             input.onEndEdit.AddListener(v => { try { onSubmit(v); } catch (Exception ex) { FFUIOverhaulMod.Log.Warning($"[Settings/2D] input submit threw: {ex.Message}"); } });
+
+            // OnEnable fires now with textComponent + textViewport already
+            // wired — caret subsystem registers correctly.
+            go.SetActive(true);
             return go;
         }
 

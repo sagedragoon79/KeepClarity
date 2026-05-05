@@ -325,7 +325,9 @@ namespace FFUIOverhaul.UI
             hrt.anchoredPosition = Vector2.zero;
             hrt.sizeDelta = new Vector2(0, headerHeight);
             AddImage(header, new Color(0, 0, 0, 0.25f));
-            var headerLabel = NewText(header, "Label", "PIN RESOURCES", 14, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+            // 12pt to clear the All / None bulk-action buttons that share the
+            // same header strip. "PIN RESOURCES" at 14pt overlapped them.
+            var headerLabel = NewText(header, "Label", "PIN RESOURCES", 12, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
             if (FFNativeAssets.FontTitle != null) headerLabel.font = FFNativeAssets.FontTitle;
             var hLabelRt = headerLabel.rectTransform;
             hLabelRt.anchorMin = new Vector2(0, 0);
