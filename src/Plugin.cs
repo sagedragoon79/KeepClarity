@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using FFUIOverhaul.UI;
 using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
+using FFUIOverhaul.Settings;
 
 [assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.0.0", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
@@ -42,6 +43,12 @@ namespace FFUIOverhaul
         // Pinned overlay
         public static MelonPreferences_Entry<string> PinnedResourcesJson { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> PinnedCollapsed { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> PinnedOverlayPosX { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> PinnedOverlayPosY { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> TechQueueOverlayPosX { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> TechQueueOverlayPosY { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> OverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> OverlayUIScale { get; private set; } = null!;
 
         // Tech research queue
         public static MelonPreferences_Entry<string> TechResearchQueue { get; private set; } = null!;
@@ -49,6 +56,15 @@ namespace FFUIOverhaul
         // Pause on load
         public static MelonPreferences_Entry<bool> PauseOnLoad { get; private set; } = null!;
         public static MelonPreferences_Entry<float> PauseOnLoadDelay { get; private set; } = null!;
+
+        // Planner button
+        public static MelonPreferences_Entry<bool> ShowPlannerButton { get; private set; } = null!;
+
+        // Settings panel
+        public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> SettingsVerboseLog { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> UseLegacyImguiPanel { get; private set; } = null!;
+        private bool _settingsRegistered;
 
         // Runtime state
         public static GameObject? UITopBarIronEntry;
@@ -66,6 +82,7 @@ namespace FFUIOverhaul
         public static bool FrameModalVisible { get; private set; }
         public static bool FrameBuildingWindowActive { get; private set; }
         public static bool FrameBuildSiteWindowActive { get; private set; }
+        public static bool FrameForageableActive { get; private set; }
 
 
         public override void OnInitializeMelon()
@@ -142,6 +159,30 @@ namespace FFUIOverhaul
                 display_name: "Pinned Overlay Collapsed",
                 description: "True when the pinned resource overlay is collapsed to a tab");
 
+            // Saved as 0..1 normalized canvas-space pivot positions so the
+            // panels return to the right spot across resolutions. Defaults
+            // place pinned at top-right and tech queue at top-left, matching
+            // the original anchor layout. Right-click on the drag handle
+            // resets to these defaults. Marked is_hidden so they don't
+            // clutter the settings panel — they're internal state, not
+            // user-editable settings (drag the header to change).
+            PinnedOverlayPosX = _prefs.CreateEntry("PinnedOverlayPosX", 0.995f,
+                display_name: "Pinned Overlay X", description: "Internal — drag the panel header to change.", is_hidden: true);
+            PinnedOverlayPosY = _prefs.CreateEntry("PinnedOverlayPosY", 0.95f,
+                display_name: "Pinned Overlay Y", description: "Internal — drag the panel header to change.", is_hidden: true);
+            TechQueueOverlayPosX = _prefs.CreateEntry("TechQueueOverlayPosX", 0.005f,
+                display_name: "Tech Queue Overlay X", description: "Internal — drag the panel header to change.", is_hidden: true);
+            TechQueueOverlayPosY = _prefs.CreateEntry("TechQueueOverlayPosY", 0.78f,
+                display_name: "Tech Queue Overlay Y", description: "Internal — drag the panel header to change.", is_hidden: true);
+
+            OverlayOpacity = _prefs.CreateEntry("OverlayOpacity", 0.92f,
+                display_name: "Overlay Opacity",
+                description: "How opaque the pinned and tech queue panels are. 1.0 = solid, 0.3 = nearly invisible. Applies live.");
+
+            OverlayUIScale = _prefs.CreateEntry("OverlayUIScale", 1.0f,
+                display_name: "Overlay UI Scale",
+                description: "Pinned/tech queue panel size multiplier. 1.0 = normal, 0.5 = half, 2.0 = double. Applies live.");
+
             TechResearchQueue = _prefs.CreateEntry("TechResearchQueue", "",
                 display_name: "Tech Research Queue",
                 description: "Comma-separated list of tech node IDs queued for auto-research");
@@ -150,9 +191,25 @@ namespace FFUIOverhaul
                 display_name: "Pause on Load",
                 description: "Automatically pause the game once it finishes loading a save");
 
+            ShowPlannerButton = _prefs.CreateEntry("ShowPlannerButton", true,
+                display_name: "Show Planner Button",
+                description: "Show the PLAN icon in the top bar that opens SageDragoon's Farthest Frontier Planner in your browser. Restart required to take effect.");
+
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
+
+            SettingsPanelHotkey = _prefs.CreateEntry("SettingsPanelHotkey", KeyCode.F10,
+                display_name: "Settings Panel Hotkey",
+                description: "Hotkey to open the Keep Clarity settings panel for all installed mods");
+
+            SettingsVerboseLog = _prefs.CreateEntry("SettingsVerboseLog", false,
+                display_name: "Verbose Settings Log",
+                description: "Log every settings registration claim and discovery decision. Off by default; turn on only when debugging the panel.");
+
+            UseLegacyImguiPanel = _prefs.CreateEntry("UseLegacyImguiPanel", false,
+                display_name: "Use Legacy IMGUI Panel",
+                description: "Stage 1 fallback. When false (default), F10 opens the polished UGUI canvas. When true, F10 opens the original IMGUI prototype. Switch to true if the UGUI panel misbehaves.");
 
             TechAutoQueue.Load();
 
@@ -168,6 +225,11 @@ namespace FFUIOverhaul
         {
             if (!Application.isPlaying) return;
 
+            // Settings panel hotkey works on the main menu too — it doesn't
+            // need a GameManager and the panel is useful pre-load (e.g. flipping
+            // a master toggle that requires a restart anyway).
+            HandleSettingsPanelHotkey();
+
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
 
@@ -182,6 +244,7 @@ namespace FFUIOverhaul
             // both flags need it, no point in calling reflection twice.
             Building? selectedBuilding = null;
             BuildSiteResource? selectedBuildSite = null;
+            bool selectedForageable = false;
             if (stateName == "Input_SelectGameObject")
             {
                 var selectedObj = GetSelectedGameObject(gm);
@@ -191,10 +254,13 @@ namespace FFUIOverhaul
                         ?? selectedObj.GetComponentInParent<Building>();
                     selectedBuildSite = selectedObj.GetComponent<BuildSiteResource>()
                         ?? selectedObj.GetComponentInParent<BuildSiteResource>();
+                    if (selectedBuilding == null && selectedBuildSite == null)
+                        selectedForageable = ForageableActions.IsForageable(selectedObj);
                 }
             }
             FrameBuildingWindowActive = selectedBuilding != null;
             FrameBuildSiteWindowActive = selectedBuildSite != null;
+            FrameForageableActive = selectedForageable;
 
 
             // Order matters: modal handler first (consumes Y/N/Enter/Esc in dialogs)
@@ -207,6 +273,8 @@ namespace FFUIOverhaul
             HandleReportsHotkey(gm);
             if (selectedBuilding != null) HandleBuildingHotkeys(selectedBuilding, gm);
             else if (selectedBuildSite != null) HandleBuildSiteHotkeys(selectedBuildSite, gm);
+            else if (selectedForageable && Input.GetKeyDown(RelocateHotkey.Value))
+                ForageableActions.TryRelocate();
             HandleEscapeKey(gm);
             HandleOverlayToggle();
             _overlay?.Tick();
@@ -252,6 +320,16 @@ namespace FFUIOverhaul
 
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
+
+                // Settings discovery — runs once per session, here rather than
+                // OnInitializeMelon because MelonLoader throttles log output
+                // during init, and other mods may register prefs lazily.
+                if (!_settingsRegistered)
+                {
+                    InitSettingsManager();
+                    _settingsRegistered = true;
+                }
+                SettingsWindow.EnsureInstance();
             }
             else
             {
@@ -267,6 +345,123 @@ namespace FFUIOverhaul
             {
                 gm.uiManager.windowManager.ToggleReportWindow();
             }
+        }
+
+        private void HandleSettingsPanelHotkey()
+        {
+            // Shift+F10 → dump every active UI element to MelonLoader/Logs/.
+            // Used to study FF's native styling so we can write targeted asset
+            // lookups for the UGUI panel (Stage 2A).
+            if (Input.GetKeyDown(SettingsPanelHotkey.Value)
+                && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+            {
+                Settings.UI.UIDump.Run();
+                return;
+            }
+
+            if (Input.GetKeyDown(SettingsPanelHotkey.Value))
+            {
+                // Lazy discovery — ensures the panel is populated even when
+                // first opened on the main menu before any save is loaded.
+                if (!_settingsRegistered)
+                {
+                    InitSettingsManager();
+                    _settingsRegistered = true;
+                }
+
+                bool ctrlHeld = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+                bool useImgui = UseLegacyImguiPanel.Value || ctrlHeld;
+                if (useImgui)
+                {
+                    // Make sure UGUI panel isn't simultaneously open
+                    Settings.UI.SettingsCanvas.Close();
+                    SettingsWindow.Toggle();
+                }
+                else
+                {
+                    // Make sure IMGUI panel isn't simultaneously open
+                    SettingsWindow.Close();
+                    Settings.UI.SettingsCanvas.Toggle();
+                }
+            }
+        }
+
+        private void InitSettingsManager()
+        {
+            try
+            {
+                // Register Keep Clarity's own prefs FIRST so the category claim
+                // is in place before discovery walks MelonPreferences. Without
+                // this ordering, auto-discovery would create a phantom
+                // "FFUIOverhaul" mod row alongside the proper "Keep Clarity" one.
+                RegisterOwnSettings();
+
+                int discovered = SettingsDiscovery.RunDiscovery();
+                LoggerInstance.Msg($"[Settings] Auto-discovered {discovered} entries from MelonPreferences");
+
+                SettingsDiscovery.DumpToLog();
+            }
+            catch (System.Exception ex)
+            {
+                LoggerInstance.Error($"[Settings] InitSettingsManager failed: {ex}");
+            }
+        }
+
+        private void RegisterOwnSettings()
+        {
+            const string id = "KeepClarity";
+            const string name = "Keep Clarity";
+
+            SettingsAPI.RegisterMod(id, name,
+                description: "UI quality-of-life: enhanced tooltips, pinnable resource overlay, building hotkeys, settings panel.",
+                version: "1.0.0",
+                accentRgb: new[] { 0.45f, 0.65f, 0.40f, 1f },
+                order: 0);
+
+            // Hotkeys
+            void K(string cat, MelonPreferences_Entry<KeyCode> entry, string label, string? tip = null) =>
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip });
+
+            K("Hotkeys — Reports & Panels", ReportsHotkey, "Toggle Reports", "Open/close the 12-month report window");
+            K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Pinned Overlay");
+            K("Hotkeys — Reports & Panels", SettingsPanelHotkey, "Open Settings Panel", "Opens this very window");
+
+            SettingsAPI.Register(id, name, "Settings Panel", SettingsVerboseLog,
+                new SettingsMeta { Label = "Verbose Settings Log",
+                    Tooltip = "Log every claim/discovery decision to MelonLoader/Latest.log. Off by default; turn on only when debugging the panel." });
+
+            K("Hotkeys — Building", UpgradeHotkey, "Upgrade");
+            K("Hotkeys — Building", RelocateHotkey, "Relocate");
+            K("Hotkeys — Building", ToggleEmployHotkey, "Toggle Employment");
+            K("Hotkeys — Building", DemolishHotkey, "Demolish");
+            K("Hotkeys — Building", CycleBuildingLeftHotkey, "Cycle Building Left");
+            K("Hotkeys — Building", CycleBuildingRightHotkey, "Cycle Building Right");
+
+            K("Hotkeys — Build Site", PrioritizeHotkey, "Prioritize");
+            K("Hotkeys — Build Site", ConstructionEnabledHotkey, "Construction Enabled");
+            K("Hotkeys — Build Site", DecrementBuildersHotkey, "Decrement Builders (-)");
+            K("Hotkeys — Build Site", IncrementBuildersHotkey, "Increment Builders (+)");
+
+            K("Hotkeys — Modal Confirm", ConfirmHotkey, "Confirm Dialog");
+            K("Hotkeys — Modal Confirm", CancelHotkey, "Cancel Dialog");
+
+            // Numeric / bool / string prefs
+            SettingsAPI.Register(id, name, "Notifications", TraderWarningDays,
+                new SettingsMeta { Label = "Trader Warning Days", Min = 0, Max = 14,
+                    Tooltip = "Days before departure to warn (0 disables)" });
+
+            SettingsAPI.Register(id, name, "Game Flow", PauseOnLoad,
+                new SettingsMeta { Label = "Pause on Load",
+                    Tooltip = "Auto-pause once a save finishes loading" });
+
+            SettingsAPI.Register(id, name, "Game Flow", PauseOnLoadDelay,
+                new SettingsMeta { Label = "Pause on Load Delay (seconds)", Min = 0f, Max = 10f,
+                    Tooltip = "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black",
+                    VisibleWhen = () => PauseOnLoad.Value });
+
+            SettingsAPI.Register(id, name, "Pinned Overlay", PinnedCollapsed,
+                new SettingsMeta { Label = "Start Collapsed",
+                    Tooltip = "Pinned overlay opens collapsed to a tab" });
         }
 
         // We cache the InfoWindow GameObject for reflection access (productionToggle, etc.).
@@ -314,8 +509,12 @@ namespace FFUIOverhaul
             {
                 BuildingActions.TryToggleEmployment(building, gm);
             }
-            else if (Input.GetKeyDown(DemolishHotkey.Value))
+            else if (Input.GetKeyDown(DemolishHotkey.Value) || Input.GetKeyDown(KeyCode.T))
             {
+                // T is a fixed alt for Delete — easier on the hand than reaching
+                // for Del. If the user remaps DemolishHotkey to T explicitly the
+                // duplicate check still works because GetKeyDown only returns
+                // true for the frame the key was pressed.
                 BuildingActions.TryDemolish(building, gm);
             }
             else if (Input.GetKeyDown(CycleBuildingLeftHotkey.Value))
@@ -330,7 +529,7 @@ namespace FFUIOverhaul
 
         private void HandleBuildSiteHotkeys(BuildSiteResource buildSite, GameManager gm)
         {
-            if (Input.GetKeyDown(DemolishHotkey.Value))
+            if (Input.GetKeyDown(DemolishHotkey.Value) || Input.GetKeyDown(KeyCode.T))
             {
                 BuildSiteActions.TryCancel(buildSite, gm);
             }

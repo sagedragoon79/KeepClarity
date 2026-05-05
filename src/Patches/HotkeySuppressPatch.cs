@@ -24,11 +24,12 @@ namespace FFUIOverhaul.Patches
             bool modal = FFUIOverhaulMod.FrameModalVisible;
             bool building = FFUIOverhaulMod.FrameBuildingWindowActive;
             bool buildSite = FFUIOverhaulMod.FrameBuildSiteWindowActive;
+            bool forageable = FFUIOverhaulMod.FrameForageableActive;
 
-            if (!modal && !building && !buildSite) return true; // no suppression context
+            if (!modal && !building && !buildSite && !forageable) return true; // no suppression context
 
             // Allowlist applies only when ONLY the building info window is active.
-            if (building && !modal && !buildSite && IsAllowThroughDuringBuilding(keyCombo))
+            if (building && !modal && !buildSite && !forageable && IsAllowThroughDuringBuilding(keyCombo))
                 return true;
 
             __result = false;

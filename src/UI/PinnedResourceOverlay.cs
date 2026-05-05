@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FFUIOverhaul.Settings.UI;
 using FFUIOverhaul.Utils;
 using TMPro;
 using UnityEngine;
@@ -50,13 +51,16 @@ namespace FFUIOverhaul.UI
         }
 
         private GameObject? _canvasRoot;
+        private CanvasScaler? _canvasScaler;
         private GameObject? _expandedPanel;
         private GameObject? _collapsedTab;
         private GameObject? _configPanel;
         private RectTransform? _itemsContainer;
         private RectTransform? _configContent;
-        private TextMeshProUGUI? _collapseButtonLabel;
         private TextMeshProUGUI? _configButtonLabel;
+        private DraggablePanel? _expandedDrag;
+        private DraggablePanel? _collapsedDrag;
+        private readonly List<Image> _opacityImages = new(); // panels whose alpha tracks OverlayOpacity
 
         private readonly List<PinnedRow> _rows = new();
         private readonly List<PinnedItem> _pinnedItems = new();
@@ -84,6 +88,9 @@ namespace FFUIOverhaul.UI
                 return;
             }
 
+            UIScaleSync.Sync(_canvasScaler);
+            SyncOpacity();
+
             _refreshTimer += Time.unscaledDeltaTime;
             if (_refreshTimer >= 0.5f)
             {
@@ -98,20 +105,83 @@ namespace FFUIOverhaul.UI
         {
             _canvasRoot = new GameObject("FFUI_PinnedOverlay", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             UnityEngine.Object.DontDestroyOnLoad(_canvasRoot);
+
+            // Scene-aware hide. DontDestroyOnLoad keeps the canvas alive across
+            // scene reloads, so without this the overlay would persist on the
+            // main menu after Exit-to-Menu. We belt-and-suspender it alongside
+            // Plugin.OnSceneWasInitialized — that MelonMod hook fires reliably
+            // for the *initial* in-game scene but the activeSceneChanged event
+            // fires for every transition (menu↔load↔map), so this catches the
+            // edges OnSceneWasInitialized can miss.
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+            ApplySceneVisibility(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
             var canvas = _canvasRoot.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = CanvasSortingOrder;
-            var scaler = _canvasRoot.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            _canvasScaler = _canvasRoot.GetComponent<CanvasScaler>();
+            _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            // Mirror the game's scaler immediately if available so first-frame
+            // sizing matches FF's UI scale instead of momentarily showing at 1×.
+            UIScaleSync.Sync(_canvasScaler);
 
             BuildExpandedPanel();
             BuildCollapsedTab();
             BuildConfigPanel();
 
+            WireDragHandles();
             ApplyCollapsedState();
             RebuildItemRows();
             RebuildConfigRows();
             RefreshValues();
+        }
+
+        private void WireDragHandles()
+        {
+            if (_expandedPanel == null || _collapsedTab == null) return;
+
+            var defaultPos = new Vector2(0.995f, 0.95f);
+            var savedPos = new Vector2(
+                FFUIOverhaulMod.PinnedOverlayPosX?.Value ?? defaultPos.x,
+                FFUIOverhaulMod.PinnedOverlayPosY?.Value ?? defaultPos.y);
+
+            // Expanded: header strip is the handle; whole config panel rides
+            // along so it stays glued to the side of the panel as it moves.
+            var configPanelRt = _configPanel != null ? (RectTransform)_configPanel.transform : null;
+            var configOffset = configPanelRt != null
+                ? configPanelRt.anchoredPosition - ((RectTransform)_expandedPanel.transform).anchoredPosition
+                : Vector2.zero;
+
+            // Drag from anywhere on the panel, not just the header — when the
+            // header was the only handle, dragging the panel under the top bar
+            // hid the only grab point and the panel became unreachable.
+            // Button clicks still route to buttons (Unity dispatches click and
+            // drag events independently — drags walk up parents looking for
+            // IDragHandler, clicks fire on the directly-hit object).
+            _expandedDrag = _expandedPanel.AddComponent<DraggablePanel>();
+            _expandedDrag.Target = (RectTransform)_expandedPanel.transform;
+            _expandedDrag.DefaultTarget = configPanelRt;
+            _expandedDrag.DefaultTargetOffset = configOffset;
+            _expandedDrag.DefaultNormalizedPosition = defaultPos;
+            _expandedDrag.OnPositionChanged = SavePosition;
+            _expandedDrag.ApplyNormalized(savedPos, persist: false);
+
+            // Collapsed: tab itself is the handle. Tab and panel share the
+            // same persisted position so toggling between them stays visually
+            // anchored. Tab keeps its existing Button click for un-collapse —
+            // drag handlers don't conflict with click handlers.
+            _collapsedDrag = _collapsedTab.AddComponent<DraggablePanel>();
+            _collapsedDrag.Target = (RectTransform)_collapsedTab.transform;
+            _collapsedDrag.DefaultNormalizedPosition = defaultPos;
+            _collapsedDrag.OnPositionChanged = SavePosition;
+            _collapsedDrag.ApplyNormalized(savedPos, persist: false);
+        }
+
+        private static void SavePosition(Vector2 normalized)
+        {
+            if (FFUIOverhaulMod.PinnedOverlayPosX == null || FFUIOverhaulMod.PinnedOverlayPosY == null) return;
+            FFUIOverhaulMod.PinnedOverlayPosX.Value = normalized.x;
+            FFUIOverhaulMod.PinnedOverlayPosY.Value = normalized.y;
+            MelonLoader.MelonPreferences.Save();
         }
 
         private void BuildExpandedPanel()
@@ -124,10 +194,10 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(-8, -44);
             rt.sizeDelta = new Vector2(PanelWidth, 100); // height set by ContentSizeFitter
 
-            AddImage(_expandedPanel, PanelBg);
+            ApplyFFChrome(_expandedPanel, PanelBg.a);
 
             var vlg = _expandedPanel.AddComponent<VerticalLayoutGroup>();
-            vlg.padding = new RectOffset(0, 0, 0, 4);
+            vlg.padding = new RectOffset(4, 4, 4, 6);
             vlg.spacing = 0;
             vlg.childForceExpandWidth = true;
             vlg.childForceExpandHeight = false;
@@ -136,12 +206,16 @@ namespace FFUIOverhaul.UI
             var fitter = _expandedPanel.AddComponent<ContentSizeFitter>();
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            // Header row
+            // Header row — also serves as the drag handle. The Image is the
+            // graphic that makes pointer events hit the header (without it,
+            // drag events fall through to the canvas). Subtle gold tint so
+            // the user sees the strip is interactive without it dominating.
             var header = NewChild(_expandedPanel, "Header");
             var headerLE = header.AddComponent<LayoutElement>();
             headerLE.preferredHeight = HeaderHeight;
+            AddImage(header, new Color(0.83f, 0.63f, 0.19f, 0.10f));
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
-            hlg.padding = new RectOffset(6, 4, 2, 2);
+            hlg.padding = new RectOffset(8, 6, 2, 2);
             hlg.spacing = 4;
             hlg.childAlignment = TextAnchor.MiddleLeft;
             hlg.childForceExpandWidth = false;
@@ -149,7 +223,11 @@ namespace FFUIOverhaul.UI
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
 
-            var headerLabel = NewText(header, "HeaderLabel", "PINNED", 11, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
+            // Header — match FF's modal popup title style (Transfer Items,
+            // confirmation dialogs, etc.): NotoSerifJP-Regular SDF, Bold +
+            // SmallCaps, size 14. Reads "native" alongside game windows.
+            var headerLabel = NewText(header, "HeaderLabel", "PINNED", 14, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+            if (FFNativeAssets.FontTitle != null) headerLabel.font = FFNativeAssets.FontTitle;
             var headerLabelLE = headerLabel.gameObject.AddComponent<LayoutElement>();
             headerLabelLE.flexibleWidth = 1;
 
@@ -162,15 +240,19 @@ namespace FFUIOverhaul.UI
             });
             _configButtonLabel = configBtn.GetComponentInChildren<TextMeshProUGUI>();
 
-            // Collapse button (◀ → tab)
-            NewIconButton(header, "CollapseButton", "▶", 22, ToggleCollapse);
-            _collapseButtonLabel = header.transform.Find("CollapseButton/Label").GetComponent<TextMeshProUGUI>();
+            // Collapse button — FF chevron pointing right (panel collapses
+            // toward the right edge of the screen, matching the panel's
+            // top-right anchor). Sprite is the same one FF uses on its
+            // building-info cycle arrows.
+            NewArrowButton(header, "CollapseButton", 0f, 22, ToggleCollapse);
 
-            // Separator
+            // Separator — thin warm-brown line tinted to match the carved
+            // border instead of a bright gold accent (which clashed against
+            // the FF panel background).
             var sep = NewChild(_expandedPanel, "Separator");
             var sepLE = sep.AddComponent<LayoutElement>();
             sepLE.preferredHeight = 1;
-            AddImage(sep, SeparatorColor);
+            AddImage(sep, new Color(0.35f, 0.27f, 0.18f, 0.85f));
 
             // Items container
             var itemsGo = NewChild(_expandedPanel, "Items");
@@ -194,7 +276,7 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(-4, -44);
             rt.sizeDelta = new Vector2(TabWidth, TabHeight);
 
-            AddImage(_collapsedTab, PanelBg);
+            ApplyFFChrome(_collapsedTab, PanelBg.a);
 
             // Click anywhere on the tab to expand
             var btn = _collapsedTab.AddComponent<Button>();
@@ -229,7 +311,7 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(-(PanelWidth + 16), -44);
             rt.sizeDelta = new Vector2(220, 440);
 
-            AddImage(_configPanel, PanelBg);
+            ApplyFFChrome(_configPanel, PanelBg.a);
 
             // Header — explicit RectTransform anchors instead of a parent layout group
             // so we have full control over scroll positioning below.
@@ -337,21 +419,31 @@ namespace FFUIOverhaul.UI
                 var rowGo = NewChild(_itemsContainer.gameObject, $"Row_{item.ItemId}");
                 rowGo.AddComponent<LayoutElement>().preferredHeight = RowHeight;
                 var hlg = rowGo.AddComponent<HorizontalLayoutGroup>();
-                hlg.padding = new RectOffset(8, 8, 0, 0);
-                hlg.spacing = 4;
+                // Tightened right padding + value column width to close the
+                // visible gap between item name and count.
+                hlg.padding = new RectOffset(8, 4, 0, 0);
+                hlg.spacing = 2;
                 hlg.childForceExpandWidth = false;
                 hlg.childForceExpandHeight = true;
                 hlg.childControlWidth = true;
                 hlg.childControlHeight = true;
                 hlg.childAlignment = TextAnchor.MiddleLeft;
 
-                var name = NewText(rowGo, "Name", item.DisplayName, 11, FontStyles.Normal,
+                // Resource name — flexes to fill remaining width. The name
+                // column auto-sizes to whatever's left after we reserve the
+                // value column on the right.
+                var name = NewText(rowGo, "Name", item.DisplayName, 13, FontStyles.Normal,
                     ResourceHelper.GetCategoryColor(item.Category), TextAlignmentOptions.MidlineLeft);
+                if (FFNativeAssets.FontHeader != null) name.font = FFNativeAssets.FontHeader;
                 name.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+                name.overflowMode = TextOverflowModes.Truncate;
 
-                var value = NewText(rowGo, "Value", "0", 11, FontStyles.Bold,
+                // Value — width sized for "11321/15000" (11 chars) at 13pt. If
+                // a player's quota exceeds that, the digits truncate gracefully.
+                var value = NewText(rowGo, "Value", "0", 13, FontStyles.Normal,
                     new Color(0.75f, 0.72f, 0.60f, 1f), TextAlignmentOptions.MidlineRight);
-                value.gameObject.AddComponent<LayoutElement>().preferredWidth = 56;
+                if (FFNativeAssets.FontHeader != null) value.font = FFNativeAssets.FontHeader;
+                value.gameObject.AddComponent<LayoutElement>().preferredWidth = 72;
 
                 _rows.Add(new PinnedRow { Root = rowGo, NameText = name, ValueText = value, Item = item });
             }
@@ -379,8 +471,9 @@ namespace FFUIOverhaul.UI
                     var catGo = NewChild(_configContent.gameObject, "Cat");
                     catGo.AddComponent<LayoutElement>().preferredHeight = 18;
                     AddImage(catGo, CategoryBg);
-                    var catLabel = NewText(catGo, "Label", GetCategoryLabel(item.Category), 10,
-                        FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
+                    var catLabel = NewText(catGo, "Label", GetCategoryLabel(item.Category), 12,
+                        FontStyles.Normal, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
+                    if (FFNativeAssets.FontHeader != null) catLabel.font = FFNativeAssets.FontHeader;
                     var crt = catLabel.rectTransform;
                     crt.anchorMin = Vector2.zero;
                     crt.anchorMax = Vector2.one;
@@ -437,8 +530,11 @@ namespace FFUIOverhaul.UI
                 checkRt.offsetMax = Vector2.zero;
                 check.raycastTarget = false;
 
-                var label = NewText(rowGo, "Label", item.DisplayName, 11, FontStyles.Normal,
-                    ConfigItemText, TextAlignmentOptions.MidlineLeft);
+                // Config row label — header font tinted to its category color
+                // so the user can scan by color while picking pins.
+                var label = NewText(rowGo, "Label", item.DisplayName, 12, FontStyles.Normal,
+                    ResourceHelper.GetCategoryColor(item.Category), TextAlignmentOptions.MidlineLeft);
+                if (FFNativeAssets.FontHeader != null) label.font = FFNativeAssets.FontHeader;
                 var lrt = label.rectTransform;
                 lrt.anchorMin = new Vector2(0, 0);
                 lrt.anchorMax = new Vector2(1, 1);
@@ -556,6 +652,18 @@ namespace FFUIOverhaul.UI
             }
             if (_expandedPanel != null) _expandedPanel.SetActive(!_collapsed);
             if (_collapsedTab != null) _collapsedTab.SetActive(_collapsed);
+
+            // Re-apply the saved position to whichever panel is now visible.
+            // Without this, dragging while collapsed updates only the tab; on
+            // re-expand the expanded panel still has its old anchoredPosition
+            // and snaps back to where it was last shown.
+            if (FFUIOverhaulMod.PinnedOverlayPosX != null && FFUIOverhaulMod.PinnedOverlayPosY != null)
+            {
+                var pos = new Vector2(FFUIOverhaulMod.PinnedOverlayPosX.Value, FFUIOverhaulMod.PinnedOverlayPosY.Value);
+                if (_collapsed) _collapsedDrag?.ApplyNormalized(pos, persist: false);
+                else _expandedDrag?.ApplyNormalized(pos, persist: false);
+            }
+
             // When collapsed, the config panel must close too
             if (_collapsed && _configPanel != null && ConfigOpen)
             {
@@ -747,18 +855,82 @@ namespace FFUIOverhaul.UI
             return t;
         }
 
+        /// <summary>
+        /// Like <see cref="NewIconButton"/> but renders an Image (the FF
+        /// chevron sprite) inside the button instead of a text glyph. Used
+        /// for collapse / expand affordances so they match FF's native arrow
+        /// styling on info-window cycle buttons.
+        /// </summary>
+        private static GameObject NewArrowButton(GameObject parent, string name, float zRotation, float width, UnityEngine.Events.UnityAction onClick)
+        {
+            var go = NewChild(parent, name);
+            go.AddComponent<LayoutElement>().preferredWidth = width;
+            var bg = AddImage(go, ButtonNormal);
+            if (FFNativeAssets.PanelBorderSimple != null)
+            {
+                bg.sprite = FFNativeAssets.PanelBorderSimple;
+                bg.type = Image.Type.Sliced;
+                bg.color = new Color(1f, 1f, 1f, 1f);
+            }
+            var btn = go.AddComponent<Button>();
+            btn.transition = Selectable.Transition.ColorTint;
+            btn.targetGraphic = bg;
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.20f, 1.10f, 0.85f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.75f, 0.55f, 1f);
+            btn.colors = colors;
+            btn.onClick.AddListener(onClick);
+
+            // Chevron child — fills the button's interior. FF's chevron is a
+            // 20×20 sprite with the visible glyph centered; render at 18×18
+            // (full button minus 2px each side) so the glyph reads at panel
+            // resolution. preserveAspect would shrink the visual further on
+            // non-square buttons, so we let it fill the rect.
+            var arrowGo = new GameObject("Arrow", typeof(RectTransform), typeof(Image));
+            arrowGo.transform.SetParent(go.transform, false);
+            var arrt = (RectTransform)arrowGo.transform;
+            arrt.anchorMin = new Vector2(0.5f, 0.5f);
+            arrt.anchorMax = new Vector2(0.5f, 0.5f);
+            arrt.pivot = new Vector2(0.5f, 0.5f);
+            arrt.sizeDelta = new Vector2(18, 18);
+            arrt.anchoredPosition = Vector2.zero;
+            arrt.localRotation = Quaternion.Euler(0, 0, zRotation);
+            var arrowImg = arrowGo.GetComponent<Image>();
+            if (FFNativeAssets.ArrowChevron != null)
+            {
+                arrowImg.sprite = FFNativeAssets.ArrowChevron;
+                arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f); // warm amber
+            }
+            else
+            {
+                arrowImg.color = new Color(1f, 1f, 1f, 0.7f);
+                FFUIOverhaulMod.Log.Warning("[Overlay] FF chevron sprite not found in probe — arrow rendering as fallback dot.");
+            }
+            arrowImg.raycastTarget = false;
+            return go;
+        }
+
         private static GameObject NewIconButton(GameObject parent, string name, string label, float width, UnityEngine.Events.UnityAction onClick)
         {
             var go = NewChild(parent, name);
             go.AddComponent<LayoutElement>().preferredWidth = width;
             var img = AddImage(go, ButtonNormal);
+            // FF uses IMG_BorderSimpleDark01 (sliced 5,5,5,5) for its in-panel
+            // 22×22 increment/decrement buttons — same form factor as ours.
+            if (FFNativeAssets.PanelBorderSimple != null)
+            {
+                img.sprite = FFNativeAssets.PanelBorderSimple;
+                img.type = Image.Type.Sliced;
+                img.color = new Color(1f, 1f, 1f, 1f);
+            }
             var btn = go.AddComponent<Button>();
             btn.transition = Selectable.Transition.ColorTint;
             btn.targetGraphic = img;
             var colors = btn.colors;
             colors.normalColor = Color.white;
-            colors.highlightedColor = new Color(ButtonHover.r / ButtonNormal.r, ButtonHover.g / ButtonNormal.g, ButtonHover.b / ButtonNormal.b, 1f);
-            colors.pressedColor = new Color(ButtonPressed.r / ButtonNormal.r, ButtonPressed.g / ButtonNormal.g, ButtonPressed.b / ButtonNormal.b, 1f);
+            colors.highlightedColor = new Color(1.20f, 1.10f, 0.85f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.75f, 0.55f, 1f);
             btn.colors = colors;
             btn.onClick.AddListener(onClick);
 
@@ -774,11 +946,105 @@ namespace FFUIOverhaul.UI
         private static TMP_FontAsset? GetGameFont()
         {
             if (_cachedFont != null) return _cachedFont;
+            // Prefer the body font FF uses inside its info panels (matches the
+            // visual weight of native text). Fall back to whatever TMP font is
+            // already loaded if the asset probe hasn't found it yet.
+            _cachedFont = FFNativeAssets.FontBody;
+            if (_cachedFont != null) return _cachedFont;
             var all = UnityEngine.Object.FindObjectsOfType<TextMeshProUGUI>(includeInactive: true);
             foreach (var t in all)
                 if (t != null && t.font != null) { _cachedFont = t.font; break; }
             if (_cachedFont == null) _cachedFont = TMP_Settings.defaultFontAsset;
             return _cachedFont;
+        }
+
+        /// <summary>
+        /// Apply FF's dark sliced panel chrome to a GameObject, keeping the
+        /// caller's see-through alpha so the overlay reads as "FF panel" but
+        /// stays nearly transparent over the world. Falls back to a flat tint
+        /// if the sprite isn't loaded yet (rare — happens only on the very
+        /// first frame after fresh boot).
+        /// </summary>
+        private void OnSceneChanged(UnityEngine.SceneManagement.Scene _, UnityEngine.SceneManagement.Scene next)
+            => ApplySceneVisibility(next);
+
+        private static bool _loggedSceneName;
+        private void ApplySceneVisibility(UnityEngine.SceneManagement.Scene scene)
+        {
+            if (_canvasRoot == null) return;
+            // Hide on every scene that isn't gameplay. We treat "MainMenu" and
+            // its variants as the only definitive non-gameplay name and let
+            // everything else through — that way an unexpected scene name (e.g.
+            // a "MapLoad" splash) doesn't accidentally hide the overlay during
+            // an active session. The log line below records the actual name on
+            // first call so we can tighten the rule if needed.
+            string n = scene.name ?? "";
+            bool isMenu = n.StartsWith("MainMenu") || n == "Menu" || n == "Logo" || n == "Splash";
+            bool isInGame = !isMenu;
+            if (!_loggedSceneName)
+            {
+                FFUIOverhaulMod.Log.Msg($"[PinnedOverlay] active scene='{n}' → visible={isInGame}");
+                _loggedSceneName = true;
+            }
+            _canvasRoot.SetActive(isInGame);
+        }
+
+        /// <summary>
+        /// Apply FF's clean square panel frame. Earlier attempts to use the
+        /// carved BuildingInfo sprite (with mirrored corners for symmetry)
+        /// pushed the carved decoration into header text and arrows; users
+        /// preferred a simple symmetric frame.
+        /// </summary>
+        private Image ApplyFFChrome(GameObject go, float alpha)
+        {
+            var img = go.AddComponent<Image>();
+            img.raycastTarget = true;
+            // Layered look: the dark inner background is the dropdown frame
+            // (uniform dark fill), and we sit on top of it. Single Image is
+            // fine — IMG_BorderSimpleThick01 carries both the frame and a
+            // dark see-through interior in one sprite.
+            var frame = FFNativeAssets.PanelBorderThick ?? FFNativeAssets.PanelBorderDark;
+            if (frame != null)
+            {
+                img.sprite = frame;
+                img.type = Image.Type.Sliced;
+                img.color = new Color(1f, 1f, 1f, alpha);
+            }
+            else
+            {
+                img.color = PanelBg;
+            }
+            _opacityImages.Add(img);
+            return img;
+        }
+
+        /// <summary>
+        /// Apply a vertical gold gradient matching FF's title-bar text style
+        /// (bright top, deep bottom). Cheap visual upgrade vs. a flat color.
+        /// </summary>
+        private static void ApplyGoldGradient(TextMeshProUGUI tmp)
+        {
+            tmp.enableVertexGradient = true;
+            tmp.colorGradient = new VertexGradient(
+                new Color(1.00f, 0.88f, 0.45f, 1f),  // bright top
+                new Color(1.00f, 0.88f, 0.45f, 1f),
+                new Color(0.55f, 0.40f, 0.15f, 1f),  // dark bottom
+                new Color(0.55f, 0.40f, 0.15f, 1f));
+        }
+
+        private void SyncOpacity()
+        {
+            float wanted = FFUIOverhaulMod.OverlayOpacity?.Value ?? 0.92f;
+            wanted = Mathf.Clamp(wanted, 0.05f, 1f);
+            for (int i = 0; i < _opacityImages.Count; i++)
+            {
+                var img = _opacityImages[i];
+                if (img == null) continue;
+                if (Mathf.Abs(img.color.a - wanted) < 0.005f) continue;
+                var c = img.color;
+                c.a = wanted;
+                img.color = c;
+            }
         }
 
         private class PinnedRow

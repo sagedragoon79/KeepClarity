@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using FFUIOverhaul.Settings.UI;
 using FFUIOverhaul.TechTree;
 using TMPro;
 using UnityEngine;
@@ -33,10 +34,13 @@ namespace FFUIOverhaul.UI
         }
 
         private GameObject? _canvasRoot;
+        private CanvasScaler? _canvasScaler;
         private GameObject? _expandedPanel;
         private GameObject? _collapsedTab;
         private TextMeshProUGUI? _contentText;
-        private TextMeshProUGUI? _collapseButtonLabel;
+        private DraggablePanel? _expandedDrag;
+        private DraggablePanel? _collapsedDrag;
+        private readonly System.Collections.Generic.List<Image> _opacityImages = new();
         private bool _initialized;
         private bool _collapsed;
         private static TMP_FontAsset? _cachedFont;
@@ -51,7 +55,10 @@ namespace FFUIOverhaul.UI
                     FFUIOverhaulMod.Log.Warning($"[TechQueueOverlay] Build failed: {e.Message}\n{e.StackTrace}");
                     _initialized = true;
                 }
+                return;
             }
+            UIScaleSync.Sync(_canvasScaler);
+            SyncOpacity();
         }
 
         public void RefreshDisplay()
@@ -115,14 +122,54 @@ namespace FFUIOverhaul.UI
             _canvasRoot = new GameObject("FFUI_TechQueueOverlay",
                 typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             UnityEngine.Object.DontDestroyOnLoad(_canvasRoot);
+
+            // Scene-aware hide — see PinnedResourceOverlay.BuildUI for the
+            // full rationale. Belt-and-suspenders with Plugin.OnSceneWasInitialized.
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+            ApplySceneVisibility(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
             var canvas = _canvasRoot.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = CanvasSortingOrder;
-            _canvasRoot.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            _canvasScaler = _canvasRoot.GetComponent<CanvasScaler>();
+            _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            UIScaleSync.Sync(_canvasScaler);
 
             BuildExpandedPanel();
             BuildCollapsedTab();
+            WireDragHandles();
             ApplyCollapsed();
+        }
+
+        private void WireDragHandles()
+        {
+            if (_expandedPanel == null || _collapsedTab == null) return;
+
+            var defaultPos = new Vector2(0.005f, 0.78f);
+            var savedPos = new Vector2(
+                FFUIOverhaulMod.TechQueueOverlayPosX?.Value ?? defaultPos.x,
+                FFUIOverhaulMod.TechQueueOverlayPosY?.Value ?? defaultPos.y);
+
+            // Drag from anywhere on the panel — see PinnedResourceOverlay for
+            // rationale (header-only handle could hide behind the top bar).
+            _expandedDrag = _expandedPanel.AddComponent<DraggablePanel>();
+            _expandedDrag.Target = (RectTransform)_expandedPanel.transform;
+            _expandedDrag.DefaultNormalizedPosition = defaultPos;
+            _expandedDrag.OnPositionChanged = SavePosition;
+            _expandedDrag.ApplyNormalized(savedPos, persist: false);
+
+            _collapsedDrag = _collapsedTab.AddComponent<DraggablePanel>();
+            _collapsedDrag.Target = (RectTransform)_collapsedTab.transform;
+            _collapsedDrag.DefaultNormalizedPosition = defaultPos;
+            _collapsedDrag.OnPositionChanged = SavePosition;
+            _collapsedDrag.ApplyNormalized(savedPos, persist: false);
+        }
+
+        private static void SavePosition(Vector2 normalized)
+        {
+            if (FFUIOverhaulMod.TechQueueOverlayPosX == null || FFUIOverhaulMod.TechQueueOverlayPosY == null) return;
+            FFUIOverhaulMod.TechQueueOverlayPosX.Value = normalized.x;
+            FFUIOverhaulMod.TechQueueOverlayPosY.Value = normalized.y;
+            MelonLoader.MelonPreferences.Save();
         }
 
         private void BuildExpandedPanel()
@@ -135,10 +182,10 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(8, -180);
             rt.sizeDelta = new Vector2(PanelWidth, 0);
 
-            AddImage(_expandedPanel, PanelBg);
+            ApplyFFChrome(_expandedPanel, PanelBg.a);
 
             var vlg = _expandedPanel.AddComponent<VerticalLayoutGroup>();
-            vlg.padding = new RectOffset(0, 0, 0, 6);
+            vlg.padding = new RectOffset(4, 4, 4, 6);
             vlg.spacing = 4;
             vlg.childForceExpandWidth = true;
             vlg.childControlWidth = true;
@@ -146,9 +193,13 @@ namespace FFUIOverhaul.UI
             var fit = _expandedPanel.AddComponent<ContentSizeFitter>();
             fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            // Header row
+            // Header row — also serves as the drag handle. The Image is the
+            // graphic that makes pointer events hit the header (without it
+            // drag falls through to the canvas). Subtle gold tint signals
+            // it's interactive without being loud.
             var header = NewChild(_expandedPanel, "Header");
             header.AddComponent<LayoutElement>().preferredHeight = HeaderHeight;
+            AddImage(header, new Color(0.83f, 0.63f, 0.19f, 0.10f));
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
             hlg.padding = new RectOffset(8, 4, 2, 2);
             hlg.spacing = 4;
@@ -158,12 +209,13 @@ namespace FFUIOverhaul.UI
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
 
-            var headerLabel = NewText(header, "HeaderLabel", "TECH QUEUE", 11, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
+            var headerLabel = NewText(header, "HeaderLabel", "TECH QUEUE", 14, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+            if (FFNativeAssets.FontTitle != null) headerLabel.font = FFNativeAssets.FontTitle;
             headerLabel.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
 
-            // Collapse button (◀)
-            var collapseBtn = NewIconButton(header, "CollapseBtn", "◀", 22, ToggleCollapse);
-            _collapseButtonLabel = collapseBtn.GetComponentInChildren<TextMeshProUGUI>();
+            // Collapse button — chevron pointing LEFT, since this panel
+            // collapses toward the left edge of the screen.
+            NewArrowButton(header, "CollapseBtn", 180f, 22, ToggleCollapse);
 
             // Body text — TMPro directly as child of the panel. TMPro implements
             // ILayoutElement and reports a content-driven preferredHeight, which
@@ -190,7 +242,7 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(4, -180);
             rt.sizeDelta = new Vector2(TabWidth, TabHeight);
 
-            var img = AddImage(_collapsedTab, PanelBg);
+            var img = ApplyFFChrome(_collapsedTab, PanelBg.a);
             var btn = _collapsedTab.AddComponent<Button>();
             btn.transition = Selectable.Transition.ColorTint;
             btn.targetGraphic = img;
@@ -219,6 +271,15 @@ namespace FFUIOverhaul.UI
         {
             if (_expandedPanel != null) _expandedPanel.SetActive(!_collapsed);
             if (_collapsedTab != null) _collapsedTab.SetActive(_collapsed);
+
+            // Re-apply saved position to whichever side is now visible — see
+            // PinnedResourceOverlay.ApplyCollapsedState for the full rationale.
+            if (FFUIOverhaulMod.TechQueueOverlayPosX != null && FFUIOverhaulMod.TechQueueOverlayPosY != null)
+            {
+                var pos = new Vector2(FFUIOverhaulMod.TechQueueOverlayPosX.Value, FFUIOverhaulMod.TechQueueOverlayPosY.Value);
+                if (_collapsed) _collapsedDrag?.ApplyNormalized(pos, persist: false);
+                else _expandedDrag?.ApplyNormalized(pos, persist: false);
+            }
         }
 
         // ── UGUI helpers (mirror PinnedResourceOverlay's) ──────────────────
@@ -253,13 +314,72 @@ namespace FFUIOverhaul.UI
             return t;
         }
 
+        /// <summary>
+        /// Image-backed collapse arrow — see PinnedResourceOverlay.NewArrowButton.
+        /// </summary>
+        private static GameObject NewArrowButton(GameObject parent, string name, float zRotation, float width, UnityEngine.Events.UnityAction onClick)
+        {
+            var go = NewChild(parent, name);
+            go.AddComponent<LayoutElement>().preferredWidth = width;
+            var bg = AddImage(go, ButtonNormal);
+            if (FFNativeAssets.PanelBorderSimple != null)
+            {
+                bg.sprite = FFNativeAssets.PanelBorderSimple;
+                bg.type = Image.Type.Sliced;
+                bg.color = new Color(1f, 1f, 1f, 1f);
+            }
+            var btn = go.AddComponent<Button>();
+            btn.transition = Selectable.Transition.ColorTint;
+            btn.targetGraphic = bg;
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.20f, 1.10f, 0.85f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.75f, 0.55f, 1f);
+            btn.colors = colors;
+            btn.onClick.AddListener(onClick);
+
+            var arrowGo = new GameObject("Arrow", typeof(RectTransform), typeof(Image));
+            arrowGo.transform.SetParent(go.transform, false);
+            var arrt = (RectTransform)arrowGo.transform;
+            arrt.anchorMin = new Vector2(0.5f, 0.5f);
+            arrt.anchorMax = new Vector2(0.5f, 0.5f);
+            arrt.pivot = new Vector2(0.5f, 0.5f);
+            arrt.sizeDelta = new Vector2(18, 18);
+            arrt.anchoredPosition = Vector2.zero;
+            arrt.localRotation = Quaternion.Euler(0, 0, zRotation);
+            var arrowImg = arrowGo.GetComponent<Image>();
+            if (FFNativeAssets.ArrowChevron != null)
+            {
+                arrowImg.sprite = FFNativeAssets.ArrowChevron;
+                arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f);
+            }
+            else
+            {
+                arrowImg.color = new Color(1f, 1f, 1f, 0.7f);
+            }
+            arrowImg.raycastTarget = false;
+            return go;
+        }
+
         private static GameObject NewIconButton(GameObject parent, string name, string label, float width, UnityEngine.Events.UnityAction onClick)
         {
             var go = NewChild(parent, name);
             go.AddComponent<LayoutElement>().preferredWidth = width;
             var img = AddImage(go, ButtonNormal);
+            if (FFNativeAssets.PanelBorderSimple != null)
+            {
+                img.sprite = FFNativeAssets.PanelBorderSimple;
+                img.type = Image.Type.Sliced;
+                img.color = new Color(1f, 1f, 1f, 1f);
+            }
             var btn = go.AddComponent<Button>();
+            btn.transition = Selectable.Transition.ColorTint;
             btn.targetGraphic = img;
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.20f, 1.10f, 0.85f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.75f, 0.55f, 1f);
+            btn.colors = colors;
             btn.onClick.AddListener(onClick);
             var lbl = NewText(go, "Label", label, 12, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.Center);
             var lrt = lbl.rectTransform;
@@ -273,11 +393,75 @@ namespace FFUIOverhaul.UI
         private static TMP_FontAsset? GetGameFont()
         {
             if (_cachedFont != null) return _cachedFont;
+            _cachedFont = FFNativeAssets.FontBody;
+            if (_cachedFont != null) return _cachedFont;
             var all = UnityEngine.Object.FindObjectsOfType<TextMeshProUGUI>(includeInactive: true);
             foreach (var t in all)
                 if (t != null && t.font != null) { _cachedFont = t.font; break; }
             if (_cachedFont == null) _cachedFont = TMP_Settings.defaultFontAsset;
             return _cachedFont;
+        }
+
+        private void OnSceneChanged(UnityEngine.SceneManagement.Scene _, UnityEngine.SceneManagement.Scene next)
+            => ApplySceneVisibility(next);
+
+        private static bool _loggedSceneName;
+        private void ApplySceneVisibility(UnityEngine.SceneManagement.Scene scene)
+        {
+            if (_canvasRoot == null) return;
+            string n = scene.name ?? "";
+            bool isMenu = n.StartsWith("MainMenu") || n == "Menu" || n == "Logo" || n == "Splash";
+            bool isInGame = !isMenu;
+            if (!_loggedSceneName)
+            {
+                FFUIOverhaulMod.Log.Msg($"[TechQueueOverlay] active scene='{n}' → visible={isInGame}");
+                _loggedSceneName = true;
+            }
+            _canvasRoot.SetActive(isInGame);
+        }
+
+        private Image ApplyFFChrome(GameObject go, float alpha)
+        {
+            var img = go.AddComponent<Image>();
+            img.raycastTarget = true;
+            var frame = FFNativeAssets.PanelBorderThick ?? FFNativeAssets.PanelBorderDark;
+            if (frame != null)
+            {
+                img.sprite = frame;
+                img.type = Image.Type.Sliced;
+                img.color = new Color(1f, 1f, 1f, alpha);
+            }
+            else
+            {
+                img.color = PanelBg;
+            }
+            _opacityImages.Add(img);
+            return img;
+        }
+
+        private static void ApplyGoldGradient(TextMeshProUGUI tmp)
+        {
+            tmp.enableVertexGradient = true;
+            tmp.colorGradient = new VertexGradient(
+                new Color(1.00f, 0.88f, 0.45f, 1f),
+                new Color(1.00f, 0.88f, 0.45f, 1f),
+                new Color(0.55f, 0.40f, 0.15f, 1f),
+                new Color(0.55f, 0.40f, 0.15f, 1f));
+        }
+
+        private void SyncOpacity()
+        {
+            float wanted = FFUIOverhaulMod.OverlayOpacity?.Value ?? 0.92f;
+            wanted = Mathf.Clamp(wanted, 0.05f, 1f);
+            for (int i = 0; i < _opacityImages.Count; i++)
+            {
+                var img = _opacityImages[i];
+                if (img == null) continue;
+                if (Mathf.Abs(img.color.a - wanted) < 0.005f) continue;
+                var c = img.color;
+                c.a = wanted;
+                img.color = c;
+            }
         }
     }
 }

@@ -18,10 +18,34 @@ namespace FFUIOverhaul.Patches
             // Order matters: each call appends just before the parent's last
             // child, so this is the left-to-right display order. After brick:
             //   Sand → Glass → Coal → Iron
-            FFUIOverhaulMod.UITopBarSandEntry  ??= AddItemEntry(__instance, "ItemSand",  "Sand Resource Entry");
-            FFUIOverhaulMod.UITopBarGlassEntry ??= AddItemEntry(__instance, "ItemGlass", "Glass Resource Entry");
-            FFUIOverhaulMod.UITopBarCoalEntry  ??= AddItemEntry(__instance, "ItemCoal",  "Coal Resource Entry");
-            FFUIOverhaulMod.UITopBarIronEntry  ??= AddItemEntry(__instance, "ItemIron",  "Iron Resource Entry");
+            //
+            // Use Unity-aware == null (NOT C# `??=`): when the previous scene's
+            // GameObject is Destroy()ed, Unity's overloaded == returns true
+            // while the C# reference is still set ("fake null"). `??=` checked
+            // the C# reference and skipped the re-add on scene reload, leaving
+            // the top bar without our four entries until the mod was reloaded.
+            // Each call wrapped individually so a failure on one entry doesn't
+            // skip the rest, with a log line pinpointing which entry failed.
+            if (FFUIOverhaulMod.UITopBarSandEntry  == null) FFUIOverhaulMod.UITopBarSandEntry  = TryAddItemEntry(__instance, "ItemSand",  "Sand Resource Entry");
+            if (FFUIOverhaulMod.UITopBarGlassEntry == null) FFUIOverhaulMod.UITopBarGlassEntry = TryAddItemEntry(__instance, "ItemGlass", "Glass Resource Entry");
+            if (FFUIOverhaulMod.UITopBarCoalEntry  == null) FFUIOverhaulMod.UITopBarCoalEntry  = TryAddItemEntry(__instance, "ItemCoal",  "Coal Resource Entry");
+            if (FFUIOverhaulMod.UITopBarIronEntry  == null) FFUIOverhaulMod.UITopBarIronEntry  = TryAddItemEntry(__instance, "ItemIron",  "Iron Resource Entry");
+        }
+
+        private static GameObject? TryAddItemEntry(UITopBar __instance, string itemId, string entryName)
+        {
+            try
+            {
+                var entry = AddItemEntry(__instance, itemId, entryName);
+                if (entry == null)
+                    FFUIOverhaulMod.Log.Warning($"[TopBar] {entryName}: AddItemEntry returned null (brickValueText reflection failed?)");
+                return entry;
+            }
+            catch (Exception e)
+            {
+                FFUIOverhaulMod.Log.Warning($"[TopBar] {entryName}: {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
+                return null;
+            }
         }
 
         /// <summary>
@@ -57,8 +81,11 @@ namespace FFUIOverhaul.Patches
             if (valueText != null) ((TMP_Text)valueText).text = "0";
 
             var tooltipProvider = entry.GetComponent<GenericTooltipDataProvider>();
-            var rowKeys = (List<string>)ReflectionHelper.GetPrivateField("tooltipRowKeyLocalizationTags", tooltipProvider);
-            rowKeys?.Clear();
+            if (tooltipProvider != null)
+            {
+                var rowKeys = ReflectionHelper.GetPrivateField("tooltipRowKeyLocalizationTags", tooltipProvider) as List<string>;
+                rowKeys?.Clear();
+            }
 
             return entry;
         }

@@ -20,6 +20,11 @@ namespace FFUIOverhaul.Patches
 
         public static void Postfix(UITopBar __instance)
         {
+            // Optional opt-out: some players already know the planner URL and
+            // would rather reclaim the top-bar space. Restart-required because
+            // re-adding mid-session would mean re-running the brick-clone
+            // insertion at a different sibling index than the original.
+            if (FFUIOverhaulMod.ShowPlannerButton != null && !FFUIOverhaulMod.ShowPlannerButton.Value) return;
             if (FFUIOverhaulMod.UITopBarPlannerButton != null) return;
 
             // Clone brick entry for the visual structure (icon + text + tooltip).
