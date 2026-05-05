@@ -251,7 +251,8 @@ namespace FFUIOverhaul.UI
             // Rotate the label -90° so "TECH" reads top-to-bottom along the
             // narrow tab. Pre-rotation rect is wide-and-short (TabHeight × TabWidth);
             // after rotation it visually occupies the tall-and-narrow tab.
-            var label = NewText(_collapsedTab, "Label", "TECH", 11, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.Center);
+            var label = NewText(_collapsedTab, "Label", "TECH", 11, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.Center);
+            if (FFNativeAssets.FontTitle != null) label.font = FFNativeAssets.FontTitle;
             var lrt = label.rectTransform;
             lrt.anchorMin = new Vector2(0.5f, 0.5f);
             lrt.anchorMax = new Vector2(0.5f, 0.5f);

@@ -291,7 +291,8 @@ namespace FFUIOverhaul.UI
             btn.onClick.AddListener(ToggleCollapse);
 
             // Vertical "PINNED" label
-            var label = NewText(_collapsedTab, "Label", "PIN", 10, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.Center);
+            var label = NewText(_collapsedTab, "Label", "PIN", 10, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.Center);
+            if (FFNativeAssets.FontTitle != null) label.font = FFNativeAssets.FontTitle;
             var labelRt = label.rectTransform;
             labelRt.anchorMin = Vector2.zero;
             labelRt.anchorMax = Vector2.one;
@@ -324,7 +325,8 @@ namespace FFUIOverhaul.UI
             hrt.anchoredPosition = Vector2.zero;
             hrt.sizeDelta = new Vector2(0, headerHeight);
             AddImage(header, new Color(0, 0, 0, 0.25f));
-            var headerLabel = NewText(header, "Label", "PIN RESOURCES", 11, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
+            var headerLabel = NewText(header, "Label", "PIN RESOURCES", 14, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+            if (FFNativeAssets.FontTitle != null) headerLabel.font = FFNativeAssets.FontTitle;
             var hLabelRt = headerLabel.rectTransform;
             hLabelRt.anchorMin = new Vector2(0, 0);
             hLabelRt.anchorMax = new Vector2(0.55f, 1);
@@ -472,8 +474,8 @@ namespace FFUIOverhaul.UI
                     catGo.AddComponent<LayoutElement>().preferredHeight = 18;
                     AddImage(catGo, CategoryBg);
                     var catLabel = NewText(catGo, "Label", GetCategoryLabel(item.Category), 12,
-                        FontStyles.Normal, HeaderTextColor, TextAlignmentOptions.MidlineLeft);
-                    if (FFNativeAssets.FontHeader != null) catLabel.font = FFNativeAssets.FontHeader;
+                        FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+                    if (FFNativeAssets.FontTitle != null) catLabel.font = FFNativeAssets.FontTitle;
                     var crt = catLabel.rectTransform;
                     crt.anchorMin = Vector2.zero;
                     crt.anchorMax = Vector2.one;
@@ -522,7 +524,7 @@ namespace FFUIOverhaul.UI
                 innerImg.raycastTarget = false;
 
                 var check = NewText(boxGo, "Check", pinned ? "✓" : "", 13, FontStyles.Bold,
-                    HeaderTextColor, TextAlignmentOptions.Center);
+                    Color.white, TextAlignmentOptions.Center);
                 var checkRt = check.rectTransform;
                 checkRt.anchorMin = Vector2.zero;
                 checkRt.anchorMax = Vector2.one;
@@ -604,7 +606,8 @@ namespace FFUIOverhaul.UI
             btn.colors = colors;
             btn.onClick.AddListener(() => onClick());
 
-            var text = NewText(go, "Label", label, 10, FontStyles.Bold, HeaderTextColor, TextAlignmentOptions.Center);
+            var text = NewText(go, "Label", label, 10, FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.Center);
+            if (FFNativeAssets.FontTitle != null) text.font = FFNativeAssets.FontTitle;
             var trt = text.rectTransform;
             trt.anchorMin = Vector2.zero;
             trt.anchorMax = Vector2.one;
