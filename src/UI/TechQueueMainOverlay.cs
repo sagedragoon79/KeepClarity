@@ -41,6 +41,7 @@ namespace FFUIOverhaul.UI
         private DraggablePanel? _expandedDrag;
         private DraggablePanel? _collapsedDrag;
         private readonly System.Collections.Generic.List<Image> _opacityImages = new();
+        private static readonly System.Collections.Generic.List<Image> _pendingChevrons = new();
         private bool _initialized;
         private bool _collapsed;
         private static TMP_FontAsset? _cachedFont;
@@ -59,6 +60,7 @@ namespace FFUIOverhaul.UI
             }
             UIScaleSync.Sync(_canvasScaler);
             SyncOpacity();
+            SyncPendingChevrons();
         }
 
         public void RefreshDisplay()
@@ -349,17 +351,27 @@ namespace FFUIOverhaul.UI
             arrt.anchoredPosition = Vector2.zero;
             arrt.localRotation = Quaternion.Euler(0, 0, zRotation);
             var arrowImg = arrowGo.GetComponent<Image>();
-            if (FFNativeAssets.ArrowChevron != null)
-            {
-                arrowImg.sprite = FFNativeAssets.ArrowChevron;
-                arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f);
-            }
-            else
-            {
-                arrowImg.color = new Color(1f, 1f, 1f, 0.7f);
-            }
+            arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f);
             arrowImg.raycastTarget = false;
+            if (FFNativeAssets.ArrowChevron != null)
+                arrowImg.sprite = FFNativeAssets.ArrowChevron;
+            else
+                _pendingChevrons.Add(arrowImg);
             return go;
+        }
+
+        private static void SyncPendingChevrons()
+        {
+            if (_pendingChevrons.Count == 0) return;
+            var sprite = FFNativeAssets.ArrowChevron;
+            if (sprite == null) return;
+            for (int i = _pendingChevrons.Count - 1; i >= 0; i--)
+            {
+                var img = _pendingChevrons[i];
+                if (img == null) { _pendingChevrons.RemoveAt(i); continue; }
+                img.sprite = sprite;
+                _pendingChevrons.RemoveAt(i);
+            }
         }
 
         private static GameObject NewIconButton(GameObject parent, string name, string label, float width, UnityEngine.Events.UnityAction onClick)

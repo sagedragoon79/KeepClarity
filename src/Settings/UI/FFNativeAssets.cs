@@ -189,10 +189,25 @@ namespace FFUIOverhaul.Settings.UI
             }
         }
 
+        private static readonly Dictionary<string, int> _missAttempts = new Dictionary<string, int>();
+        private const int MaxReprobeAttempts = 8;
+
         private static Sprite? GetSprite(string name)
         {
             if (!_probed) EnsureProbed();
-            return _sprites.TryGetValue(name, out var s) ? s : null;
+            if (_sprites.TryGetValue(name, out var s)) return s;
+
+            // Sprite wasn't in the first probe. Could be that FF hadn't yet
+            // loaded the prefab carrying it (e.g. BuildingInfo's Arrow
+            // chevron isn't in memory until the player opens a building's
+            // info window). Re-scan up to MaxReprobeAttempts times — once
+            // the sprite shows up it's cached and subsequent calls are O(1).
+            if (!_missAttempts.TryGetValue(name, out int attempts)) attempts = 0;
+            if (attempts >= MaxReprobeAttempts) return null;
+            _missAttempts[name] = attempts + 1;
+
+            ProbeSprites();
+            return _sprites.TryGetValue(name, out s) ? s : null;
         }
 
         private static TMP_FontAsset? GetFont(string name)

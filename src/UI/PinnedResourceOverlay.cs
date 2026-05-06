@@ -61,6 +61,7 @@ namespace FFUIOverhaul.UI
         private DraggablePanel? _expandedDrag;
         private DraggablePanel? _collapsedDrag;
         private readonly List<Image> _opacityImages = new(); // panels whose alpha tracks OverlayOpacity
+        private static readonly List<Image> _pendingChevrons = new(); // arrow images awaiting sprite resolution
 
         private readonly List<PinnedRow> _rows = new();
         private readonly List<PinnedItem> _pinnedItems = new();
@@ -90,6 +91,7 @@ namespace FFUIOverhaul.UI
 
             UIScaleSync.Sync(_canvasScaler);
             SyncOpacity();
+            SyncPendingChevrons();
 
             _refreshTimer += Time.unscaledDeltaTime;
             if (_refreshTimer >= 0.5f)
@@ -902,18 +904,36 @@ namespace FFUIOverhaul.UI
             arrt.anchoredPosition = Vector2.zero;
             arrt.localRotation = Quaternion.Euler(0, 0, zRotation);
             var arrowImg = arrowGo.GetComponent<Image>();
-            if (FFNativeAssets.ArrowChevron != null)
-            {
-                arrowImg.sprite = FFNativeAssets.ArrowChevron;
-                arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f); // warm amber
-            }
-            else
-            {
-                arrowImg.color = new Color(1f, 1f, 1f, 0.7f);
-                FFUIOverhaulMod.Log.Warning("[Overlay] FF chevron sprite not found in probe — arrow rendering as fallback dot.");
-            }
+            arrowImg.color = new Color(0.95f, 0.85f, 0.55f, 1f); // warm amber
             arrowImg.raycastTarget = false;
+            // Try to assign now; if the sprite probe hasn't found it yet
+            // (BuildingInfo prefab not loaded), register for retry — Tick
+            // re-tries each frame until the sprite resolves, then drops it
+            // from the pending list.
+            if (FFNativeAssets.ArrowChevron != null)
+                arrowImg.sprite = FFNativeAssets.ArrowChevron;
+            else
+                _pendingChevrons.Add(arrowImg);
             return go;
+        }
+
+        /// <summary>
+        /// Re-resolve chevron sprites on collapse buttons that were built
+        /// before FF's BuildingInfo prefab was loaded. Cheap — runs once on
+        /// first availability, then the list is empty for the rest of the run.
+        /// </summary>
+        private static void SyncPendingChevrons()
+        {
+            if (_pendingChevrons.Count == 0) return;
+            var sprite = FFNativeAssets.ArrowChevron;
+            if (sprite == null) return;
+            for (int i = _pendingChevrons.Count - 1; i >= 0; i--)
+            {
+                var img = _pendingChevrons[i];
+                if (img == null) { _pendingChevrons.RemoveAt(i); continue; }
+                img.sprite = sprite;
+                _pendingChevrons.RemoveAt(i);
+            }
         }
 
         private static GameObject NewIconButton(GameObject parent, string name, string label, float width, UnityEngine.Events.UnityAction onClick)
