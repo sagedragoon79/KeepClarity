@@ -63,25 +63,88 @@ namespace FFUIOverhaul.TechTree
             return -1;
         }
 
+        // Persistence format (per-save scoped):
+        //   savefile1=id1,id2|savefile2=id3,id4|...
+        // Without the per-save key, queue entries leaked across saves — the
+        // pref is global to the mod install, not the save.
+        private static string _loadedForSave = "__never__";
+
+        private static string CurrentSaveName()
+        {
+            // Empty until the player loads or starts a save (main menu).
+            return SaveManager.activeSaveFileName ?? "";
+        }
+
+        public static void EnsureLoadedForCurrentSave()
+        {
+            var name = CurrentSaveName();
+            if (name == _loadedForSave) return;
+            Load();
+        }
+
         public static void Load()
         {
             _queue.Clear();
+            _loadedForSave = CurrentSaveName();
             var raw = FFUIOverhaulMod.TechResearchQueue?.Value ?? "";
             if (string.IsNullOrEmpty(raw)) return;
-            foreach (var part in raw.Split(','))
-                if (int.TryParse(part.Trim(), out int id)) _queue.Add(id);
+
+            // Legacy format: flat CSV "id1,id2,id3" with no per-save key.
+            // Drop it on first load — these IDs probably belong to whatever
+            // save was open when v1.1.0 first wrote them, and we can't know
+            // which one. Cleaner to start fresh than carry the wrong queue.
+            if (raw.IndexOf('|') < 0 && raw.IndexOf('=') < 0)
+            {
+                FFUIOverhaulMod.TechResearchQueue!.Value = "";
+                MelonPreferences.Save();
+                return;
+            }
+
+            foreach (var entry in raw.Split('|'))
+            {
+                int eq = entry.IndexOf('=');
+                if (eq <= 0) continue;
+                var key = entry.Substring(0, eq);
+                if (key != _loadedForSave) continue;
+                var ids = entry.Substring(eq + 1);
+                foreach (var part in ids.Split(','))
+                    if (int.TryParse(part.Trim(), out int id)) _queue.Add(id);
+                break;
+            }
         }
 
         private static void Save()
         {
             if (FFUIOverhaulMod.TechResearchQueue == null) return;
-            FFUIOverhaulMod.TechResearchQueue.Value = string.Join(",", _queue);
+            var name = CurrentSaveName();
+            if (string.IsNullOrEmpty(name)) return; // main menu / no save active
+
+            // Rebuild the dict: keep all other saves' entries, swap in ours.
+            var raw = FFUIOverhaulMod.TechResearchQueue.Value ?? "";
+            var entries = new List<string>();
+            if (!string.IsNullOrEmpty(raw) && (raw.IndexOf('|') >= 0 || raw.IndexOf('=') >= 0))
+            {
+                foreach (var entry in raw.Split('|'))
+                {
+                    int eq = entry.IndexOf('=');
+                    if (eq <= 0) continue;
+                    var key = entry.Substring(0, eq);
+                    if (key == name) continue; // we're about to write this one
+                    entries.Add(entry);
+                }
+            }
+            if (_queue.Count > 0)
+                entries.Add(name + "=" + string.Join(",", _queue));
+
+            FFUIOverhaulMod.TechResearchQueue.Value = string.Join("|", entries);
             MelonPreferences.Save();
+            _loadedForSave = name;
         }
 
         public static void Toggle(int id)
         {
             if (id < 0) return;
+            EnsureLoadedForCurrentSave();
             if (_queue.Contains(id))
                 _queue.Remove(id);
             else
@@ -108,6 +171,7 @@ namespace FFUIOverhaul.TechTree
         /// </summary>
         public static int TrySpendAll()
         {
+            EnsureLoadedForCurrentSave();
             var gm = UnitySingleton<GameManager>.Instance;
             var tm = gm?.techTreeManager;
             if (tm == null || _queue.Count == 0) return 0;

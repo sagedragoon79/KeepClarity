@@ -321,6 +321,11 @@ namespace FFUIOverhaul
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
 
+                // Re-load the tech queue for whichever save just opened. The
+                // pref is per-save scoped (key = SaveManager.activeSaveFileName),
+                // so a load-from-menu has to reread to swap in the right queue.
+                TechAutoQueue.EnsureLoadedForCurrentSave();
+
                 // Settings discovery — runs once per session, here rather than
                 // OnInitializeMelon because MelonLoader throttles log output
                 // during init, and other mods may register prefs lazily.
