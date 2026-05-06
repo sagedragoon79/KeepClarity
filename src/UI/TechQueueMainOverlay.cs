@@ -61,7 +61,21 @@ namespace FFUIOverhaul.UI
             UIScaleSync.Sync(_canvasScaler);
             SyncOpacity();
             SyncPendingChevrons();
+
+            // Belt-and-suspenders against banked KP that the AddKnowledgePoints
+            // postfix never saw (queue populated after points already accrued,
+            // mod hot-reload, etc.). Throttled — TrySpendAll early-returns when
+            // there's nothing to do, so the cost is one if-check per second.
+            _autoSpendCheckTimer += Time.unscaledDeltaTime;
+            if (_autoSpendCheckTimer >= 1f)
+            {
+                _autoSpendCheckTimer = 0f;
+                int spent = TechTree.TechAutoQueue.TrySpendAll();
+                if (spent > 0) RefreshDisplay();
+            }
         }
+
+        private float _autoSpendCheckTimer;
 
         public void RefreshDisplay()
         {

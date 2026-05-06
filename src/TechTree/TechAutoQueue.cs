@@ -89,6 +89,9 @@ namespace FFUIOverhaul.TechTree
             Save();
             TechNodePinWidget.RefreshAll();
             TechQueueStrip.RefreshText();
+            // Spend any KP banked before the queue was set up. The
+            // AddKnowledgePoints postfix only catches new awards, not retro.
+            TrySpendAll();
         }
 
         public static void Clear()
