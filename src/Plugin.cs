@@ -305,7 +305,10 @@ namespace FFUIOverhaul
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
-            bool isMap = sceneName == "Map";
+            // FF's gameplay scene is "Frontier" (not "Map" — assumed wrong
+            // earlier). Any scene other than Frontier is non-gameplay (main
+            // menu, loading splashes, credits) and the overlays must hide.
+            bool isMap = sceneName == "Frontier";
 
             if (isMap)
             {

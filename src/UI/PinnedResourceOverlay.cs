@@ -993,24 +993,16 @@ namespace FFUIOverhaul.UI
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene _, UnityEngine.SceneManagement.Scene next)
             => ApplySceneVisibility(next);
 
-        private static bool _loggedSceneName;
         private void ApplySceneVisibility(UnityEngine.SceneManagement.Scene scene)
         {
             if (_canvasRoot == null) return;
-            // Hide on every scene that isn't gameplay. We treat "MainMenu" and
-            // its variants as the only definitive non-gameplay name and let
-            // everything else through — that way an unexpected scene name (e.g.
-            // a "MapLoad" splash) doesn't accidentally hide the overlay during
-            // an active session. The log line below records the actual name on
-            // first call so we can tighten the rule if needed.
+            // FF's gameplay scene is "Frontier" (confirmed via earlier log).
+            // Anywhere else (main menu, loading splashes, credits, etc.) the
+            // overlay must hide. The earlier "menu allowlist" approach
+            // missed the actual menu scene name and let panels leak.
             string n = scene.name ?? "";
-            bool isMenu = n.StartsWith("MainMenu") || n == "Menu" || n == "Logo" || n == "Splash";
-            bool isInGame = !isMenu;
-            if (!_loggedSceneName)
-            {
-                FFUIOverhaulMod.Log.Msg($"[PinnedOverlay] active scene='{n}' → visible={isInGame}");
-                _loggedSceneName = true;
-            }
+            bool isInGame = n == "Frontier";
+            FFUIOverhaulMod.Log.Msg($"[PinnedOverlay] scene='{n}' → visible={isInGame}");
             _canvasRoot.SetActive(isInGame);
         }
 

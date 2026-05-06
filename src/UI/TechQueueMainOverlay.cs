@@ -432,18 +432,12 @@ namespace FFUIOverhaul.UI
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene _, UnityEngine.SceneManagement.Scene next)
             => ApplySceneVisibility(next);
 
-        private static bool _loggedSceneName;
         private void ApplySceneVisibility(UnityEngine.SceneManagement.Scene scene)
         {
             if (_canvasRoot == null) return;
             string n = scene.name ?? "";
-            bool isMenu = n.StartsWith("MainMenu") || n == "Menu" || n == "Logo" || n == "Splash";
-            bool isInGame = !isMenu;
-            if (!_loggedSceneName)
-            {
-                FFUIOverhaulMod.Log.Msg($"[TechQueueOverlay] active scene='{n}' → visible={isInGame}");
-                _loggedSceneName = true;
-            }
+            bool isInGame = n == "Frontier";
+            FFUIOverhaulMod.Log.Msg($"[TechQueueOverlay] scene='{n}' → visible={isInGame}");
             _canvasRoot.SetActive(isInGame);
         }
 
