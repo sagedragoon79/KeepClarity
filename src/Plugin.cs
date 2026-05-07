@@ -60,6 +60,11 @@ namespace FFUIOverhaul
         // Planner button
         public static MelonPreferences_Entry<bool> ShowPlannerButton { get; private set; } = null!;
 
+        // New game menu QoL
+        public static MelonPreferences_Entry<bool> KeepMapTypeOnReroll { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> RememberCustomChoices { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> RememberCustomChoicesSnapshot { get; private set; } = null!;
+
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> SettingsVerboseLog { get; private set; } = null!;
@@ -194,6 +199,19 @@ namespace FFUIOverhaul
             ShowPlannerButton = _prefs.CreateEntry("ShowPlannerButton", true,
                 display_name: "Show Planner Button",
                 description: "Show the PLAN icon in the top bar that opens SageDragoon's Farthest Frontier Planner in your browser. Restart required to take effect.");
+
+            KeepMapTypeOnReroll = _prefs.CreateEntry("KeepMapTypeOnReroll", true,
+                display_name: "Keep Map Type on Reroll",
+                description: "When enabled, the dice button in the New Game menu rerolls the seed within your selected terrain type (Lush Forest, Cold Mountains, etc.) instead of forcing it to Random. Disable to restore vanilla behavior.");
+
+            RememberCustomChoices = _prefs.CreateEntry("RememberCustomChoices", false,
+                display_name: "Remember Choices",
+                description: "When enabled, your selections in the New Game → Custom Settings panel are saved on Confirm and restored automatically the next time you open that panel.");
+
+            RememberCustomChoicesSnapshot = _prefs.CreateEntry("RememberCustomChoicesSnapshot", "",
+                display_name: "(internal) Custom Choices Snapshot",
+                description: "Internal — saved values for the Remember Choices feature. Edit only if you know the format.",
+                is_hidden: true);
 
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
