@@ -64,6 +64,7 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> KeepMapTypeOnReroll { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> RememberCustomChoices { get; private set; } = null!;
         public static MelonPreferences_Entry<string> RememberCustomChoicesSnapshot { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> SkipNewMapIntro { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -212,6 +213,10 @@ namespace FFUIOverhaul
                 display_name: "(internal) Custom Choices Snapshot",
                 description: "Internal — saved values for the Remember Choices feature. Edit only if you know the format.",
                 is_hidden: true);
+
+            SkipNewMapIntro = _prefs.CreateEntry("SkipNewMapIntro", false,
+                display_name: "Skip Start-of-Game Cinematic",
+                description: "Skip the cinematic video that plays after starting a new settlement. Goes straight to map load — no video, no narration.");
 
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",

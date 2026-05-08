@@ -9,12 +9,12 @@ namespace FFUIOverhaul.Patches
     ///   1. When a modal (Y/N confirmation) is visible — prevents Y/N bleeding to achievements/roads
     ///   2. When the building info window is active — prevents R/U/E/Del from also firing game bindings
     ///   3. When the build/deconstruction site info window is active — prevents Del/P bleeding
+    ///   4. When a forageable is selected — prevents R from also firing FF's bind
     ///
-    /// Exception (building window only): a small allowlist of "global" shortcuts
-    /// passes through — Pause and F2-F5 — so the player can pause / save-camera /
-    /// etc. without having to close the building first. Modal and build-site
-    /// suppression stays absolute (modals need full attention; -/= are our
-    /// builder controls and would conflict with vanilla speed up/down).
+    /// Exception: a small allowlist of "global" shortcuts passes through in
+    /// every non-modal context — Pause and F2-F5 — so the player can pause /
+    /// camera-save / etc. without dismissing the info window first. Modal
+    /// suppression stays absolute (modals need full attention).
     /// </summary>
     [HarmonyPatch(typeof(global::HotkeyManager.HotkeyManager), "GetKeyComboDown")]
     static class HotkeySuppressPatch
@@ -28,18 +28,21 @@ namespace FFUIOverhaul.Patches
 
             if (!modal && !building && !buildSite && !forageable) return true; // no suppression context
 
-            // Allowlist applies only when ONLY the building info window is active.
-            if (building && !modal && !buildSite && !forageable && IsAllowThroughDuringBuilding(keyCombo))
+            // Modals trump the allowlist — Y/N/Esc/Enter must hit the dialog only.
+            if (!modal && IsGlobalAllowThrough(keyCombo))
                 return true;
 
             __result = false;
             return false;
         }
 
-        private static bool IsAllowThroughDuringBuilding(KeyCombo combo)
+        /// <summary>
+        /// Pause + F2-F5 are non-conflicting with any of our info-panel
+        /// hotkeys (R/U/E/Del/T/P/O/-/=) so they pass through whenever a
+        /// non-modal info panel has focus.
+        /// </summary>
+        private static bool IsGlobalAllowThrough(KeyCombo combo)
         {
-            // F2-F5: always allowed, regardless of binding (they're function keys
-            // typically used for camera saves and the player wants them globally).
             switch (combo.key)
             {
                 case KeyCode.F2:
