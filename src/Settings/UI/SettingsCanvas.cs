@@ -36,7 +36,10 @@ namespace FFUIOverhaul.Settings.UI
         private GameObject? _restartBanner;
         private Image? _saveBtnImage;
         private Button? _saveBtn;
+        private GameObject? _unsavedPrompt;
         private CanvasGroup? _canvasGroup;
+        private bool _isDirty;          // any change since last save (or session start)
+        private bool _saveBtnIsGreen;   // Save button currently in "saved" state
         // Banner reflects "any RestartRequired pref currently differs from
         // its session-start value" — a revert clears the entry; banner hides
         // when the set is empty. Session-start values themselves live on
@@ -241,6 +244,100 @@ namespace FFUIOverhaul.Settings.UI
             // simple hierarchy ordering — Show() calls SetAsLastSibling() so
             // it renders on top of everything else in the panel.
             TooltipOverlay.EnsureInstance(canvasGo.transform);
+
+            BuildUnsavedPrompt(canvasGo.transform);
+        }
+
+        private void BuildUnsavedPrompt(Transform parent)
+        {
+            // Outer click-blocker — full canvas, dark transparent.
+            var rootGo = new GameObject("UnsavedPrompt", typeof(RectTransform), typeof(Image));
+            rootGo.transform.SetParent(parent, false);
+            var rrt = (RectTransform)rootGo.transform;
+            rrt.anchorMin = Vector2.zero;
+            rrt.anchorMax = Vector2.one;
+            rrt.offsetMin = Vector2.zero;
+            rrt.offsetMax = Vector2.zero;
+            var blocker = rootGo.GetComponent<Image>();
+            blocker.color = new Color(0, 0, 0, 0.55f);
+
+            // Centered dialog panel
+            var dlgGo = new GameObject("Dialog", typeof(RectTransform), typeof(Image));
+            dlgGo.transform.SetParent(rootGo.transform, false);
+            var drt = (RectTransform)dlgGo.transform;
+            drt.anchorMin = drt.anchorMax = new Vector2(0.5f, 0.5f);
+            drt.pivot = new Vector2(0.5f, 0.5f);
+            drt.sizeDelta = new Vector2(520, 200);
+            drt.anchoredPosition = Vector2.zero;
+            ApplyBorderSprite(dlgGo.GetComponent<Image>(), FFNativeAssets.PanelBorder, FFNativeAssets.PanelTintDefault);
+
+            // Title
+            var titleGo = new GameObject("Title", typeof(RectTransform));
+            titleGo.transform.SetParent(dlgGo.transform, false);
+            var title = titleGo.AddComponent<TextMeshProUGUI>();
+            if (FFNativeAssets.FontHeader != null) title.font = FFNativeAssets.FontHeader;
+            title.text = "Unsaved Changes";
+            title.fontSize = 22;
+            title.color = FFNativeAssets.WarningAmber;
+            title.characterSpacing = 3f;
+            title.alignment = TextAlignmentOptions.Center;
+            var trt2 = title.rectTransform;
+            trt2.anchorMin = new Vector2(0, 1);
+            trt2.anchorMax = new Vector2(1, 1);
+            trt2.pivot = new Vector2(0.5f, 1);
+            trt2.sizeDelta = new Vector2(0, 36);
+            trt2.anchoredPosition = new Vector2(0, -16);
+
+            // Body
+            var bodyGo = new GameObject("Body", typeof(RectTransform));
+            bodyGo.transform.SetParent(dlgGo.transform, false);
+            var body = bodyGo.AddComponent<TextMeshProUGUI>();
+            if (FFNativeAssets.FontBody != null) body.font = FFNativeAssets.FontBody;
+            body.text = "Settings have changed but haven't been saved.\nClose anyway?";
+            body.fontSize = 14;
+            body.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
+            body.color = FFNativeAssets.TextPrimary;
+            body.alignment = TextAlignmentOptions.Center;
+            body.enableWordWrapping = true;
+            var brt2 = body.rectTransform;
+            brt2.anchorMin = new Vector2(0, 0);
+            brt2.anchorMax = new Vector2(1, 1);
+            brt2.offsetMin = new Vector2(20, 60);
+            brt2.offsetMax = new Vector2(-20, -60);
+
+            // Buttons (Cancel / Close Anyway)
+            var cancelBtn = NewButton("Cancel", dlgGo.transform, "Cancel", () =>
+            {
+                if (_unsavedPrompt != null) _unsavedPrompt.SetActive(false);
+            }, fancy: true);
+            var crt = cancelBtn.GetComponent<RectTransform>();
+            crt.anchorMin = new Vector2(0, 0);
+            crt.anchorMax = new Vector2(0, 0);
+            crt.pivot = new Vector2(0, 0);
+            crt.sizeDelta = new Vector2(160, 40);
+            crt.anchoredPosition = new Vector2(40, 20);
+
+            var closeAnywayBtn = NewButton("CloseAnyway", dlgGo.transform, "Close Anyway", () =>
+            {
+                if (_unsavedPrompt != null) _unsavedPrompt.SetActive(false);
+                Close();
+            }, fancy: true);
+            var carT = closeAnywayBtn.GetComponent<RectTransform>();
+            carT.anchorMin = new Vector2(1, 0);
+            carT.anchorMax = new Vector2(1, 0);
+            carT.pivot = new Vector2(1, 0);
+            carT.sizeDelta = new Vector2(200, 40);
+            carT.anchoredPosition = new Vector2(-40, 20);
+
+            _unsavedPrompt = rootGo;
+            _unsavedPrompt.SetActive(false);
+        }
+
+        private void ShowUnsavedPrompt()
+        {
+            if (_unsavedPrompt == null) return;
+            _unsavedPrompt.SetActive(true);
+            _unsavedPrompt.transform.SetAsLastSibling();
         }
 
         private void BuildHeader(Transform parent)
@@ -368,21 +465,35 @@ namespace FFUIOverhaul.Settings.UI
             // RestartRequired pref is changed during the session.
             BuildRestartBanner(footer.transform);
 
-            // Save & Close button — flashes green on click for ~0.75s before close.
-            var saveBtn = NewButton("SaveCloseBtn", footer.transform, "Save & Close", () =>
+            // Close button (rightmost) — closes panel. If there are unsaved
+            // changes, prompts the user before actually closing.
+            var closeBtn = NewButton("CloseBtn", footer.transform, "Close", () =>
+            {
+                if (_isDirty) ShowUnsavedPrompt();
+                else Close();
+            }, fancy: true);
+            var cbRT = closeBtn.GetComponent<RectTransform>();
+            cbRT.anchorMin = new Vector2(1, 0.5f);
+            cbRT.anchorMax = new Vector2(1, 0.5f);
+            cbRT.pivot = new Vector2(1, 0.5f);
+            cbRT.anchoredPosition = new Vector2(-24, 4);
+            cbRT.sizeDelta = new Vector2(140, 40);
+
+            // Save button — turns green and STAYS green after click. Reverts
+            // to normal the next time any setting changes.
+            var saveBtn = NewButton("SaveBtn", footer.transform, "Save", () =>
             {
                 try { MelonLoader.MelonPreferences.Save(); } catch { }
-                StartCoroutine(FlashSaveButtonAndClose());
+                _isDirty = false;
+                StartCoroutine(FadeSaveButtonToGreen());
             }, fancy: true);
             var sbRT = saveBtn.GetComponent<RectTransform>();
             sbRT.anchorMin = new Vector2(1, 0.5f);
             sbRT.anchorMax = new Vector2(1, 0.5f);
             sbRT.pivot = new Vector2(1, 0.5f);
-            sbRT.anchoredPosition = new Vector2(-24, 4);
-            sbRT.sizeDelta = new Vector2(200, 40);
+            sbRT.anchoredPosition = new Vector2(-172, 4);  // left of Close (140 + 8 gap)
+            sbRT.sizeDelta = new Vector2(140, 40);
 
-            // Capture the button's Image and Button so the flash coroutine can
-            // tint it directly without rebuilding.
             _saveBtnImage = saveBtn.GetComponent<Image>();
             _saveBtn = saveBtn.GetComponent<Button>();
 
@@ -398,7 +509,7 @@ namespace FFUIOverhaul.Settings.UI
             rbRT.anchorMin = new Vector2(1, 0.5f);
             rbRT.anchorMax = new Vector2(1, 0.5f);
             rbRT.pivot = new Vector2(1, 0.5f);
-            rbRT.anchoredPosition = new Vector2(-236, 4);  // left of Save & Close
+            rbRT.anchoredPosition = new Vector2(-320, 4);  // left of Save
             rbRT.sizeDelta = new Vector2(110, 36);
         }
 
@@ -492,37 +603,51 @@ namespace FFUIOverhaul.Settings.UI
             _restartBanner.SetActive(false);
         }
 
-        private System.Collections.IEnumerator FlashSaveButtonAndClose()
+        private static readonly Color SAVE_BTN_NORMAL = Color.white;
+        private static readonly Color SAVE_BTN_SAVED = new Color(0.55f, 0.85f, 0.45f, 1f);
+
+        private System.Collections.IEnumerator FadeSaveButtonToGreen()
         {
-            if (_saveBtn != null) _saveBtn.interactable = false;
-
-            var startColor = _saveBtnImage != null ? _saveBtnImage.color : Color.white;
-            var greenColor = new Color(0.55f, 0.85f, 0.45f, 1f);
-
-            // Fade to green over 0.15s
             float t = 0f;
             const float fadeIn = 0.15f;
+            var start = _saveBtnImage != null ? _saveBtnImage.color : SAVE_BTN_NORMAL;
             while (t < fadeIn)
             {
                 t += Time.unscaledDeltaTime;
                 if (_saveBtnImage != null)
-                    _saveBtnImage.color = Color.Lerp(startColor, greenColor, t / fadeIn);
+                    _saveBtnImage.color = Color.Lerp(start, SAVE_BTN_SAVED, t / fadeIn);
                 yield return null;
             }
-            if (_saveBtnImage != null) _saveBtnImage.color = greenColor;
+            if (_saveBtnImage != null) _saveBtnImage.color = SAVE_BTN_SAVED;
+            _saveBtnIsGreen = true;
+        }
 
-            // Hold ~0.45s
-            yield return new WaitForSecondsRealtime(0.45f);
-
-            // Restore button color (so when panel reopens it looks normal)
-            if (_saveBtnImage != null) _saveBtnImage.color = startColor;
-            if (_saveBtn != null) _saveBtn.interactable = true;
-
-            Close();
+        private System.Collections.IEnumerator FadeSaveButtonToNormal()
+        {
+            float t = 0f;
+            const float fadeOut = 0.20f;
+            var start = _saveBtnImage != null ? _saveBtnImage.color : SAVE_BTN_SAVED;
+            while (t < fadeOut)
+            {
+                t += Time.unscaledDeltaTime;
+                if (_saveBtnImage != null)
+                    _saveBtnImage.color = Color.Lerp(start, SAVE_BTN_NORMAL, t / fadeOut);
+                yield return null;
+            }
+            if (_saveBtnImage != null) _saveBtnImage.color = SAVE_BTN_NORMAL;
+            _saveBtnIsGreen = false;
         }
 
         private void OnAnySettingChanged(string modId, string key, object? newValue)
         {
+            // Any registered change marks the panel dirty + reverts the
+            // Save button's "saved" green tint back to normal.
+            _isDirty = true;
+            if (_saveBtnIsGreen && _saveBtnImage != null)
+            {
+                StartCoroutine(FadeSaveButtonToNormal());
+            }
+
             SettingEntryRecord? match = null;
             foreach (var rec in SettingsRegistry.Entries)
             {

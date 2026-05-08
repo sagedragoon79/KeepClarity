@@ -65,6 +65,7 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> RememberCustomChoices { get; private set; } = null!;
         public static MelonPreferences_Entry<string> RememberCustomChoicesSnapshot { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> SkipNewMapIntro { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> SyncMapTypeWithRiverPreset { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -217,6 +218,10 @@ namespace FFUIOverhaul
             SkipNewMapIntro = _prefs.CreateEntry("SkipNewMapIntro", false,
                 display_name: "Skip Start-of-Game Cinematic",
                 description: "Skip the cinematic video that plays after starting a new settlement. Goes straight to map load — no video, no narration.");
+
+            SyncMapTypeWithRiverPreset = _prefs.CreateEntry("SyncMapTypeWithRiverPreset", true,
+                display_name: "Sync Map Type with Rivers Restored Preset",
+                description: "When Rivers Restored is installed, the New Settlement default terrain matches your RR River Preset (Plains, Alpine Valleys, etc.) and changing the terrain in-panel updates RR's preset. Custom / Random / unknown values are not synced.");
 
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
