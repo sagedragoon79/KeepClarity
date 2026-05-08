@@ -78,14 +78,14 @@ namespace FFUIOverhaul.Patches
                     parts.Add(name + "=" + ((int)s.value).ToString());
             }
 
-            FFUIOverhaulMod.RememberCustomChoicesSnapshot.Value = string.Join("|", parts);
+            FFUIOverhaulMod.RememberCustomSettingsSnapshot.Value = string.Join("|", parts);
             MelonPreferences.Save();
         }
 
         public static void RestoreSnapshot(object panelInstance)
         {
             if (panelInstance == null) return;
-            var raw = FFUIOverhaulMod.RememberCustomChoicesSnapshot?.Value ?? "";
+            var raw = FFUIOverhaulMod.RememberCustomSettingsSnapshot?.Value ?? "";
             if (string.IsNullOrEmpty(raw)) return;
 
             var t = panelInstance.GetType();
@@ -119,6 +119,31 @@ namespace FFUIOverhaul.Patches
                 var f = t.GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
                 if (f?.GetValue(panelInstance) is Slider s)
                     s.value = level; // fires onValueChanged → updates SettingsManager
+            }
+
+            // Master toggle visual + the external "Custom Settings" button
+            // swap. FF only flips between customSettingsButton_OFF (gray) and
+            // customSettingsButton_ON (orange) inside OnCustomSettingsClose,
+            // which our restore path doesn't go through. So we mirror that
+            // swap here once we know the master toggle's state.
+            SyncMasterButtonVisibility(panelInstance, t, values);
+        }
+
+        private static void SyncMasterButtonVisibility(object panel, Type t, Dictionary<string, string> values)
+        {
+            if (!values.TryGetValue("enableCustomSettingsButton", out var v)) return;
+            bool on = v == "1";
+
+            var offToggle = t.GetField("customSettingsButton_OFF", BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(panel) as UnityEngine.MonoBehaviour;
+            var onToggle = t.GetField("customSettingsButton_ON", BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(panel) as UnityEngine.MonoBehaviour;
+            if (offToggle != null && onToggle != null)
+            {
+                offToggle.gameObject.SetActive(!on);
+                offToggle.enabled = !on;
+                onToggle.gameObject.SetActive(on);
+                onToggle.enabled = on;
             }
         }
 
@@ -171,7 +196,7 @@ namespace FFUIOverhaul.Patches
     {
         public static void Postfix(UIStartMenu_NewSettlement __instance)
         {
-            if (FFUIOverhaulMod.RememberCustomChoices == null || !FFUIOverhaulMod.RememberCustomChoices.Value) return;
+            if (FFUIOverhaulMod.RememberCustomSettings == null || !FFUIOverhaulMod.RememberCustomSettings.Value) return;
             try { RememberCustomChoices.RestoreSnapshot(__instance); }
             catch (Exception e) { FFUIOverhaulMod.Log.Warning($"[RememberChoices] Restore failed: {e.Message}"); }
         }
@@ -182,7 +207,7 @@ namespace FFUIOverhaul.Patches
     {
         public static void Postfix(UIStartMenu_NewSettlement __instance)
         {
-            if (FFUIOverhaulMod.RememberCustomChoices == null || !FFUIOverhaulMod.RememberCustomChoices.Value) return;
+            if (FFUIOverhaulMod.RememberCustomSettings == null || !FFUIOverhaulMod.RememberCustomSettings.Value) return;
             try { RememberCustomChoices.TakeSnapshot(__instance); }
             catch (Exception e) { FFUIOverhaulMod.Log.Warning($"[RememberChoices] Snapshot failed: {e.Message}"); }
         }
