@@ -66,6 +66,9 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<string> RememberCustomSettingsSnapshot { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> SkipNewMapIntro { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> SyncMapTypeWithRiverPreset { get; private set; } = null!;
+        public static MelonPreferences_Entry<int> CustomPopulationCap { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> IgnoreUpgradePopulationRequirement { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> EnableScenarioConfirmHotkey { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -223,6 +226,18 @@ namespace FFUIOverhaul
                 display_name: "Sync Map Type with Rivers Restored Preset",
                 description: "When Rivers Restored is installed, the New Settlement default terrain matches your RR River Preset (Plains, Alpine Valleys, etc.) and changing the terrain in-panel updates RR's preset. Custom / Random / unknown values are not synced.");
 
+            CustomPopulationCap = _prefs.CreateEntry("CustomPopulationCap", 0,
+                display_name: "Custom Population Cap",
+                description: "Override the population cap with any value. 0 = use whatever you set in the game's slider (200/500/1000/etc). Anything else = exact cap. Useful for picking values between the slider stops (e.g. 250, 750).");
+
+            IgnoreUpgradePopulationRequirement = _prefs.CreateEntry("IgnoreUpgradePopulationRequirement", false,
+                display_name: "Ignore Upgrade Population Requirement",
+                description: "Bypass the population requirement on building upgrades (Town Center tier ups, etc). Useful if you set a low Custom Population Cap and would otherwise be unable to progress.");
+
+            EnableScenarioConfirmHotkey = _prefs.CreateEntry("EnableScenarioConfirmHotkey", true,
+                display_name: "Scenario Popup Hotkey",
+                description: "Press Space, Enter, or Esc to dismiss the start-of-game scenario popup ('We've finished scouting the surrounding area') instead of clicking Confirm. Useful when the cursor isn't visible.");
+
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
@@ -309,6 +324,7 @@ namespace FFUIOverhaul
             _techQueueOverlay?.Tick();
             TechQueueInput.Tick();
             HandlePauseOnLoad(gm);
+            Patches.ScenarioConfirmHotkey.Tick();
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -356,6 +372,10 @@ namespace FFUIOverhaul
                 // pref is per-save scoped (key = SaveManager.activeSaveFileName),
                 // so a load-from-menu has to reread to swap in the right queue.
                 TechAutoQueue.EnsureLoadedForCurrentSave();
+
+                // Apply custom population cap if set. Has to happen after
+                // SettingsManager is initialized for the gameplay scene.
+                Patches.PopulationCapOverride.ApplyIfSet();
 
                 // Settings discovery — runs once per session, here rather than
                 // OnInitializeMelon because MelonLoader throttles log output

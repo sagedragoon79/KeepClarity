@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 
 namespace FFUIOverhaul.Patches
 {
@@ -36,7 +37,14 @@ namespace FFUIOverhaul.Patches
 
                 var current = _stateField.GetValue(__instance);
                 if (current?.Equals(_playingCinematic) == true)
+                {
                     _stateField.SetValue(__instance, _loadGame);
+                    // Vanilla restores Cursor.visible inside the
+                    // PRE_DONE_PLAYING_CINEMATIC state we're skipping over.
+                    // Without this the player's cursor stays hidden into the
+                    // first scenario screen ("Choose your TC location").
+                    Cursor.visible = true;
+                }
             }
             catch (Exception e)
             {
