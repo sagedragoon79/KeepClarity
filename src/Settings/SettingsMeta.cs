@@ -15,6 +15,13 @@ namespace FFUIOverhaul.Settings
         public string? Group;
         public int Order;
         public Func<bool>? VisibleWhen;
+
+        /// <summary>
+        /// Left-padding in pixels applied to the row. Use to visually nest
+        /// sub-prefs under their master toggle. Recommended values: 0 (no
+        /// indent — top-level masters), 20 (single nest), 40 (double nest).
+        /// </summary>
+        public int Indent;
     }
 
     public class ModSettingsInfo

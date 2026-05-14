@@ -301,15 +301,17 @@ namespace FFUIOverhaul.Settings.UI
             const float ICON_W = 22f;
             const float LABEL_W = 260f;
             const float RESET_W = 28f;
+            float indent = Mathf.Max(0, e.Meta.Indent); // left padding for nested rows
 
-            // Restart-required indicator (left column, 22px wide)
+            // Restart-required indicator (left column, 22px wide). Indent shifts
+            // it right so the whole row visually nests under its master toggle.
             var iconGo = new GameObject("RestartIcon", typeof(RectTransform), typeof(Image));
             iconGo.transform.SetParent(rowGo.transform, false);
             var iconRT = (RectTransform)iconGo.transform;
             iconRT.anchorMin = new Vector2(0, 0.5f);
             iconRT.anchorMax = new Vector2(0, 0.5f);
             iconRT.pivot = new Vector2(0, 0.5f);
-            iconRT.anchoredPosition = new Vector2(0, 0);
+            iconRT.anchoredPosition = new Vector2(indent, 0);
             iconRT.sizeDelta = new Vector2(18, 18);
             var iconImg = iconGo.GetComponent<Image>();
             if (e.Meta.RestartRequired && FFNativeAssets.IconWarning != null)
@@ -333,7 +335,7 @@ namespace FFUIOverhaul.Settings.UI
             labelRT.anchorMin = new Vector2(0, 0);
             labelRT.anchorMax = new Vector2(0, 1);
             labelRT.pivot = new Vector2(0, 0.5f);
-            labelRT.offsetMin = new Vector2(ICON_W + 6, 0);
+            labelRT.offsetMin = new Vector2(ICON_W + 6 + indent, 0);
             labelRT.offsetMax = new Vector2(0, 0);
             labelRT.sizeDelta = new Vector2(LABEL_W, 0);
             var labelTxt = labelGo.AddComponent<TextMeshProUGUI>();
@@ -368,7 +370,7 @@ namespace FFUIOverhaul.Settings.UI
             var controlRT = (RectTransform)controlGo.transform;
             controlRT.anchorMin = new Vector2(0, 0);
             controlRT.anchorMax = new Vector2(1, 1);
-            controlRT.offsetMin = new Vector2(ICON_W + 6 + LABEL_W + 12, 4);
+            controlRT.offsetMin = new Vector2(ICON_W + 6 + LABEL_W + 12 + indent, 4);
             controlRT.offsetMax = new Vector2(-(RESET_W + 8), -4);
 
             // Reset button — uses FF's BTN_BackRound01_UP (the circular
