@@ -328,6 +328,14 @@ namespace FFUIOverhaul.UI
             t.alignment = align;
             t.raycastTarget = false;
             t.font = GetGameFont();
+            // See PinnedResourceOverlay.NewText for the rationale + the
+            // try/catch reason (some TMP font assets NRE on outline set).
+            try
+            {
+                t.outlineWidth = 0.18f;
+                t.outlineColor = new Color32(0, 0, 0, 220);
+            }
+            catch { }
             return t;
         }
 

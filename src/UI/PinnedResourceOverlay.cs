@@ -859,6 +859,18 @@ namespace FFUIOverhaul.UI
             t.alignment = align;
             t.raycastTarget = false;
             t.font = GetGameFont();
+            // Thin dark outline so text reads against any background — even
+            // a low-opacity panel chrome or the world bleeding through. TMP's
+            // SetOutlineThickness pokes the shared font material; if the
+            // resolved font lacks an outline channel (some legacy / non-SDF
+            // TMP assets), the setter NREs. Try/catch keeps the panel build
+            // alive if it does — the outline is purely a polish.
+            try
+            {
+                t.outlineWidth = 0.18f;
+                t.outlineColor = new Color32(0, 0, 0, 220);
+            }
+            catch { }
             return t;
         }
 

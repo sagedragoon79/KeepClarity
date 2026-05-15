@@ -73,6 +73,9 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<int> CustomPopulationCap { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> IgnoreUpgradePopulationRequirement { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> DismissibleResourceAlerts { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> EnableCompanyOverlay { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CompanyOverlayPosX { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CompanyOverlayPosY { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -124,6 +127,21 @@ namespace FFUIOverhaul
             DemolishHotkey = _prefs.CreateEntry("DemolishHotkey", KeyCode.T,
                 display_name: "Salvage Building",
                 description: "Hotkey to salvage the selected building. Delete also works as a fixed fallback and can't be rebound.");
+
+            // One-shot migration. The DemolishHotkey pref kept its old key
+            // when renamed (so customizations could persist), but existing
+            // users still had its legacy default of Delete saved. Now Delete
+            // is the hardcoded fallback and T is the configurable default —
+            // force-reset to T once so the panel reflects the new convention.
+            var _demolishHotkeyMigratedToT = _prefs.CreateEntry("DemolishHotkeyMigratedToT", false,
+                display_name: "(internal) Salvage hotkey migrated to T",
+                description: "Internal — one-shot migration flag for the v1.1.0 Demolish→Salvage rename",
+                is_hidden: true);
+            if (!_demolishHotkeyMigratedToT.Value)
+            {
+                DemolishHotkey.Value = KeyCode.T;
+                _demolishHotkeyMigratedToT.Value = true;
+            }
 
             CycleBuildingLeftHotkey = _prefs.CreateEntry("CycleBuildingLeftHotkey", KeyCode.LeftArrow,
                 display_name: "Cycle Building Left",
@@ -260,6 +278,14 @@ namespace FFUIOverhaul
                 display_name: "Dismissible Resource Alerts",
                 description: "Click a top-bar resource '!' warning to dismiss it until the next month change. Common vanilla annoyance — you know about it and don't need the popup nagging you for the rest of the month.");
 
+            EnableCompanyOverlay = _prefs.CreateEntry("EnableCompanyOverlay", true,
+                display_name: "Company Roster Overlay",
+                description: "Shift+Left-Click a company banner (bottom of screen) to open a draggable roster panel showing each soldier with an HP bar. Single-click a row to select the soldier; double-click to center the camera on them.");
+            CompanyOverlayPosX = _prefs.CreateEntry("CompanyOverlayPosX", 0.5f,
+                display_name: "Company Overlay X", description: "Internal — drag the banner sprite to change.", is_hidden: true);
+            CompanyOverlayPosY = _prefs.CreateEntry("CompanyOverlayPosY", 0.7f,
+                display_name: "Company Overlay Y", description: "Internal — drag the banner sprite to change.", is_hidden: true);
+
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
@@ -346,6 +372,7 @@ namespace FFUIOverhaul
             TechQueueInput.Tick();
             HandlePauseOnLoad(gm);
             Patches.DismissibleResourceAlerts.Tick();
+            UI.CompanyOverlayManager.Tick();
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -495,32 +522,39 @@ namespace FFUIOverhaul
                 accentRgb: new[] { 0.45f, 0.65f, 0.40f, 1f },
                 order: 0);
 
-            // Hotkeys
+            // Hotkeys — pass an auto-incrementing Order so the panel displays
+            // entries in registration order rather than alphabetical-by-key.
+            // ModDetailPanel sorts within-category by Meta.Order ascending.
+            int _order = 0;
+            int Next() => (_order += 10);
             void K(string cat, MelonPreferences_Entry<KeyCode> entry, string label, string? tip = null) =>
-                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip });
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Order = Next() });
+            void R(string cat, MelonPreferences_Entry<bool> entry, string label, string? tip = null) =>
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Order = Next() });
+            void RF(string cat, MelonPreferences_Entry<float> entry, string label, float min, float max, string? tip = null, System.Func<bool>? visibleWhen = null) =>
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Min = min, Max = max, Order = Next(), VisibleWhen = visibleWhen });
+            void RI(string cat, MelonPreferences_Entry<int> entry, string label, int min, int max, string? tip = null) =>
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Min = min, Max = max, Order = Next() });
 
             // ── Reports & Panels ─────────────────────────────────────────
+            _order = 0;
             K("Hotkeys — Reports & Panels", ReportsHotkey, "Toggle Reports", "Open/close the 12-month report window");
             K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Overlays", "Show/hide both the pinned overlay and the tech queue overlay");
             K("Hotkeys — Reports & Panels", SettingsPanelHotkey, "Open Settings Panel", "Opens this very window");
 
             // ── Overlay Settings (pinned + tech queue overlays) ─────────
-            SettingsAPI.Register(id, name, "Overlay Settings", PinnedCollapsed,
-                new SettingsMeta { Label = "Pinned Overlay Starts Collapsed",
-                    Tooltip = "Pinned overlay opens collapsed to a tab" });
-            SettingsAPI.Register(id, name, "Overlay Settings", OverlayOpacity,
-                new SettingsMeta { Label = "Overlay Opacity", Min = 0.05f, Max = 1f,
-                    Tooltip = "How opaque the panel chrome is. Text and buttons stay fully readable regardless. Applies live." });
-            SettingsAPI.Register(id, name, "Overlay Settings", OverlayUIScale,
-                new SettingsMeta { Label = "Overlay UI Scale", Min = 0.5f, Max = 2f,
-                    Tooltip = "Pinned / tech queue panel size multiplier. Independent of FF's UI Scale. Applies live." });
-
-            // ── Settings Panel ───────────────────────────────────────────
-            SettingsAPI.Register(id, name, "Settings Panel", SettingsVerboseLog,
-                new SettingsMeta { Label = "Verbose Settings Log",
-                    Tooltip = "Log every claim/discovery decision to MelonLoader/Latest.log. Off by default; turn on only when debugging the panel." });
+            _order = 0;
+            R("Overlay Settings", PinnedCollapsed, "Pinned Overlay Starts Collapsed",
+                "Pinned overlay opens collapsed to a tab");
+            R("Overlay Settings", EnableCompanyOverlay, "Company Roster Overlay",
+                "Shift+Left-Click a banner (bottom of screen) to open a draggable roster panel for that company.");
+            RF("Overlay Settings", OverlayOpacity, "Overlay Opacity", 0.05f, 1f,
+                "How opaque the panel chrome is. Text and buttons stay fully readable regardless. Applies live.");
+            RF("Overlay Settings", OverlayUIScale, "Overlay UI Scale", 0.5f, 2f,
+                "Pinned / tech queue panel size multiplier. Independent of FF's UI Scale. Applies live.");
 
             // ── Hotkeys — Building ───────────────────────────────────────
+            _order = 0;
             K("Hotkeys — Building", UpgradeHotkey, "Upgrade");
             K("Hotkeys — Building", RelocateHotkey, "Relocate");
             K("Hotkeys — Building", ToggleEmployHotkey, "Toggle Building Production");
@@ -529,6 +563,7 @@ namespace FFUIOverhaul
             K("Hotkeys — Building", CycleBuildingRightHotkey, "Cycle Building Right");
 
             // ── Hotkeys — Build Site ─────────────────────────────────────
+            _order = 0;
             K("Hotkeys — Build Site", DeleteBuildSiteHotkey, "Delete Build Site", "Default T. Delete still works as a fixed fallback regardless of rebind.");
             K("Hotkeys — Build Site", ConstructionEnabledHotkey, "Construction Toggle");
             K("Hotkeys — Build Site", PrioritizeHotkey, "Prioritize");
@@ -536,52 +571,54 @@ namespace FFUIOverhaul
             K("Hotkeys — Build Site", IncrementBuildersHotkey, "Increment Builders (+)");
 
             // ── Hotkeys — Forageables ────────────────────────────────────
+            // Relocate is the SAME RelocateHotkey pref as the Building section
+            // — re-registered here in a second category so the player sees it
+            // alongside the forageable-specific hotkeys. Editing either entry
+            // edits the same underlying value.
+            _order = 0;
+            K("Hotkeys — Forageables", RelocateHotkey, "Relocate", "Shares the same key as Building Relocate — rebinding here rebinds there.");
             K("Hotkeys — Forageables", ForageableHarvestHotkey, "Harvest");
             K("Hotkeys — Forageables", ForageableDeleteHotkey, "Delete");
             K("Hotkeys — Forageables", ForageablePrioritizeHotkey, "Prioritize");
-            // Note: Relocate (R) lives under Hotkeys — Building but applies to
-            // forageables too thanks to Tended Wilds integration.
 
             // ── Hotkeys — Confirmation Dialog ────────────────────────────
+            _order = 0;
             K("Hotkeys — Confirmation Dialog", ConfirmHotkey, "Confirm", "Default Y. Enter also works as a fixed fallback.");
             K("Hotkeys — Confirmation Dialog", CancelHotkey, "Cancel", "Default N. Esc also works as a fixed fallback.");
 
             // ── Notifications ────────────────────────────────────────────
-            SettingsAPI.Register(id, name, "Notifications", TraderWarningDays,
-                new SettingsMeta { Label = "Trader Departure Warning Days", Min = 0, Max = 28,
-                    Tooltip = "Days before a trader leaves to show a 'Trader Departing' notification (0 disables)" });
-            SettingsAPI.Register(id, name, "Notifications", DismissibleResourceAlerts,
-                new SettingsMeta { Label = "Dismissible Resource Alerts",
-                    Tooltip = "Click a top-bar '!' warning to silence it until next month change." });
+            _order = 0;
+            RI("Notifications", TraderWarningDays, "Trader Departure Warning Days", 0, 28,
+                "Days before a trader leaves to show a 'Trader Departing' notification (0 disables)");
+            R("Notifications", DismissibleResourceAlerts, "Dismissible Resource Alerts",
+                "Click a top-bar '!' warning to silence it until next month change.");
 
             // ── Game and Map Settings ────────────────────────────────────
-            SettingsAPI.Register(id, name, "Game and Map Settings", KeepMapTypeOnReroll,
-                new SettingsMeta { Label = "Keep Map Type on Reroll",
-                    Tooltip = "Dice button rerolls the seed within your selected biome instead of forcing Random." });
-            SettingsAPI.Register(id, name, "Game and Map Settings", RememberCustomSettings,
-                new SettingsMeta { Label = "Remember Custom Settings",
-                    Tooltip = "Snapshot the Custom Settings panel selections on Confirm and restore on next open." });
-            SettingsAPI.Register(id, name, "Game and Map Settings", SyncMapTypeWithRiverPreset,
-                new SettingsMeta { Label = "Sync Map Type with Rivers Restored",
-                    Tooltip = "Two-way sync between FF's terrain selector and RR's RiverPreset. Disabled when RR is disabled or set to Custom." });
+            _order = 0;
+            R("Game and Map Settings", KeepMapTypeOnReroll, "Keep Map Type on Reroll",
+                "Dice button rerolls the seed within your selected biome instead of forcing Random.");
+            R("Game and Map Settings", RememberCustomSettings, "Remember Custom Settings",
+                "Snapshot the Custom Settings panel selections on Confirm and restore on next open.");
+            R("Game and Map Settings", SyncMapTypeWithRiverPreset, "Sync Map Type with Rivers Restored",
+                "Two-way sync between FF's terrain selector and RR's RiverPreset. Disabled when RR is disabled or set to Custom.");
 
             // ── Game Flow ────────────────────────────────────────────────
-            SettingsAPI.Register(id, name, "Game Flow", PauseOnLoad,
-                new SettingsMeta { Label = "Pause on Load",
-                    Tooltip = "Auto-pause once a save finishes loading" });
-            SettingsAPI.Register(id, name, "Game Flow", PauseOnLoadDelay,
-                new SettingsMeta { Label = "Pause on Load Delay (seconds)", Min = 0f, Max = 30f,
-                    Tooltip = "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black. Increase for heavily-modded setups.",
-                    VisibleWhen = () => PauseOnLoad.Value });
-            SettingsAPI.Register(id, name, "Game Flow", SkipNewMapIntro,
-                new SettingsMeta { Label = "Skip Start-of-Game Cinematic",
-                    Tooltip = "Bypass the intro video and go straight to map load." });
-            SettingsAPI.Register(id, name, "Game Flow", CustomPopulationCap,
-                new SettingsMeta { Label = "Custom Population Cap", Min = 50, Max = 5000,
-                    Tooltip = "Override the four slider stops (200/500/1000/2000) with any value. 0 = leave vanilla behavior." });
-            SettingsAPI.Register(id, name, "Game Flow", IgnoreUpgradePopulationRequirement,
-                new SettingsMeta { Label = "Ignore Upgrade Population Requirement",
-                    Tooltip = "Bypass population gates on Town Center tier ups so low-pop saves can still progress." });
+            _order = 0;
+            R("Game Flow", PauseOnLoad, "Pause on Load", "Auto-pause once a save finishes loading");
+            RF("Game Flow", PauseOnLoadDelay, "Pause on Load Delay (seconds)", 0f, 30f,
+                "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black. Increase for heavily-modded setups.",
+                visibleWhen: () => PauseOnLoad.Value);
+            R("Game Flow", SkipNewMapIntro, "Skip Start-of-Game Cinematic",
+                "Bypass the intro video and go straight to map load.");
+            RI("Game Flow", CustomPopulationCap, "Custom Population Cap", 0, 5000,
+                "Override the four slider stops (200/500/1000/2000) with any value. 0 = leave vanilla behavior.");
+            R("Game Flow", IgnoreUpgradePopulationRequirement, "Ignore Upgrade Population Requirement",
+                "Bypass population gates on Town Center tier ups so low-pop saves can still progress.");
+
+            // ── Other Settings (debug / advanced) ────────────────────────
+            _order = 0;
+            R("Other Settings", SettingsVerboseLog, "Verbose Settings Log",
+                "Log every claim/discovery decision to MelonLoader/Latest.log. Off by default; turn on only when debugging the panel.");
         }
 
         // We cache the InfoWindow GameObject for reflection access (productionToggle, etc.).
