@@ -72,6 +72,7 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> SyncMapTypeWithRiverPreset { get; private set; } = null!;
         public static MelonPreferences_Entry<int> CustomPopulationCap { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> IgnoreUpgradePopulationRequirement { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> DismissibleResourceAlerts { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -255,6 +256,10 @@ namespace FFUIOverhaul
                 display_name: "Ignore Upgrade Population Requirement",
                 description: "Bypass the population requirement on building upgrades (Town Center tier ups, etc). Useful if you set a low Custom Population Cap and would otherwise be unable to progress.");
 
+            DismissibleResourceAlerts = _prefs.CreateEntry("DismissibleResourceAlerts", true,
+                display_name: "Dismissible Resource Alerts",
+                description: "Click a top-bar resource '!' warning to dismiss it until the next month change. Common vanilla annoyance — you know about it and don't need the popup nagging you for the rest of the month.");
+
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
@@ -340,6 +345,7 @@ namespace FFUIOverhaul
             _techQueueOverlay?.Tick();
             TechQueueInput.Tick();
             HandlePauseOnLoad(gm);
+            Patches.DismissibleResourceAlerts.Tick();
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -544,6 +550,9 @@ namespace FFUIOverhaul
             SettingsAPI.Register(id, name, "Notifications", TraderWarningDays,
                 new SettingsMeta { Label = "Trader Departure Warning Days", Min = 0, Max = 28,
                     Tooltip = "Days before a trader leaves to show a 'Trader Departing' notification (0 disables)" });
+            SettingsAPI.Register(id, name, "Notifications", DismissibleResourceAlerts,
+                new SettingsMeta { Label = "Dismissible Resource Alerts",
+                    Tooltip = "Click a top-bar '!' warning to silence it until next month change." });
 
             // ── Game and Map Settings ────────────────────────────────────
             SettingsAPI.Register(id, name, "Game and Map Settings", KeepMapTypeOnReroll,
