@@ -33,6 +33,10 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<KeyCode> ConstructionEnabledHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> DecrementBuildersHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> IncrementBuildersHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> DeleteBuildSiteHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> ForageableHarvestHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> ForageableDeleteHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> ForageablePrioritizeHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> ConfirmHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> CancelHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> ToggleOverlayHotkey { get; private set; } = null!;
@@ -109,16 +113,16 @@ namespace FFUIOverhaul
                 description: "Hotkey to upgrade selected building");
 
             RelocateHotkey = _prefs.CreateEntry("RelocateHotkey", KeyCode.R,
-                display_name: "Relocate Hotkey",
-                description: "Hotkey to relocate selected building");
+                display_name: "Relocate",
+                description: "Hotkey to relocate selected building. Also relocates forageables when Tended Wilds is installed.");
 
             ToggleEmployHotkey = _prefs.CreateEntry("ToggleEmployHotkey", KeyCode.E,
-                display_name: "Toggle Employment Hotkey",
-                description: "Hotkey to toggle employment on selected building");
+                display_name: "Toggle Building Production",
+                description: "Hotkey to start/stop production on the selected building (toggles the employment checkbox).");
 
-            DemolishHotkey = _prefs.CreateEntry("DemolishHotkey", KeyCode.Delete,
-                display_name: "Demolish Hotkey",
-                description: "Hotkey to demolish selected building or cancel a build/deconstruction site (opens confirmation)");
+            DemolishHotkey = _prefs.CreateEntry("DemolishHotkey", KeyCode.T,
+                display_name: "Salvage Building",
+                description: "Hotkey to salvage the selected building. Delete also works as a fixed fallback and can't be rebound.");
 
             CycleBuildingLeftHotkey = _prefs.CreateEntry("CycleBuildingLeftHotkey", KeyCode.LeftArrow,
                 display_name: "Cycle Building Left",
@@ -129,40 +133,57 @@ namespace FFUIOverhaul
                 description: "Cycle to the next building of the same type (mirrors the > button at top of the info panel)");
 
             PrioritizeHotkey = _prefs.CreateEntry("PrioritizeHotkey", KeyCode.P,
-                display_name: "Prioritize Hotkey",
+                display_name: "Prioritize",
                 description: "Hotkey to toggle the Prioritized checkbox on a build/deconstruction site");
 
             ConstructionEnabledHotkey = _prefs.CreateEntry("ConstructionEnabledHotkey", KeyCode.O,
-                display_name: "Construction Enabled Hotkey",
+                display_name: "Construction Toggle",
                 description: "Hotkey to toggle the Construction Enabled checkbox on a build/deconstruction site");
 
+            DeleteBuildSiteHotkey = _prefs.CreateEntry("DeleteBuildSiteHotkey", KeyCode.T,
+                display_name: "Delete Build Site",
+                description: "Hotkey to cancel a build / deconstruction site. Delete also works as a fixed fallback and can't be rebound.");
+
             DecrementBuildersHotkey = _prefs.CreateEntry("DecrementBuildersHotkey", KeyCode.Minus,
-                display_name: "Decrement Builders Hotkey",
-                description: "Hotkey to remove a builder from a build/deconstruction site (-)");
+                display_name: "Decrement Builders (-)",
+                description: "Hotkey to remove a builder from a build/deconstruction site");
 
             IncrementBuildersHotkey = _prefs.CreateEntry("IncrementBuildersHotkey", KeyCode.Equals,
-                display_name: "Increment Builders Hotkey",
-                description: "Hotkey to add a builder to a build/deconstruction site (=)");
+                display_name: "Increment Builders (+)",
+                description: "Hotkey to add a builder to a build/deconstruction site");
 
             ConfirmHotkey = _prefs.CreateEntry("ConfirmHotkey", KeyCode.Y,
-                display_name: "Confirm Hotkey",
-                description: "Hotkey to confirm dialogs (Y key)");
+                display_name: "Confirm",
+                description: "Hotkey to confirm a Yes/No dialog. Enter also works as a fixed fallback and can't be rebound.");
 
             CancelHotkey = _prefs.CreateEntry("CancelHotkey", KeyCode.N,
-                display_name: "Cancel Hotkey",
-                description: "Hotkey to cancel dialogs (N key)");
+                display_name: "Cancel",
+                description: "Hotkey to cancel a Yes/No dialog. Esc also works as a fixed fallback and can't be rebound.");
+
+            ForageableHarvestHotkey = _prefs.CreateEntry("ForageableHarvestHotkey", KeyCode.H,
+                display_name: "Harvest",
+                description: "Hotkey to flag the selected forageable / bush / fruit tree for harvest. No-op if the forageable has no harvest action.");
+
+            ForageableDeleteHotkey = _prefs.CreateEntry("ForageableDeleteHotkey", KeyCode.Delete,
+                display_name: "Delete",
+                description: "Hotkey to flag the selected forageable for clearing. No-op if the forageable has no clear action.");
+
+            ForageablePrioritizeHotkey = _prefs.CreateEntry("ForageablePrioritizeHotkey", KeyCode.P,
+                display_name: "Prioritize",
+                description: "Hotkey to toggle the Prioritized checkbox on the selected forageable. No-op if the forageable has no priority toggle.");
 
             ToggleOverlayHotkey = _prefs.CreateEntry("ToggleOverlayHotkey", KeyCode.F5,
-                display_name: "Toggle Overlay",
-                description: "Hotkey to show/hide the pinned resource overlay");
+                display_name: "Toggle Overlays",
+                description: "Hotkey to show/hide both the pinned resource overlay and the tech queue overlay together.");
 
             TraderWarningDays = _prefs.CreateEntry("TraderWarningDays", 5,
-                display_name: "Trader Warning Days",
-                description: "Days before departure to show trader warning notification");
+                display_name: "Trader Departure Warning Days",
+                description: "Days before a trader leaves to show a 'Trader Departing' notification (0 disables).");
 
             PinnedResourcesJson = _prefs.CreateEntry("PinnedResources", "",
                 display_name: "Pinned Resources",
-                description: "JSON list of pinned resource item IDs (managed by overlay UI)");
+                description: "Internal — pinned item list (managed by overlay UI)",
+                is_hidden: true);
 
             PinnedCollapsed = _prefs.CreateEntry("PinnedCollapsed", false,
                 display_name: "Pinned Overlay Collapsed",
@@ -194,7 +215,8 @@ namespace FFUIOverhaul
 
             TechResearchQueue = _prefs.CreateEntry("TechResearchQueue", "",
                 display_name: "Tech Research Queue",
-                description: "Comma-separated list of tech node IDs queued for auto-research");
+                description: "Internal — per-save tech queue state (managed by the tech tree overlay).",
+                is_hidden: true);
 
             PauseOnLoad = _prefs.CreateEntry("PauseOnLoad", false,
                 display_name: "Pause on Load",
@@ -311,8 +333,7 @@ namespace FFUIOverhaul
             HandleReportsHotkey(gm);
             if (selectedBuilding != null) HandleBuildingHotkeys(selectedBuilding, gm);
             else if (selectedBuildSite != null) HandleBuildSiteHotkeys(selectedBuildSite, gm);
-            else if (selectedForageable && Input.GetKeyDown(RelocateHotkey.Value))
-                ForageableActions.TryRelocate();
+            else if (selectedForageable) HandleForageableHotkeys();
             HandleEscapeKey(gm);
             HandleOverlayToggle();
             _overlay?.Tick();
@@ -472,46 +493,86 @@ namespace FFUIOverhaul
             void K(string cat, MelonPreferences_Entry<KeyCode> entry, string label, string? tip = null) =>
                 SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip });
 
+            // ── Reports & Panels ─────────────────────────────────────────
             K("Hotkeys — Reports & Panels", ReportsHotkey, "Toggle Reports", "Open/close the 12-month report window");
-            K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Pinned Overlay");
+            K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Overlays", "Show/hide both the pinned overlay and the tech queue overlay");
             K("Hotkeys — Reports & Panels", SettingsPanelHotkey, "Open Settings Panel", "Opens this very window");
 
+            // ── Overlay Settings (pinned + tech queue overlays) ─────────
+            SettingsAPI.Register(id, name, "Overlay Settings", PinnedCollapsed,
+                new SettingsMeta { Label = "Pinned Overlay Starts Collapsed",
+                    Tooltip = "Pinned overlay opens collapsed to a tab" });
+            SettingsAPI.Register(id, name, "Overlay Settings", OverlayOpacity,
+                new SettingsMeta { Label = "Overlay Opacity", Min = 0.05f, Max = 1f,
+                    Tooltip = "How opaque the panel chrome is. Text and buttons stay fully readable regardless. Applies live." });
+            SettingsAPI.Register(id, name, "Overlay Settings", OverlayUIScale,
+                new SettingsMeta { Label = "Overlay UI Scale", Min = 0.5f, Max = 2f,
+                    Tooltip = "Pinned / tech queue panel size multiplier. Independent of FF's UI Scale. Applies live." });
+
+            // ── Settings Panel ───────────────────────────────────────────
             SettingsAPI.Register(id, name, "Settings Panel", SettingsVerboseLog,
                 new SettingsMeta { Label = "Verbose Settings Log",
                     Tooltip = "Log every claim/discovery decision to MelonLoader/Latest.log. Off by default; turn on only when debugging the panel." });
 
+            // ── Hotkeys — Building ───────────────────────────────────────
             K("Hotkeys — Building", UpgradeHotkey, "Upgrade");
             K("Hotkeys — Building", RelocateHotkey, "Relocate");
-            K("Hotkeys — Building", ToggleEmployHotkey, "Toggle Employment");
-            K("Hotkeys — Building", DemolishHotkey, "Demolish");
+            K("Hotkeys — Building", ToggleEmployHotkey, "Toggle Building Production");
+            K("Hotkeys — Building", DemolishHotkey, "Salvage Building", "Default T. Delete still works as a fixed fallback regardless of rebind.");
             K("Hotkeys — Building", CycleBuildingLeftHotkey, "Cycle Building Left");
             K("Hotkeys — Building", CycleBuildingRightHotkey, "Cycle Building Right");
 
+            // ── Hotkeys — Build Site ─────────────────────────────────────
+            K("Hotkeys — Build Site", DeleteBuildSiteHotkey, "Delete Build Site", "Default T. Delete still works as a fixed fallback regardless of rebind.");
+            K("Hotkeys — Build Site", ConstructionEnabledHotkey, "Construction Toggle");
             K("Hotkeys — Build Site", PrioritizeHotkey, "Prioritize");
-            K("Hotkeys — Build Site", ConstructionEnabledHotkey, "Construction Enabled");
             K("Hotkeys — Build Site", DecrementBuildersHotkey, "Decrement Builders (-)");
             K("Hotkeys — Build Site", IncrementBuildersHotkey, "Increment Builders (+)");
 
-            K("Hotkeys — Modal Confirm", ConfirmHotkey, "Confirm Dialog");
-            K("Hotkeys — Modal Confirm", CancelHotkey, "Cancel Dialog");
+            // ── Hotkeys — Forageables ────────────────────────────────────
+            K("Hotkeys — Forageables", ForageableHarvestHotkey, "Harvest");
+            K("Hotkeys — Forageables", ForageableDeleteHotkey, "Delete");
+            K("Hotkeys — Forageables", ForageablePrioritizeHotkey, "Prioritize");
+            // Note: Relocate (R) lives under Hotkeys — Building but applies to
+            // forageables too thanks to Tended Wilds integration.
 
-            // Numeric / bool / string prefs
+            // ── Hotkeys — Confirmation Dialog ────────────────────────────
+            K("Hotkeys — Confirmation Dialog", ConfirmHotkey, "Confirm", "Default Y. Enter also works as a fixed fallback.");
+            K("Hotkeys — Confirmation Dialog", CancelHotkey, "Cancel", "Default N. Esc also works as a fixed fallback.");
+
+            // ── Notifications ────────────────────────────────────────────
             SettingsAPI.Register(id, name, "Notifications", TraderWarningDays,
-                new SettingsMeta { Label = "Trader Warning Days", Min = 0, Max = 14,
-                    Tooltip = "Days before departure to warn (0 disables)" });
+                new SettingsMeta { Label = "Trader Departure Warning Days", Min = 0, Max = 28,
+                    Tooltip = "Days before a trader leaves to show a 'Trader Departing' notification (0 disables)" });
 
+            // ── Game and Map Settings ────────────────────────────────────
+            SettingsAPI.Register(id, name, "Game and Map Settings", KeepMapTypeOnReroll,
+                new SettingsMeta { Label = "Keep Map Type on Reroll",
+                    Tooltip = "Dice button rerolls the seed within your selected biome instead of forcing Random." });
+            SettingsAPI.Register(id, name, "Game and Map Settings", RememberCustomSettings,
+                new SettingsMeta { Label = "Remember Custom Settings",
+                    Tooltip = "Snapshot the Custom Settings panel selections on Confirm and restore on next open." });
+            SettingsAPI.Register(id, name, "Game and Map Settings", SyncMapTypeWithRiverPreset,
+                new SettingsMeta { Label = "Sync Map Type with Rivers Restored",
+                    Tooltip = "Two-way sync between FF's terrain selector and RR's RiverPreset. Disabled when RR is disabled or set to Custom." });
+
+            // ── Game Flow ────────────────────────────────────────────────
             SettingsAPI.Register(id, name, "Game Flow", PauseOnLoad,
                 new SettingsMeta { Label = "Pause on Load",
                     Tooltip = "Auto-pause once a save finishes loading" });
-
             SettingsAPI.Register(id, name, "Game Flow", PauseOnLoadDelay,
-                new SettingsMeta { Label = "Pause on Load Delay (seconds)", Min = 0f, Max = 10f,
-                    Tooltip = "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black",
+                new SettingsMeta { Label = "Pause on Load Delay (seconds)", Min = 0f, Max = 30f,
+                    Tooltip = "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black. Increase for heavily-modded setups.",
                     VisibleWhen = () => PauseOnLoad.Value });
-
-            SettingsAPI.Register(id, name, "Pinned Overlay", PinnedCollapsed,
-                new SettingsMeta { Label = "Start Collapsed",
-                    Tooltip = "Pinned overlay opens collapsed to a tab" });
+            SettingsAPI.Register(id, name, "Game Flow", SkipNewMapIntro,
+                new SettingsMeta { Label = "Skip Start-of-Game Cinematic",
+                    Tooltip = "Bypass the intro video and go straight to map load." });
+            SettingsAPI.Register(id, name, "Game Flow", CustomPopulationCap,
+                new SettingsMeta { Label = "Custom Population Cap", Min = 50, Max = 5000,
+                    Tooltip = "Override the four slider stops (200/500/1000/2000) with any value. 0 = leave vanilla behavior." });
+            SettingsAPI.Register(id, name, "Game Flow", IgnoreUpgradePopulationRequirement,
+                new SettingsMeta { Label = "Ignore Upgrade Population Requirement",
+                    Tooltip = "Bypass population gates on Town Center tier ups so low-pop saves can still progress." });
         }
 
         // We cache the InfoWindow GameObject for reflection access (productionToggle, etc.).
@@ -559,12 +620,11 @@ namespace FFUIOverhaul
             {
                 BuildingActions.TryToggleEmployment(building, gm);
             }
-            else if (Input.GetKeyDown(DemolishHotkey.Value) || Input.GetKeyDown(KeyCode.T))
+            else if (Input.GetKeyDown(DemolishHotkey.Value) || Input.GetKeyDown(KeyCode.Delete))
             {
-                // T is a fixed alt for Delete — easier on the hand than reaching
-                // for Del. If the user remaps DemolishHotkey to T explicitly the
-                // duplicate check still works because GetKeyDown only returns
-                // true for the frame the key was pressed.
+                // DemolishHotkey is the configurable one (default T, labeled
+                // "Salvage Building"). Delete is hardcoded as a fixed fallback
+                // so it always works regardless of rebinding.
                 BuildingActions.TryDemolish(building, gm);
             }
             else if (Input.GetKeyDown(CycleBuildingLeftHotkey.Value))
@@ -577,19 +637,33 @@ namespace FFUIOverhaul
             }
         }
 
+        private void HandleForageableHotkeys()
+        {
+            if (Input.GetKeyDown(RelocateHotkey.Value))
+                ForageableActions.TryRelocate();
+            else if (Input.GetKeyDown(ForageableHarvestHotkey.Value))
+                ForageableActions.TryHarvest();
+            else if (Input.GetKeyDown(ForageableDeleteHotkey.Value))
+                ForageableActions.TryDelete();
+            else if (Input.GetKeyDown(ForageablePrioritizeHotkey.Value))
+                ForageableActions.TryTogglePrioritize();
+        }
+
         private void HandleBuildSiteHotkeys(BuildSiteResource buildSite, GameManager gm)
         {
-            if (Input.GetKeyDown(DemolishHotkey.Value) || Input.GetKeyDown(KeyCode.T))
+            // DeleteBuildSiteHotkey is configurable (default T). Delete is
+            // hardcoded fixed fallback. Same pattern as building Salvage.
+            if (Input.GetKeyDown(DeleteBuildSiteHotkey.Value) || Input.GetKeyDown(KeyCode.Delete))
             {
                 BuildSiteActions.TryCancel(buildSite, gm);
-            }
-            else if (Input.GetKeyDown(PrioritizeHotkey.Value))
-            {
-                BuildSiteActions.TryTogglePriority(buildSite, gm);
             }
             else if (Input.GetKeyDown(ConstructionEnabledHotkey.Value))
             {
                 BuildSiteActions.TryToggleConstructionEnabled(buildSite, gm);
+            }
+            else if (Input.GetKeyDown(PrioritizeHotkey.Value))
+            {
+                BuildSiteActions.TryTogglePriority(buildSite, gm);
             }
             else if (Input.GetKeyDown(DecrementBuildersHotkey.Value))
             {
@@ -710,10 +784,13 @@ namespace FFUIOverhaul
 
         private void HandleOverlayToggle()
         {
-            if (Input.GetKeyDown(ToggleOverlayHotkey.Value) && _overlay != null)
-            {
-                _overlay.Visible = !_overlay.Visible;
-            }
+            if (!Input.GetKeyDown(ToggleOverlayHotkey.Value)) return;
+            // Drive both overlays from the same state. Use the pinned overlay
+            // as the source of truth — if it's currently visible, we're
+            // hiding both; otherwise we're showing both.
+            bool target = _overlay == null ? true : !_overlay.Visible;
+            if (_overlay != null) _overlay.Visible = target;
+            if (_techQueueOverlay != null) _techQueueOverlay.Visible = target;
         }
     }
 }

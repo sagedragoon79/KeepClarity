@@ -286,28 +286,112 @@ namespace FFUIOverhaul.Settings.UI
             slider.wholeNumbers = wholeNumbers;
             slider.value = ConvertToFloat(rec.Get());
 
-            // Numeric readout on the right
-            var readoutGo = new GameObject("Readout", typeof(RectTransform));
+            // Numeric readout on the right — editable TMP_InputField so the
+            // user can type a precise value instead of fighting the slider
+            // for decimals. Values get clamped to [min, max] on commit.
+            var readoutGo = new GameObject("Readout", typeof(RectTransform), typeof(Image));
             readoutGo.transform.SetParent(go.transform, false);
-            var readout = readoutGo.AddComponent<TextMeshProUGUI>();
-            if (FFNativeAssets.FontNumbers != null) readout.font = FFNativeAssets.FontNumbers;
-            readout.fontSize = 14;
-            readout.color = FFNativeAssets.TextPrimary;
-            readout.alignment = TextAlignmentOptions.MidlineRight;
-            readout.text = format(slider.value);
-            var roRT = readout.rectTransform;
-            roRT.anchorMin = new Vector2(1, 0);
-            roRT.anchorMax = new Vector2(1, 1);
+            var roRT = (RectTransform)readoutGo.transform;
+            roRT.anchorMin = new Vector2(1, 0.5f);
+            roRT.anchorMax = new Vector2(1, 0.5f);
             roRT.pivot = new Vector2(1, 0.5f);
-            roRT.sizeDelta = new Vector2(72, 0);
+            roRT.sizeDelta = new Vector2(72, 22);
             roRT.anchoredPosition = new Vector2(-2, 0);
+            SettingsCanvas.ApplyBorderSprite(readoutGo.GetComponent<Image>(),
+                FFNativeAssets.PanelBorderSimple, FFNativeAssets.PanelTintDefault);
+
+            // Text Area (FF working pattern: RectMask2D + Placeholder + Text)
+            var rdAreaGo = new GameObject("Text Area", typeof(RectTransform), typeof(RectMask2D));
+            rdAreaGo.transform.SetParent(readoutGo.transform, false);
+            var rdAreaRT = (RectTransform)rdAreaGo.transform;
+            rdAreaRT.anchorMin = Vector2.zero;
+            rdAreaRT.anchorMax = Vector2.one;
+            rdAreaRT.offsetMin = new Vector2(4, 1);
+            rdAreaRT.offsetMax = new Vector2(-4, -1);
+
+            var rdPhGo = new GameObject("Placeholder", typeof(RectTransform));
+            rdPhGo.transform.SetParent(rdAreaGo.transform, false);
+            var rdPh = rdPhGo.AddComponent<TextMeshProUGUI>();
+            if (FFNativeAssets.FontNumbers != null) rdPh.font = FFNativeAssets.FontNumbers;
+            rdPh.fontSize = 14;
+            rdPh.color = FFNativeAssets.TextDim;
+            rdPh.text = "";
+            rdPh.alignment = TextAlignmentOptions.MidlineRight;
+            var rdPhRT = rdPh.rectTransform;
+            rdPhRT.anchorMin = Vector2.zero;
+            rdPhRT.anchorMax = Vector2.one;
+            rdPhRT.offsetMin = Vector2.zero;
+            rdPhRT.offsetMax = Vector2.zero;
+
+            var rdTxtGo = new GameObject("Text", typeof(RectTransform));
+            rdTxtGo.transform.SetParent(rdAreaGo.transform, false);
+            var rdTxt = rdTxtGo.AddComponent<TextMeshProUGUI>();
+            if (FFNativeAssets.FontNumbers != null) rdTxt.font = FFNativeAssets.FontNumbers;
+            rdTxt.fontSize = 14;
+            rdTxt.color = FFNativeAssets.TextPrimary;
+            rdTxt.alignment = TextAlignmentOptions.MidlineRight;
+            var rdTxtRT = rdTxt.rectTransform;
+            rdTxtRT.anchorMin = Vector2.zero;
+            rdTxtRT.anchorMax = Vector2.one;
+            rdTxtRT.offsetMin = Vector2.zero;
+            rdTxtRT.offsetMax = Vector2.zero;
+
+            var readoutInput = readoutGo.AddComponent<TMP_InputField>();
+            readoutInput.textViewport = rdAreaRT;
+            readoutInput.textComponent = rdTxt;
+            readoutInput.placeholder = rdPh;
+            readoutInput.targetGraphic = readoutGo.GetComponent<Image>();
+            if (rdTxt.font != null)
+            {
+                readoutInput.fontAsset = rdTxt.font;
+                readoutInput.pointSize = 14;
+            }
+            readoutInput.caretColor = new Color(0.84f, 0.84f, 0.82f, 1f);
+            readoutInput.caretWidth = 1;
+            readoutInput.caretBlinkRate = 0.85f;
+            readoutInput.selectionColor = new Color(0.86f, 0.83f, 0.73f, 0.75f);
+            readoutInput.lineType = TMP_InputField.LineType.SingleLine;
+            readoutInput.contentType = wholeNumbers
+                ? TMP_InputField.ContentType.IntegerNumber
+                : TMP_InputField.ContentType.DecimalNumber;
+            readoutInput.text = format(slider.value);
+
+            // Sync guard prevents infinite loop: slider→input→slider→input...
+            bool updating = false;
 
             slider.onValueChanged.AddListener(v =>
             {
                 applyValue(v);
-                readout.text = format(v);
+                if (!updating)
+                {
+                    updating = true;
+                    readoutInput.text = format(v);
+                    updating = false;
+                }
                 onChanged?.Invoke();
             });
+
+            readoutInput.onEndEdit.AddListener(s =>
+            {
+                if (updating) return;
+                if (float.TryParse(s, out float parsed))
+                {
+                    parsed = Mathf.Clamp(parsed, min, max);
+                    if (wholeNumbers) parsed = Mathf.Round(parsed);
+                    updating = true;
+                    slider.value = parsed; // fires slider.onValueChanged → applyValue
+                    // After slider.value clamping/rounding, sync the displayed
+                    // text back to whatever the slider actually settled on.
+                    readoutInput.text = format(slider.value);
+                    updating = false;
+                }
+                else
+                {
+                    // Bad input — revert to current slider value
+                    readoutInput.text = format(slider.value);
+                }
+            });
+
             return go;
         }
 

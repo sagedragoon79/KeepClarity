@@ -111,7 +111,15 @@ namespace FFUIOverhaul.Settings
 
             if (!_mods.ContainsKey(rec.ModId))
             {
-                _mods[rec.ModId] = new ModSettingsInfo { DisplayName = rec.ModDisplayName };
+                // Auto-discovered mods (no explicit RegisterMod call) land
+                // here. Default Order=50 so they sort AFTER the user's own
+                // mods (KC=0, RR=10, others=20). If RegisterMod is called
+                // later for this modId, it overwrites this entry.
+                _mods[rec.ModId] = new ModSettingsInfo
+                {
+                    DisplayName = rec.ModDisplayName,
+                    Order = 50,
+                };
             }
 
             return rec;

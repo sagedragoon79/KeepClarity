@@ -113,5 +113,64 @@ namespace FFUIOverhaul
                 FFUIOverhaulMod.Log.Warning($"[Forageable] Relocate via R failed: {e.Message}");
             }
         }
+
+        /// <summary>Invoke a parameterless private void method on the active
+        /// UIHarvestableResourceWindow via reflection. Used by Harvest / Delete
+        /// hotkeys, which target methods FF wires to the visible buttons but
+        /// keeps private (MarkResourceForHarvest, MarkResourceForClear).
+        /// No-op (silent) if the method doesn't exist or the window isn't
+        /// currently the active selection's info panel.</summary>
+        private static void TryInvokeWindowMethod(string methodName)
+        {
+            try
+            {
+                if (_windowType == null) _windowType = FindTypeByName("UIHarvestableResourceWindow");
+                if (_windowType == null) return;
+                if (_cachedWindow == null)
+                {
+                    var found = UnityEngine.Object.FindObjectOfType(_windowType);
+                    if (found is UnityEngine.Object uo) _cachedWindow = uo;
+                }
+                if (_cachedWindow == null) return;
+
+                var m = _windowType.GetMethod(methodName,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                    null, Type.EmptyTypes, null);
+                m?.Invoke(_cachedWindow, null);
+            }
+            catch (Exception e)
+            {
+                FFUIOverhaulMod.Log.Warning($"[Forageable] {methodName} failed: {e.Message}");
+            }
+        }
+
+        public static void TryHarvest() => TryInvokeWindowMethod("MarkResourceForHarvest");
+        public static void TryDelete()  => TryInvokeWindowMethod("MarkResourceForClear");
+
+        /// <summary>Flip the Prioritized toggle on the active forageable
+        /// window. FF holds the toggle in a private field named "toggle".</summary>
+        public static void TryTogglePrioritize()
+        {
+            try
+            {
+                if (_windowType == null) _windowType = FindTypeByName("UIHarvestableResourceWindow");
+                if (_windowType == null) return;
+                if (_cachedWindow == null)
+                {
+                    var found = UnityEngine.Object.FindObjectOfType(_windowType);
+                    if (found is UnityEngine.Object uo) _cachedWindow = uo;
+                }
+                if (_cachedWindow == null) return;
+
+                var f = _windowType.GetField("toggle",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+                if (f?.GetValue(_cachedWindow) is UnityEngine.UI.Toggle tg)
+                    tg.isOn = !tg.isOn;
+            }
+            catch (Exception e)
+            {
+                FFUIOverhaulMod.Log.Warning($"[Forageable] Prioritize toggle failed: {e.Message}");
+            }
+        }
     }
 }
