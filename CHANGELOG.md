@@ -1,6 +1,8 @@
 # Keep Clarity — Changelog
 
-## v1.1.0 (2026-05-15) — Mod Manager + UI polish
+## v1.1.1 (2026-05-15) — Mod Manager + UI polish
+
+The first full feature release since v1.0.0 (v1.1.0 was a version-bump-only tag).
 
 ### New: In-game Mod Settings Panel (F10)
 - **Polished UGUI panel** matching FF's native styling — header / mod list / detail / footer with FF sprites, fonts, accent colors. Zoom-in/out animation from the top-right corner over ~1s.
