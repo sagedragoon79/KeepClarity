@@ -123,8 +123,8 @@ namespace FFUIOverhaul.UI
 
         private void BuildPanel()
         {
-            const float PanelWidth = 240f;
-            const float BannerHeight = 56f;
+            const float PanelWidth = 260f;
+            const float HeaderHeight = 32f;
 
             _panel = NewChild(_canvasRoot!, "Panel");
             var rt = (RectTransform)_panel.transform;
@@ -154,9 +154,25 @@ namespace FFUIOverhaul.UI
             var fitter = _panel.AddComponent<ContentSizeFitter>();
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            // Banner sprite at top — also the drag handle.
-            var bannerGo = NewChild(_panel, "Banner");
-            bannerGo.AddComponent<LayoutElement>().preferredHeight = BannerHeight;
+            // Header row: small banner (left) + company name (right), in a
+            // single HorizontalLayoutGroup so the footprint stays compact.
+            // Banner aspect is roughly 77:175 (wide:tall) per the dump, so at
+            // 32px tall it's ~14px wide. The banner is also the drag handle.
+            var header = NewChild(_panel, "Header");
+            header.AddComponent<LayoutElement>().preferredHeight = HeaderHeight;
+            var hlg = header.AddComponent<HorizontalLayoutGroup>();
+            hlg.spacing = 6;
+            hlg.padding = new RectOffset(2, 2, 0, 0);
+            hlg.childAlignment = TextAnchor.MiddleLeft;
+            hlg.childForceExpandWidth = false;
+            hlg.childForceExpandHeight = true;
+            hlg.childControlWidth = true;
+            hlg.childControlHeight = true;
+
+            var bannerGo = NewChild(header, "Banner");
+            var bannerLE = bannerGo.AddComponent<LayoutElement>();
+            bannerLE.preferredWidth = HeaderHeight * (77f / 175f); // proportional
+            bannerLE.preferredHeight = HeaderHeight;
             var bannerImg = bannerGo.AddComponent<Image>();
             bannerImg.sprite = _company.bannerSprite;
             bannerImg.preserveAspect = true;
@@ -166,10 +182,9 @@ namespace FFUIOverhaul.UI
             _drag.DefaultNormalizedPosition = new Vector2(0.5f, 0.7f);
             _drag.OnPositionChanged = SavePosition;
 
-            // Company name label
-            var nameLabel = NewText(_panel, "CompanyName", _company.displayName, 13,
-                FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.Center);
-            if (FFNativeAssets.FontTitle != null) nameLabel.font = FFNativeAssets.FontTitle;
+            var nameLabel = NewText(header, "CompanyName", _company.displayName, 17,
+                FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
+            nameLabel.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
 
             // Container for soldier rows
             _rowsContainer = NewChild(_panel, "Rows");
@@ -209,30 +224,35 @@ namespace FFUIOverhaul.UI
             if (_rowsContainer == null) return null;
             const float RowHeight = 22f;
 
+            // Full-row HP bar design: row bg is dark (shows through the
+            // empty portion of the bar); HP fill is an anchor-driven Rect
+            // that shrinks from the right as HP drops. Name + status text
+            // overlay the bar in dark color with a light outline.
             var go = NewChild(_rowsContainer, "Row");
             go.AddComponent<LayoutElement>().preferredHeight = RowHeight;
 
-            // Background frame (full row, slightly darker than HP fill)
+            // Row background — dark "empty bar" color. Captures raycasts.
             var bg = go.AddComponent<Image>();
-            bg.color = new Color(0.15f, 0.13f, 0.10f, 0.85f);
+            bg.color = new Color(0.10f, 0.09f, 0.08f, 0.92f);
             bg.raycastTarget = true;
 
-            // HP fill — Image.fillAmount with horizontal radial fill (left→right).
-            var fillGo = NewChild(go, "Fill");
+            // HP fill — sits on top of the row bg, full row height. Width is
+            // driven by anchorMax.x in Refresh (no sprite needed; flat color
+            // Image with anchor-driven width). This is the fix for the
+            // earlier bug where Image.Type.Filled without a sprite rendered
+            // as a constant-width flat rectangle.
+            var fillGo = NewChild(go, "HpFill");
             var fillRt = (RectTransform)fillGo.transform;
-            fillRt.anchorMin = Vector2.zero;
-            fillRt.anchorMax = Vector2.one;
+            fillRt.anchorMin = new Vector2(0, 0);
+            fillRt.anchorMax = new Vector2(1, 1);
             fillRt.offsetMin = Vector2.zero;
             fillRt.offsetMax = Vector2.zero;
             var fillImg = fillGo.AddComponent<Image>();
-            fillImg.type = Image.Type.Filled;
-            fillImg.fillMethod = Image.FillMethod.Horizontal;
-            fillImg.fillOrigin = (int)Image.OriginHorizontal.Left;
+            fillImg.type = Image.Type.Simple;
             fillImg.color = HpColor(1f);
             fillImg.raycastTarget = false;
 
-            // Class icon (left)
-            Image? iconImg = null;
+            // Class icon (left, vertically centered) — sits on top of the bar.
             if (classIcon != null)
             {
                 var iconGo = NewChild(go, "ClassIcon");
@@ -241,33 +261,65 @@ namespace FFUIOverhaul.UI
                 iRt.anchorMax = new Vector2(0, 0.5f);
                 iRt.pivot = new Vector2(0, 0.5f);
                 iRt.sizeDelta = new Vector2(18, 18);
-                iRt.anchoredPosition = new Vector2(4, 0);
-                iconImg = iconGo.AddComponent<Image>();
+                iRt.anchoredPosition = new Vector2(3, 0);
+                var iconImg = iconGo.AddComponent<Image>();
                 iconImg.sprite = classIcon;
                 iconImg.preserveAspect = true;
                 iconImg.raycastTarget = false;
             }
 
-            // Name text (inside the bar, left-aligned with margin for icon)
-            var nameText = NewText(go, "Name", soldier.villager.villagerName, 12,
-                FontStyles.Bold, Color.white, TextAlignmentOptions.MidlineLeft);
+            // Name text — left-aligned, takes the left ~65% of the bar.
+            // Dark navy color with a white outline so it reads against any
+            // HP color (green / yellow / red).
+            var nameText = NewText(go, "Name", soldier.villager.villagerName, 14,
+                FontStyles.Bold | FontStyles.SmallCaps,
+                Color.white, TextAlignmentOptions.MidlineLeft);
             var ntRt = nameText.rectTransform;
-            ntRt.anchorMin = Vector2.zero;
-            ntRt.anchorMax = Vector2.one;
+            ntRt.anchorMin = new Vector2(0, 0);
+            ntRt.anchorMax = new Vector2(0.50f, 1);
             ntRt.pivot = new Vector2(0.5f, 0.5f);
-            ntRt.offsetMin = new Vector2(classIcon != null ? 26 : 6, 0);
-            ntRt.offsetMax = new Vector2(-6, 0);
+            ntRt.offsetMin = new Vector2(classIcon != null ? 24 : 6, 0);
+            ntRt.offsetMax = new Vector2(-2, 0);
 
-            // Click + double-click via a tiny IPointerClickHandler component.
+            // Status text — right-aligned, takes the right ~35% of the bar.
+            // Updated each Refresh tick from villager.GetStateString().
+            var statusText = NewText(go, "Status", "", 13,
+                FontStyles.Bold | FontStyles.SmallCaps,
+                Color.white, TextAlignmentOptions.MidlineRight);
+            statusText.enableWordWrapping = false;
+            statusText.overflowMode = TextOverflowModes.Ellipsis;
+            var stRt = statusText.rectTransform;
+            stRt.anchorMin = new Vector2(0.50f, 0);
+            stRt.anchorMax = new Vector2(1, 1);
+            stRt.pivot = new Vector2(0.5f, 0.5f);
+            stRt.offsetMin = new Vector2(2, 0);
+            stRt.offsetMax = new Vector2(-6, 0);
+
             var click = go.AddComponent<RowClickHandler>();
             click.Soldier = soldier;
             return new SoldierRow
             {
                 Root = go,
                 Fill = fillImg,
+                FillRt = fillRt,
                 Name = nameText,
+                Status = statusText,
                 Soldier = soldier,
             };
+        }
+
+        /// <summary>Applies a soft white outline. Wrapped because the
+        /// outlineWidth setter NREs on some font assets without an outline
+        /// material channel (see PinnedResourceOverlay.NewText for the
+        /// rationale).</summary>
+        private static void ApplyLightOutline(TextMeshProUGUI t)
+        {
+            try
+            {
+                t.outlineWidth = 0.25f;
+                t.outlineColor = new Color32(255, 255, 255, 200);
+            }
+            catch { }
         }
 
         private void Refresh()
@@ -278,13 +330,42 @@ namespace FFUIOverhaul.UI
             {
                 var r = _rows[i];
                 var s = r.Soldier;
-                if (s == null || s.Equals(null) || s.villager == null || s.villager.villagerHealth == null)
+                if (s == null || s.Equals(null) || s.villager == null)
                 {
                     if (r.Root != null) Object.Destroy(r.Root);
                     _rows.RemoveAt(i);
                     continue;
                 }
-                float hp = Mathf.Clamp01(s.villager.villagerHealth.health);
+                // Combat HP comes from DamageableComponent.life/maxLife.
+                // villagerHealth.health is general well-being (sickness /
+                // exposure) and stays at ~1 even when the soldier is bleeding
+                // out from arrows — wrong source for the bar.
+                float hp = 1f;
+                if (r.Damageable == null)
+                    r.Damageable = s.villager.gameObject != null
+                        ? s.villager.gameObject.GetComponent<DamageableComponent>() : null;
+                if (r.Damageable != null && r.Damageable.maxLife > 0f)
+                    hp = Mathf.Clamp01(r.Damageable.life / r.Damageable.maxLife);
+
+                // Width is driven by the fill RectTransform's anchorMax.x —
+                // no sprite needed, no Filled-mode rendering quirks.
+                if (r.FillRt != null)
+                {
+                    var amax = r.FillRt.anchorMax;
+                    amax.x = hp;
+                    r.FillRt.anchorMax = amax;
+                }
+
+                // Status text — same source FF's vanilla barracks UI uses.
+                if (r.Status != null)
+                {
+                    try
+                    {
+                        var newStatus = s.villager.GetStateString() ?? "";
+                        if (r.Status.text != newStatus) r.Status.text = newStatus;
+                    }
+                    catch { /* state string can transiently throw — leave last value */ }
+                }
                 r.Fill.fillAmount = hp;
                 r.Fill.color = HpColor(hp);
                 anyAlive = true;
@@ -356,8 +437,11 @@ namespace FFUIOverhaul.UI
         {
             public GameObject Root = null!;
             public Image Fill = null!;
+            public RectTransform FillRt = null!;
             public TextMeshProUGUI Name = null!;
+            public TextMeshProUGUI Status = null!;
             public VillagerOccupationSoldier Soldier = null!;
+            public DamageableComponent? Damageable;
         }
     }
 
@@ -378,9 +462,12 @@ namespace FFUIOverhaul.UI
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
 
-            // Single-click → select. shouldFocus=false; double-click handles
-            // camera focus separately so a single click doesn't yank the view.
-            try { gm.inputManager.SelectGameObject(go, false); }
+            // Single-click → select via SelectVillager so the input state
+            // machine pushes Input_SelectVillager — that's the state that
+            // wires up right-click move/attack commands. Input_SelectGameObject
+            // (what SelectGameObject would push) doesn't accept move orders,
+            // so the soldier looked selected but right-click just deselected.
+            try { gm.inputManager.SelectVillager(Soldier.villager, false, false); }
             catch (System.Exception ex) { FFUIOverhaulMod.Log.Warning($"[CompanyOverlay] Select failed: {ex.Message}"); }
 
             // Double-click within 0.4s → camera focus

@@ -256,9 +256,48 @@ namespace FFUIOverhaul.UI
             sepLE.preferredHeight = 1;
             AddImage(sep, new Color(0.35f, 0.27f, 0.18f, 0.85f));
 
-            // Items container
-            var itemsGo = NewChild(_expandedPanel, "Items");
+            // Items area — wrapped in a ScrollRect so the panel can't grow
+            // taller than the cap below. Without this, "Pin All" produces a
+            // panel that exceeds screen height; the drag-clamp then traps the
+            // header behind the top bar with no way to reach it.
+            const float MaxItemsHeight = 520f;
+            var scrollGo = NewChild(_expandedPanel, "ItemsScroll");
+            var scrollLE = scrollGo.AddComponent<LayoutElement>();
+            scrollLE.preferredHeight = MaxItemsHeight;
+            scrollLE.flexibleHeight = 0;
+            var scroll = scrollGo.AddComponent<ScrollRect>();
+            scroll.horizontal = false;
+            scroll.vertical = true;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 18f;
+
+            // Viewport with RectMask2D — clips overflow without needing a
+            // Mask sprite. Transparent Image gives the raycaster something
+            // to hit so wheel scroll registers.
+            var viewportGo = NewChild(scrollGo, "Viewport");
+            var vpRt = (RectTransform)viewportGo.transform;
+            vpRt.anchorMin = Vector2.zero;
+            vpRt.anchorMax = Vector2.one;
+            vpRt.offsetMin = Vector2.zero;
+            vpRt.offsetMax = Vector2.zero;
+            var vpImg = viewportGo.AddComponent<Image>();
+            vpImg.color = new Color(0, 0, 0, 0.001f);
+            vpImg.raycastTarget = true;
+            viewportGo.AddComponent<RectMask2D>();
+            scroll.viewport = vpRt;
+
+            // Content — top-anchored, width-stretched, height auto-driven by
+            // ContentSizeFitter. _itemsContainer remains the reference rest
+            // of the code uses to add rows.
+            var itemsGo = NewChild(viewportGo, "Items");
             _itemsContainer = (RectTransform)itemsGo.transform;
+            _itemsContainer.anchorMin = new Vector2(0, 1);
+            _itemsContainer.anchorMax = new Vector2(1, 1);
+            _itemsContainer.pivot = new Vector2(0.5f, 1);
+            _itemsContainer.anchoredPosition = Vector2.zero;
+            _itemsContainer.sizeDelta = Vector2.zero;
+            scroll.content = _itemsContainer;
+
             var itemsVlg = itemsGo.AddComponent<VerticalLayoutGroup>();
             itemsVlg.padding = new RectOffset(0, 0, 2, 2);
             itemsVlg.spacing = 0;
@@ -266,6 +305,7 @@ namespace FFUIOverhaul.UI
             itemsVlg.childForceExpandHeight = false;
             itemsVlg.childControlWidth = true;
             itemsVlg.childControlHeight = true;
+            itemsGo.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         }
 
         private void BuildCollapsedTab()
@@ -438,9 +478,12 @@ namespace FFUIOverhaul.UI
                 // Resource name — flexes to fill remaining width. The name
                 // column auto-sizes to whatever's left after we reserve the
                 // value column on the right.
+                // Use NewText's default font (FontBody / Andada-Regular) — the
+                // FontHeader (medieval display) override caused row glyphs to
+                // render scrambled after rebuilds on some machines, per user
+                // report. FontBody's atlas is consistently built for Latin.
                 var name = NewText(rowGo, "Name", item.DisplayName, 13, FontStyles.Normal,
                     ResourceHelper.GetCategoryColor(item.Category), TextAlignmentOptions.MidlineLeft);
-                if (FFNativeAssets.FontHeader != null) name.font = FFNativeAssets.FontHeader;
                 name.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
                 name.overflowMode = TextOverflowModes.Truncate;
 
@@ -448,7 +491,6 @@ namespace FFUIOverhaul.UI
                 // a player's quota exceeds that, the digits truncate gracefully.
                 var value = NewText(rowGo, "Value", "0", 13, FontStyles.Normal,
                     new Color(0.75f, 0.72f, 0.60f, 1f), TextAlignmentOptions.MidlineRight);
-                if (FFNativeAssets.FontHeader != null) value.font = FFNativeAssets.FontHeader;
                 value.gameObject.AddComponent<LayoutElement>().preferredWidth = 72;
 
                 _rows.Add(new PinnedRow { Root = rowGo, NameText = name, ValueText = value, Item = item });
@@ -536,11 +578,9 @@ namespace FFUIOverhaul.UI
                 checkRt.offsetMax = Vector2.zero;
                 check.raycastTarget = false;
 
-                // Config row label — header font tinted to its category color
-                // so the user can scan by color while picking pins.
+                // Config row label — category color, NewText's FontBody default.
                 var label = NewText(rowGo, "Label", item.DisplayName, 12, FontStyles.Normal,
                     ResourceHelper.GetCategoryColor(item.Category), TextAlignmentOptions.MidlineLeft);
-                if (FFNativeAssets.FontHeader != null) label.font = FFNativeAssets.FontHeader;
                 var lrt = label.rectTransform;
                 lrt.anchorMin = new Vector2(0, 0);
                 lrt.anchorMax = new Vector2(1, 1);

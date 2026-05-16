@@ -110,11 +110,14 @@ namespace FFUIOverhaul.Settings.UI
         public static TMP_FontAsset? FontHeader => GetFont("building headline text 02 (FePIrm27C) SDF")
                                                    ?? GetFont("building headline text") // partial match fallback
                                                    ?? AnyFont();
-        // Window title font FF uses on its modal popups (e.g. "TRANSFER ITEMS
-        // TO AND FROM TRADING POST"). Bold + SmallCaps at size 16.
-        public static TMP_FontAsset? FontTitle => GetFont("NotoSerifJP-Regular SDF")
-                                                  ?? GetFont("NotoSerifJP-Regular")
-                                                  ?? FontHeader;
+        // Window title font. We *would* like to use FF's NotoSerifJP-Regular
+        // SDF (the same font FF uses on its modal popup titles), but its
+        // dynamic atlas can be in a state where Latin glyphs render as
+        // garbage when KC pulls the asset early in load. FontBody (Andada-
+        // Regular) has a fully-built Latin atlas — applied Bold + SmallCaps
+        // at the call site, it reads close enough to the FF title style
+        // without the scrambled-glyph risk.
+        public static TMP_FontAsset? FontTitle => FontBody ?? FontHeader;
         public static TMP_FontAsset? FontBody => GetFont("building info body text (Andada-Regular) SDF")
                                                  ?? GetFont("Andada-Regular") // partial fallback
                                                  ?? AnyFont();
