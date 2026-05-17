@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>KeepClarity</AssemblyName>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
     <RootNamespace>FFUIOverhaul</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -74,7 +74,7 @@
 
   <!--
     Build:
-      dotnet build -p:GameDir="G:\SteamLibrary\steamapps\common\Farthest Frontier"
+      dotnet build -p:GameDir="C:\Program Files (x86)\Steam\steamapps\common\Farthest Frontier"
 
     Output: bin\Debug\FFUIOverhaul.dll
     Install: copy to <game>\Farthest Frontier (Mono)\Mods\

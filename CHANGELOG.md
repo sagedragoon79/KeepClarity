@@ -1,5 +1,19 @@
 # Keep Clarity — Changelog
 
+## v1.2.0 (2026-05-17) — Company Overlay polish
+
+Follow-up release focused on the Company Roster Overlay introduced in v1.1.1.
+
+### Fixed
+- **HP bars now visualize health %.** Previously the whole bar shifted color uniformly (no width feedback) — `Image.Type.Filled` was being used without a sprite, which silently ignored `fillAmount`. Bars now shrink in width as HP drops, exposing the dark row background behind them.
+- **Right-click move orders work from row-click selection.** Clicking a soldier row used to route through `SelectGameObject`, whose input state didn't accept move/attack orders — the soldier looked selected but right-clicks just deselected. Now routes through `SelectVillager`, the same state the game uses when you click a soldier in the world.
+
+### Changed
+- **Full-row HP bar.** The thin bottom strip is gone — the HP bar now fills the entire row height, with name + status text overlaid.
+- **HP color gradient.** Green at full → yellow at 50% → red at low, matching the width feedback.
+- **Status text per row.** Each row shows the soldier's current activity (Attacking / Retreating / Moving To Destination / Waiting for Command etc.) on the right side, same source FF's barracks UI uses.
+- White text with dark outline for clean reads on any HP color.
+
 ## v1.1.1 (2026-05-15) — Mod Manager + UI polish
 
 The first full feature release since v1.0.0 (v1.1.0 was a version-bump-only tag).
