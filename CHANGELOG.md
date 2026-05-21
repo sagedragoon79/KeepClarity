@@ -1,5 +1,15 @@
 # Keep Clarity — Changelog
 
+## v1.2.1 (2026-05-20) — Pinned resources + mod-manager caret fixes
+
+### Fixed
+- **Pinned resources showing `0` for items you owned.** Several catalog entries used item IDs that didn't match FF's internal `Item.name` (e.g. `ItemMushrooms`→`ItemMushroom`, `ItemWoodPlanks`→`ItemPlanks`, `ItemCattle`→`ItemCow`), so the lookup returned null and rendered a bare `0`. Two of the default pins (Heavy Tools, Clothing) were broken out of the box. All IDs corrected, and a one-time migration auto-remaps existing saved pins.
+- **Mod-manager text fields had invisible caret + selection highlight.** Three stacked bugs: (1) slider numeric readouts added `TMP_InputField` to an already-active object, killing TMP's caret subsystem so no caret was ever created; (2) the scroll viewport's `RectMask2D` left lazily-created carets stuck culled; (3) `customCaretColor` was off so the caret color was ignored. The caret and selection highlight now render reliably on every field, including the first field on first open and after switching mods.
+
+### Changed
+- **Per-tier military/equipment pins.** FF tracks weapons/armor/clothing per tier, not as aggregates, so the catalog now lists real items: Simple/Standard/Heavy Weapons, Shields/Hauberks/Platemail, Clothing (Linen Clothes), Hide Coats, Tools, plus Pottery, Books, and Horses. Removed the non-existent Linen/Leather entries.
+- Pinned-resource scroll pane is 30% taller.
+
 ## v1.2.0 (2026-05-17) — Company Overlay polish
 
 Follow-up release focused on the Company Roster Overlay introduced in v1.1.1.

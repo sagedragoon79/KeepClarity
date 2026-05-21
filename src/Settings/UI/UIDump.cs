@@ -108,8 +108,76 @@ namespace FFUIOverhaul.Settings.UI
             w.WriteLine();
         }
 
+        /// <summary>
+        /// Focused-caret diagnostic — the caret + selection highlight in a
+        /// TMP_InputField are one MaskableGraphic ("Caret" child) that TMP
+        /// creates lazily on first focus. When it "renders then goes invisible
+        /// after a rebuild," the graphic is being culled (RectMask2D) or its
+        /// mesh/material/color is collapsing. This dumps that graphic's live
+        /// state for whatever field is focused right now, plus every
+        /// TMP_InputField (incl. inactive) and any "Caret" child found, so a
+        /// single dump taken in the broken state pinpoints the cause.
+        /// Reproduce the bug, click into a field, THEN Shift+F10.
+        /// </summary>
+        private static void DumpCaretDiagnostic(StreamWriter w)
+        {
+            w.WriteLine("## Caret diagnostic");
+            var es = UnityEngine.EventSystems.EventSystem.current;
+            var sel = es != null ? es.currentSelectedGameObject : null;
+            w.WriteLine($"  EventSystem.current={(es != null ? es.name : "<null>")}");
+            w.WriteLine($"  currentSelectedGameObject={(sel != null ? HierarchyPath(sel) : "<null>")}");
+
+            // Every TMP_InputField, including inactive, so we see ours even if
+            // they fell inactive. Then drill the lazily-created Caret child.
+            foreach (var inp in UnityEngine.Object.FindObjectsOfType<TMP_InputField>(includeInactive: true)
+                         .OrderBy(x => HierarchyPath(x.gameObject)))
+            {
+                if (inp == null) continue;
+                string path = HierarchyPath(inp.gameObject);
+                // Only care about ours — skip FF's native fields to keep it short.
+                if (path.IndexOf("KeepClarity", StringComparison.OrdinalIgnoreCase) < 0
+                    && path.IndexOf("SettingsCanvas", StringComparison.OrdinalIgnoreCase) < 0) continue;
+
+                w.WriteLine($"  FIELD {path}");
+                w.WriteLine($"    activeInHierarchy={inp.gameObject.activeInHierarchy} enabled={inp.enabled} isFocused={inp.isFocused}");
+                w.WriteLine($"    customCaretColor={inp.customCaretColor} caretColor={ColorHex(inp.caretColor)} caretWidth={inp.caretWidth} selectionColor={ColorHex(inp.selectionColor)}");
+
+                // Find the "Caret" graphic anywhere under the field.
+                Graphic? caret = null;
+                foreach (var g in inp.GetComponentsInChildren<Graphic>(includeInactive: true))
+                    if (g != null && g.gameObject.name.IndexOf("Caret", StringComparison.OrdinalIgnoreCase) >= 0)
+                        { caret = g; break; }
+
+                if (caret == null) { w.WriteLine("    caret child: <none yet — field never focused>"); continue; }
+
+                var cr = caret.canvasRenderer;
+                var mat = caret.materialForRendering;
+                w.WriteLine($"    CARET '{caret.gameObject.name}' type={caret.GetType().Name}");
+                var maskable = (caret as MaskableGraphic)?.maskable;
+                w.WriteLine($"      active={caret.gameObject.activeInHierarchy} enabled={caret.enabled} color={ColorHex(caret.color)} maskable={(maskable.HasValue ? maskable.Value.ToString() : "n/a")} raycastTarget={caret.raycastTarget}");
+                w.WriteLine($"      canvasRenderer: null={cr == null} cull={(cr != null ? cr.cull.ToString() : "?")} alpha={(cr != null ? cr.GetAlpha().ToString("0.##") : "?")} matCount={(cr != null ? cr.materialCount : 0)}");
+                w.WriteLine($"      materialForRendering='{(mat != null ? mat.name : "<null>")}' shader='{(mat != null && mat.shader != null ? mat.shader.name : "?")}'");
+                var crt = (RectTransform)caret.transform;
+                w.WriteLine($"      rect size={crt.rect.size} worldPos={crt.position}");
+
+                // Walk ancestors for RectMask2D / Mask that could be clipping it.
+                var t = caret.transform.parent;
+                while (t != null)
+                {
+                    var m2 = t.GetComponent<RectMask2D>();
+                    var mk = t.GetComponent<Mask>();
+                    if (m2 != null) w.WriteLine($"      ancestor RectMask2D on '{t.name}' enabled={m2.enabled}");
+                    if (mk != null) w.WriteLine($"      ancestor Mask on '{t.name}' enabled={mk.enabled}");
+                    t = t.parent;
+                }
+            }
+            w.WriteLine();
+        }
+
         private static void DumpControls(StreamWriter w)
         {
+            DumpCaretDiagnostic(w);
+
             w.WriteLine("## Buttons (active)");
             foreach (var b in UnityEngine.Object.FindObjectsOfType<Button>(includeInactive: false).OrderBy(x => HierarchyPath(x.gameObject)))
             {

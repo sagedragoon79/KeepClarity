@@ -260,7 +260,7 @@ namespace FFUIOverhaul.UI
             // taller than the cap below. Without this, "Pin All" produces a
             // panel that exceeds screen height; the drag-clamp then traps the
             // header behind the top bar with no way to reach it.
-            const float MaxItemsHeight = 520f;
+            const float MaxItemsHeight = 676f; // 520 + 30%
             var scrollGo = NewChild(_expandedPanel, "ItemsScroll");
             var scrollLE = scrollGo.AddComponent<LayoutElement>();
             scrollLE.preferredHeight = MaxItemsHeight;
@@ -748,30 +748,30 @@ namespace FFUIOverhaul.UI
         {
             var items = new List<PinnedItem>();
 
-            // Food
+            // Food — IDs match FF's Item.name (see ResourceManager item dict).
             AddItem(items, "ItemBerries", "Berries", ResourceCategory.Food);
             AddItem(items, "ItemMeat", "Meat", ResourceCategory.Food);
             AddItem(items, "ItemFish", "Fish", ResourceCategory.Food);
             AddItem(items, "ItemSmokedMeat", "Smoked Meat", ResourceCategory.Food);
             AddItem(items, "ItemSmokedFish", "Smoked Fish", ResourceCategory.Food);
             AddItem(items, "ItemPreserves", "Preserves", ResourceCategory.Food);
-            AddItem(items, "ItemPreservedVegetables", "Preserved Veg.", ResourceCategory.Food);
+            AddItem(items, "ItemPreservedVeg", "Preserved Veg.", ResourceCategory.Food);
             AddItem(items, "ItemGreens", "Greens", ResourceCategory.Food);
-            AddItem(items, "ItemRootVegetables", "Root Vegetables", ResourceCategory.Food);
+            AddItem(items, "ItemRootVegetable", "Root Vegetables", ResourceCategory.Food);
             AddItem(items, "ItemBread", "Bread", ResourceCategory.Food);
-            AddItem(items, "ItemMushrooms", "Mushrooms", ResourceCategory.Food);
+            AddItem(items, "ItemMushroom", "Mushrooms", ResourceCategory.Food);
             AddItem(items, "ItemFruit", "Fruit", ResourceCategory.Food);
             AddItem(items, "ItemNuts", "Nuts", ResourceCategory.Food);
             AddItem(items, "ItemEggs", "Eggs", ResourceCategory.Food);
             AddItem(items, "ItemBeans", "Beans", ResourceCategory.Food);
             AddItem(items, "ItemMilk", "Milk", ResourceCategory.Food);
             AddItem(items, "ItemCheese", "Cheese", ResourceCategory.Food);
-            AddItem(items, "ItemPastries", "Pastries", ResourceCategory.Food);
+            AddItem(items, "ItemPastry", "Pastries", ResourceCategory.Food);
             AddItem(items, "ItemMedicine", "Medicine", ResourceCategory.Food);
 
             // Raw Materials
             AddItem(items, "ItemLogs", "Logs", ResourceCategory.RawMaterial);
-            AddItem(items, "ItemMedicinalRoots", "Medicinal Roots", ResourceCategory.RawMaterial);
+            AddItem(items, "ItemRoots", "Medicinal Roots", ResourceCategory.RawMaterial);
             AddItem(items, "ItemHerbs", "Herbs", ResourceCategory.RawMaterial);
             AddItem(items, "ItemWillow", "Willow", ResourceCategory.RawMaterial);
             AddItem(items, "ItemStone", "Stone", ResourceCategory.RawMaterial);
@@ -789,32 +789,40 @@ namespace FFUIOverhaul.UI
 
             // Produced
             AddItem(items, "ItemFirewood", "Firewood", ResourceCategory.Produced);
-            AddItem(items, "ItemWoodPlanks", "Wood Planks", ResourceCategory.Produced);
-            AddItem(items, "ItemPelts", "Pelts", ResourceCategory.Produced);
+            AddItem(items, "ItemPlanks", "Wood Planks", ResourceCategory.Produced);
+            AddItem(items, "ItemHide", "Hides", ResourceCategory.Produced);
             AddItem(items, "ItemTallow", "Tallow", ResourceCategory.Produced);
             AddItem(items, "ItemFlour", "Flour", ResourceCategory.Produced);
             AddItem(items, "ItemIron", "Iron", ResourceCategory.Produced);
             AddItem(items, "ItemBrick", "Brick", ResourceCategory.Produced);
             AddItem(items, "ItemGoldIngot", "Gold Ingots", ResourceCategory.Produced);
             AddItem(items, "ItemPaper", "Paper", ResourceCategory.Produced);
+            AddItem(items, "ItemPottery", "Pottery", ResourceCategory.Produced);
 
-            // Usable
-            AddItem(items, "ItemHeavyTools", "Heavy Tools", ResourceCategory.Usable);
-            AddItem(items, "ItemClothing", "Clothing", ResourceCategory.Usable);
+            // Usable — military/equipment goods are per-tier in FF (no aggregate
+            // "Weapons"/"Armor" item exists), so each tier is its own pin.
+            AddItem(items, "ItemTool", "Tools", ResourceCategory.Usable);
+            AddItem(items, "ItemHeavyTool", "Heavy Tools", ResourceCategory.Usable);
+            AddItem(items, "ItemLinenClothes", "Clothing", ResourceCategory.Usable);
+            AddItem(items, "ItemHideCoat", "Hide Coats", ResourceCategory.Usable);
             AddItem(items, "ItemShoes", "Shoes", ResourceCategory.Usable);
-            AddItem(items, "ItemCandles", "Candles", ResourceCategory.Usable);
+            AddItem(items, "ItemCandle", "Candles", ResourceCategory.Usable);
             AddItem(items, "ItemSoap", "Soap", ResourceCategory.Usable);
-            AddItem(items, "ItemBeer", "Beer", ResourceCategory.Usable);
+            AddItem(items, "ItemWheatBeer", "Beer", ResourceCategory.Usable);
             AddItem(items, "ItemGlass", "Glass", ResourceCategory.Usable);
-            AddItem(items, "ItemLinen", "Linen", ResourceCategory.Usable);
-            AddItem(items, "ItemLeather", "Leather", ResourceCategory.Usable);
-            AddItem(items, "ItemWeapons", "Weapons", ResourceCategory.Usable);
-            AddItem(items, "ItemArmor", "Armor", ResourceCategory.Usable);
+            AddItem(items, "ItemBooks", "Books", ResourceCategory.Usable);
+            AddItem(items, "ItemSimpleWeapon", "Simple Weapons", ResourceCategory.Usable);
+            AddItem(items, "ItemWeapon", "Weapons", ResourceCategory.Usable);
+            AddItem(items, "ItemHeavyWeapon", "Heavy Weapons", ResourceCategory.Usable);
+            AddItem(items, "ItemShield", "Shields", ResourceCategory.Usable);
+            AddItem(items, "ItemHauberk", "Hauberks", ResourceCategory.Usable);
+            AddItem(items, "ItemPlatemail", "Platemail", ResourceCategory.Usable);
 
             // Livestock
-            AddItem(items, "ItemCattle", "Cattle", ResourceCategory.Livestock);
+            AddItem(items, "ItemCow", "Cattle", ResourceCategory.Livestock);
             AddItem(items, "ItemGoat", "Goats", ResourceCategory.Livestock);
             AddItem(items, "ItemChicken", "Chickens", ResourceCategory.Livestock);
+            AddItem(items, "ItemHorse", "Horses", ResourceCategory.Livestock);
 
             return items;
         }
@@ -824,6 +832,27 @@ namespace FFUIOverhaul.UI
 
         // ── Persistence ────────────────────────────────────────────────────
 
+        // Old ItemIds → correct FF Item.name. null = no FF equivalent (drop).
+        private static readonly Dictionary<string, string?> LegacyIdMap = new()
+        {
+            { "ItemPreservedVegetables", "ItemPreservedVeg" },
+            { "ItemRootVegetables", "ItemRootVegetable" },
+            { "ItemMushrooms", "ItemMushroom" },
+            { "ItemPastries", "ItemPastry" },
+            { "ItemMedicinalRoots", "ItemRoots" },
+            { "ItemWoodPlanks", "ItemPlanks" },
+            { "ItemPelts", "ItemHide" },
+            { "ItemHeavyTools", "ItemHeavyTool" },
+            { "ItemCandles", "ItemCandle" },
+            { "ItemBeer", "ItemWheatBeer" },
+            { "ItemCattle", "ItemCow" },
+            { "ItemClothing", "ItemLinenClothes" },
+            { "ItemWeapons", "ItemWeapon" },
+            { "ItemArmor", "ItemHauberk" },
+            { "ItemLinen", null },
+            { "ItemLeather", null },
+        };
+
         private void LoadPinnedItems()
         {
             _pinnedItems.Clear();
@@ -832,12 +861,13 @@ namespace FFUIOverhaul.UI
             {
                 _pinnedItems.Add(new PinnedItem { ItemId = "ItemLogs", DisplayName = "Logs", Category = ResourceCategory.RawMaterial });
                 _pinnedItems.Add(new PinnedItem { ItemId = "ItemFirewood", DisplayName = "Firewood", Category = ResourceCategory.Produced });
-                _pinnedItems.Add(new PinnedItem { ItemId = "ItemHeavyTools", DisplayName = "Heavy Tools", Category = ResourceCategory.Usable });
-                _pinnedItems.Add(new PinnedItem { ItemId = "ItemClothing", DisplayName = "Clothing", Category = ResourceCategory.Usable });
+                _pinnedItems.Add(new PinnedItem { ItemId = "ItemHeavyTool", DisplayName = "Heavy Tools", Category = ResourceCategory.Usable });
+                _pinnedItems.Add(new PinnedItem { ItemId = "ItemLinenClothes", DisplayName = "Clothing", Category = ResourceCategory.Usable });
                 return;
             }
 
             bool dirty = false;
+            var seen = new HashSet<string>();
             foreach (var entry in json.Split(';'))
             {
                 var parts = entry.Split(':');
@@ -847,10 +877,22 @@ namespace FFUIOverhaul.UI
                     // item count and the top bar already shows total food / months.
                     if (parts[0] == "Food_Total") { dirty = true; continue; }
 
+                    // Migrate legacy ItemIds that never matched FF's Item.name (so
+                    // they always showed "0"). Remap to the correct id; drop ones
+                    // with no real FF equivalent.
+                    string id = parts[0];
+                    if (LegacyIdMap.TryGetValue(id, out var mapped))
+                    {
+                        dirty = true;
+                        if (mapped == null) continue; // no FF equivalent — drop
+                        id = mapped;
+                    }
+                    if (!seen.Add(id)) { dirty = true; continue; } // de-dupe post-remap
+
                     Enum.TryParse<ResourceCategory>(parts[2], out var cat);
                     _pinnedItems.Add(new PinnedItem
                     {
-                        ItemId = parts[0],
+                        ItemId = id,
                         DisplayName = parts[1],
                         Category = cat
                     });

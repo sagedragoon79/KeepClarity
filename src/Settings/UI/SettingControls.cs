@@ -336,6 +336,12 @@ namespace FFUIOverhaul.Settings.UI
             rdTxtRT.offsetMin = Vector2.zero;
             rdTxtRT.offsetMax = Vector2.zero;
 
+            // CRITICAL (same as BuildInputField): deactivate BEFORE adding the
+            // TMP_InputField. If OnEnable runs while textComponent is null, the
+            // caret subsystem dies permanently — the caret object never gets
+            // created (UIDump showed "NO caret graphic found"), so no caret and
+            // no selection highlight ever render. Reactivated after wiring.
+            readoutGo.SetActive(false);
             var readoutInput = readoutGo.AddComponent<TMP_InputField>();
             readoutInput.textViewport = rdAreaRT;
             readoutInput.textComponent = rdTxt;
@@ -346,8 +352,9 @@ namespace FFUIOverhaul.Settings.UI
                 readoutInput.fontAsset = rdTxt.font;
                 readoutInput.pointSize = 14;
             }
+            readoutInput.customCaretColor = true; // else caretColor is ignored
             readoutInput.caretColor = new Color(0.84f, 0.84f, 0.82f, 1f);
-            readoutInput.caretWidth = 1;
+            readoutInput.caretWidth = 2;
             readoutInput.caretBlinkRate = 0.85f;
             readoutInput.selectionColor = new Color(0.86f, 0.83f, 0.73f, 0.75f);
             readoutInput.lineType = TMP_InputField.LineType.SingleLine;
@@ -355,6 +362,9 @@ namespace FFUIOverhaul.Settings.UI
                 ? TMP_InputField.ContentType.IntegerNumber
                 : TMP_InputField.ContentType.DecimalNumber;
             readoutInput.text = format(slider.value);
+            // Same RectMask2D caret-cull fix as the standalone text inputs —
+            // slider readouts are also nested in the DetailScroll viewport mask.
+            readoutGo.AddComponent<CaretMaskFix>();
 
             // Sync guard prevents infinite loop: slider→input→slider→input...
             bool updating = false;
@@ -392,6 +402,9 @@ namespace FFUIOverhaul.Settings.UI
                 }
             });
 
+            // OnEnable now fires with textComponent + textViewport wired, so
+            // TMP creates the caret subsystem correctly.
+            readoutGo.SetActive(true);
             return go;
         }
 
@@ -540,10 +553,74 @@ namespace FFUIOverhaul.Settings.UI
             input.text = initial;
             input.onEndEdit.AddListener(v => { try { onSubmit(v); } catch (Exception ex) { FFUIOverhaulMod.Log.Warning($"[Settings/2D] input submit threw: {ex.Message}"); } });
 
+            // Fix the stuck-culled caret inside the scroll viewport. TMP creates
+            // the caret graphic lazily on first focus, but the ancestor
+            // RectMask2D (the DetailScroll Viewport) doesn't re-cull graphics
+            // added after its initial clip pass — so the caret's
+            // canvasRenderer.cull gets stuck true and the caret + selection
+            // highlight never draw (input still works). Diagnosed via UIDump's
+            // caret diagnostic: culled fields had two ancestor RectMask2Ds
+            // (Text Area + Viewport); the immune SearchBox had only one.
+            go.AddComponent<CaretMaskFix>();
+
             // OnEnable fires now with textComponent + textViewport already
             // wired — caret subsystem registers correctly.
             go.SetActive(true);
             return go;
+        }
+
+        /// <summary>
+        /// Works around a Unity RectMask2D bug: a TMP_InputField caret created
+        /// lazily on focus, inside a nested RectMask2D (the ScrollRect
+        /// viewport), gets stuck with canvasRenderer.cull=true and never
+        /// renders — input still routes, but the caret + selection highlight
+        /// don't draw. The mask never re-evaluates the lazily-added caret, so
+        /// the stale hard-cull sticks (worst near the viewport edges).
+        ///
+        /// The hard cull is unnecessary anyway: the UI/Default shader already
+        /// soft-clips fragments to the mask's _ClipRect, so the caret is
+        /// clipped to the viewport correctly even with cull=false. So while the
+        /// field is focused we just keep the caret's canvasRenderer un-culled
+        /// and let the soft clip-rect do the actual clipping.
+        /// </summary>
+        internal class CaretMaskFix : MonoBehaviour
+        {
+            private TMP_InputField? _input;
+            private CanvasRenderer? _caretCr;
+
+            private void Awake() => _input = GetComponent<TMP_InputField>();
+
+            // Hook into the canvas render phase. RectMask2D performs its
+            // clipping (and re-applies the stale caret cull) during
+            // Canvas.willRenderCanvases, via CanvasUpdateRegistry which
+            // subscribed at startup. We subscribe later, so our callback runs
+            // AFTER the clipper — letting us clear the cull just before render.
+            // A LateUpdate override (tried first) was stomped because the mask
+            // re-culled after LateUpdate, every frame.
+            private void OnEnable() => Canvas.willRenderCanvases += AfterClip;
+            private void OnDisable() => Canvas.willRenderCanvases -= AfterClip;
+
+            private void AfterClip()
+            {
+                if (_input == null || !_input.isFocused) { _caretCr = null; return; }
+
+                // The caret graphic ("Caret", a TMP_SelectionCaret) is created
+                // lazily on first focus. Resolve + cache it once it exists.
+                if (_caretCr == null)
+                {
+                    foreach (var g in GetComponentsInChildren<Graphic>(true))
+                    {
+                        if (g != null && g.gameObject.name.IndexOf("Caret", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            _caretCr = g.canvasRenderer;
+                            break;
+                        }
+                    }
+                }
+
+                if (_caretCr != null && _caretCr.cull)
+                    _caretCr.cull = false;
+            }
         }
 
         // ============== KeyCode rebind ==============

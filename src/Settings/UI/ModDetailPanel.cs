@@ -167,6 +167,27 @@ namespace FFUIOverhaul.Settings.UI
         {
             _currentModId = modId;
 
+            // Blur any focused TMP_InputField and clear the EventSystem
+            // selection BEFORE destroying the old content. Destroying a field
+            // while it's the EventSystem's currentSelectedGameObject wedges
+            // TMP's caret/selection rendering for every field built afterward
+            // — input still routes (typing/Del work) but the caret and the
+            // selection highlight stop drawing. This is why the fields render
+            // a caret on first open but go invisible after the first rebuild
+            // (mod switch or setting change → ShowMod). Deactivating + clearing
+            // selection lets the destroyed field clean up its caret subsystem.
+            var es = EventSystem.current;
+            if (es != null)
+            {
+                var sel = es.currentSelectedGameObject;
+                if (sel != null)
+                {
+                    var input = sel.GetComponent<TMP_InputField>();
+                    if (input != null) input.DeactivateInputField();
+                }
+                es.SetSelectedGameObject(null);
+            }
+
             // Clear existing category sections. Detach FIRST (instant), then
             // Destroy (queued for end-of-frame). Without the detach, freshly-
             // built sections render alongside the soon-to-be-destroyed old
