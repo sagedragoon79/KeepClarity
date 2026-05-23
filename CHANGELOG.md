@@ -1,5 +1,26 @@
 # Keep Clarity — Changelog
 
+## v1.2.2 (2026-05-22) — Overlay controls, grow direction, predator alerts
+
+### Overlays
+- **Per-overlay scale sliders** — independent size multipliers for Pinned Resources, Tech Queue, and Company overlays (was one combined slider; existing value is migrated).
+- **Per-overlay opacity sliders** — same split for chrome opacity.
+- **Grow direction (Up/Down)** — each overlay can grow its list upward from a bottom-anchored header instead of downward (e.g. put the header just above the minimap and grow up). The pinned resource-selection panel flips to match.
+- **Higher z-order** — overlays now render above the HUD (top bar / minimap) so their drag handles can't get lost behind them.
+- **Whole-header drag** for the company overlay (was banner-only).
+- **Per-company position memory + cascade** — each company panel remembers where you put it, and newly opened panels cascade instead of stacking.
+- Pinned list sizes to its content (capped to the screen) and grows back to full length; Dogs + Cats added to the Livestock pin list.
+- Company roster: cleaner per-class icons (FF's banner weapon icons), crisp native font, opaque header.
+
+### New: FF sprite exporter (Ctrl+Shift+F10)
+- Dumps every loaded UI sprite to PNG plus a self-contained searchable HTML gallery, for offline reference when matching FF's UI styling.
+
+### New: Predator alert severity tint
+- Tints the "Predators are attacking!" bar by live threat severity — amber for a fox/boar that's merely sighted or fleeing (chased away), red for wolves/bears or an actively engaging fox/boar — and updates live as the threat escalates or backs off. (Pairs with Warden of the Wilds' per-animal icons.)
+
+### Fixed
+- Mod-manager UI dump (Shift+F10) no longer aborts on input fields whose caret material isn't initialized.
+
 ## v1.2.1 (2026-05-20) — Pinned resources + mod-manager caret fixes
 
 ### Fixed

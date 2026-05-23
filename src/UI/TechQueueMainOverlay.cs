@@ -20,7 +20,7 @@ namespace FFUIOverhaul.UI
         private const float HeaderHeight = 22f;
         private const float TabWidth = 22f;
         private const float TabHeight = 70f;
-        private const int CanvasSortingOrder = 1;
+        private const int CanvasSortingOrder = 50; // above HUD, below mod manager
 
         private static readonly Color PanelBg = new(0.11f, 0.09f, 0.09f, 0.92f);
         private static readonly Color HeaderTextColor = new(0.83f, 0.63f, 0.19f, 1f);
@@ -37,6 +37,9 @@ namespace FFUIOverhaul.UI
         private CanvasScaler? _canvasScaler;
         private GameObject? _expandedPanel;
         private GameObject? _collapsedTab;
+        private GameObject? _header;
+        private GameObject? _body;
+        private OverlayGrowDirection _lastGrowDir = (OverlayGrowDirection)(-1);
         private TextMeshProUGUI? _contentText;
         private DraggablePanel? _expandedDrag;
         private DraggablePanel? _collapsedDrag;
@@ -58,7 +61,8 @@ namespace FFUIOverhaul.UI
                 }
                 return;
             }
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.TechQueueOverlayScale?.Value ?? 1f);
+            ApplyGrowDirection();
             SyncOpacity();
             SyncPendingChevrons();
 
@@ -148,12 +152,23 @@ namespace FFUIOverhaul.UI
             canvas.sortingOrder = CanvasSortingOrder;
             _canvasScaler = _canvasRoot.GetComponent<CanvasScaler>();
             _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.TechQueueOverlayScale?.Value ?? 1f);
 
             BuildExpandedPanel();
             BuildCollapsedTab();
             WireDragHandles();
             ApplyCollapsed();
+            ApplyGrowDirection();
+        }
+
+        private void ApplyGrowDirection()
+        {
+            var dir = FFUIOverhaulMod.TechQueueGrowDirection?.Value ?? OverlayGrowDirection.Down;
+            if (dir == _lastGrowDir) return;
+            _lastGrowDir = dir;
+            if (_expandedPanel != null && _header != null && _body != null)
+                OverlayLayout.Apply((RectTransform)_expandedPanel.transform, dir,
+                    _header.transform, _body.transform);
         }
 
         private void WireDragHandles()
@@ -214,6 +229,7 @@ namespace FFUIOverhaul.UI
             // drag falls through to the canvas). Subtle gold tint signals
             // it's interactive without being loud.
             var header = NewChild(_expandedPanel, "Header");
+            _header = header;
             header.AddComponent<LayoutElement>().preferredHeight = HeaderHeight;
             AddImage(header, new Color(0.83f, 0.63f, 0.19f, 0.10f));
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
@@ -238,6 +254,7 @@ namespace FFUIOverhaul.UI
             // the parent VLG + ContentSizeFitter use to size the panel correctly.
             // Use TMPro.margin for internal padding (left, top, right, bottom).
             var bodyGo = NewChild(_expandedPanel, "Body");
+            _body = bodyGo;
             _contentText = bodyGo.AddComponent<TextMeshProUGUI>();
             _contentText.fontSize = 12;
             _contentText.color = BodyTextColor;
@@ -480,7 +497,7 @@ namespace FFUIOverhaul.UI
 
         private void SyncOpacity()
         {
-            float wanted = FFUIOverhaulMod.OverlayOpacity?.Value ?? 0.92f;
+            float wanted = FFUIOverhaulMod.TechQueueOverlayOpacity?.Value ?? 0.92f;
             wanted = Mathf.Clamp(wanted, 0.05f, 1f);
             for (int i = 0; i < _opacityImages.Count; i++)
             {

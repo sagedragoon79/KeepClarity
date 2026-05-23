@@ -16,9 +16,13 @@ namespace FFUIOverhaul.UI
     public static class UIScaleSync
     {
         public static void Sync(CanvasScaler? targetScaler)
+            => Sync(targetScaler, FFUIOverhaulMod.OverlayUIScale?.Value ?? 1.0f);
+
+        /// <summary>Drives the scaler from an explicit scale value — lets each
+        /// overlay (pinned / tech / company) pass its own independent pref.</summary>
+        public static void Sync(CanvasScaler? targetScaler, float wanted)
         {
             if (targetScaler == null) return;
-            float wanted = FFUIOverhaulMod.OverlayUIScale?.Value ?? 1.0f;
             wanted = Mathf.Clamp(wanted, 0.3f, 3f);
 
             // ConstantPixelSize mode is the simplest scale model — scaleFactor

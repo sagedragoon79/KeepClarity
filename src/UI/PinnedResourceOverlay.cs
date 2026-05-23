@@ -30,7 +30,10 @@ namespace FFUIOverhaul.UI
         private const float RowHeight = 18f;
         private const float TabWidth = 24f;
         private const float TabHeight = 60f;
-        private const int CanvasSortingOrder = 1; // above game world, below typical UI
+        // Above FF's HUD (top bar / minimap sit at ~9-10) so the draggable
+        // handle can't get lost behind them; still well below the mod-manager
+        // canvas (5000) and tooltips. Bumped from 1 per user request.
+        private const int CanvasSortingOrder = 50;
 
         // Palette — borrowed from prior IMGUI version; tuned to game's brown/gold.
         private static readonly Color PanelBg = new(0.11f, 0.09f, 0.09f, 0.92f);
@@ -53,9 +56,16 @@ namespace FFUIOverhaul.UI
         private GameObject? _canvasRoot;
         private CanvasScaler? _canvasScaler;
         private GameObject? _expandedPanel;
+        private GameObject? _expHeader;
+        private GameObject? _expSeparator;
+        private GameObject? _expItemsScroll;
+        private OverlayGrowDirection _lastGrowDir = (OverlayGrowDirection)(-1);
         private GameObject? _collapsedTab;
         private GameObject? _configPanel;
+        private RectTransform? _configHeaderRt;
+        private RectTransform? _configScrollRt;
         private RectTransform? _itemsContainer;
+        private LayoutElement? _itemsScrollLE;
         private RectTransform? _configContent;
         private TextMeshProUGUI? _configButtonLabel;
         private DraggablePanel? _expandedDrag;
@@ -89,7 +99,8 @@ namespace FFUIOverhaul.UI
                 return;
             }
 
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.PinnedOverlayScale?.Value ?? 1f);
+            ApplyGrowDirection();
             SyncOpacity();
             SyncPendingChevrons();
 
@@ -124,7 +135,7 @@ namespace FFUIOverhaul.UI
             _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             // Mirror the game's scaler immediately if available so first-frame
             // sizing matches FF's UI scale instead of momentarily showing at 1×.
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.PinnedOverlayScale?.Value ?? 1f);
 
             BuildExpandedPanel();
             BuildCollapsedTab();
@@ -135,6 +146,56 @@ namespace FFUIOverhaul.UI
             RebuildItemRows();
             RebuildConfigRows();
             RefreshValues();
+            ApplyGrowDirection();
+        }
+
+        /// <summary>Apply the grow-direction pref. Order top→bottom when growing
+        /// down is [header, separator, items]; OverlayLayout reverses it and
+        /// flips the pivot for grow-up.</summary>
+        private void ApplyGrowDirection()
+        {
+            var dir = FFUIOverhaulMod.PinnedGrowDirection?.Value ?? OverlayGrowDirection.Down;
+            if (dir == _lastGrowDir) return;
+            _lastGrowDir = dir;
+            if (_expandedPanel != null && _expHeader != null && _expSeparator != null && _expItemsScroll != null)
+                OverlayLayout.Apply((RectTransform)_expandedPanel.transform, dir,
+                    _expHeader.transform, _expSeparator.transform, _expItemsScroll.transform);
+            ApplyConfigGrowDirection(dir);
+        }
+
+        /// <summary>Flip the resource-selection (config) panel to match the
+        /// pinned panel's grow direction: header to the bottom + scroll above
+        /// when growing up, and pivot to the bottom so it stays bottom-aligned
+        /// with the main panel (their lockstep drag offset is vertically 0).</summary>
+        private void ApplyConfigGrowDirection(OverlayGrowDirection dir)
+        {
+            if (_configPanel == null || _configHeaderRt == null || _configScrollRt == null) return;
+            bool up = dir == OverlayGrowDirection.Up;
+            const float headerHeight = 22f;
+
+            var cp = (RectTransform)_configPanel.transform;
+            var pcp = cp.pivot; pcp.y = up ? 0f : 1f; cp.pivot = pcp;
+
+            if (up)
+            {
+                _configHeaderRt.anchorMin = new Vector2(0, 0);
+                _configHeaderRt.anchorMax = new Vector2(1, 0);
+                _configHeaderRt.pivot = new Vector2(0.5f, 0);
+                _configHeaderRt.anchoredPosition = Vector2.zero;
+                _configScrollRt.pivot = new Vector2(0.5f, 0);
+                _configScrollRt.anchoredPosition = new Vector2(0, headerHeight);
+            }
+            else
+            {
+                _configHeaderRt.anchorMin = new Vector2(0, 1);
+                _configHeaderRt.anchorMax = new Vector2(1, 1);
+                _configHeaderRt.pivot = new Vector2(0.5f, 1);
+                _configHeaderRt.anchoredPosition = Vector2.zero;
+                _configScrollRt.pivot = new Vector2(0.5f, 1);
+                _configScrollRt.anchoredPosition = new Vector2(0, -headerHeight);
+            }
+            // Scroll stretch anchors + sizeDelta (0, -headerHeight-4) are the
+            // same in both orientations; only pivot/anchoredPosition flip.
         }
 
         private void WireDragHandles()
@@ -213,6 +274,7 @@ namespace FFUIOverhaul.UI
             // drag events fall through to the canvas). Subtle gold tint so
             // the user sees the strip is interactive without it dominating.
             var header = NewChild(_expandedPanel, "Header");
+            _expHeader = header;
             var headerLE = header.AddComponent<LayoutElement>();
             headerLE.preferredHeight = HeaderHeight;
             AddImage(header, new Color(0.83f, 0.63f, 0.19f, 0.10f));
@@ -252,19 +314,24 @@ namespace FFUIOverhaul.UI
             // border instead of a bright gold accent (which clashed against
             // the FF panel background).
             var sep = NewChild(_expandedPanel, "Separator");
+            _expSeparator = sep;
             var sepLE = sep.AddComponent<LayoutElement>();
             sepLE.preferredHeight = 1;
             AddImage(sep, new Color(0.35f, 0.27f, 0.18f, 0.85f));
 
             // Items area — wrapped in a ScrollRect so the panel can't grow
-            // taller than the cap below. Without this, "Pin All" produces a
-            // panel that exceeds screen height; the drag-clamp then traps the
-            // header behind the top bar with no way to reach it.
-            const float MaxItemsHeight = 676f; // 520 + 30%
+            // taller than the screen. The cap is now screen-relative (most of
+            // the screen height) rather than a small fixed value, so the full
+            // pinned list shows without scrolling in normal use, but a huge
+            // "Pin All" list can't push the panel thousands of px off-screen
+            // (which broke dragging and left it blank).
             var scrollGo = NewChild(_expandedPanel, "ItemsScroll");
-            var scrollLE = scrollGo.AddComponent<LayoutElement>();
-            scrollLE.preferredHeight = MaxItemsHeight;
-            scrollLE.flexibleHeight = 0;
+            _expItemsScroll = scrollGo;
+            _itemsScrollLE = scrollGo.AddComponent<LayoutElement>();
+            // Height is set per-rebuild in RebuildItemRows: content height,
+            // clamped to the screen. Start small so the first frame isn't tall.
+            _itemsScrollLE.preferredHeight = 0;
+            _itemsScrollLE.flexibleHeight = 0;
             var scroll = scrollGo.AddComponent<ScrollRect>();
             scroll.horizontal = false;
             scroll.vertical = true;
@@ -361,6 +428,7 @@ namespace FFUIOverhaul.UI
             const float headerHeight = 22f;
             var header = NewChild(_configPanel, "Header");
             var hrt = (RectTransform)header.transform;
+            _configHeaderRt = hrt;
             hrt.anchorMin = new Vector2(0, 1);
             hrt.anchorMax = new Vector2(1, 1);
             hrt.pivot = new Vector2(0.5f, 1);
@@ -384,6 +452,7 @@ namespace FFUIOverhaul.UI
             // Scroll root — fills the rest of the panel below the header.
             var scrollGo = NewChild(_configPanel, "Scroll");
             var scrollRt = (RectTransform)scrollGo.transform;
+            _configScrollRt = scrollRt;
             scrollRt.anchorMin = Vector2.zero;
             scrollRt.anchorMax = new Vector2(1, 1);
             scrollRt.pivot = new Vector2(0.5f, 1);
@@ -494,6 +563,18 @@ namespace FFUIOverhaul.UI
                 value.gameObject.AddComponent<LayoutElement>().preferredWidth = 72;
 
                 _rows.Add(new PinnedRow { Root = rowGo, NameText = name, ValueText = value, Item = item });
+            }
+
+            // Size the scroll area to the content height, clamped to the
+            // screen. This lets the panel size to however many items are pinned
+            // (compact when few) instead of a fixed tall box, while still
+            // capping at screen height so "Pin All" scrolls rather than running
+            // thousands of px off-screen.
+            if (_itemsScrollLE != null && _itemsContainer != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_itemsContainer);
+                float contentH = LayoutUtility.GetPreferredHeight(_itemsContainer);
+                _itemsScrollLE.preferredHeight = Mathf.Clamp(contentH, 0f, Mathf.Max(120f, Screen.height - 160f));
             }
 
             // Force a layout pass now so the panel's ContentSizeFitter shrinks/grows
@@ -823,6 +904,8 @@ namespace FFUIOverhaul.UI
             AddItem(items, "ItemGoat", "Goats", ResourceCategory.Livestock);
             AddItem(items, "ItemChicken", "Chickens", ResourceCategory.Livestock);
             AddItem(items, "ItemHorse", "Horses", ResourceCategory.Livestock);
+            AddItem(items, "ItemDog", "Dogs", ResourceCategory.Livestock);
+            AddItem(items, "ItemCat", "Cats", ResourceCategory.Livestock);
 
             return items;
         }
@@ -1145,7 +1228,7 @@ namespace FFUIOverhaul.UI
 
         private void SyncOpacity()
         {
-            float wanted = FFUIOverhaulMod.OverlayOpacity?.Value ?? 0.92f;
+            float wanted = FFUIOverhaulMod.PinnedOverlayOpacity?.Value ?? 0.92f;
             wanted = Mathf.Clamp(wanted, 0.05f, 1f);
             for (int i = 0; i < _opacityImages.Count; i++)
             {

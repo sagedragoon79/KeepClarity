@@ -28,7 +28,10 @@ namespace FFUIOverhaul.UI
         private GameObject? _canvasRoot;
         private CanvasScaler? _canvasScaler;
         private GameObject? _panel;
+        private Image? _panelBg;
+        private GameObject? _header;
         private GameObject? _rowsContainer;
+        private OverlayGrowDirection _lastGrowDir = (OverlayGrowDirection)(-1);
         private DraggablePanel? _drag;
         private readonly List<SoldierRow> _rows = new();
         private float _refreshTimer;
@@ -81,7 +84,19 @@ namespace FFUIOverhaul.UI
         public void Tick()
         {
             if (!_initialized || _canvasRoot == null || !_canvasRoot.activeSelf) return;
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.CompanyOverlayScale?.Value ?? 1f);
+            ApplyGrowDirection();
+
+            // Live opacity on the panel body only (header stays opaque, text
+            // unaffected). Cheap tolerance check skips most ticks.
+            if (_panelBg != null)
+            {
+                float wantA = Mathf.Clamp(FFUIOverhaulMod.CompanyOverlayOpacity?.Value ?? 0.92f, 0.05f, 1f);
+                if (Mathf.Abs(_panelBg.color.a - wantA) >= 0.005f)
+                {
+                    var c = _panelBg.color; c.a = wantA; _panelBg.color = c;
+                }
+            }
 
             _refreshTimer += Time.unscaledDeltaTime;
             if (_refreshTimer >= 0.25f)
@@ -100,16 +115,19 @@ namespace FFUIOverhaul.UI
             Object.DontDestroyOnLoad(_canvasRoot);
             var canvas = _canvasRoot.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 2;
+            // Above FF's HUD (~9-10) so the banner drag-handle can't be lost
+            // behind the top bar / minimap; below the mod manager (5000).
+            canvas.sortingOrder = 50;
             _canvasScaler = _canvasRoot.GetComponent<CanvasScaler>();
             _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
-            UIScaleSync.Sync(_canvasScaler);
+            UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.CompanyOverlayScale?.Value ?? 1f);
 
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
             ApplySceneVisibility(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
 
             BuildPanel();
             BuildRows();
+            ApplyGrowDirection();
         }
 
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene _, UnityEngine.SceneManagement.Scene next)
@@ -139,11 +157,11 @@ namespace FFUIOverhaul.UI
             // overlay's opacity via the same SyncOpacity helper indirectly:
             // for v1 we just set a fixed alpha here; live opacity sync can
             // be added later if the user asks.
-            var bgImg = _panel.AddComponent<Image>();
+            _panelBg = _panel.AddComponent<Image>();
             var frame = FFNativeAssets.PanelBorderThick ?? FFNativeAssets.PanelBorderDark;
-            if (frame != null) { bgImg.sprite = frame; bgImg.type = Image.Type.Sliced; }
-            float a = FFUIOverhaulMod.OverlayOpacity?.Value ?? 0.92f;
-            bgImg.color = new Color(1f, 1f, 1f, a);
+            if (frame != null) { _panelBg.sprite = frame; _panelBg.type = Image.Type.Sliced; }
+            float a = FFUIOverhaulMod.CompanyOverlayOpacity?.Value ?? 0.92f;
+            _panelBg.color = new Color(1f, 1f, 1f, a);
 
             var vlg = _panel.AddComponent<VerticalLayoutGroup>();
             vlg.padding = new RectOffset(6, 6, 6, 6);
@@ -159,7 +177,25 @@ namespace FFUIOverhaul.UI
             // Banner aspect is roughly 77:175 (wide:tall) per the dump, so at
             // 32px tall it's ~14px wide. The banner is also the drag handle.
             var header = NewChild(_panel, "Header");
+            _header = header;
             header.AddComponent<LayoutElement>().preferredHeight = HeaderHeight;
+            // Opaque header background. PanelHeaderTop (the fancy top border)
+            // has a transparent center, so it only changed the border and left
+            // the strip translucent. Use the dark-FILL bordered sprite at full
+            // alpha so the title strip reads solid over the translucent body.
+            var headerBg = header.AddComponent<Image>();
+            var headerSprite = FFNativeAssets.PanelBorderDark ?? FFNativeAssets.PanelBorderThick;
+            if (headerSprite != null) { headerBg.sprite = headerSprite; headerBg.type = Image.Type.Sliced; }
+            headerBg.color = headerSprite != null ? Color.white : new Color(0.12f, 0.10f, 0.09f, 1f);
+
+            // The whole header is the drag handle (not just the banner). The
+            // opaque headerBg Image is the raycast target; drags on the banner
+            // / name bubble up to this handler.
+            _drag = header.AddComponent<DraggablePanel>();
+            _drag.Target = (RectTransform)_panel.transform;
+            _drag.DefaultNormalizedPosition = new Vector2(0.5f, 0.7f);
+            _drag.OnPositionChanged = SavePositionForCompany;
+
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 6;
             hlg.padding = new RectOffset(2, 2, 0, 0);
@@ -177,10 +213,6 @@ namespace FFUIOverhaul.UI
             bannerImg.sprite = _company.bannerSprite;
             bannerImg.preserveAspect = true;
             bannerImg.raycastTarget = true;
-            _drag = bannerGo.AddComponent<DraggablePanel>();
-            _drag.Target = (RectTransform)_panel.transform;
-            _drag.DefaultNormalizedPosition = new Vector2(0.5f, 0.7f);
-            _drag.OnPositionChanged = SavePosition;
 
             var nameLabel = NewText(header, "CompanyName", _company.displayName, 17,
                 FontStyles.Bold | FontStyles.SmallCaps, Color.white, TextAlignmentOptions.MidlineLeft);
@@ -196,6 +228,29 @@ namespace FFUIOverhaul.UI
             rvlg.childControlHeight = true;
         }
 
+        /// <summary>Resolves the clear weapon-class icon FF uses on the
+        /// bottom-screen company banners (sword/shield for infantry, bow for
+        /// ranged, etc.) from assetMapManager.uiAssetMap, keyed by the
+        /// division's combat attributes. Falls back to the muddier
+        /// SoldierTypeData.typeIcon if the asset map isn't available.</summary>
+        private static Sprite? ResolveTypeIcon(SoldierTypeData? type)
+        {
+            if (type == null) return null;
+            try
+            {
+                var map = UnitySingleton<GameManager>.Instance?.assetMapManager?.uiAssetMap;
+                if (map != null)
+                {
+                    var ca = type.combatAttributes;
+                    if ((ca & CombatAttributeFlags.Archer) != 0) return map.rangedIcon ?? type.typeIcon;
+                    if ((ca & CombatAttributeFlags.Cavalry) != 0) return map.cavalryIcon ?? type.typeIcon;
+                    if ((ca & CombatAttributeFlags.Infantry) != 0) return map.infantryIcon ?? type.typeIcon;
+                }
+            }
+            catch { }
+            return type.typeIcon;
+        }
+
         // ── Rows ───────────────────────────────────────────────────────────
 
         private void BuildRows()
@@ -208,7 +263,7 @@ namespace FFUIOverhaul.UI
             foreach (var division in _company.divisions)
             {
                 if (division?.soldiers == null) continue;
-                var typeIcon = division.soldierType?.typeIcon;
+                var typeIcon = ResolveTypeIcon(division.soldierType);
                 foreach (var soldier in division.soldiers)
                 {
                     if (soldier?.villager == null) continue;
@@ -249,6 +304,10 @@ namespace FFUIOverhaul.UI
             fillRt.offsetMax = Vector2.zero;
             var fillImg = fillGo.AddComponent<Image>();
             fillImg.type = Image.Type.Simple;
+            // Vertical gradient sprite (brighter top → darker bottom) tinted by
+            // HpColor — gives the bar the same depth FF's barracks health bar
+            // has, instead of a flat fill.
+            fillImg.sprite = GetBarGradientSprite();
             fillImg.color = HpColor(1f);
             fillImg.raycastTarget = false;
 
@@ -308,18 +367,28 @@ namespace FFUIOverhaul.UI
             };
         }
 
-        /// <summary>Applies a soft white outline. Wrapped because the
-        /// outlineWidth setter NREs on some font assets without an outline
-        /// material channel (see PinnedResourceOverlay.NewText for the
-        /// rationale).</summary>
-        private static void ApplyLightOutline(TextMeshProUGUI t)
+        /// <summary>Cached 1×N vertical gradient sprite (darker bottom, full
+        /// brightness top). Tinted by HpColor on the fill Image to give the bar
+        /// FF-barracks-style depth instead of a flat color.</summary>
+        private static Sprite? _barGradient;
+        private static Sprite GetBarGradientSprite()
         {
-            try
+            if (_barGradient != null) return _barGradient;
+            const int h = 32;
+            var tex = new Texture2D(1, h, TextureFormat.RGBA32, false)
             {
-                t.outlineWidth = 0.25f;
-                t.outlineColor = new Color32(255, 255, 255, 200);
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear,
+            };
+            for (int y = 0; y < h; y++)
+            {
+                float tt = y / (float)(h - 1);          // 0 bottom → 1 top
+                float b = Mathf.Lerp(0.55f, 1f, tt);    // darker bottom
+                tex.SetPixel(0, y, new Color(b, b, b, 1f));
             }
-            catch { }
+            tex.Apply();
+            _barGradient = Sprite.Create(tex, new Rect(0, 0, 1, h), new Vector2(0.5f, 0.5f), 100f);
+            return _barGradient;
         }
 
         private void Refresh()
@@ -376,31 +445,94 @@ namespace FFUIOverhaul.UI
 
         private static Color HpColor(float pct)
         {
-            // Bright green at full HP, yellow at 50%, deep red at 0.
+            // Darker, richer ramp than before so white text contrasts and pops:
+            // deep green at full HP → amber at 50% → deep red at 0.
             if (pct >= 0.5f)
-                return Color.Lerp(new Color(0.95f, 0.80f, 0.18f, 0.9f), new Color(0.20f, 0.75f, 0.20f, 0.9f), (pct - 0.5f) * 2f);
-            return Color.Lerp(new Color(0.75f, 0.15f, 0.15f, 0.9f), new Color(0.95f, 0.80f, 0.18f, 0.9f), pct * 2f);
+                return Color.Lerp(new Color(0.72f, 0.58f, 0.10f, 0.95f), new Color(0.13f, 0.55f, 0.13f, 0.95f), (pct - 0.5f) * 2f);
+            return Color.Lerp(new Color(0.62f, 0.10f, 0.10f, 0.95f), new Color(0.72f, 0.58f, 0.10f, 0.95f), pct * 2f);
         }
 
         // ── Position persistence ───────────────────────────────────────────
+
+        /// <summary>Apply the grow-direction pref (cheap; only reorders when it
+        /// actually changed). Header on top + grow down, or header on bottom +
+        /// grow up.</summary>
+        private void ApplyGrowDirection()
+        {
+            var dir = FFUIOverhaulMod.CompanyGrowDirection?.Value ?? OverlayGrowDirection.Down;
+            if (dir == _lastGrowDir) return;
+            _lastGrowDir = dir;
+            if (_panel != null && _header != null && _rowsContainer != null)
+                OverlayLayout.Apply((RectTransform)_panel.transform, dir,
+                    _header.transform, _rowsContainer.transform);
+        }
+
+        private string CompanyKey => _company?.displayName ?? _company?.name ?? "?";
 
         private Vector2 ReadSavedAnchor()
         {
             // Convert normalized → anchored at first show. DraggablePanel does
             // the same math on its own once attached, but we need an initial
             // position before the drag handler exists.
-            float x = FFUIOverhaulMod.CompanyOverlayPosX?.Value ?? 0.5f;
-            float y = FFUIOverhaulMod.CompanyOverlayPosY?.Value ?? 0.7f;
             var size = new Vector2(Screen.width, Screen.height);
-            return new Vector2(x * size.x - 0.5f * size.x, y * size.y - 1f * size.y);
+            Vector2 norm;
+            if (TryGetSavedNormalized(CompanyKey, out var saved))
+            {
+                // Remembered where this specific company was last placed.
+                norm = saved;
+            }
+            else
+            {
+                // First time this company is opened → cascade-offset from the
+                // default so multiple companies don't stack on top of each other.
+                int idx = CompanyOverlayManager.OpenCountForCascade();
+                float nx = Mathf.Clamp(0.5f + idx * 0.045f, 0.10f, 0.92f);
+                float ny = Mathf.Clamp(0.70f - idx * 0.06f, 0.25f, 0.95f);
+                norm = new Vector2(nx, ny);
+            }
+            return new Vector2(norm.x * size.x - 0.5f * size.x, norm.y * size.y - 1f * size.y);
         }
 
-        private static void SavePosition(Vector2 normalized)
+        private void SavePositionForCompany(Vector2 normalized) => SetSavedNormalized(CompanyKey, normalized);
+
+        // ── Per-company position store (serialized "name=x,y;…") ────────────
+
+        private static Dictionary<string, Vector2>? _posCache;
+
+        private static Dictionary<string, Vector2> PosMap()
         {
-            if (FFUIOverhaulMod.CompanyOverlayPosX == null || FFUIOverhaulMod.CompanyOverlayPosY == null) return;
-            FFUIOverhaulMod.CompanyOverlayPosX.Value = normalized.x;
-            FFUIOverhaulMod.CompanyOverlayPosY.Value = normalized.y;
-            MelonLoader.MelonPreferences.Save();
+            if (_posCache != null) return _posCache;
+            _posCache = new Dictionary<string, Vector2>();
+            string raw = FFUIOverhaulMod.CompanyOverlayPositions?.Value ?? "";
+            foreach (var entry in raw.Split(';'))
+            {
+                if (string.IsNullOrEmpty(entry)) continue;
+                int eq = entry.LastIndexOf('=');
+                if (eq <= 0) continue;
+                string key = entry.Substring(0, eq);
+                var xy = entry.Substring(eq + 1).Split(',');
+                if (xy.Length == 2
+                    && float.TryParse(xy[0], out var x) && float.TryParse(xy[1], out var y))
+                    _posCache[key] = new Vector2(x, y);
+            }
+            return _posCache;
+        }
+
+        private static bool TryGetSavedNormalized(string key, out Vector2 v) => PosMap().TryGetValue(key, out v);
+
+        private static void SetSavedNormalized(string key, Vector2 v)
+        {
+            PosMap()[key] = v;
+            var sb = new System.Text.StringBuilder();
+            foreach (var kv in PosMap())
+                sb.Append(kv.Key).Append('=')
+                  .Append(kv.Value.x.ToString("0.####")).Append(',')
+                  .Append(kv.Value.y.ToString("0.####")).Append(';');
+            if (FFUIOverhaulMod.CompanyOverlayPositions != null)
+            {
+                FFUIOverhaulMod.CompanyOverlayPositions.Value = sb.ToString();
+                MelonLoader.MelonPreferences.Save();
+            }
         }
 
         // ── UGUI helpers (mirrors PinnedResourceOverlay's) ─────────────────
@@ -493,6 +625,11 @@ namespace FFUIOverhaul.UI
     {
         private static readonly Dictionary<MilitaryCompany, CompanyOverlay> _open = new();
         private static readonly List<MilitaryCompany> _toClose = new();
+
+        /// <summary>Number of overlays already open — used to cascade-offset a
+        /// newly-opened company that has no remembered position, so panels
+        /// don't stack directly on top of each other.</summary>
+        public static int OpenCountForCascade() => _open.Count;
 
         public static void Toggle(MilitaryCompany company)
         {

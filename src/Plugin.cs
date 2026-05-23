@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.1", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.2", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -52,7 +52,16 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<float> TechQueueOverlayPosX { get; private set; } = null!;
         public static MelonPreferences_Entry<float> TechQueueOverlayPosY { get; private set; } = null!;
         public static MelonPreferences_Entry<float> OverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> PinnedOverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> TechQueueOverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CompanyOverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<UI.OverlayGrowDirection> PinnedGrowDirection { get; private set; } = null!;
+        public static MelonPreferences_Entry<UI.OverlayGrowDirection> TechQueueGrowDirection { get; private set; } = null!;
+        public static MelonPreferences_Entry<UI.OverlayGrowDirection> CompanyGrowDirection { get; private set; } = null!;
         public static MelonPreferences_Entry<float> OverlayUIScale { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> PinnedOverlayScale { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> TechQueueOverlayScale { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CompanyOverlayScale { get; private set; } = null!;
 
         // Tech research queue
         public static MelonPreferences_Entry<string> TechResearchQueue { get; private set; } = null!;
@@ -76,6 +85,7 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> EnableCompanyOverlay { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CompanyOverlayPosX { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CompanyOverlayPosY { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> CompanyOverlayPositions { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -226,11 +236,45 @@ namespace FFUIOverhaul
 
             OverlayOpacity = _prefs.CreateEntry("OverlayOpacity", 0.92f,
                 display_name: "Overlay Opacity",
-                description: "How opaque the pinned and tech queue panels are. 1.0 = solid, 0.3 = nearly invisible. Applies live.");
+                description: "Legacy combined overlay opacity — kept only to seed the per-overlay opacities below for existing users.",
+                is_hidden: true);
+            // Per-overlay opacities, seeded from the old combined value.
+            PinnedOverlayOpacity = _prefs.CreateEntry("PinnedOverlayOpacity", OverlayOpacity.Value,
+                display_name: "Pinned Overlay Opacity",
+                description: "How opaque the Pinned Resources panel chrome is. Text/buttons stay readable. Applies live.");
+            TechQueueOverlayOpacity = _prefs.CreateEntry("TechQueueOverlayOpacity", OverlayOpacity.Value,
+                display_name: "Tech Queue Overlay Opacity",
+                description: "How opaque the Tech Queue panel chrome is. Text/buttons stay readable. Applies live.");
+            CompanyOverlayOpacity = _prefs.CreateEntry("CompanyOverlayOpacity", OverlayOpacity.Value,
+                display_name: "Company Overlay Opacity",
+                description: "How opaque the Company roster panel body is. Header / text stay solid. Applies live.");
+
+            PinnedGrowDirection = _prefs.CreateEntry("PinnedGrowDirection", UI.OverlayGrowDirection.Down,
+                display_name: "Pinned Overlay Grow Direction",
+                description: "Whether the Pinned Resources list grows Down from the header (default) or Up (header on bottom). Applies live.");
+            TechQueueGrowDirection = _prefs.CreateEntry("TechQueueGrowDirection", UI.OverlayGrowDirection.Down,
+                display_name: "Tech Queue Grow Direction",
+                description: "Whether the Tech Queue list grows Down from the header (default) or Up (header on bottom). Applies live.");
+            CompanyGrowDirection = _prefs.CreateEntry("CompanyGrowDirection", UI.OverlayGrowDirection.Down,
+                display_name: "Company Overlay Grow Direction",
+                description: "Whether the Company roster grows Down from the header (default) or Up (header on bottom). Applies live.");
 
             OverlayUIScale = _prefs.CreateEntry("OverlayUIScale", 1.0f,
                 display_name: "Overlay UI Scale",
-                description: "Pinned/tech queue panel size multiplier. 1.0 = normal, 0.5 = half, 2.0 = double. Applies live.");
+                description: "Legacy combined overlay scale — kept only to seed the per-overlay scales below for existing users.",
+                is_hidden: true);
+            // Per-overlay scales. Default each to the old combined value so a
+            // user who'd set OverlayUIScale keeps it; new entries persist
+            // independently thereafter.
+            PinnedOverlayScale = _prefs.CreateEntry("PinnedOverlayScale", OverlayUIScale.Value,
+                display_name: "Pinned Overlay Scale",
+                description: "Pinned Resources panel size multiplier. 1.0 = normal. Applies live.");
+            TechQueueOverlayScale = _prefs.CreateEntry("TechQueueOverlayScale", OverlayUIScale.Value,
+                display_name: "Tech Queue Overlay Scale",
+                description: "Tech Queue panel size multiplier. 1.0 = normal. Applies live.");
+            CompanyOverlayScale = _prefs.CreateEntry("CompanyOverlayScale", OverlayUIScale.Value,
+                display_name: "Company Overlay Scale",
+                description: "Company roster panel size multiplier. 1.0 = normal. Applies live.");
 
             TechResearchQueue = _prefs.CreateEntry("TechResearchQueue", "",
                 display_name: "Tech Research Queue",
@@ -285,6 +329,9 @@ namespace FFUIOverhaul
                 display_name: "Company Overlay X", description: "Internal — drag the banner sprite to change.", is_hidden: true);
             CompanyOverlayPosY = _prefs.CreateEntry("CompanyOverlayPosY", 0.7f,
                 display_name: "Company Overlay Y", description: "Internal — drag the banner sprite to change.", is_hidden: true);
+            CompanyOverlayPositions = _prefs.CreateEntry("CompanyOverlayPositions", "",
+                display_name: "Company Overlay Positions",
+                description: "Internal — per-company saved panel positions, 'name=x,y;…'. Drag a company header to change.", is_hidden: true);
 
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
@@ -373,6 +420,7 @@ namespace FFUIOverhaul
             HandlePauseOnLoad(gm);
             Patches.DismissibleResourceAlerts.Tick();
             UI.CompanyOverlayManager.Tick();
+            Patches.PredatorBlurbBackground.Tick(Time.unscaledDeltaTime);
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -453,11 +501,22 @@ namespace FFUIOverhaul
 
         private void HandleSettingsPanelHotkey()
         {
+            bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            bool ctrlHeldNow = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+
+            // Ctrl+Shift+F10 → export every loaded sprite to PNG + an HTML
+            // gallery under MelonLoader/KC_SpriteExport_*/. Offline reference so
+            // we stop guessing sprite names. Checked before the Shift-only dump.
+            if (Input.GetKeyDown(SettingsPanelHotkey.Value) && shiftHeld && ctrlHeldNow)
+            {
+                Settings.UI.SpriteExport.Run();
+                return;
+            }
+
             // Shift+F10 → dump every active UI element to MelonLoader/Logs/.
             // Used to study FF's native styling so we can write targeted asset
             // lookups for the UGUI panel (Stage 2A).
-            if (Input.GetKeyDown(SettingsPanelHotkey.Value)
-                && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+            if (Input.GetKeyDown(SettingsPanelHotkey.Value) && shiftHeld)
             {
                 Settings.UI.UIDump.Run();
                 return;
@@ -535,6 +594,8 @@ namespace FFUIOverhaul
                 SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Min = min, Max = max, Order = Next(), VisibleWhen = visibleWhen });
             void RI(string cat, MelonPreferences_Entry<int> entry, string label, int min, int max, string? tip = null) =>
                 SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Min = min, Max = max, Order = Next() });
+            void RE<T>(string cat, MelonPreferences_Entry<T> entry, string label, string? tip = null) where T : struct =>
+                SettingsAPI.Register(id, name, cat, entry, new SettingsMeta { Label = label, Tooltip = tip, Order = Next() });
 
             // ── Reports & Panels ─────────────────────────────────────────
             _order = 0;
@@ -548,10 +609,24 @@ namespace FFUIOverhaul
                 "Pinned overlay opens collapsed to a tab");
             R("Overlay Settings", EnableCompanyOverlay, "Company Roster Overlay",
                 "Shift+Left-Click a banner (bottom of screen) to open a draggable roster panel for that company.");
-            RF("Overlay Settings", OverlayOpacity, "Overlay Opacity", 0.05f, 1f,
-                "How opaque the panel chrome is. Text and buttons stay fully readable regardless. Applies live.");
-            RF("Overlay Settings", OverlayUIScale, "Overlay UI Scale", 0.5f, 2f,
-                "Pinned / tech queue panel size multiplier. Independent of FF's UI Scale. Applies live.");
+            RF("Overlay Settings", PinnedOverlayOpacity, "Pinned Overlay Opacity", 0.05f, 1f,
+                "How opaque the Pinned Resources chrome is. Text/buttons stay readable. Applies live.");
+            RF("Overlay Settings", TechQueueOverlayOpacity, "Tech Queue Overlay Opacity", 0.05f, 1f,
+                "How opaque the Tech Queue chrome is. Text/buttons stay readable. Applies live.");
+            RF("Overlay Settings", CompanyOverlayOpacity, "Company Overlay Opacity", 0.05f, 1f,
+                "How opaque the Company roster body is. Header/text stay solid. Applies live.");
+            RF("Overlay Settings", PinnedOverlayScale, "Pinned Overlay Scale", 0.5f, 2f,
+                "Pinned Resources panel size multiplier. Independent of FF's UI Scale. Applies live.");
+            RF("Overlay Settings", TechQueueOverlayScale, "Tech Queue Overlay Scale", 0.5f, 2f,
+                "Tech Queue panel size multiplier. Independent of FF's UI Scale. Applies live.");
+            RF("Overlay Settings", CompanyOverlayScale, "Company Overlay Scale", 0.5f, 2f,
+                "Company roster panel size multiplier. Independent of FF's UI Scale. Applies live.");
+            RE("Overlay Settings", PinnedGrowDirection, "Pinned Grow Direction",
+                "Pinned Resources: list grows Down from header (default) or Up.");
+            RE("Overlay Settings", TechQueueGrowDirection, "Tech Queue Grow Direction",
+                "Tech Queue: list grows Down from header (default) or Up.");
+            RE("Overlay Settings", CompanyGrowDirection, "Company Grow Direction",
+                "Company roster: grows Down from header (default) or Up.");
 
             // ── Hotkeys — Building ───────────────────────────────────────
             _order = 0;
