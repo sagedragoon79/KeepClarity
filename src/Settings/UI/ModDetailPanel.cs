@@ -337,12 +337,23 @@ namespace FFUIOverhaul.Settings.UI
             var iconImg = iconGo.GetComponent<Image>();
             if (e.Meta.RestartRequired && FFNativeAssets.IconWarning != null)
             {
+                // Amber: a full game restart is required (e.g. one-time writes at mod init).
                 iconImg.sprite = FFNativeAssets.IconWarning;
                 iconImg.color = FFNativeAssets.WarningAmber;
                 iconImg.preserveAspect = true;
                 iconImg.raycastTarget = true;
                 var hover = iconGo.AddComponent<HoverTooltip>();
-                hover.Body = "Requires game restart to take effect";
+                hover.Body = "Requires a full game restart to take effect";
+            }
+            else if (e.Meta.ReloadRequired && FFNativeAssets.IconWarning != null)
+            {
+                // Cyan: takes effect on the next save reload / building placement, not live.
+                iconImg.sprite = FFNativeAssets.IconWarning;
+                iconImg.color = new Color(0.45f, 0.75f, 0.95f, 1f);
+                iconImg.preserveAspect = true;
+                iconImg.raycastTarget = true;
+                var hover = iconGo.AddComponent<HoverTooltip>();
+                hover.Body = "Not live — reload your save (or place a new building) to apply";
             }
             else
             {

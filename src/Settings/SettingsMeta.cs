@@ -12,6 +12,12 @@ namespace FFUIOverhaul.Settings
         public object? Step;
         public string[]? EnumOptions;
         public bool RestartRequired;
+        /// <summary>
+        /// Setting takes effect on the next save reload / building placement, not live.
+        /// Renders a distinct (cyan) indicator from RestartRequired (amber, full game
+        /// restart). If both are set, RestartRequired wins.
+        /// </summary>
+        public bool ReloadRequired;
         public string? Group;
         public int Order;
         public Func<bool>? VisibleWhen;
