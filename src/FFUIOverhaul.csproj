@@ -12,6 +12,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Platforms>AnyCPU;x64</Platforms>
+    <GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Farthest Frontier</GameDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,5 +84,16 @@
     Output: bin\Debug\FFUIOverhaul.dll
     Install: copy to <game>\Farthest Frontier (Mono)\Mods\
   -->
+
+
+  <!-- Auto-stage the built DLL into the game's Mods folder on every successful
+       build (MelonLoader releases the file handle, so this works while FF runs). -->
+  <Target Name="CopyToMods" AfterTargets="Build" Condition="'$(GameDir)' != ''">
+    <PropertyGroup>
+      <ModsDir>$(GameDir)\Farthest Frontier (Mono)\Mods</ModsDir>
+    </PropertyGroup>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsDir)" SkipUnchangedFiles="false" />
+    <Message Text="Staged $(TargetFileName) -&gt; $(ModsDir)" Importance="high" />
+  </Target>
 
 </Project>
