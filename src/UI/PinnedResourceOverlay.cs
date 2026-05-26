@@ -30,10 +30,14 @@ namespace FFUIOverhaul.UI
         private const float RowHeight = 18f;
         private const float TabWidth = 24f;
         private const float TabHeight = 60f;
-        // Above FF's HUD (top bar / minimap sit at ~9-10) so the draggable
-        // handle can't get lost behind them; still well below the mod-manager
-        // canvas (5000) and tooltips. Bumped from 1 per user request.
-        private const int CanvasSortingOrder = 50;
+        // Sit at the same order as FF's top bar + minimap (UI Toolbars Canvas /
+        // MiniMap = 9). Our canvas is created at runtime AFTER theirs, so at an
+        // equal order it draws ABOVE them (the drag handle can't get lost behind
+        // the top bar/minimap) while staying BELOW the building/villager windows
+        // (UI Window Canvas = 10) so it never covers those panels. (z=50 put it
+        // over everything; there's no integer between 9 and 10.)
+        private const int CanvasSortingOrder = 9;
+        private const float TopBarMargin = 44f; // reserve FF's top-bar strip (collision)
 
         // Palette — borrowed from prior IMGUI version; tuned to game's brown/gold.
         private static readonly Color PanelBg = new(0.11f, 0.09f, 0.09f, 0.92f);
@@ -157,10 +161,26 @@ namespace FFUIOverhaul.UI
             var dir = FFUIOverhaulMod.PinnedGrowDirection?.Value ?? OverlayGrowDirection.Down;
             if (dir == _lastGrowDir) return;
             _lastGrowDir = dir;
+            bool up = dir == OverlayGrowDirection.Up;
             if (_expandedPanel != null && _expHeader != null && _expSeparator != null && _expItemsScroll != null)
                 OverlayLayout.Apply((RectTransform)_expandedPanel.transform, dir,
                     _expHeader.transform, _expSeparator.transform, _expItemsScroll.transform);
             ApplyConfigGrowDirection(dir);
+
+            // Flip the collapsed tab's pivot to match, so when collapsed it sits
+            // on the same edge as the header instead of hanging the opposite way
+            // (into the minimap). Then re-apply the saved position so the handle
+            // stays put while only the content direction changes.
+            if (_collapsedTab != null)
+            {
+                var trt = (RectTransform)_collapsedTab.transform;
+                var p = trt.pivot; p.y = up ? 0f : 1f; trt.pivot = p;
+            }
+            var saved = new Vector2(
+                FFUIOverhaulMod.PinnedOverlayPosX?.Value ?? 0.995f,
+                FFUIOverhaulMod.PinnedOverlayPosY?.Value ?? 0.95f);
+            _expandedDrag?.ApplyNormalized(saved, persist: false);
+            _collapsedDrag?.ApplyNormalized(saved, persist: false);
         }
 
         /// <summary>Flip the resource-selection (config) panel to match the
@@ -214,18 +234,20 @@ namespace FFUIOverhaul.UI
                 ? configPanelRt.anchoredPosition - ((RectTransform)_expandedPanel.transform).anchoredPosition
                 : Vector2.zero;
 
-            // Drag from anywhere on the panel, not just the header — when the
-            // header was the only handle, dragging the panel under the top bar
-            // hid the only grab point and the panel became unreachable.
-            // Button clicks still route to buttons (Unity dispatches click and
-            // drag events independently — drags walk up parents looking for
-            // IDragHandler, clicks fire on the directly-hit object).
-            _expandedDrag = _expandedPanel.AddComponent<DraggablePanel>();
+            // Header-only drag handle (not the whole panel). The whole-panel
+            // drag was added to avoid the header hiding behind the top bar, but
+            // the top-bar collision (TopMargin) now prevents that, so we revert
+            // to header-only — that way the panel body doesn't act as a giant
+            // invisible raycast blocker over the map. The header has its own
+            // Image (raycastTarget) so it's a valid handle; the config/collapse
+            // buttons inside it still get their clicks.
+            _expandedDrag = _expHeader!.AddComponent<DraggablePanel>();
             _expandedDrag.Target = (RectTransform)_expandedPanel.transform;
             _expandedDrag.DefaultTarget = configPanelRt;
             _expandedDrag.DefaultTargetOffset = configOffset;
             _expandedDrag.DefaultNormalizedPosition = defaultPos;
             _expandedDrag.OnPositionChanged = SavePosition;
+            _expandedDrag.TopMargin = TopBarMargin;
             _expandedDrag.ApplyNormalized(savedPos, persist: false);
 
             // Collapsed: tab itself is the handle. Tab and panel share the
@@ -236,6 +258,7 @@ namespace FFUIOverhaul.UI
             _collapsedDrag.Target = (RectTransform)_collapsedTab.transform;
             _collapsedDrag.DefaultNormalizedPosition = defaultPos;
             _collapsedDrag.OnPositionChanged = SavePosition;
+            _collapsedDrag.TopMargin = TopBarMargin;
             _collapsedDrag.ApplyNormalized(savedPos, persist: false);
         }
 
@@ -685,25 +708,72 @@ namespace FFUIOverhaul.UI
                 bool critical = false;
                 string display = "0";
 
-                var info = gm.resourceManager.GetItemInfo(row.Item.ItemId);
-                if (info != null)
+                if (row.Item.Category == ResourceCategory.Livestock)
                 {
-                    stored = (int)info.unusedCount;
-                    critical = stored == 0 && row.Item.Category != ResourceCategory.Livestock;
+                    // Live animals live in herds (barn/stable/goat barn/coop),
+                    // NOT in the item-storage system — ItemInfo.count/unusedCount
+                    // are 0 for placed herds. Sum the herd populations instead.
+                    stored = GetLivestockCount(gm.resourceManager, row.Item.ItemId);
+                    display = stored.ToString();
+                }
+                else
+                {
+                    var info = gm.resourceManager.GetItemInfo(row.Item.ItemId);
+                    if (info != null)
+                    {
+                        stored = (int)info.unusedCount;
+                        critical = stored == 0;
 
-                    // Settlement-wide max quota shows as "X/Y"; "∞" if no limit
-                    // is set (Resources menu → "Limit Production" off, or maxQuota
-                    // not configured for this item).
-                    bool hasLimit = info.areProductionLimitsEnabled && info.maxQuota > 0;
-                    display = hasLimit
-                        ? $"{stored}/{info.maxQuota}"
-                        : $"{stored}/∞";
+                        // Settlement-wide max quota shows as "X/Y"; "∞" if no limit
+                        // is set (Resources menu → "Limit Production" off, or maxQuota
+                        // not configured for this item).
+                        bool hasLimit = info.areProductionLimitsEnabled && info.maxQuota > 0;
+                        display = hasLimit
+                            ? $"{stored}/{info.maxQuota}"
+                            : $"{stored}/∞";
+                    }
                 }
 
                 row.ValueText.text = display;
                 row.NameText.color = critical ? ResourceHelper.CriticalColor : ResourceHelper.GetCategoryColor(row.Item.Category);
                 row.ValueText.color = critical ? ResourceHelper.CriticalColor : new Color(0.75f, 0.72f, 0.60f, 1f);
             }
+        }
+
+        // ItemId → ResourceManager collection of herd buildings to sum.
+        private static readonly Dictionary<string, string> LivestockCollections = new()
+        {
+            { "ItemCow", "barnsRO" },
+            { "ItemHorse", "stablesRO" },
+            { "ItemGoat", "goatBarnsRO" },
+            { "ItemChicken", "chickenCoopsRO" },
+        };
+
+        /// <summary>Total live animals of a type = sum of each herd building's
+        /// herd.animalsInHerdRO.Count. Reflection-based (no hard FF type deps);
+        /// runs only on the 0.5s refresh for the few pinned livestock rows.</summary>
+        private static int GetLivestockCount(object resourceManager, string itemId)
+        {
+            try
+            {
+                if (!LivestockCollections.TryGetValue(itemId, out var coll)) return 0;
+                const System.Reflection.BindingFlags F =
+                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
+                var buildings = resourceManager.GetType().GetProperty(coll, F)?.GetValue(resourceManager) as System.Collections.IEnumerable;
+                if (buildings == null) return 0;
+                int total = 0;
+                foreach (var b in buildings)
+                {
+                    if (b == null) continue;
+                    var bt = b.GetType();
+                    var herd = bt.GetProperty("herd", F)?.GetValue(b) ?? bt.GetField("herd", F)?.GetValue(b);
+                    if (herd == null) continue;
+                    if (herd.GetType().GetProperty("animalsInHerdRO", F)?.GetValue(herd) is System.Collections.ICollection animals)
+                        total += animals.Count;
+                }
+                return total;
+            }
+            catch { return 0; }
         }
 
         /// <summary>
@@ -904,8 +974,8 @@ namespace FFUIOverhaul.UI
             AddItem(items, "ItemGoat", "Goats", ResourceCategory.Livestock);
             AddItem(items, "ItemChicken", "Chickens", ResourceCategory.Livestock);
             AddItem(items, "ItemHorse", "Horses", ResourceCategory.Livestock);
-            AddItem(items, "ItemDog", "Dogs", ResourceCategory.Livestock);
-            AddItem(items, "ItemCat", "Cats", ResourceCategory.Livestock);
+            // Dogs/Cats omitted: FF tracks pets via the doghouse/assignment
+            // system, not as resource items, so their item count is always 0.
 
             return items;
         }
@@ -934,6 +1004,9 @@ namespace FFUIOverhaul.UI
             { "ItemArmor", "ItemHauberk" },
             { "ItemLinen", null },
             { "ItemLeather", null },
+            // Pets aren't resource-counted by FF (always read 0) — drop them.
+            { "ItemDog", null },
+            { "ItemCat", null },
         };
 
         private void LoadPinnedItems()

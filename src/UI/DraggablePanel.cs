@@ -24,6 +24,7 @@ namespace FFUIOverhaul.UI
         public Vector2 DefaultTargetOffset;    // DefaultTarget anchored offset relative to Target
         public Action<Vector2>? OnPositionChanged; // normalized 0..1 of Target.pivot in canvas space
         public Vector2 DefaultNormalizedPosition = new(0.5f, 0.5f);
+        public float TopMargin; // reserved px at the top so the panel can't slide under FF's top bar
 
         private Canvas? _canvas;
         private RectTransform? _canvasRt;
@@ -97,7 +98,9 @@ namespace FFUIOverhaul.UI
             float minX = Margin - anchorX + pivot.x * panelSize.x;
             float maxX = canvasSize.x - Margin - anchorX - (1f - pivot.x) * panelSize.x;
             float minY = Margin - anchorY + pivot.y * panelSize.y;
-            float maxY = canvasSize.y - Margin - anchorY - (1f - pivot.y) * panelSize.y;
+            // TopMargin reserves a strip at the top (FF's top bar) so the panel
+            // collides with / stays below it instead of sliding underneath.
+            float maxY = canvasSize.y - Margin - TopMargin - anchorY - (1f - pivot.y) * panelSize.y;
 
             // If the panel is wider/taller than the safe area, prefer the min
             // (so at least the top-left stays reachable).

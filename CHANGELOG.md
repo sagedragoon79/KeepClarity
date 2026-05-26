@@ -1,5 +1,16 @@
 # Keep Clarity — Changelog
 
+## v1.2.3 (2026-05-22) — Overlay polish + fixes
+
+### Fixed
+- **Overlay z-order / collision** — pinned, tech queue, and company overlays now sit just above the top bar and minimap but below building/villager windows, so they no longer cover those panels. They also collide with the top bar (can't be dragged underneath it), matching FF's native panels.
+- **Collapsed pane no longer blocks the map** — reverted to header-only dragging; the panel body is no longer a giant invisible click-blocker, so the area is clickable when collapsed.
+- **Collapsed tab flips with grow direction** — when an overlay grows up, its collapsed tab now sits on the header's edge instead of hanging into the minimap.
+- **Livestock counts now show** — Cattle/Goats/Chickens/Horses are summed from their actual herds (barns/stables/coops). The previous reading only counted animals in storage (always 0 for placed herds). Dogs/Cats removed from the pin list — FF tracks pets outside the resource system, so they had no countable value.
+
+### Changed
+- **Predator alert tint is set once** when the alert appears (removed the per-frame re-evaluation that caused lag spikes). Severity still reflects the threat at the moment it's raised.
+
 ## v1.2.2 (2026-05-22) — Overlay controls, grow direction, predator alerts
 
 ### Overlays

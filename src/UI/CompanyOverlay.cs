@@ -115,9 +115,11 @@ namespace FFUIOverhaul.UI
             Object.DontDestroyOnLoad(_canvasRoot);
             var canvas = _canvasRoot.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            // Above FF's HUD (~9-10) so the banner drag-handle can't be lost
-            // behind the top bar / minimap; below the mod manager (5000).
-            canvas.sortingOrder = 50;
+            // Order 9 = same as FF's top bar/minimap; created later so we draw
+            // above them (banner handle stays grabbable), but below the
+            // building/villager windows (UI Window Canvas = 10) so the roster
+            // doesn't cover those panels.
+            canvas.sortingOrder = 9;
             _canvasScaler = _canvasRoot.GetComponent<CanvasScaler>();
             _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.CompanyOverlayScale?.Value ?? 1f);
@@ -195,6 +197,7 @@ namespace FFUIOverhaul.UI
             _drag.Target = (RectTransform)_panel.transform;
             _drag.DefaultNormalizedPosition = new Vector2(0.5f, 0.7f);
             _drag.OnPositionChanged = SavePositionForCompany;
+            _drag.TopMargin = 44f; // collide with FF's top bar, don't slide under it
 
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 6;

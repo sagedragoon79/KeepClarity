@@ -20,7 +20,10 @@ namespace FFUIOverhaul.UI
         private const float HeaderHeight = 22f;
         private const float TabWidth = 22f;
         private const float TabHeight = 70f;
-        private const int CanvasSortingOrder = 50; // above HUD, below mod manager
+        // Order 9 = same as FF's top bar/minimap; created later so we draw above
+        // them, but below building/villager windows (UI Window Canvas = 10).
+        private const int CanvasSortingOrder = 9;
+        private const float TopBarMargin = 44f; // reserve FF's top-bar strip (collision)
 
         private static readonly Color PanelBg = new(0.11f, 0.09f, 0.09f, 0.92f);
         private static readonly Color HeaderTextColor = new(0.83f, 0.63f, 0.19f, 1f);
@@ -166,9 +169,23 @@ namespace FFUIOverhaul.UI
             var dir = FFUIOverhaulMod.TechQueueGrowDirection?.Value ?? OverlayGrowDirection.Down;
             if (dir == _lastGrowDir) return;
             _lastGrowDir = dir;
+            bool up = dir == OverlayGrowDirection.Up;
             if (_expandedPanel != null && _header != null && _body != null)
                 OverlayLayout.Apply((RectTransform)_expandedPanel.transform, dir,
                     _header.transform, _body.transform);
+
+            // Flip the collapsed tab to the same edge as the header, then
+            // re-apply the saved position so the handle stays put.
+            if (_collapsedTab != null)
+            {
+                var trt = (RectTransform)_collapsedTab.transform;
+                var p = trt.pivot; p.y = up ? 0f : 1f; trt.pivot = p;
+            }
+            var saved = new Vector2(
+                FFUIOverhaulMod.TechQueueOverlayPosX?.Value ?? 0.005f,
+                FFUIOverhaulMod.TechQueueOverlayPosY?.Value ?? 0.78f);
+            _expandedDrag?.ApplyNormalized(saved, persist: false);
+            _collapsedDrag?.ApplyNormalized(saved, persist: false);
         }
 
         private void WireDragHandles()
@@ -186,12 +203,14 @@ namespace FFUIOverhaul.UI
             _expandedDrag.Target = (RectTransform)_expandedPanel.transform;
             _expandedDrag.DefaultNormalizedPosition = defaultPos;
             _expandedDrag.OnPositionChanged = SavePosition;
+            _expandedDrag.TopMargin = TopBarMargin;
             _expandedDrag.ApplyNormalized(savedPos, persist: false);
 
             _collapsedDrag = _collapsedTab.AddComponent<DraggablePanel>();
             _collapsedDrag.Target = (RectTransform)_collapsedTab.transform;
             _collapsedDrag.DefaultNormalizedPosition = defaultPos;
             _collapsedDrag.OnPositionChanged = SavePosition;
+            _collapsedDrag.TopMargin = TopBarMargin;
             _collapsedDrag.ApplyNormalized(savedPos, persist: false);
         }
 
