@@ -1,5 +1,9 @@
 # Keep Clarity — Changelog
 
+## v1.2.4 (2026-05-22) — Pinnable Dogs & Cats
+
+- **Dogs and Cats are pinnable again** (Cats & Dogs DLC). DogKennel/CatKennel are herd buildings like barns, so pet counts are summed from `dogKennelsRO`/`catKennelsRO` herds the same way as other livestock. (v1.2.3 removed them after the storage-based count read 0; the kennel-herd source gives the real population.)
+
 ## v1.2.3 (2026-05-22) — Overlay polish + fixes
 
 ### Fixed

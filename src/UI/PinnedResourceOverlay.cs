@@ -747,6 +747,8 @@ namespace FFUIOverhaul.UI
             { "ItemHorse", "stablesRO" },
             { "ItemGoat", "goatBarnsRO" },
             { "ItemChicken", "chickenCoopsRO" },
+            { "ItemDog", "dogKennelsRO" },   // Cats & Dogs DLC — kennels are herd buildings
+            { "ItemCat", "catKennelsRO" },
         };
 
         /// <summary>Total live animals of a type = sum of each herd building's
@@ -974,8 +976,10 @@ namespace FFUIOverhaul.UI
             AddItem(items, "ItemGoat", "Goats", ResourceCategory.Livestock);
             AddItem(items, "ItemChicken", "Chickens", ResourceCategory.Livestock);
             AddItem(items, "ItemHorse", "Horses", ResourceCategory.Livestock);
-            // Dogs/Cats omitted: FF tracks pets via the doghouse/assignment
-            // system, not as resource items, so their item count is always 0.
+            // Dogs/Cats (Cats & Dogs DLC): DogKennel/CatKennel are herd buildings
+            // like barns, so they're counted the same way (see LivestockCollections).
+            AddItem(items, "ItemDog", "Dogs", ResourceCategory.Livestock);
+            AddItem(items, "ItemCat", "Cats", ResourceCategory.Livestock);
 
             return items;
         }
@@ -1004,9 +1008,6 @@ namespace FFUIOverhaul.UI
             { "ItemArmor", "ItemHauberk" },
             { "ItemLinen", null },
             { "ItemLeather", null },
-            // Pets aren't resource-counted by FF (always read 0) — drop them.
-            { "ItemDog", null },
-            { "ItemCat", null },
         };
 
         private void LoadPinnedItems()
