@@ -44,6 +44,12 @@ namespace FFUIOverhaul.Patches
         {
             try
             {
+                // Make sure the queue is loaded for the current save before we
+                // number the markers — the tree can open during the brief window
+                // after a load when the save name (and thus the queue) hasn't
+                // resolved yet.
+                TechAutoQueue.EnsureLoadedForCurrentSave();
+
                 var nodes = __instance.GetComponentsInChildren<TechTreeNode>(includeInactive: true);
                 foreach (var node in nodes)
                 {

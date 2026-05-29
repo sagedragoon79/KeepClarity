@@ -257,6 +257,33 @@ namespace FFUIOverhaul.Settings.UI
             try { return !Equals(e.Get(), e.DefaultValue); } catch { return false; }
         }
 
+        // RestartRequired "!" is live: amber only when the value differs from
+        // the process-start baseline (session-start, captured once on first
+        // panel open). Clears after a real restart (baseline re-reads the saved
+        // value). No baseline yet ⇒ nothing's changed ⇒ don't show.
+        private static bool ChangedVsSessionStart(SettingEntryRecord e)
+        {
+            try
+            {
+                if (!SettingsRegistry.TryGetSessionStartValue(e.ModId, e.Key, out var baseline)) return false;
+                return !Equals(e.Get(), baseline);
+            }
+            catch { return false; }
+        }
+
+        // ReloadRequired "!" is live: cyan only when the value differs from the
+        // last gameplay-scene-load baseline. Clears after the user reloads
+        // (baseline re-captured == current).
+        private static bool ChangedVsMapLoad(SettingEntryRecord e)
+        {
+            try
+            {
+                if (!SettingsRegistry.TryGetMapLoadValue(e.ModId, e.Key, out var baseline)) return false;
+                return !Equals(e.Get(), baseline);
+            }
+            catch { return false; }
+        }
+
         private void BuildSection(string categoryName, System.Collections.Generic.List<SettingEntryRecord> entries)
         {
             // Section container
@@ -335,19 +362,23 @@ namespace FFUIOverhaul.Settings.UI
             iconRT.anchoredPosition = new Vector2(indent, 0);
             iconRT.sizeDelta = new Vector2(18, 18);
             var iconImg = iconGo.GetComponent<Image>();
-            if (e.Meta.RestartRequired && FFNativeAssets.IconWarning != null)
+            // The "!" is a LIVE signal, not static decoration: it shows only
+            // when the value actually differs from the relevant baseline, so it
+            // clears once the user restarts (amber) or reloads (cyan). Both
+            // collapse to an invisible spacer otherwise so row layout is stable.
+            if (e.Meta.RestartRequired && ChangedVsSessionStart(e) && FFNativeAssets.IconWarning != null)
             {
-                // Amber: a full game restart is required (e.g. one-time writes at mod init).
+                // Amber: changed since process start; needs a full restart to take effect.
                 iconImg.sprite = FFNativeAssets.IconWarning;
                 iconImg.color = FFNativeAssets.WarningAmber;
                 iconImg.preserveAspect = true;
                 iconImg.raycastTarget = true;
                 var hover = iconGo.AddComponent<HoverTooltip>();
-                hover.Body = "Requires a full game restart to take effect";
+                hover.Body = "Changed — restart the game to apply";
             }
-            else if (e.Meta.ReloadRequired && FFNativeAssets.IconWarning != null)
+            else if (e.Meta.ReloadRequired && ChangedVsMapLoad(e) && FFNativeAssets.IconWarning != null)
             {
-                // Cyan: takes effect on the next save reload / building placement, not live.
+                // Cyan: changed since this save was loaded; reload to apply.
                 iconImg.sprite = FFNativeAssets.IconWarning;
                 iconImg.color = new Color(0.45f, 0.75f, 0.95f, 1f);
                 iconImg.preserveAspect = true;

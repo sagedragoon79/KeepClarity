@@ -1,5 +1,14 @@
 # Keep Clarity — Changelog
 
+## v1.2.5 (2026-05-28) — Tech queue reliability, reload indicator, TW handoff
+
+### Fixed
+- **Tech-tree queue markers vanishing after a load.** For a beat after loading a save, the active save name is blank, which made the per-save queue load as empty and flicker the markers/auto-spend off until it resolved. The queue now waits for a real save name before (re)loading, the tech tree ensures the queue is loaded before numbering markers, and markers/overlay refresh the instant the queue resolves.
+- **Mod-manager "!" indicators were static.** The amber (restart) and cyan (reload) per-setting markers showed whenever the flag was set, so they never cleared. They're now a live "changed vs. baseline" signal: amber shows only when a value differs from its process-start value (clears after a restart); cyan only when it differs from the value at the last save load (clears after a reload).
+
+### Added
+- **Tended Wilds rank-cap handoff.** KC's auto-research queue now respects sibling-mod rank reductions via a reflective soft-dep (`TendedWilds.TechRankCaps`), so it won't over-research a tech past the cap a mod like Tended Wilds applies.
+
 ## v1.2.4 (2026-05-22) — Pinnable Dogs & Cats
 
 - **Dogs and Cats are pinnable again** (Cats & Dogs DLC). DogKennel/CatKennel are herd buildings like barns, so pet counts are summed from `dogKennelsRO`/`catKennelsRO` herds the same way as other livestock. (v1.2.3 removed them after the storage-based count read 0; the kennel-herd source gives the real population.)

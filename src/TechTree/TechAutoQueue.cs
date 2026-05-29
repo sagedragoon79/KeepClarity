@@ -78,6 +78,10 @@ namespace FFUIOverhaul.TechTree
         public static void EnsureLoadedForCurrentSave()
         {
             var name = CurrentSaveName();
+            // Don't load (or clear) while the save name is still blank — right
+            // after a load it's empty for a beat, and loading then would wipe the
+            // queue to 0 until the real name resolves (markers/spend flicker off).
+            if (string.IsNullOrEmpty(name)) return;
             if (name == _loadedForSave) return;
             Load();
         }
@@ -111,6 +115,11 @@ namespace FFUIOverhaul.TechTree
                     if (int.TryParse(part.Trim(), out int id)) _queue.Add(id);
                 break;
             }
+
+            // Markers may have been attached (tech tree open) before the queue
+            // loaded; refresh now so they appear the instant the queue resolves.
+            TechNodePinWidget.RefreshAll();
+            TechQueueStrip.RefreshText();
         }
 
         private static void Save()
@@ -221,13 +230,82 @@ namespace FFUIOverhaul.TechTree
             }
         }
 
+        /// <summary>
+        /// Soft-dep bridge to Tended Wilds' published rank caps. TW exposes a
+        /// public static <c>TendedWilds.TechRankCaps.GetMaxRank(string)</c>;
+        /// we reflect on it so KC has no hard reference to the TW assembly.
+        /// Returns -1 if TW isn't loaded, the tech name doesn't resolve, or TW
+        /// doesn't cap that tech.
+        /// </summary>
+        internal static class TendedWildsBridge
+        {
+            private static bool _probed;
+            private static System.Reflection.MethodInfo? _getMaxRank;
+            private static readonly Dictionary<int, string> _nameCache = new();
+
+            public static int GetReducedMaxRank(TechTreeManager tm, int techId)
+            {
+                if (!_probed) { Probe(); _probed = true; }
+                if (_getMaxRank == null) return -1;
+
+                if (!_nameCache.TryGetValue(techId, out var name))
+                {
+                    name = ResolveName(tm, techId);
+                    _nameCache[techId] = name; // cache even if "" so we don't re-iterate
+                }
+                if (string.IsNullOrEmpty(name)) return -1;
+
+                try { return (int)(_getMaxRank.Invoke(null, new object[] { name }) ?? -1); }
+                catch { return -1; }
+            }
+
+            private static void Probe()
+            {
+                foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    try
+                    {
+                        var t = asm.GetType("TendedWilds.TechRankCaps", throwOnError: false);
+                        if (t == null) continue;
+                        _getMaxRank = t.GetMethod("GetMaxRank",
+                            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                        if (_getMaxRank != null)
+                        {
+                            FFUIOverhaulMod.Log.Msg("[TechQueue] Tended Wilds rank-cap bridge active.");
+                            return;
+                        }
+                    }
+                    catch { }
+                }
+            }
+
+            private static string ResolveName(TechTreeManager tm, int techId)
+            {
+                if (tm?.techTreeNodeData == null) return "";
+                foreach (var n in tm.techTreeNodeData)
+                {
+                    if (n == null || n.GetId() != techId) continue;
+                    var name = n.GetTechName();
+                    return string.IsNullOrEmpty(name) ? "" : name;
+                }
+                return "";
+            }
+        }
+
         private static bool TrySpendForTarget(TechTreeManager tm, int targetId)
         {
             if (tm.knowledgePoints <= 0) return false;
             if (!tm.GetTechTreeNodeData(targetId, out _, out _, out var state,
                 out int numRanks, out int curRank, out int[] prereqIds, out _)) return false;
 
-            if (state == TechTreeNodeData.State.Active || curRank >= numRanks) return false;
+            // Respect sibling mods' rank reductions (e.g. Tended Wilds caps
+            // Woodlore at 2 ranks). TW patches FF's numRanks live but retries
+            // for up to 30 minutes — without this, KC would spend the soon-to-
+            // be-trimmed rank before the patch lands.
+            int twCap = TendedWildsBridge.GetReducedMaxRank(tm, targetId);
+            int effectiveMax = twCap > 0 ? System.Math.Min(numRanks, twCap) : numRanks;
+
+            if (state == TechTreeNodeData.State.Active || curRank >= effectiveMax) return false;
 
             if (state == TechTreeNodeData.State.PrereqsMet)
             {

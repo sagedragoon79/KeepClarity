@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.4", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.5", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -462,6 +462,14 @@ namespace FFUIOverhaul
 
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
+
+                // Snapshot every setting's value as of this save load — the
+                // baseline for the cyan "reload required" indicator. Re-capturing
+                // each load is what makes that "!" CLEAR after a reload (the
+                // applied value becomes the new baseline). ReloadRequired
+                // features apply on load, so this is the value the running game
+                // is actually using.
+                Settings.SettingsRegistry.CaptureMapLoadValues();
 
                 // Re-load the tech queue for whichever save just opened. The
                 // pref is per-save scoped (key = SaveManager.activeSaveFileName),

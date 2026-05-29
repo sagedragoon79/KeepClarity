@@ -32,6 +32,35 @@ namespace FFUIOverhaul.Settings
             return _sessionStartValues.TryGetValue(modId + "::" + key, out value);
         }
 
+        // Map-load snapshot: every entry's value as of the most recent gameplay
+        // scene load. ReloadRequired features (SB boons, radius/crop effects,
+        // etc.) apply on save load, so a value differing from this baseline is
+        // genuinely "not live until you reload" — and re-capturing on each load
+        // makes the cyan "!" clear after the user actually reloads. Distinct
+        // from session-start (which is a one-shot, process-lifetime baseline
+        // used by RestartRequired + the Reset button).
+        private static readonly Dictionary<string, object?> _mapLoadValues = new Dictionary<string, object?>();
+        private static bool _mapLoadCaptured;
+
+        /// <summary>Re-snapshot all entries' current values. Call on each
+        /// gameplay-scene load so ReloadRequired indicators reflect "changed
+        /// since this save was loaded."</summary>
+        public static void CaptureMapLoadValues()
+        {
+            _mapLoadValues.Clear();
+            foreach (var rec in _entries)
+            {
+                try { _mapLoadValues[rec.ModId + "::" + rec.Key] = rec.Get(); } catch { }
+            }
+            _mapLoadCaptured = true;
+        }
+
+        public static bool TryGetMapLoadValue(string modId, string key, out object? value)
+        {
+            if (!_mapLoadCaptured) { value = null; return false; }
+            return _mapLoadValues.TryGetValue(modId + "::" + key, out value);
+        }
+
         /// <summary>True if any registered entry already exists for this
         /// modId + key pair (regardless of category). Used by discovery to
         /// avoid duplicating already-registered entries while still surfacing
