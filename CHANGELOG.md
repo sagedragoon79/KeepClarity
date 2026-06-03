@@ -1,5 +1,29 @@
 # Keep Clarity — Changelog
 
+## v1.2.6 (2026-05-29) — Bridges Anywhere
+
+### Added
+- **Bridges Anywhere** (off by default). Lifts vanilla's two restrictive bridge
+  placement rules so you can span dry ravines and high-bank rivers without
+  terraforming:
+  - The "start cell must be adjacent to water" requirement is dropped.
+  - The "snap end cell to the first non-water cell from start" pass is skipped,
+    so the bridge end stays at your cursor.
+  - The full-validity pass no longer requires inner/end cells to be water or
+    water-adjacent.
+  - Height resolves naturally — `BridgeContainer.AssignStartAndEndCells` uses
+    each cell's terrain-Y, so high-bank starts/ends position the bridge at land
+    height with no extra patching.
+  - Patches: postfix on `PlacementValidityHelper.PeformBridgeStartCellValidityChecks`
+    (typo intentional — that's the game's spelling) and `UpdateBridgeValidity`
+    clear the `Overlap_Water` required-flag bit; prefix on
+    `PlaceableBridge.TryToSnapToValidPosition` short-circuits the snap.
+  - Toggle is live — placement re-reads the pref on every attempt.
+- New "Bridges Anywhere (no water / any height)" entry under **Game and Map
+  Settings** in the KC panel.
+
+---
+
 ## v1.2.5 (2026-05-28) — Tech queue reliability, reload indicator, TW handoff
 
 ### Fixed

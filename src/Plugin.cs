@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.5", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.6", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -81,6 +81,7 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> SyncMapTypeWithRiverPreset { get; private set; } = null!;
         public static MelonPreferences_Entry<int> CustomPopulationCap { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> IgnoreUpgradePopulationRequirement { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> BridgeAnywhere { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> DismissibleResourceAlerts { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> EnableCompanyOverlay { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CompanyOverlayPosX { get; private set; } = null!;
@@ -305,6 +306,10 @@ namespace FFUIOverhaul
             SkipNewMapIntro = _prefs.CreateEntry("SkipNewMapIntro", false,
                 display_name: "Skip Start-of-Game Cinematic",
                 description: "Skip the cinematic video that plays after starting a new settlement. Goes straight to map load — no video, no narration.");
+
+            BridgeAnywhere = _prefs.CreateEntry("BridgeAnywhere", false,
+                display_name: "Bridges Anywhere (no water / any height)",
+                description: "Lifts the 'must be over water' placement rule on bridges AND the 'snap to water level' height rule. Lets you span dry ravines and high-bank rivers without terraforming. The bridge sits at the start/end cells' terrain height. Off by default.");
 
             SyncMapTypeWithRiverPreset = _prefs.CreateEntry("SyncMapTypeWithRiverPreset", true,
                 display_name: "Sync Map Type with Rivers Restored Preset",
@@ -683,6 +688,10 @@ namespace FFUIOverhaul
                 "Snapshot the Custom Settings panel selections on Confirm and restore on next open.");
             R("Game and Map Settings", SyncMapTypeWithRiverPreset, "Sync Map Type with Rivers Restored",
                 "Two-way sync between FF's terrain selector and RR's RiverPreset. Disabled when RR is disabled or set to Custom.");
+            // BridgeAnywhere is live — patches re-read the toggle on every
+            // bridge placement attempt, so no flag needed.
+            R("Game and Map Settings", BridgeAnywhere, "Bridges Anywhere (no water / any height)",
+                "Lifts the 'must be over water' and 'snap to water level' rules so you can span dry ravines and high-bank rivers without terraforming. The bridge sits at the start/end cells' terrain height.");
 
             // ── Game Flow ────────────────────────────────────────────────
             _order = 0;
