@@ -39,7 +39,7 @@ namespace FFUIOverhaul.Patches
     /// Patch 1 — Start-cell validity: drop the "must be adjacent to water"
     /// requirement so you can begin a bridge on the rim of a dry ravine.
     /// </summary>
-    [HarmonyPatch(typeof(PlacementValidityHelper), "PeformBridgeStartCellValidityChecks")]
+    [HarmonyPatch(typeof(PlaceableBridge), "PeformBridgeStartCellValidityChecks")]
     public static class PatchBridgeStartCellValidity
     {
         public static void Postfix(ref PlacementGridValidityCheckFlags failedRequiredFlags)

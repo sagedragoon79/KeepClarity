@@ -1,5 +1,18 @@
 # Keep Clarity — Changelog
 
+## v1.2.7 (2026-05-29) — Bridges Anywhere: fix start-cell patch target
+
+### Fixed
+- **Bridges Anywhere had no effect** even after restart. The first of the three
+  Harmony patches targeted `PlacementValidityHelper.PeformBridgeStartCellValidityChecks`,
+  but at runtime that method lives on **`PlaceableBridge`** (the decompile's
+  call sites confirm `PlaceableBridge.PeformBridgeStartCellValidityChecks(...)`).
+  Harmony logged `Undefined target method` and `PatchAll` aborted, so none of
+  the three bridge patches actually applied. Retargeted patch 1 to
+  `PlaceableBridge`. All three now resolve.
+
+---
+
 ## v1.2.6 (2026-05-29) — Bridges Anywhere
 
 ### Added
