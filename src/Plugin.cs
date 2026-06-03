@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.8", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.6", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul

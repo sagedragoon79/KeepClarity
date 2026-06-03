@@ -1,40 +1,9 @@
 # Keep Clarity — Changelog
 
-## v1.2.8 (2026-05-29) — Bridges Anywhere: hold mid-section at bank height
-
-### Fixed
-- **Bridges over dry ravines / high-bank rivers still sagged to water level.**
-  The start/end ramps positioned correctly, but the arches, pillars, and
-  mid-section pathway hung at `seaLevel + bridgeHeightAboveWater` (~water + 6)
-  because `BridgeContainer.AssignStartAndEndCells` hard-codes
-  `meshObjsParent.position.y` to that constant (decompile line 54586).
-- **Fix:** new postfix on `AssignStartAndEndCells` re-anchors
-  `meshObjsParent.position.y` to
-  `max(seaLevel + bridgeHeightAboveWater, max(startCell.y, endCell.y))`. For
-  normal river bridges the sea-level term wins → identical to vanilla. For
-  high-bank/ravine spans the bank height wins → the whole bridge sits at bank
-  level. Also re-anchors `startSection` and `endSection` world Y to their
-  actual bank cells so the ramps don't drift up with the parent.
-
----
-
-## v1.2.7 (2026-05-29) — Bridges Anywhere: fix start-cell patch target
-
-### Fixed
-- **Bridges Anywhere had no effect** even after restart. The first of the three
-  Harmony patches targeted `PlacementValidityHelper.PeformBridgeStartCellValidityChecks`,
-  but at runtime that method lives on **`PlaceableBridge`** (the decompile's
-  call sites confirm `PlaceableBridge.PeformBridgeStartCellValidityChecks(...)`).
-  Harmony logged `Undefined target method` and `PatchAll` aborted, so none of
-  the three bridge patches actually applied. Retargeted patch 1 to
-  `PlaceableBridge`. All three now resolve.
-
----
-
 ## v1.2.6 (2026-05-29) — Bridges Anywhere
 
 ### Added
-- **Bridges Anywhere** (off by default). Lifts vanilla's two restrictive bridge
+- **Bridges Anywhere** (off by default). Lifts vanilla's restrictive bridge
   placement rules so you can span dry ravines and high-bank rivers without
   terraforming:
   - The "start cell must be adjacent to water" requirement is dropped.
@@ -42,16 +11,26 @@
     so the bridge end stays at your cursor.
   - The full-validity pass no longer requires inner/end cells to be water or
     water-adjacent.
-  - Height resolves naturally — `BridgeContainer.AssignStartAndEndCells` uses
-    each cell's terrain-Y, so high-bank starts/ends position the bridge at land
-    height with no extra patching.
-  - Patches: postfix on `PlacementValidityHelper.PeformBridgeStartCellValidityChecks`
-    (typo intentional — that's the game's spelling) and `UpdateBridgeValidity`
-    clear the `Overlap_Water` required-flag bit; prefix on
-    `PlaceableBridge.TryToSnapToValidPosition` short-circuits the snap.
-  - Toggle is live — placement re-reads the pref on every attempt.
-- New "Bridges Anywhere (no water / any height)" entry under **Game and Map
-  Settings** in the KC panel.
+  - The mid-section parent (arches, pillars, mid-pathway) is held at bank
+    height instead of `seaLevel + bridgeHeightAboveWater`, so high-bank /
+    ravine spans don't sag down to water level. The whole deck sits at
+    `max(seaLevel + bridgeHeightAboveWater, max(startCell.y, endCell.y))` —
+    normal river bridges are unaffected (sea-level term wins).
+  - When the two banks differ in height, the deck stays flat at the higher
+    bank's Y and the lower end naturally appears as a pier extending over the
+    lower ground.
+- **Patches:** four Harmony patches on `PlaceableBridge.PeformBridgeStartCellValidityChecks`
+  (typo intentional — game's spelling), `PlaceableBridge.TryToSnapToValidPosition`,
+  `PlacementValidityHelper.UpdateBridgeValidity`, and
+  `BridgeContainer.AssignStartAndEndCells`.
+- Toggle is live — placement re-reads the pref on every attempt. New "Bridges
+  Anywhere (no water / any height)" entry under **Game and Map Settings**.
+
+### Known limitations
+- Uneven start/end heights produce a flat deck at the higher bank's height —
+  the deck doesn't slope between them.
+- Pillars don't extend down to the ground under raised spans. Would require a
+  prefab/mesh change, not just a code patch.
 
 ---
 

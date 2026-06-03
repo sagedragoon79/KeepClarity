@@ -119,8 +119,6 @@ namespace FFUIOverhaul.Patches
 
         private static FieldInfo? _meshObjsParent;
         private static FieldInfo? _bridgeHeightAboveWater;
-        private static FieldInfo? _startSection;
-        private static FieldInfo? _endSection;
         private static bool _resolved;
 
         private static void ResolveFields()
@@ -130,8 +128,6 @@ namespace FFUIOverhaul.Patches
             var t = typeof(BridgeContainer);
             _meshObjsParent         = t.GetField("meshObjsParent", Flags);
             _bridgeHeightAboveWater = t.GetField("bridgeHeightAboveWater", Flags);
-            _startSection           = t.GetField("startSection", Flags);
-            _endSection             = t.GetField("endSection", Flags);
         }
 
         public static void Postfix(BridgeContainer __instance)
@@ -159,23 +155,17 @@ namespace FFUIOverhaul.Patches
 
                 // Override the mid-section parent height. Cheap conditional so
                 // a normal river bridge (bankY < vanilla) is a no-op.
+                //
+                // Start/end sections are children of meshObjsParent and inherit
+                // its Y — so the whole deck (arches + ramps + end caps) sits
+                // flat at the higher bank's height. If the two banks are
+                // uneven, the lower end naturally appears as a pier extending
+                // over the lower ground, which is the expected look for a
+                // bridge spanning to a cliff edge.
                 var pos = parent.position;
                 if (!Mathf.Approximately(pos.y, desired))
                 {
                     parent.position = new Vector3(pos.x, desired, pos.z);
-                }
-
-                // Re-anchor the start/end sections to their actual bank Ys so
-                // the ramps don't follow the parent up and float off the cliff.
-                if (_startSection != null && _startSection.GetValue(__instance) is Transform ss)
-                {
-                    var sp = ss.position;
-                    ss.position = new Vector3(sp.x, startY, sp.z);
-                }
-                if (_endSection != null && _endSection.GetValue(__instance) is Transform es)
-                {
-                    var ep = es.position;
-                    es.position = new Vector3(ep.x, endY, ep.z);
                 }
             }
             catch (System.Exception ex)
