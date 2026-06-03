@@ -1,4 +1,6 @@
+using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 
 namespace FFUIOverhaul.Patches
 {
@@ -88,6 +90,99 @@ namespace FFUIOverhaul.Patches
             if (FFUIOverhaulMod.BridgeAnywhere == null || !FFUIOverhaulMod.BridgeAnywhere.Value) return;
 
             failedRequiredFlags &= ~PlacementGridValidityCheckFlags.Overlap_Water;
+        }
+    }
+
+    /// <summary>
+    /// Patch 4 — Hold the arch/pillar/mid-pathway section at bank height.
+    ///
+    /// Vanilla hard-codes the bridge's mid-section parent to
+    /// <c>seaLevel + bridgeHeightAboveWater</c> (line 54586 in the decompile),
+    /// so even when start/end cells sit on a high ravine bank the middle of the
+    /// bridge sags down to ~water level. The start/end ramps are positioned
+    /// separately and look correct, but every arch and pillar in between hangs
+    /// at sea+6.
+    ///
+    /// Postfix override: re-anchor <c>meshObjsParent.position.y</c> to
+    /// <c>max(seaLevel + bridgeHeightAboveWater, max(startCell.y, endCell.y))</c>.
+    /// For normal river bridges the sea-level term wins and behavior is
+    /// identical to vanilla. For high-bank/ravine spans the bank height wins
+    /// and the bridge stays at bank level. Also re-anchors startSection/
+    /// endSection world Y to their respective bank heights so the ramps don't
+    /// drift when the parent moves.
+    /// </summary>
+    [HarmonyPatch(typeof(BridgeContainer), "AssignStartAndEndCells")]
+    public static class PatchBridgeContainerHeight
+    {
+        private const BindingFlags Flags =
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        private static FieldInfo? _meshObjsParent;
+        private static FieldInfo? _bridgeHeightAboveWater;
+        private static FieldInfo? _startSection;
+        private static FieldInfo? _endSection;
+        private static bool _resolved;
+
+        private static void ResolveFields()
+        {
+            if (_resolved) return;
+            _resolved = true;
+            var t = typeof(BridgeContainer);
+            _meshObjsParent         = t.GetField("meshObjsParent", Flags);
+            _bridgeHeightAboveWater = t.GetField("bridgeHeightAboveWater", Flags);
+            _startSection           = t.GetField("startSection", Flags);
+            _endSection             = t.GetField("endSection", Flags);
+        }
+
+        public static void Postfix(BridgeContainer __instance)
+        {
+            if (FFUIOverhaulMod.BridgeAnywhere == null || !FFUIOverhaulMod.BridgeAnywhere.Value) return;
+
+            try
+            {
+                ResolveFields();
+                if (_meshObjsParent == null) return;
+                var parent = _meshObjsParent.GetValue(__instance) as Transform;
+                if (parent == null) return;
+
+                float clearance = (_bridgeHeightAboveWater != null)
+                    ? (float)_bridgeHeightAboveWater.GetValue(__instance) : 6f;
+
+                var gm = UnitySingleton<GameManager>.Instance;
+                float seaLevel = (gm != null && gm.terrainManager != null) ? gm.terrainManager.seaLevel : 0f;
+
+                float startY  = __instance.startCell.worldCenter.y;
+                float endY    = __instance.endCell.worldCenter.y;
+                float bankY   = Mathf.Max(startY, endY);
+                float vanilla = seaLevel + clearance;
+                float desired = Mathf.Max(vanilla, bankY);
+
+                // Override the mid-section parent height. Cheap conditional so
+                // a normal river bridge (bankY < vanilla) is a no-op.
+                var pos = parent.position;
+                if (!Mathf.Approximately(pos.y, desired))
+                {
+                    parent.position = new Vector3(pos.x, desired, pos.z);
+                }
+
+                // Re-anchor the start/end sections to their actual bank Ys so
+                // the ramps don't follow the parent up and float off the cliff.
+                if (_startSection != null && _startSection.GetValue(__instance) is Transform ss)
+                {
+                    var sp = ss.position;
+                    ss.position = new Vector3(sp.x, startY, sp.z);
+                }
+                if (_endSection != null && _endSection.GetValue(__instance) is Transform es)
+                {
+                    var ep = es.position;
+                    es.position = new Vector3(ep.x, endY, ep.z);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                FFUIOverhaulMod.Log.Warning(
+                    $"[BridgeAnywhere] Height postfix failed: {ex.Message}");
+            }
         }
     }
 }

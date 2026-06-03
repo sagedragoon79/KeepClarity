@@ -1,5 +1,23 @@
 # Keep Clarity — Changelog
 
+## v1.2.8 (2026-05-29) — Bridges Anywhere: hold mid-section at bank height
+
+### Fixed
+- **Bridges over dry ravines / high-bank rivers still sagged to water level.**
+  The start/end ramps positioned correctly, but the arches, pillars, and
+  mid-section pathway hung at `seaLevel + bridgeHeightAboveWater` (~water + 6)
+  because `BridgeContainer.AssignStartAndEndCells` hard-codes
+  `meshObjsParent.position.y` to that constant (decompile line 54586).
+- **Fix:** new postfix on `AssignStartAndEndCells` re-anchors
+  `meshObjsParent.position.y` to
+  `max(seaLevel + bridgeHeightAboveWater, max(startCell.y, endCell.y))`. For
+  normal river bridges the sea-level term wins → identical to vanilla. For
+  high-bank/ravine spans the bank height wins → the whole bridge sits at bank
+  level. Also re-anchors `startSection` and `endSection` world Y to their
+  actual bank cells so the ramps don't drift up with the parent.
+
+---
+
 ## v1.2.7 (2026-05-29) — Bridges Anywhere: fix start-cell patch target
 
 ### Fixed
