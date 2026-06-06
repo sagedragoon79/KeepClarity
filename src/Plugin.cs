@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.6", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.7", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -87,6 +87,11 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<float> CompanyOverlayPosX { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CompanyOverlayPosY { get; private set; } = null!;
         public static MelonPreferences_Entry<string> CompanyOverlayPositions { get; private set; } = null!;
+
+        // Crisp Mode (native post-process: CAS sharpen + vibrance)
+        public static MelonPreferences_Entry<bool> EnableCrispMode { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CrispSharpness { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> CrispVibrance { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -342,6 +347,16 @@ namespace FFUIOverhaul
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
 
+            EnableCrispMode = _prefs.CreateEntry("EnableCrispMode", false,
+                display_name: "Crisp Mode",
+                description: "Native sharpen + vibrance post-process (a lightweight, built-in alternative to a ReShade CAS preset). Applied to the world only — your HUD stays untouched. Applies live.");
+            CrispSharpness = _prefs.CreateEntry("CrispSharpness", 0.75f,
+                display_name: "Crisp Sharpness",
+                description: "Contrast-adaptive sharpening strength. 0 = soft, 1 = sharp. Applies live.");
+            CrispVibrance = _prefs.CreateEntry("CrispVibrance", 0.6f,
+                display_name: "Crisp Vibrance",
+                description: "Color pop / saturation boost, weighted toward less-saturated pixels. 0 = none. Applies live.");
+
             SettingsPanelHotkey = _prefs.CreateEntry("SettingsPanelHotkey", KeyCode.F10,
                 display_name: "Settings Panel Hotkey",
                 description: "Hotkey to open the Keep Clarity settings panel for all installed mods");
@@ -425,6 +440,7 @@ namespace FFUIOverhaul
             HandlePauseOnLoad(gm);
             Patches.DismissibleResourceAlerts.Tick();
             UI.CompanyOverlayManager.Tick();
+            UI.CrispMode.Tick();
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -500,6 +516,8 @@ namespace FFUIOverhaul
                 // Hide overlays on the main menu / any non-gameplay scene.
                 if (_overlay != null) _overlay.Visible = false;
                 if (_techQueueOverlay != null) _techQueueOverlay.Visible = false;
+                UI.CrispMode.OnSceneChanged(); // world camera is gone; drop our ref so we re-attach next map
+
             }
         }
 
@@ -639,6 +657,18 @@ namespace FFUIOverhaul
                 "Tech Queue: list grows Down from header (default) or Up.");
             RE("Overlay Settings", CompanyGrowDirection, "Company Grow Direction",
                 "Company roster: grows Down from header (default) or Up.");
+
+            // ── Crisp Mode ───────────────────────────────────────────────
+            // All live (read every frame in OnRenderImage) — no restart/reload flags.
+            _order = 0;
+            R("Crisp Mode", EnableCrispMode, "Crisp Mode",
+                "Native sharpen + vibrance post-process — a lightweight built-in alternative to a ReShade CAS preset. World only; HUD untouched.");
+            RF("Crisp Mode", CrispSharpness, "Sharpness", 0f, 1f,
+                "Contrast-adaptive sharpening strength. 0 = soft, 1 = sharp. Applies live.",
+                visibleWhen: () => EnableCrispMode.Value);
+            RF("Crisp Mode", CrispVibrance, "Vibrance", 0f, 1f,
+                "Color pop / saturation boost, weighted toward less-saturated pixels. Applies live.",
+                visibleWhen: () => EnableCrispMode.Value);
 
             // ── Hotkeys — Building ───────────────────────────────────────
             _order = 0;

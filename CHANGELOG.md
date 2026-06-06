@@ -1,5 +1,29 @@
 # Keep Clarity — Changelog
 
+## v1.2.7 (2026-06-05) — Crisp Mode
+
+### Added
+- **Crisp Mode** (off by default). A native, single-pass post-process that gives
+  the world a sharper, more vivid look — a lightweight, built-in alternative to
+  running a ReShade CAS preset. No external injector, no 8 GB texture pack.
+  - **CAS sharpen + vibrance** in one fullscreen shader (AMD FidelityFX Contrast
+    Adaptive Sharpening for low-halo edge definition, plus a saturation boost
+    weighted toward less-saturated pixels for the color "pop").
+  - **World camera only** — applied to `CameraManager.mainCamera`, so the HUD /
+    UI (which renders on the separate widget camera) is never touched. No crunchy
+    UI text, unlike a full-frame ReShade pass.
+  - Two live sliders under a new **Crisp Mode** panel category: **Sharpness**
+    (0–1, default 0.75) and **Vibrance** (0–1, default 0.6). Both read every
+    frame in `OnRenderImage`, so changes apply instantly — no reload.
+  - Zero render cost when off (the image-effect component is disabled, so Unity
+    skips it entirely). Guards against the world camera's offscreen render passes
+    (minimap / screenshot capture).
+- **Shader delivery:** the effect ships as a Unity AssetBundle (built in
+  2022.3.62f3 to match the game) **embedded in the DLL** — KC stays a single-file
+  mod, no loose bundle to manage. Loaded once via `AssetBundle.LoadFromMemory`.
+- Source shader + bundle-build project kept in `_handoffs/crisp-mode/` for
+  regeneration.
+
 ## v1.2.6 (2026-05-29) — Bridges Anywhere
 
 ### Added

@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>KeepClarity</AssemblyName>
-    <AssemblyVersion>1.2.6.0</AssemblyVersion>
-    <FileVersion>1.2.6.0</FileVersion>
-    <Version>1.2.6</Version>
+    <AssemblyVersion>1.2.7.0</AssemblyVersion>
+    <FileVersion>1.2.7.0</FileVersion>
+    <Version>1.2.7</Version>
     <RootNamespace>FFUIOverhaul</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -59,6 +59,10 @@
       <HintPath>$(GameDir)\Farthest Frontier (Mono)\Farthest Frontier_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>$(GameDir)\Farthest Frontier (Mono)\Farthest Frontier_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>$(GameDir)\Farthest Frontier (Mono)\Farthest Frontier_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
@@ -75,6 +79,14 @@
       <Private>false</Private>
     </Reference>
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Crisp Mode shader, baked into an AssetBundle in Unity 2022.3.62f3 and
+         embedded so KC ships as a single DLL (no loose bundle file). -->
+    <EmbeddedResource Include="Resources\crisp.bundle">
+      <LogicalName>FFUIOverhaul.crisp.bundle</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <!--
