@@ -1,5 +1,35 @@
 # Keep Clarity — Changelog
 
+## v1.2.8 (2026-06-09) — Building Variety, more hotkeys, pet-DLC build menu
+
+### Added
+- **Building Color Variety** (off by default). Each structure gets a subtle,
+  deterministic weathered tint (seeded by map position — stable across reloads,
+  nothing saved) so identical building types don't look clone-stamped. Applied
+  per-instance via MaterialPropertyBlock on solid meshes (no assets, no shared
+  material touched). Warm-only hue band (terracotta→straw, no green/red outliers).
+  - **Variety Intensity** slider (0–1, default 0.6): 0 = identical, 1 = deliberately
+    too much so you can see the extreme and dial back. Applies live.
+  - **Scope:** all structures EXCEPT Town Center, Temple, Academy, Trading Post,
+    Guild Hall, the three Monuments, walls, gates, and decorations/fences. Roads
+    are unaffected. Perf: uses the game's building list (not FindObjectsOfType),
+    caches renderers, budgets new-building work, and recolors-only on slider change.
+- **Move Work Area hotkey** (`Q`): with a building selected, start moving its work
+  area (hunters, foresters, herbalists, etc.) — fires the native retarget button.
+- **Tree / stone / ruins hotkeys**: Harvest / Delete / Prioritize now also work on
+  trees, stone deposits, and excavated stone ruins (previously forageables only).
+  No Relocate (those can't be relocated).
+- **Fruit-tree hotkeys**: `C` = Cull For Wood, `P` = Prioritize (FruitTreeResource
+  subclasses TreeResource, so it gets its own detection).
+- **Building inspector** (Ctrl+Shift+F9, dev tool): dumps a selected building's
+  renderers, shaders, colour properties, and material sharing to log + file.
+
+### Fixed
+- **Pet-DLC buildings** (Dog/Cat Kennel) now get the build-menu count + ◀▶ cycle
+  arrows like every other building. They were missed because DLC/mod buildings are
+  added after the window's Awake (via FFModAddBuilding); the count widget now also
+  attaches when the build window opens (idempotent).
+
 ## v1.2.7 (2026-06-05) — Crisp Mode
 
 ### Added

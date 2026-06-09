@@ -65,6 +65,33 @@ namespace FFUIOverhaul
             return false;
         }
 
+        private static bool _treeStoneLookupLogged;
+
+        /// <summary>True when a Tree, Stone deposit, or excavated Stone Ruins is
+        /// selected. These open the SAME UIHarvestableResourceWindow as
+        /// forageables, so Harvest / Delete / Prioritize route through the
+        /// identical window methods — they were just never wired into the hotkey
+        /// selection check. (No Relocate: none of these can be relocated.)</summary>
+        public static bool IsTreeOrStone(GameObject? selectedObj)
+        {
+            if (selectedObj == null) return false;
+            foreach (var c in selectedObj.GetComponentsInParent<Component>(includeInactive: true))
+            {
+                if (c == null) continue;
+                var n = c.GetType().Name;
+                if (n == "TreeResource" || n == "StoneResource" || n == "StoneRuinsResource")
+                {
+                    if (!_treeStoneLookupLogged)
+                    {
+                        FFUIOverhaulMod.Log.Msg("[Forageable] " + n + " detected — Harvest/Delete/Prioritize hotkeys active");
+                        _treeStoneLookupLogged = true;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static void TryRelocate()
         {
             try
@@ -143,6 +170,35 @@ namespace FFUIOverhaul
                 FFUIOverhaulMod.Log.Warning($"[Forageable] {methodName} failed: {e.Message}");
             }
         }
+
+        private static bool _fruitTreeLookupLogged;
+
+        /// <summary>True when a fruit tree is selected. FruitTreeResource subclasses
+        /// TreeResource, so the exact-name tree check above deliberately misses it —
+        /// fruit trees get their own hotkeys (Cull For Wood + Prioritize) routed
+        /// through the same UIHarvestableResourceWindow (cull = MarkResourceForClear).</summary>
+        public static bool IsFruitTree(GameObject? selectedObj)
+        {
+            if (selectedObj == null) return false;
+            foreach (var c in selectedObj.GetComponentsInParent<Component>(includeInactive: true))
+            {
+                if (c == null) continue;
+                if (c.GetType().Name == "FruitTreeResource")
+                {
+                    if (!_fruitTreeLookupLogged)
+                    {
+                        FFUIOverhaulMod.Log.Msg("[Forageable] FruitTreeResource detected — Cull/Prioritize hotkeys active");
+                        _fruitTreeLookupLogged = true;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>Cull a fruit tree for wood — same as the native "Cull For Wood"
+        /// button, which is wired to MarkResourceForClear.</summary>
+        public static void TryCullForWood() => TryInvokeWindowMethod("MarkResourceForClear");
 
         public static void TryHarvest() => TryInvokeWindowMethod("MarkResourceForHarvest");
         public static void TryDelete()  => TryInvokeWindowMethod("MarkResourceForClear");

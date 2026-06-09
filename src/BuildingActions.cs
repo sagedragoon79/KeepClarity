@@ -89,6 +89,34 @@ namespace FFUIOverhaul
             }
         }
 
+        /// <summary>
+        /// Fire the InfoWindow's "move work area" (retarget) button — same path as
+        /// a real click, so the game enters work-area-retarget mode. The button is
+        /// only shown for buildings that have a work area (hunters, foresters,
+        /// herbalists, etc.), so respect its active state.
+        /// </summary>
+        public static void TryMoveWorkArea(Building building, GameManager gm)
+        {
+            try
+            {
+                var infoWindow = FFUIOverhaulMod.GetBuildingInfoWindow() as UIBuildingInfoWindow_New;
+                if (infoWindow == null) return;
+
+                var btn = infoWindow.retargetButton;
+                if (btn == null) return;
+                if (!btn.gameObject.activeInHierarchy)
+                {
+                    FFUIOverhaulMod.Log.Msg("[WorkArea] Retarget button hidden — this building has no movable work area");
+                    return;
+                }
+                btn.onClick.Invoke();
+            }
+            catch (System.Exception e)
+            {
+                FFUIOverhaulMod.Log.Warning($"Move work area failed: {e.Message}");
+            }
+        }
+
         public static void TryCycleLeft(Building building, GameManager gm)
             => InvokeCycleButton(left: true);
 

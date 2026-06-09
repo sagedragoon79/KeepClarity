@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.7", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.8", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -40,6 +40,8 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<KeyCode> ConfirmHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> CancelHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> ToggleOverlayHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> MoveWorkAreaHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> CullForWoodHotkey { get; private set; } = null!;
 
         // Trader warning
         public static MelonPreferences_Entry<int> TraderWarningDays { get; private set; } = null!;
@@ -87,6 +89,10 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<float> CompanyOverlayPosX { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CompanyOverlayPosY { get; private set; } = null!;
         public static MelonPreferences_Entry<string> CompanyOverlayPositions { get; private set; } = null!;
+
+        // Building colour variety (per-instance tint)
+        public static MelonPreferences_Entry<bool> EnableBuildingVariety { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildingVarietyIntensity { get; private set; } = null!;
 
         // Crisp Mode (native post-process: CAS sharpen + vibrance)
         public static MelonPreferences_Entry<bool> EnableCrispMode { get; private set; } = null!;
@@ -202,6 +208,14 @@ namespace FFUIOverhaul
             ForageableDeleteHotkey = _prefs.CreateEntry("ForageableDeleteHotkey", KeyCode.Delete,
                 display_name: "Delete",
                 description: "Hotkey to flag the selected forageable for clearing. No-op if the forageable has no clear action.");
+
+            MoveWorkAreaHotkey = _prefs.CreateEntry("MoveWorkAreaHotkey", KeyCode.Q,
+                display_name: "Move Work Area",
+                description: "With a building selected, start moving its work area (hunters, foresters, herbalists, etc.). Same as the in-panel button; does nothing for buildings without a work area.");
+
+            CullForWoodHotkey = _prefs.CreateEntry("CullForWoodHotkey", KeyCode.C,
+                display_name: "Cull Fruit Tree for Wood",
+                description: "With a fruit tree selected, mark it to be cut down for wood (the native 'Cull For Wood' action).");
 
             ForageablePrioritizeHotkey = _prefs.CreateEntry("ForageablePrioritizeHotkey", KeyCode.P,
                 display_name: "Prioritize",
@@ -347,6 +361,13 @@ namespace FFUIOverhaul
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
 
+            EnableBuildingVariety = _prefs.CreateEntry("EnableBuildingVariety", false,
+                display_name: "Building Color Variety",
+                description: "Gives each structure a subtle, unique weathered tint so identical building types don't all look clone-stamped. Deterministic per building (stable across reloads). Applies live.");
+            BuildingVarietyIntensity = _prefs.CreateEntry("BuildingVarietyIntensity", 0.6f,
+                display_name: "Variety Intensity",
+                description: "Range of color variation between buildings. 0 = all identical, 1 = deliberately too much (so you can see the extreme and dial back). Default 0.6 is a comfortable middle. Applies live.");
+
             EnableCrispMode = _prefs.CreateEntry("EnableCrispMode", false,
                 display_name: "Crisp Mode",
                 description: "Native sharpen + vibrance post-process (a lightweight, built-in alternative to a ReShade CAS preset). Applied to the world only — your HUD stays untouched. Applies live.");
@@ -403,6 +424,8 @@ namespace FFUIOverhaul
             Building? selectedBuilding = null;
             BuildSiteResource? selectedBuildSite = null;
             bool selectedForageable = false;
+            bool selectedTreeOrStone = false;
+            bool selectedFruitTree = false;
             if (stateName == "Input_SelectGameObject")
             {
                 var selectedObj = GetSelectedGameObject(gm);
@@ -413,12 +436,21 @@ namespace FFUIOverhaul
                     selectedBuildSite = selectedObj.GetComponent<BuildSiteResource>()
                         ?? selectedObj.GetComponentInParent<BuildSiteResource>();
                     if (selectedBuilding == null && selectedBuildSite == null)
+                    {
                         selectedForageable = ForageableActions.IsForageable(selectedObj);
+                        if (!selectedForageable)
+                            selectedTreeOrStone = ForageableActions.IsTreeOrStone(selectedObj);
+                        if (!selectedForageable && !selectedTreeOrStone)
+                            selectedFruitTree = ForageableActions.IsFruitTree(selectedObj);
+                    }
                 }
             }
             FrameBuildingWindowActive = selectedBuilding != null;
             FrameBuildSiteWindowActive = selectedBuildSite != null;
-            FrameForageableActive = selectedForageable;
+            // Forageables, tree/stone deposits and fruit trees all drive the same
+            // suppression: their info window owns Del/P/H/C so FF's own binds must
+            // not also fire.
+            FrameForageableActive = selectedForageable || selectedTreeOrStone || selectedFruitTree;
 
 
             // Order matters: modal handler first (consumes Y/N/Enter/Esc in dialogs)
@@ -431,7 +463,9 @@ namespace FFUIOverhaul
             HandleReportsHotkey(gm);
             if (selectedBuilding != null) HandleBuildingHotkeys(selectedBuilding, gm);
             else if (selectedBuildSite != null) HandleBuildSiteHotkeys(selectedBuildSite, gm);
-            else if (selectedForageable) HandleForageableHotkeys();
+            else if (selectedForageable) HandleHarvestableHotkeys(canRelocate: true);
+            else if (selectedTreeOrStone) HandleHarvestableHotkeys(canRelocate: false);
+            else if (selectedFruitTree) HandleFruitTreeHotkeys();
             HandleEscapeKey(gm);
             HandleOverlayToggle();
             _overlay?.Tick();
@@ -441,6 +475,7 @@ namespace FFUIOverhaul
             Patches.DismissibleResourceAlerts.Tick();
             UI.CompanyOverlayManager.Tick();
             UI.CrispMode.Tick();
+            UI.BuildingVariety.Tick();
         }
 
         private void HandlePauseOnLoad(GameManager gm)
@@ -517,6 +552,7 @@ namespace FFUIOverhaul
                 if (_overlay != null) _overlay.Visible = false;
                 if (_techQueueOverlay != null) _techQueueOverlay.Visible = false;
                 UI.CrispMode.OnSceneChanged(); // world camera is gone; drop our ref so we re-attach next map
+                UI.BuildingVariety.OnSceneChanged();
 
             }
         }
@@ -540,6 +576,15 @@ namespace FFUIOverhaul
             if (Input.GetKeyDown(SettingsPanelHotkey.Value) && shiftHeld && ctrlHeldNow)
             {
                 Settings.UI.SpriteExport.Run();
+                return;
+            }
+
+            // Ctrl+Shift+F9 → dump the selected building's render structure
+            // (renderers, shaders, colour properties, material sharing) so we
+            // can design per-building colour variety from real data.
+            if (Input.GetKeyDown(KeyCode.F9) && shiftHeld && ctrlHeldNow)
+            {
+                Utils.BuildingInspector.Run();
                 return;
             }
 
@@ -658,6 +703,15 @@ namespace FFUIOverhaul
             RE("Overlay Settings", CompanyGrowDirection, "Company Grow Direction",
                 "Company roster: grows Down from header (default) or Up.");
 
+            // ── Building Variety ─────────────────────────────────────────
+            // Live — applied/cleared via MaterialPropertyBlock each scan.
+            _order = 0;
+            R("Building Variety", EnableBuildingVariety, "Building Color Variety",
+                "Each structure gets a subtle unique weathered tint so identical building types don't look clone-stamped. Deterministic per building (stable across reloads).");
+            RF("Building Variety", BuildingVarietyIntensity, "Variety Intensity", 0f, 1f,
+                "Range of variation between buildings. 0 = identical, 1 = widest (still tasteful). Applies live.",
+                visibleWhen: () => EnableBuildingVariety.Value);
+
             // ── Crisp Mode ───────────────────────────────────────────────
             // All live (read every frame in OnRenderImage) — no restart/reload flags.
             _order = 0;
@@ -678,6 +732,7 @@ namespace FFUIOverhaul
             K("Hotkeys — Building", DemolishHotkey, "Salvage Building", "Default T. Delete still works as a fixed fallback regardless of rebind.");
             K("Hotkeys — Building", CycleBuildingLeftHotkey, "Cycle Building Left");
             K("Hotkeys — Building", CycleBuildingRightHotkey, "Cycle Building Right");
+            K("Hotkeys — Building", MoveWorkAreaHotkey, "Move Work Area", "Buildings with a work area (hunters, foresters, herbalists…) — start moving it. Same as the panel's retarget button.");
 
             // ── Hotkeys — Build Site ─────────────────────────────────────
             _order = 0;
@@ -693,10 +748,11 @@ namespace FFUIOverhaul
             // alongside the forageable-specific hotkeys. Editing either entry
             // edits the same underlying value.
             _order = 0;
-            K("Hotkeys — Forageables", RelocateHotkey, "Relocate", "Shares the same key as Building Relocate — rebinding here rebinds there.");
-            K("Hotkeys — Forageables", ForageableHarvestHotkey, "Harvest");
-            K("Hotkeys — Forageables", ForageableDeleteHotkey, "Delete");
-            K("Hotkeys — Forageables", ForageablePrioritizeHotkey, "Prioritize");
+            K("Hotkeys — Forageables", RelocateHotkey, "Relocate", "Forageables only — shares the same key as Building Relocate (rebinding here rebinds there). Trees, stone deposits, and ruins can't be relocated.");
+            K("Hotkeys — Forageables", ForageableHarvestHotkey, "Harvest", "Fires the native Harvest button. Works on forageables, trees, stone deposits, and excavated ruins.");
+            K("Hotkeys — Forageables", ForageableDeleteHotkey, "Delete", "Fires the native Delete/Clear button. Works on forageables, trees, stone deposits, and excavated ruins.");
+            K("Hotkeys — Forageables", ForageablePrioritizeHotkey, "Prioritize", "Fires the native Prioritize toggle. Works on forageables, trees, stone deposits, excavated ruins, and fruit trees.");
+            K("Hotkeys — Forageables", CullForWoodHotkey, "Cull Fruit Tree for Wood", "Fruit trees only — mark the tree to be cut down for wood (native 'Cull For Wood').");
 
             // ── Hotkeys — Confirmation Dialog ────────────────────────────
             _order = 0;
@@ -802,11 +858,29 @@ namespace FFUIOverhaul
             {
                 BuildingActions.TryCycleRight(building, gm);
             }
+            else if (Input.GetKeyDown(MoveWorkAreaHotkey.Value))
+            {
+                BuildingActions.TryMoveWorkArea(building, gm);
+            }
         }
 
-        private void HandleForageableHotkeys()
+        // Fruit trees: Cull For Wood (C) + Prioritize (P), routed through the same
+        // harvestable-resource window. No Harvest/Delete/Relocate.
+        private void HandleFruitTreeHotkeys()
         {
-            if (Input.GetKeyDown(RelocateHotkey.Value))
+            if (Input.GetKeyDown(CullForWoodHotkey.Value))
+                ForageableActions.TryCullForWood();
+            else if (Input.GetKeyDown(ForageablePrioritizeHotkey.Value))
+                ForageableActions.TryTogglePrioritize();
+        }
+
+        // Shared by forageables (canRelocate: true) and tree/stone deposits
+        // (canRelocate: false). Relocate is a Tended Wilds forageable feature —
+        // trees and stone deposits can't be relocated, so they get only
+        // Harvest / Delete / Prioritize.
+        private void HandleHarvestableHotkeys(bool canRelocate)
+        {
+            if (canRelocate && Input.GetKeyDown(RelocateHotkey.Value))
                 ForageableActions.TryRelocate();
             else if (Input.GetKeyDown(ForageableHarvestHotkey.Value))
                 ForageableActions.TryHarvest();
