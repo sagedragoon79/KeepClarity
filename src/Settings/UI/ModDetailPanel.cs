@@ -21,6 +21,7 @@ namespace FFUIOverhaul.Settings.UI
         private TMP_Text _versionText = null!;
         private TMP_Text _descText = null!;
         private string? _currentModId;
+        private bool _currentModHasConditional; // mod has VisibleWhen rows → toggles trigger live rebuild
         private ScrollRect? _scrollRect;
 
         /// <summary>
@@ -216,6 +217,12 @@ namespace FFUIOverhaul.Settings.UI
 
             bool onlyChanged = OnlyChangedProvider?.Invoke() ?? false;
 
+            // Does this mod have any conditional (VisibleWhen) rows? If so, a bool
+            // toggle here may gate other rows, so toggling triggers a live rebuild
+            // to show/hide them. Mods without conditionals never rebuild on toggle.
+            _currentModHasConditional = SettingsRegistry.ByCategory(modId!)
+                .Any(g => g.Any(e => e.Meta.VisibleWhen != null));
+
             // Build a section per category. Skip categories whose entries are
             // all unchanged when "only changed" is on.
             foreach (var grp in SettingsRegistry.ByCategory(modId!))
@@ -233,6 +240,14 @@ namespace FFUIOverhaul.Settings.UI
         /// "only changed" filter toggles from outside, or after a reset).
         /// Preserves the scroll position so a Reset deep in the list doesn't
         /// snap the user back to the top.</summary>
+        // Rebuild on the next frame so a toggle that triggered this isn't
+        // destroyed mid-event. Refresh() preserves the scroll position.
+        private System.Collections.IEnumerator DeferredRefresh()
+        {
+            yield return null;
+            Refresh();
+        }
+
         public void Refresh()
         {
             float scrollPos = _scrollRect != null ? _scrollRect.verticalNormalizedPosition : 1f;
@@ -457,6 +472,11 @@ namespace FFUIOverhaul.Settings.UI
             Action onChanged = () =>
             {
                 if (resetBtn != null) resetBtn.SetActive(IsChanged(e));
+                // A bool toggle may gate other rows' VisibleWhen — rebuild so its
+                // dependents show/hide live (deferred a frame so we don't destroy
+                // the toggle mid-event; Refresh preserves scroll position).
+                if (e.ValueType == typeof(bool) && _currentModHasConditional)
+                    MelonLoader.MelonCoroutines.Start(DeferredRefresh());
             };
             SettingControls.Build(e, controlRT, onChanged);
         }

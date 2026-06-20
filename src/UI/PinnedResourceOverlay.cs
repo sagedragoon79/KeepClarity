@@ -280,7 +280,10 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(-8, -44);
             rt.sizeDelta = new Vector2(PanelWidth, 100); // height set by ContentSizeFitter
 
-            ApplyFFChrome(_expandedPanel, PanelBg.a);
+            // Background is non-blocking so world clicks pass THROUGH the panel
+            // body (place/relocate across the whole screen). The header (drag
+            // handle) and interactive controls keep their own raycastTarget.
+            ApplyFFChrome(_expandedPanel, PanelBg.a).raycastTarget = false;
 
             var vlg = _expandedPanel.AddComponent<VerticalLayoutGroup>();
             vlg.padding = new RectOffset(4, 4, 4, 6);
@@ -372,7 +375,10 @@ namespace FFUIOverhaul.UI
             vpRt.offsetMax = Vector2.zero;
             var vpImg = viewportGo.AddComponent<Image>();
             vpImg.color = new Color(0, 0, 0, 0.001f);
-            vpImg.raycastTarget = true;
+            // Click-through the list area too (pinned rows are display-only). The
+            // list is content-sized and rarely needs scrolling, so giving up
+            // scroll-wheel-over-list is worth full screen click access.
+            vpImg.raycastTarget = false;
             viewportGo.AddComponent<RectMask2D>();
             scroll.viewport = vpRt;
 

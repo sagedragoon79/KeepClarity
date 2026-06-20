@@ -25,8 +25,9 @@ namespace FFUIOverhaul.Patches
             bool building = FFUIOverhaulMod.FrameBuildingWindowActive;
             bool buildSite = FFUIOverhaulMod.FrameBuildSiteWindowActive;
             bool forageable = FFUIOverhaulMod.FrameForageableActive;
+            bool cropfield = FFUIOverhaulMod.FrameCropfieldActive;
 
-            if (!modal && !building && !buildSite && !forageable) return true; // no suppression context
+            if (!modal && !building && !buildSite && !forageable && !cropfield) return true; // no suppression context
 
             // Modals trump the allowlist — Y/N/Esc/Enter must hit the dialog only.
             if (!modal && IsGlobalAllowThrough(keyCombo))

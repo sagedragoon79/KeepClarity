@@ -1,5 +1,36 @@
 # Keep Clarity — Changelog
 
+## v1.2.9 (2026-06-19) — Build Priority, Build Queue, crop hotkeys, villager work info
+
+### Added
+- **Build Priority** (off by default). Repurposes each build site's "builders
+  assigned" up/down arrows as a **1–9 priority**. Builders serve higher-priority
+  sites first, and every site can take its full engine builder count ("swarm" —
+  the per-site cap is removed). **Priority Strength** slider controls how hard
+  priority overrides distance. Patches the construction work-search score and the
+  builder cap; toggle-safe (a leftover priority value never over-assigns builders
+  when the feature is off).
+- **Build Queue overlay** (off by default). Movable panel listing the top 10 build
+  sites by priority, with active-builder counts. Collapsible tab + Up/Down grow
+  direction, scale/opacity, header-drag, body click-through. Registry-backed (no
+  scene scans, no per-refresh stutter or GC).
+- **Crop Field hotkeys**: Copy (C), Paste (V), Expand (E), Clear Selected Crop (X),
+  Salvage (T) — fire the native buttons; custom EP Planting Almanac buttons are
+  left alone. Rebindable under Hotkeys — Crop Field.
+- **Villager work info**: the selected-villager info window now shows Essential
+  Provisions work bonuses (education from Learned Hands + Workplace Mastery) inline
+  on the Education line, when EP is installed. Soft-dep via reflection.
+- **Tech-tree dumper** (Ctrl+Shift+F8, dev tool): dumps every tech node's effects,
+  values, ranks, and prerequisites to log + file.
+
+### Changed
+- **Overlays are click-through.** Pinned Resources, Tech Queue, Company Roster, and
+  Build Queue panels no longer block clicks on the world behind their bodies — only
+  the header (drag handle) and interactive controls capture clicks, so you can
+  place/relocate across the whole screen. Drag is header-only.
+- **Settings panel live nesting.** Toggling a master pref now shows/hides its
+  conditional (VisibleWhen) sub-prefs immediately, instead of only on reopen.
+
 ## v1.2.8 (2026-06-09) — Building Variety, more hotkeys, pet-DLC build menu
 
 ### Added

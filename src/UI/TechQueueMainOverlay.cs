@@ -197,9 +197,10 @@ namespace FFUIOverhaul.UI
                 FFUIOverhaulMod.TechQueueOverlayPosX?.Value ?? defaultPos.x,
                 FFUIOverhaulMod.TechQueueOverlayPosY?.Value ?? defaultPos.y);
 
-            // Drag from anywhere on the panel — see PinnedResourceOverlay for
-            // rationale (header-only handle could hide behind the top bar).
-            _expandedDrag = _expandedPanel.AddComponent<DraggablePanel>();
+            // Header-only drag handle (the panel body is now click-through so
+            // world clicks pass under it). The top-bar collision margin keeps the
+            // header from sliding under the top bar.
+            _expandedDrag = _header!.AddComponent<DraggablePanel>();
             _expandedDrag.Target = (RectTransform)_expandedPanel.transform;
             _expandedDrag.DefaultNormalizedPosition = defaultPos;
             _expandedDrag.OnPositionChanged = SavePosition;
@@ -232,7 +233,9 @@ namespace FFUIOverhaul.UI
             rt.anchoredPosition = new Vector2(8, -180);
             rt.sizeDelta = new Vector2(PanelWidth, 0);
 
-            ApplyFFChrome(_expandedPanel, PanelBg.a);
+            // Background non-blocking so world clicks pass through the body; only
+            // the header (drag) and buttons keep raycastTarget.
+            ApplyFFChrome(_expandedPanel, PanelBg.a).raycastTarget = false;
 
             var vlg = _expandedPanel.AddComponent<VerticalLayoutGroup>();
             vlg.padding = new RectOffset(4, 4, 4, 6);

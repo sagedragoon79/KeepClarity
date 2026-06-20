@@ -164,6 +164,10 @@ namespace FFUIOverhaul.UI
             if (frame != null) { _panelBg.sprite = frame; _panelBg.type = Image.Type.Sliced; }
             float a = FFUIOverhaulMod.CompanyOverlayOpacity?.Value ?? 0.92f;
             _panelBg.color = new Color(1f, 1f, 1f, a);
+            // Background non-blocking so world clicks pass through the panel body.
+            // The header (drag) and the soldier rows (click-to-select) keep their
+            // own raycastTarget, so they still work.
+            _panelBg.raycastTarget = false;
 
             var vlg = _panel.AddComponent<VerticalLayoutGroup>();
             vlg.padding = new RectOffset(6, 6, 6, 6);

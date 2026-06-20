@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.8", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.9", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -42,6 +42,12 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<KeyCode> ToggleOverlayHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> MoveWorkAreaHotkey { get; private set; } = null!;
         public static MelonPreferences_Entry<KeyCode> CullForWoodHotkey { get; private set; } = null!;
+        // Crop Field UI
+        public static MelonPreferences_Entry<KeyCode> CropCopyHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> CropPasteHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> CropExpandHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> CropClearHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<KeyCode> CropSalvageHotkey { get; private set; } = null!;
 
         // Trader warning
         public static MelonPreferences_Entry<int> TraderWarningDays { get; private set; } = null!;
@@ -90,6 +96,19 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<float> CompanyOverlayPosY { get; private set; } = null!;
         public static MelonPreferences_Entry<string> CompanyOverlayPositions { get; private set; } = null!;
 
+        // Build priority (hijacks the builders X/X arrows as 1-9 priority)
+        public static MelonPreferences_Entry<bool> EnableBuildPriority { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildPriorityWeight { get; private set; } = null!;
+
+        // Build queue overlay (top 10 build sites by priority)
+        public static MelonPreferences_Entry<bool> EnableBuildQueueOverlay { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildQueueOverlayPosX { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildQueueOverlayPosY { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildQueueOverlayScale { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> BuildQueueOverlayOpacity { get; private set; } = null!;
+        public static MelonPreferences_Entry<UI.OverlayGrowDirection> BuildQueueGrowDirection { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> BuildQueueCollapsed { get; private set; } = null!;
+
         // Building colour variety (per-instance tint)
         public static MelonPreferences_Entry<bool> EnableBuildingVariety { get; private set; } = null!;
         public static MelonPreferences_Entry<float> BuildingVarietyIntensity { get; private set; } = null!;
@@ -114,6 +133,7 @@ namespace FFUIOverhaul
         public static GameObject? UITopBarPlannerButton;
         private PinnedResourceOverlay? _overlay;
         private TechQueueMainOverlay? _techQueueOverlay;
+        private BuildQueueOverlay? _buildQueueOverlay;
 
         public void RefreshTechQueueOverlay() => _techQueueOverlay?.RefreshDisplay();
 
@@ -122,6 +142,7 @@ namespace FFUIOverhaul
         public static bool FrameBuildingWindowActive { get; private set; }
         public static bool FrameBuildSiteWindowActive { get; private set; }
         public static bool FrameForageableActive { get; private set; }
+        public static bool FrameCropfieldActive { get; private set; }
 
 
         public override void OnInitializeMelon()
@@ -216,6 +237,17 @@ namespace FFUIOverhaul
             CullForWoodHotkey = _prefs.CreateEntry("CullForWoodHotkey", KeyCode.C,
                 display_name: "Cull Fruit Tree for Wood",
                 description: "With a fruit tree selected, mark it to be cut down for wood (the native 'Cull For Wood' action).");
+
+            CropCopyHotkey = _prefs.CreateEntry("CropCopyHotkey", KeyCode.C,
+                display_name: "Crop Field: Copy Settings", description: "Copy this crop field's settings (native Copy button).");
+            CropPasteHotkey = _prefs.CreateEntry("CropPasteHotkey", KeyCode.V,
+                display_name: "Crop Field: Paste Settings", description: "Paste copied crop field settings (native Paste button).");
+            CropExpandHotkey = _prefs.CreateEntry("CropExpandHotkey", KeyCode.E,
+                display_name: "Crop Field: Expand", description: "Expand the crop field (native Expand button).");
+            CropClearHotkey = _prefs.CreateEntry("CropClearHotkey", KeyCode.X,
+                display_name: "Crop Field: Clear Selected Crop", description: "Clear the selected crop (native Clear button).");
+            CropSalvageHotkey = _prefs.CreateEntry("CropSalvageHotkey", KeyCode.T,
+                display_name: "Crop Field: Salvage", description: "Salvage the crop field (native Salvage button).");
 
             ForageablePrioritizeHotkey = _prefs.CreateEntry("ForageablePrioritizeHotkey", KeyCode.P,
                 display_name: "Prioritize",
@@ -361,6 +393,29 @@ namespace FFUIOverhaul
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
 
+            EnableBuildPriority = _prefs.CreateEntry("EnableBuildPriority", false,
+                display_name: "Build Priority",
+                description: "Repurposes each build site's builder up/down arrows as a 1-9 PRIORITY. Builders serve higher-priority sites first, and every site can take its full number of builders (no per-site cap). Applies live. NOTE: turning this off after setting priorities can leave odd builder counts until readjusted.");
+            BuildPriorityWeight = _prefs.CreateEntry("BuildPriorityWeight", 1000f,
+                display_name: "Build Priority Strength",
+                description: "How strongly priority overrides distance. Higher = priority dominates (a far high-priority site beats a near low-priority one). 1000 = priority decides order, distance only breaks ties. Applies live.");
+
+            EnableBuildQueueOverlay = _prefs.CreateEntry("EnableBuildQueueOverlay", false,
+                display_name: "Build Queue Overlay",
+                description: "Show a movable panel listing the top 10 active build sites by Build Priority, highest first. Drag to move; scale/opacity below.");
+            BuildQueueOverlayPosX = _prefs.CreateEntry("BuildQueueOverlayPosX", 0.005f,
+                display_name: "Build Queue Overlay X", description: "Internal — drag the panel to change.", is_hidden: true);
+            BuildQueueOverlayPosY = _prefs.CreateEntry("BuildQueueOverlayPosY", 0.55f,
+                display_name: "Build Queue Overlay Y", description: "Internal — drag the panel to change.", is_hidden: true);
+            BuildQueueOverlayScale = _prefs.CreateEntry("BuildQueueOverlayScale", 1.0f,
+                display_name: "Build Queue Overlay Scale", description: "Build Queue panel size multiplier. Applies live.");
+            BuildQueueOverlayOpacity = _prefs.CreateEntry("BuildQueueOverlayOpacity", 0.92f,
+                display_name: "Build Queue Overlay Opacity", description: "Build Queue panel opacity. Applies live.");
+            BuildQueueGrowDirection = _prefs.CreateEntry("BuildQueueGrowDirection", UI.OverlayGrowDirection.Down,
+                display_name: "Build Queue Grow Direction", description: "Build Queue: list grows Down from header (default) or Up (header at bottom).");
+            BuildQueueCollapsed = _prefs.CreateEntry("BuildQueueCollapsed", false,
+                display_name: "Build Queue Collapsed", description: "Internal — collapsed state.", is_hidden: true);
+
             EnableBuildingVariety = _prefs.CreateEntry("EnableBuildingVariety", false,
                 display_name: "Building Color Variety",
                 description: "Gives each structure a subtle, unique weathered tint so identical building types don't all look clone-stamped. Deterministic per building (stable across reloads). Applies live.");
@@ -418,6 +473,7 @@ namespace FFUIOverhaul
             // CanvasGroup rather than SetActive, leaving activeInHierarchy=true.
             var stateName = InputStateHelper.GetCurrentInputStateType()?.Name;
             FrameModalVisible = stateName == "Input_ModalWindow";
+            FrameCropfieldActive = stateName == "Input_CropfieldInfo";
 
             // Resolve the selected GameObject's component types once per frame —
             // both flags need it, no point in calling reflection twice.
@@ -466,10 +522,12 @@ namespace FFUIOverhaul
             else if (selectedForageable) HandleHarvestableHotkeys(canRelocate: true);
             else if (selectedTreeOrStone) HandleHarvestableHotkeys(canRelocate: false);
             else if (selectedFruitTree) HandleFruitTreeHotkeys();
+            else if (FrameCropfieldActive) HandleCropfieldHotkeys();
             HandleEscapeKey(gm);
             HandleOverlayToggle();
             _overlay?.Tick();
             _techQueueOverlay?.Tick();
+            _buildQueueOverlay?.Tick();
             TechQueueInput.Tick();
             HandlePauseOnLoad(gm);
             Patches.DismissibleResourceAlerts.Tick();
@@ -516,6 +574,8 @@ namespace FFUIOverhaul
                 if (_techQueueOverlay == null) _techQueueOverlay = new TechQueueMainOverlay();
                 _techQueueOverlay.Visible = true;
 
+                if (_buildQueueOverlay == null) _buildQueueOverlay = new BuildQueueOverlay();
+
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
 
@@ -545,6 +605,10 @@ namespace FFUIOverhaul
                     _settingsRegistered = true;
                 }
                 SettingsWindow.EnsureInstance();
+
+                // Manually patch UIVillagerWindow once the game types are loaded
+                // (self-guarded; appends EP education/mastery bonuses to the panel).
+                Patches.VillagerWorkInfoPatch.Initialize();
             }
             else
             {
@@ -585,6 +649,14 @@ namespace FFUIOverhaul
             if (Input.GetKeyDown(KeyCode.F9) && shiftHeld && ctrlHeldNow)
             {
                 Utils.BuildingInspector.Run();
+                return;
+            }
+
+            // Ctrl+Shift+F8 → dump the entire tech tree (every node's effects,
+            // values, ranks, prereqs) to log + file. Ground-truth tech->effect map.
+            if (Input.GetKeyDown(KeyCode.F8) && shiftHeld && ctrlHeldNow)
+            {
+                Utils.TechTreeDumper.Run();
                 return;
             }
 
@@ -703,6 +775,22 @@ namespace FFUIOverhaul
             RE("Overlay Settings", CompanyGrowDirection, "Company Grow Direction",
                 "Company roster: grows Down from header (default) or Up.");
 
+            // ── Build Priority ───────────────────────────────────────────
+            _order = 0;
+            R("Build Priority", EnableBuildPriority, "Build Priority",
+                "Repurpose the build site builder arrows as a 1-9 priority. Builders serve higher-priority sites first; every site can take its full builder count.");
+            RF("Build Priority", BuildPriorityWeight, "Priority Strength", 0f, 3000f,
+                "How strongly priority beats distance. 1000 = priority decides order. Applies live.",
+                visibleWhen: () => EnableBuildPriority.Value);
+            R("Build Priority", EnableBuildQueueOverlay, "Build Queue Overlay",
+                "Movable on-screen panel listing the top 10 build sites by priority, highest first.");
+            RF("Build Priority", BuildQueueOverlayScale, "Build Queue Scale", 0.5f, 2f,
+                "Build Queue panel size. Applies live.", visibleWhen: () => EnableBuildQueueOverlay.Value);
+            RF("Build Priority", BuildQueueOverlayOpacity, "Build Queue Opacity", 0.05f, 1f,
+                "Build Queue panel opacity. Applies live.", visibleWhen: () => EnableBuildQueueOverlay.Value);
+            RE("Build Priority", BuildQueueGrowDirection, "Build Queue Grow Direction",
+                "List grows Down from the header (default) or Up (header at bottom).");
+
             // ── Building Variety ─────────────────────────────────────────
             // Live — applied/cleared via MaterialPropertyBlock each scan.
             _order = 0;
@@ -753,6 +841,14 @@ namespace FFUIOverhaul
             K("Hotkeys — Forageables", ForageableDeleteHotkey, "Delete", "Fires the native Delete/Clear button. Works on forageables, trees, stone deposits, and excavated ruins.");
             K("Hotkeys — Forageables", ForageablePrioritizeHotkey, "Prioritize", "Fires the native Prioritize toggle. Works on forageables, trees, stone deposits, excavated ruins, and fruit trees.");
             K("Hotkeys — Forageables", CullForWoodHotkey, "Cull Fruit Tree for Wood", "Fruit trees only — mark the tree to be cut down for wood (native 'Cull For Wood').");
+
+            // ── Hotkeys — Crop Field ─────────────────────────────────────
+            _order = 0;
+            K("Hotkeys — Crop Field", CropCopyHotkey, "Copy Settings", "Copy this crop field's settings (native button).");
+            K("Hotkeys — Crop Field", CropPasteHotkey, "Paste Settings", "Paste copied crop field settings (native button).");
+            K("Hotkeys — Crop Field", CropExpandHotkey, "Expand Field", "Expand the crop field (native button).");
+            K("Hotkeys — Crop Field", CropClearHotkey, "Clear Selected Crop", "Clear the selected crop (native button).");
+            K("Hotkeys — Crop Field", CropSalvageHotkey, "Salvage", "Salvage the crop field (native button).");
 
             // ── Hotkeys — Confirmation Dialog ────────────────────────────
             _order = 0;
@@ -862,6 +958,17 @@ namespace FFUIOverhaul
             {
                 BuildingActions.TryMoveWorkArea(building, gm);
             }
+        }
+
+        // Crop Field UI: fire the native buttons by name. Custom UI (EP Planting
+        // Almanac, AddClay/AddSand) is intentionally not bound.
+        private void HandleCropfieldHotkeys()
+        {
+            if (Input.GetKeyDown(CropCopyHotkey.Value)) CropfieldActions.TryClickButton("CopyButton");
+            else if (Input.GetKeyDown(CropPasteHotkey.Value)) CropfieldActions.TryClickButton("PasteButton");
+            else if (Input.GetKeyDown(CropExpandHotkey.Value)) CropfieldActions.TryExpand();
+            else if (Input.GetKeyDown(CropClearHotkey.Value)) CropfieldActions.TryClearSelectedCrop();
+            else if (Input.GetKeyDown(CropSalvageHotkey.Value)) CropfieldActions.TryClickButton("SalvageButton");
         }
 
         // Fruit trees: Cull For Wood (C) + Prioritize (P), routed through the same
