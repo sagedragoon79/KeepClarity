@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.2.9", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.3.0", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -575,6 +575,7 @@ namespace FFUIOverhaul
                 _techQueueOverlay.Visible = true;
 
                 if (_buildQueueOverlay == null) _buildQueueOverlay = new BuildQueueOverlay();
+                _buildQueueOverlay.Visible = true; // clear the toggle-hidden latch each load, like the siblings above
 
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
@@ -609,6 +610,7 @@ namespace FFUIOverhaul
                 // Manually patch UIVillagerWindow once the game types are loaded
                 // (self-guarded; appends EP education/mastery bonuses to the panel).
                 Patches.VillagerWorkInfoPatch.Initialize();
+                Patches.VillagerDiseaseInfoPatch.Initialize();
             }
             else
             {
@@ -747,7 +749,7 @@ namespace FFUIOverhaul
             // ── Reports & Panels ─────────────────────────────────────────
             _order = 0;
             K("Hotkeys — Reports & Panels", ReportsHotkey, "Toggle Reports", "Open/close the 12-month report window");
-            K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Overlays", "Show/hide both the pinned overlay and the tech queue overlay");
+            K("Hotkeys — Reports & Panels", ToggleOverlayHotkey, "Toggle Overlays", "Show/hide the pinned, tech queue, build queue, and military company overlays");
             K("Hotkeys — Reports & Panels", SettingsPanelHotkey, "Open Settings Panel", "Opens this very window");
 
             // ── Overlay Settings (pinned + tech queue overlays) ─────────
@@ -1139,6 +1141,8 @@ namespace FFUIOverhaul
             bool target = _overlay == null ? true : !_overlay.Visible;
             if (_overlay != null) _overlay.Visible = target;
             if (_techQueueOverlay != null) _techQueueOverlay.Visible = target;
+            if (_buildQueueOverlay != null) _buildQueueOverlay.Visible = target;
+            UI.CompanyOverlayManager.SetVisible(target);
         }
     }
 }

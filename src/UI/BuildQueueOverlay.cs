@@ -45,6 +45,7 @@ namespace FFUIOverhaul.UI
         private static readonly List<Image> _pendingChevrons = new();
         private bool _initialized;
         private bool _collapsed;
+        private bool _userHidden;   // transient hide via the overlay-toggle hotkey (separate from the enable pref)
         private float _refreshTimer;
         private static TMP_FontAsset? _cachedFont;
         private static readonly Regex _trailingVariant = new(@"_\d+[A-Za-z]?$", RegexOptions.Compiled);
@@ -59,9 +60,23 @@ namespace FFUIOverhaul.UI
             return b.GetNumberOfBuilders().CompareTo(a.GetNumberOfBuilders()); // active builders desc
         };
 
+        /// <summary>Transient show/hide for the overlay-toggle hotkey, independent of
+        /// the enable pref and scene gate (Tick / ApplySceneVisibility still apply
+        /// those). Mirrors the Pinned / Tech-Queue overlays' Visible property.</summary>
+        public bool Visible
+        {
+            get => !_userHidden;
+            set => _userHidden = !value;
+        }
+
         public void Tick()
         {
-            bool wantVisible = FFUIOverhaulMod.EnableBuildQueueOverlay.Value;
+            // Gate on the actual game scene, not just the pref — otherwise the panel
+            // lingers on the main menu (and everywhere) after you leave a save. The
+            // sibling overlays (Pinned / Tech Queue) gate identically: the in-game
+            // scene is named "Frontier". Also honor the overlay-toggle hotkey.
+            bool inGame = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Frontier";
+            bool wantVisible = inGame && FFUIOverhaulMod.EnableBuildQueueOverlay.Value && !_userHidden;
 
             if (!_initialized)
             {
@@ -87,7 +102,18 @@ namespace FFUIOverhaul.UI
             if (_refreshTimer >= 1f) { _refreshTimer = 0f; RefreshDisplay(); }
         }
 
-        public void OnSceneChanged() { /* canvas is DontDestroyOnLoad; Tick re-shows */ }
+        private void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+            => ApplySceneVisibility(to);
+
+        // FF's gameplay scene is "Frontier"; anywhere else (main menu, loading,
+        // credits) the overlay must hide. Gated on the enable pref too, so it never
+        // flashes on when the feature is off.
+        private void ApplySceneVisibility(UnityEngine.SceneManagement.Scene scene)
+        {
+            if (_canvasRoot == null) return;
+            bool show = scene.name == "Frontier" && FFUIOverhaulMod.EnableBuildQueueOverlay.Value && !_userHidden;
+            _canvasRoot.SetActive(show);
+        }
 
         private void RefreshDisplay()
         {
@@ -134,6 +160,12 @@ namespace FFUIOverhaul.UI
             _canvasRoot = new GameObject("FFUI_BuildQueueOverlay",
                 typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             UnityEngine.Object.DontDestroyOnLoad(_canvasRoot);
+            // Scene-aware hide. The canvas is DontDestroyOnLoad, and OnUpdate (which
+            // drives Tick) early-returns on the main menu (GameManager is null) — so
+            // Tick can't hide us there. Subscribe to scene changes directly; the
+            // event fires on every transition regardless of OnUpdate, same as the
+            // Pinned/Tech-Queue overlays.
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
             var canvas = _canvasRoot.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = CanvasSortingOrder;
@@ -149,6 +181,7 @@ namespace FFUIOverhaul.UI
             ApplyCollapsed();
             ApplyGrowDirection();
             RefreshDisplay();
+            ApplySceneVisibility(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
         }
 
         private void BuildExpandedPanel()

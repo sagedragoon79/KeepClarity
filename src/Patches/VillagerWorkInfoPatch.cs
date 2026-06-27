@@ -7,29 +7,43 @@ using TMPro;
 namespace FFUIOverhaul.Patches
 {
     /// <summary>
-    /// Shows a villager's Essential Provisions work-rate bonuses (education from
-    /// Learned Hands + Workplace Mastery) inline on the education line of the
-    /// always-accessible selected-villager info window — so you don't have to dig
-    /// into the conditional worker-slot picker to see them.
+    /// Shows a villager's Essential Provisions work-rate bonuses on the
+    /// always-accessible selected-villager info window:
+    ///   - Workplace Mastery → appended to the OCCUPATION line ("+X% Mastery
+    ///     Bonus"), right next to the job title where it reads clearly.
+    ///   - Learned Hands education → appended to the EDUCATION line ("+X% Output
+    ///     Bonus"); that line already names the source (education), so the suffix
+    ///     names the effect.
     ///
-    /// Soft-dep: KC reads EP's public WorkInfoApi.GetVillagerWorkSummary(Villager)
-    /// reflectively. No hard reference; renders nothing if EP isn't loaded.
+    /// Soft-dep: KC reads EP's public WorkInfoApi reflectively (no hard reference).
+    /// Prefers the split numeric getters (GetEducationBonusPercent /
+    /// GetMasteryBonusPercent); falls back to the legacy combined
+    /// GetVillagerWorkSummary string (on the education line) for older EP builds.
+    /// Renders nothing if EP isn't loaded.
     ///
     /// There are TWO villager window classes: the modern UIVillagerWindow_New
-    /// (UISelectedObjectInfoWindow, parameterless UpdateText, private fields) — the
-    /// one actually shown — and the legacy UIVillagerWindow (UpdateText takes a
-    /// UIObjects with public fields). We patch UpdateText on BOTH; one postfix
-    /// reads villager/educationValue from whichever shape it got, with per-type
+    /// (parameterless UpdateText, private fields) — the one actually shown — and
+    /// the legacy UIVillagerWindow (UpdateText takes a UIObjects with public
+    /// fields). We patch UpdateText on BOTH; one postfix reads villager +
+    /// professionValue + educationValue from whichever shape it got, with per-type
     /// field caches so the two classes don't cross-wire.
     /// </summary>
     internal static class VillagerWorkInfoPatch
     {
+        private const string Green = "#7fbf7f";
+
         private static bool _initialized;
-        private static MethodInfo? _epSummary;
+        private static bool _loggedError;
+
+        // EP reflective binding.
         private static bool _epResolved;
+        private static MethodInfo? _epEdu;       // GetEducationBonusPercent(Villager) -> float
+        private static MethodInfo? _epMastery;   // GetMasteryBonusPercent(Villager) -> float
+        private static MethodInfo? _epSummary;   // GetVillagerWorkSummary(Villager) -> string  (legacy fallback)
+
         private static readonly Dictionary<Type, FieldInfo?> _villagerField = new Dictionary<Type, FieldInfo?>();
         private static readonly Dictionary<Type, FieldInfo?> _eduField = new Dictionary<Type, FieldInfo?>();
-        private static bool _loggedError;
+        private static readonly Dictionary<Type, FieldInfo?> _profField = new Dictionary<Type, FieldInfo?>();
 
         public static void Initialize()
         {
@@ -61,31 +75,41 @@ namespace FFUIOverhaul.Patches
             try
             {
                 var it = __instance.GetType();
-                if (!_villagerField.TryGetValue(it, out var vf)) { vf = AccessTools.Field(it, "villager"); _villagerField[it] = vf; }
-                var villager = vf?.GetValue(__instance) as Villager;
+                var villager = GetField(it, __instance, "villager", _villagerField) as Villager;
                 if (villager == null) return;
 
-                string summary = GetSummary(villager);
-                if (string.IsNullOrEmpty(summary)) return;
+                EnsureEpResolved();
 
-                // educationValue: on the UIObjects arg (legacy overload) or the
+                // The TMP fields live on the UIObjects arg (legacy overload) or the
                 // window itself (modern parameterless overload).
-                TMP_Text? edu = null;
-                if (__args != null && __args.Length > 0 && __args[0] != null)
-                {
-                    var uiObjs = __args[0];
-                    var ut = uiObjs.GetType();
-                    if (!_eduField.TryGetValue(ut, out var f)) { f = AccessTools.Field(ut, "educationValue"); _eduField[ut] = f; }
-                    edu = f?.GetValue(uiObjs) as TMP_Text;
-                }
-                else
-                {
-                    if (!_eduField.TryGetValue(it, out var f)) { f = AccessTools.Field(it, "educationValue"); _eduField[it] = f; }
-                    edu = f?.GetValue(__instance) as TMP_Text;
-                }
-                if (edu == null) return;
+                object host; Type hostType;
+                if (__args != null && __args.Length > 0 && __args[0] != null) { host = __args[0]; hostType = host.GetType(); }
+                else { host = __instance; hostType = it; }
 
-                edu.text = edu.text + "  <color=#7fbf7f>(" + summary + ")</color>";
+                var edu  = GetField(hostType, host, "educationValue", _eduField) as TMP_Text;
+                var prof = GetField(hostType, host, "professionValue", _profField) as TMP_Text;
+
+                if (_epEdu != null && _epMastery != null)
+                {
+                    // Split API: mastery → job line, education → education line.
+                    if (prof != null)
+                    {
+                        float m = InvokeFloat(_epMastery, villager);
+                        if (m > 0f) prof.text = Append(prof.text, m, "Mastery Bonus");
+                    }
+                    if (edu != null)
+                    {
+                        float e = InvokeFloat(_epEdu, villager);
+                        if (e > 0f) edu.text = Append(edu.text, e, "Output Bonus");
+                    }
+                }
+                else if (_epSummary != null && edu != null)
+                {
+                    // Legacy EP: keep the combined summary on the education line.
+                    string summary = InvokeString(_epSummary, villager);
+                    if (!string.IsNullOrEmpty(summary))
+                        edu.text = edu.text + "  <color=" + Green + ">(" + summary + ")</color>";
+                }
             }
             catch (Exception e)
             {
@@ -93,18 +117,46 @@ namespace FFUIOverhaul.Patches
             }
         }
 
-        private static string GetSummary(Villager v)
+        private static string Append(string baseText, float pct, string label)
+            => baseText + "  <color=" + Green + ">(+" + pct.ToString("0.#") + "% " + label + ")</color>";
+
+        private static void EnsureEpResolved()
         {
-            if (!_epResolved)
-            {
-                _epResolved = true;
-                var t = FindType("EssentialProvisions.WorkInfoApi");
-                _epSummary = t?.GetMethod("GetVillagerWorkSummary", BindingFlags.Public | BindingFlags.Static);
-                if (_epSummary == null) FFUIOverhaulMod.Log.Msg("[VillagerWorkInfo] EP WorkInfoApi not found — line disabled (EP not installed?).");
-            }
-            if (_epSummary == null) return "";
-            try { return _epSummary.Invoke(null, new object[] { v }) as string ?? ""; }
+            if (_epResolved) return;
+            _epResolved = true;
+            var t = FindType("EssentialProvisions.WorkInfoApi");
+            if (t == null) { FFUIOverhaulMod.Log.Msg("[VillagerWorkInfo] EP WorkInfoApi not found — line disabled (EP not installed?)."); return; }
+
+            const BindingFlags F = BindingFlags.Public | BindingFlags.Static;
+            var oneVillager = new[] { typeof(Villager) };
+            _epEdu     = t.GetMethod("GetEducationBonusPercent", F, null, oneVillager, null);
+            _epMastery = t.GetMethod("GetMasteryBonusPercent", F, null, oneVillager, null);
+            _epSummary = t.GetMethod("GetVillagerWorkSummary", F, null, oneVillager, null);
+
+            if (_epEdu != null && _epMastery != null)
+                FFUIOverhaulMod.Log.Msg("[VillagerWorkInfo] EP split API bound (education + mastery).");
+            else if (_epSummary != null)
+                FFUIOverhaulMod.Log.Msg("[VillagerWorkInfo] EP split API absent — using legacy combined summary.");
+            else
+                FFUIOverhaulMod.Log.Msg("[VillagerWorkInfo] EP WorkInfoApi found but exposes no usable methods.");
+        }
+
+        private static float InvokeFloat(MethodInfo m, Villager v)
+        {
+            try { var r = m.Invoke(null, new object[] { v }); return r is float f ? f : 0f; }
+            catch { return 0f; }
+        }
+
+        private static string InvokeString(MethodInfo m, Villager v)
+        {
+            try { return m.Invoke(null, new object[] { v }) as string ?? ""; }
             catch { return ""; }
+        }
+
+        private static object? GetField(Type hostType, object host, string name, Dictionary<Type, FieldInfo?> cache)
+        {
+            if (!cache.TryGetValue(hostType, out var f)) { f = AccessTools.Field(hostType, name); cache[hostType] = f; }
+            return f?.GetValue(host);
         }
 
         private static Type? FindType(string fullName)

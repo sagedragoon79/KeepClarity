@@ -239,19 +239,24 @@ namespace FFUIOverhaul.TechTree
         /// </summary>
         internal static class TendedWildsBridge
         {
-            private static bool _probed;
+            private static bool _resolved;        // true once GetMaxRank is found — then we stop probing
+            private static bool _loggedMissing;   // throttle the "not found" notice
             private static System.Reflection.MethodInfo? _getMaxRank;
             private static readonly Dictionary<int, string> _nameCache = new();
 
             public static int GetReducedMaxRank(TechTreeManager tm, int techId)
             {
-                if (!_probed) { Probe(); _probed = true; }
+                EnsureProbed();
                 if (_getMaxRank == null) return -1;
 
-                if (!_nameCache.TryGetValue(techId, out var name))
+                // Only cache a *real* name. The previous code cached "" too, so a
+                // single transient miss (looked up before the node's techName was
+                // populated) permanently disabled the cap for that tech — letting
+                // a 3-rank Woodlore over-spend to 3/2. Re-resolve until we get one.
+                if (!_nameCache.TryGetValue(techId, out var name) || string.IsNullOrEmpty(name))
                 {
                     name = ResolveName(tm, techId);
-                    _nameCache[techId] = name; // cache even if "" so we don't re-iterate
+                    if (!string.IsNullOrEmpty(name)) _nameCache[techId] = name;
                 }
                 if (string.IsNullOrEmpty(name)) return -1;
 
@@ -259,8 +264,12 @@ namespace FFUIOverhaul.TechTree
                 catch { return -1; }
             }
 
-            private static void Probe()
+            // Re-probe every call until TW's API is actually found. The old one-shot
+            // latch disabled the cap for the whole session if the very first probe
+            // missed (e.g. ran a beat before TW's assembly was in the AppDomain).
+            private static void EnsureProbed()
             {
+                if (_resolved) return;
                 foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
                 {
                     try
@@ -271,11 +280,19 @@ namespace FFUIOverhaul.TechTree
                             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                         if (_getMaxRank != null)
                         {
+                            _resolved = true;
                             FFUIOverhaulMod.Log.Msg("[TechQueue] Tended Wilds rank-cap bridge active.");
                             return;
                         }
                     }
                     catch { }
+                }
+                // Loud-on-failure (was silent): if TW isn't loaded we fall back to the
+                // live numRanks, which races TW's deferred patch. One line, throttled.
+                if (!_loggedMissing)
+                {
+                    _loggedMissing = true;
+                    FFUIOverhaulMod.Log.Msg("[TechQueue] Tended Wilds rank-cap API not found yet (TW not loaded, or older TW build) — capping on live numRanks only.");
                 }
             }
 
@@ -309,6 +326,11 @@ namespace FFUIOverhaul.TechTree
 
             if (state == TechTreeNodeData.State.PrereqsMet)
             {
+                // Trace the cap decision when a sibling-mod cap is in play or the
+                // live numRanks disagrees with the effective max — this is exactly
+                // the Woodlore 3/2 over-spend interaction, now fully diagnosable.
+                if (twCap > 0 || effectiveMax != numRanks)
+                    FFUIOverhaulMod.Log.Msg($"[TechQueue] cap-check id={targetId} curRank={curRank} numRanks={numRanks} twCap={twCap} effMax={effectiveMax} → spending rank {curRank + 1}");
                 tm.ActivateTechOrRank(targetId, 1, onLoad: false);
                 // Audit log so if a player reports a research-completed-but-
                 // building-still-locked desync, we can correlate the spend to

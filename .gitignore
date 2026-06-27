@@ -14,3 +14,8 @@ _research/
 # OS / misc
 Thumbs.db
 .DS_Store
+desktop.ini
+
+# Workshop / Nexus cover art (binary assets, not source)
+FFKeepClarity*.png
+KCNew*.png

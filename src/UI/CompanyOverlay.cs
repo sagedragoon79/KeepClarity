@@ -657,6 +657,18 @@ namespace FFUIOverhaul.UI
             if (!_toClose.Contains(company)) _toClose.Add(company);
         }
 
+        /// <summary>Hide or show every currently-open company overlay (without
+        /// closing them) — driven by KC's overlay-toggle hotkey alongside the
+        /// pinned / tech-queue / build-queue overlays.</summary>
+        public static void SetVisible(bool visible)
+        {
+            foreach (var kvp in _open)
+            {
+                if (visible) kvp.Value.Show();
+                else kvp.Value.Hide();
+            }
+        }
+
         public static void Tick()
         {
             foreach (var kvp in _open) kvp.Value.Tick();

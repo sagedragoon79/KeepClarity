@@ -72,6 +72,17 @@ namespace FFUIOverhaul
                     return;
                 }
                 w.ClearDragItem(sel);
+
+                // After a programmatic clear, the schedule bar's draggable area is
+                // still the EventSystem's selected object. The crop-picker popup is
+                // opened from that area's Selectable.OnSelect, and Unity only fires
+                // OnSelect when the selected object *changes* — so clicking the same
+                // year again does nothing (you'd have to click elsewhere and back).
+                // The native clear button sidesteps this because clicking it moves
+                // the selection onto the button. Mirror that: drop the selection so
+                // the next click on the same year is a fresh select → popup reopens.
+                var es = EventSystem.current;
+                if (es != null) es.SetSelectedGameObject(null);
             }
             catch (Exception e) { FFUIOverhaulMod.Log.Warning($"[Cropfield] Clear failed: {e.Message}"); }
         }
