@@ -9,8 +9,9 @@ namespace FFUIOverhaul.Patches
     /// <summary>
     /// Shows a villager's Essential Provisions work-rate bonuses on the
     /// always-accessible selected-villager info window:
-    ///   - Workplace Mastery → appended to the OCCUPATION line ("+X% Mastery
-    ///     Bonus"), right next to the job title where it reads clearly.
+    ///   - Workplace Mastery → appended to the OCCUPATION line ("+X% Mastery"),
+    ///     right next to the job title where it reads clearly. Kept short (no
+    ///     "Bonus" suffix) so it doesn't overrun the info-"i" button on that line.
     ///   - Learned Hands education → appended to the EDUCATION line ("+X% Output
     ///     Bonus"); that line already names the source (education), so the suffix
     ///     names the effect.
@@ -95,7 +96,9 @@ namespace FFUIOverhaul.Patches
                     if (prof != null)
                     {
                         float m = InvokeFloat(_epMastery, villager);
-                        if (m > 0f) prof.text = Append(prof.text, m, "Mastery Bonus");
+                        // "Mastery" only (no "Bonus") — the OCCUPATION line is short and
+                        // sits next to the info-"i" button; the longer label overran it.
+                        if (m > 0f) prof.text = Append(prof.text, m, "Mastery");
                     }
                     if (edu != null)
                     {

@@ -104,10 +104,16 @@ namespace FFUIOverhaul.Patches
                 if (method == "Incurable") { AddRow(provider, Red, "Treatment: Death"); AddRow(provider, Gray, "#GoneTooSoon"); return; }
                 if (method == "SelfResolving") { AddRow(provider, Green, "Resolves on its own"); return; }
 
-                // Actively recovering under current care — show the live odds.
-                if (o > 0f || p > 0f)
+                // Actively recovering under current care — show the live odds, but only
+                // when they actually round to >=1%. A healer-curable disease left UNTREATED
+                // sits a hair above 0 (base cure score 1), which passes a ">0" test yet
+                // renders the useless "0% to recover (0% per check)". Round first, and if it
+                // would show 0% fall through to the treatment nudge instead.
+                int oPct = (int)Math.Round(o, MidpointRounding.AwayFromZero);
+                int pPct = (int)Math.Round(p, MidpointRounding.AwayFromZero);
+                if (oPct >= 1 || pPct >= 1)
                 {
-                    AddRow(provider, Amber, o.ToString("0") + "% to recover (" + p.ToString("0") + "% per check)");
+                    AddRow(provider, Amber, oPct + "% to recover (" + pPct + "% per check)");
                     return;
                 }
 
