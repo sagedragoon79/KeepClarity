@@ -142,8 +142,17 @@ namespace FFUIOverhaul.UI
             {
                 var r = all[i];
                 if (r == null) continue;
-                var sh = r.sharedMaterial != null ? r.sharedMaterial.shader : null;
-                if (sh != null && sh.name.StartsWith("Standard")) keep.Add(r); // solid building meshes only
+                var mat = r.sharedMaterial;
+                var sh = mat != null ? mat.shader : null;
+                // Solid building meshes only. Skip TRANSPARENT materials even if their
+                // shader is "Standard" — e.g. a bridge's pathing "road" overlay is a
+                // normally-invisible (alpha 0) renderer, and writing an opaque _Color
+                // into it paints a white sheet. Gate on render queue + base alpha so we
+                // only ever tint genuinely opaque geometry.
+                bool opaque = mat != null
+                    && mat.renderQueue < (int)UnityEngine.Rendering.RenderQueue.Transparent // < 3000
+                    && mat.color.a >= 0.999f;
+                if (sh != null && sh.name.StartsWith("Standard") && opaque) keep.Add(r);
             }
             return keep.ToArray();
         }

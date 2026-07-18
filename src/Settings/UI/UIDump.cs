@@ -36,6 +36,7 @@ namespace FFUIOverhaul.Settings.UI
 
                     DumpFonts(w);
                     DumpCanvases(w);
+                    DumpRaycastTargets(w); // click-interception debugging (invisible blockers)
                     DumpSprites(w);
                     DumpControls(w);
                 }
@@ -76,6 +77,65 @@ namespace FFUIOverhaul.Settings.UI
                 if (c == null) continue;
                 w.WriteLine($"  - '{c.gameObject.name}'  renderMode={c.renderMode} sortingOrder={c.sortingOrder} active={c.gameObject.activeInHierarchy}");
             }
+            w.WriteLine();
+        }
+
+        /// <summary>Every raycast-blocking Graphic in the scene — INCLUDING spriteless
+        /// ones (the usual invisible click-eaters). For each, records raycastTarget,
+        /// whether it has a sprite, its rect/world-corners, sibling index (higher =
+        /// drawn/hit later = wins the click), any pointer handlers, and enclosing
+        /// CanvasGroup.blocksRaycasts. Use to find what's intercepting clicks over a
+        /// given screen region (e.g. a save-grid cell).</summary>
+        private static void DumpRaycastTargets(StreamWriter w)
+        {
+            w.WriteLine("## Raycast targets (Graphics with raycastTarget=true, incl. spriteless)");
+            w.WriteLine("  format: <path> | sprite=<name|NONE> rect=<wxh> screenX=[min..max] screenY=[min..max] sibIdx=<n> [handlers] [CanvasGroup.blocksRaycasts]");
+            w.WriteLine();
+            var graphics = UnityEngine.Object.FindObjectsOfType<Graphic>(includeInactive: false);
+            var sorted = graphics.Where(g => g != null && g.raycastTarget)
+                                 .OrderBy(g => HierarchyPath(g.gameObject))
+                                 .ToArray();
+            var corners = new Vector3[4];
+            int n = 0;
+            foreach (var g in sorted)
+            {
+                var img = g as Image;
+                string sprite = img != null ? (img.sprite != null ? $"'{img.sprite.name}'" : "NONE") : $"({g.GetType().Name})";
+                var rt = g.rectTransform;
+                string rect = rt != null ? $"{rt.rect.width:F0}x{rt.rect.height:F0}" : "?";
+                string sx = "?", sy = "?";
+                if (rt != null)
+                {
+                    rt.GetWorldCorners(corners);
+                    // ScreenSpaceOverlay: world corners are already screen pixels.
+                    float xmin = Mathf.Min(corners[0].x, corners[2].x), xmax = Mathf.Max(corners[0].x, corners[2].x);
+                    float ymin = Mathf.Min(corners[0].y, corners[2].y), ymax = Mathf.Max(corners[0].y, corners[2].y);
+                    sx = $"[{xmin:F0}..{xmax:F0}]"; sy = $"[{ymin:F0}..{ymax:F0}]";
+                }
+                string handlers = "";
+                if (g.GetComponent<Button>() != null) handlers += " Button";
+                if (g.GetComponent<Toggle>() != null) handlers += " Toggle";
+                if (g.GetComponent<ScrollRect>() != null) handlers += " ScrollRect";
+                if (g.GetComponent<UnityEngine.EventSystems.EventTrigger>() != null) handlers += " EventTrigger";
+                // Any custom pointer handler (IPointerClickHandler/DownHandler/etc.)
+                foreach (var mb in g.GetComponents<MonoBehaviour>())
+                {
+                    if (mb == null) continue;
+                    if (mb is UnityEngine.EventSystems.IPointerClickHandler || mb is UnityEngine.EventSystems.IPointerDownHandler
+                        || mb is UnityEngine.EventSystems.IBeginDragHandler || mb is UnityEngine.EventSystems.IDragHandler)
+                    {
+                        var tn = mb.GetType().Name;
+                        if (tn != "Button" && tn != "Toggle" && tn != "ScrollRect" && tn != "Scrollbar")
+                            handlers += $" {tn}";
+                    }
+                }
+                var cg = g.GetComponentInParent<CanvasGroup>();
+                string blocks = (cg != null && cg.blocksRaycasts) ? $" CanvasGroup.blocksRaycasts('{cg.gameObject.name}')" : "";
+                w.WriteLine($"  {HierarchyPath(g.gameObject)} | sprite={sprite} rect={rect} screenX={sx} screenY={sy} sibIdx={g.transform.GetSiblingIndex()}{handlers}{blocks}");
+                if (++n > 1200) { w.WriteLine("  ... (truncated at 1200)"); break; }
+            }
+            w.WriteLine();
+            w.WriteLine($"  total: {n} raycast-blocking graphics");
             w.WriteLine();
         }
 
