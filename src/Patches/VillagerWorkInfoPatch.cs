@@ -9,9 +9,9 @@ namespace FFUIOverhaul.Patches
     /// <summary>
     /// Shows a villager's Essential Provisions work-rate bonuses on the
     /// always-accessible selected-villager info window:
-    ///   - Workplace Mastery → appended to the OCCUPATION line ("+X% Mastery"),
-    ///     right next to the job title where it reads clearly. Kept short (no
-    ///     "Bonus" suffix) so it doesn't overrun the info-"i" button on that line.
+    ///   - Workplace Mastery → appended to the AGE line ("+X% Job Mastery"). That
+    ///     line has room, so the full label doesn't crowd the OCCUPATION line's
+    ///     info-"i" button on long job names.
     ///   - Learned Hands education → appended to the EDUCATION line ("+X% Output
     ///     Bonus"); that line already names the source (education), so the suffix
     ///     names the effect.
@@ -44,7 +44,7 @@ namespace FFUIOverhaul.Patches
 
         private static readonly Dictionary<Type, FieldInfo?> _villagerField = new Dictionary<Type, FieldInfo?>();
         private static readonly Dictionary<Type, FieldInfo?> _eduField = new Dictionary<Type, FieldInfo?>();
-        private static readonly Dictionary<Type, FieldInfo?> _profField = new Dictionary<Type, FieldInfo?>();
+        private static readonly Dictionary<Type, FieldInfo?> _ageField = new Dictionary<Type, FieldInfo?>();
 
         public static void Initialize()
         {
@@ -87,18 +87,17 @@ namespace FFUIOverhaul.Patches
                 if (__args != null && __args.Length > 0 && __args[0] != null) { host = __args[0]; hostType = host.GetType(); }
                 else { host = __instance; hostType = it; }
 
-                var edu  = GetField(hostType, host, "educationValue", _eduField) as TMP_Text;
-                var prof = GetField(hostType, host, "professionValue", _profField) as TMP_Text;
+                var edu = GetField(hostType, host, "educationValue", _eduField) as TMP_Text;
+                var age = GetField(hostType, host, "ageValue", _ageField) as TMP_Text;
 
                 if (_epEdu != null && _epMastery != null)
                 {
-                    // Split API: mastery → job line, education → education line.
-                    if (prof != null)
+                    // Split API: mastery → AGE line (has room for the full label without
+                    // crowding the OCCUPATION line's info-"i" button), education → edu line.
+                    if (age != null)
                     {
                         float m = InvokeFloat(_epMastery, villager);
-                        // "Mastery" only (no "Bonus") — the OCCUPATION line is short and
-                        // sits next to the info-"i" button; the longer label overran it.
-                        if (m > 0f) prof.text = Append(prof.text, m, "Mastery");
+                        if (m > 0f) age.text = Append(age.text, m, "Job Mastery");
                     }
                     if (edu != null)
                     {
@@ -120,8 +119,10 @@ namespace FFUIOverhaul.Patches
             }
         }
 
+        // Full wording now that each bonus has its own roomy line — leading "+" and one
+        // optional decimal. Renders e.g. "+3.1% Job Mastery" / "+10% Output Bonus".
         private static string Append(string baseText, float pct, string label)
-            => baseText + "  <color=" + Green + ">(+" + pct.ToString("0.#") + "% " + label + ")</color>";
+            => baseText + "  <color=" + Green + ">+" + pct.ToString("0.#") + "% " + label + "</color>";
 
         private static void EnsureEpResolved()
         {

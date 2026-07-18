@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using HarmonyLib;
 using FFUIOverhaul.Settings.UI;
 using TMPro;
 using UnityEngine;
@@ -51,14 +53,38 @@ namespace FFUIOverhaul.UI
         private static readonly Regex _trailingVariant = new(@"_\d+[A-Za-z]?$", RegexOptions.Compiled);
 
         private readonly List<BuildSiteResource> _sitesBuf = new();   // reused each refresh (no GC)
+        private readonly List<QueueRow> _rows = new();                // reused each refresh
         private readonly StringBuilder _sb = new();                   // reused each refresh (no GC)
 
-        private static readonly Comparison<BuildSiteResource> CompareByPriority = (a, b) =>
+        private enum QueueKind { Construction = 0, Salvage = 1, Excavation = 2 }
+
+        private struct QueueRow
         {
-            int pa = a.userDefinedBuilders, pb = b.userDefinedBuilders;
-            if (pa != pb) return pb.CompareTo(pa);            // priority desc
-            return b.GetNumberOfBuilders().CompareTo(a.GetNumberOfBuilders()); // active builders desc
+            public QueueKind Kind;
+            public string Name;
+            public int Priority;     // 1-9 for construction/salvage; 0 for excavation
+            public int Workers;      // active workers/builders
+            public float Progress;   // 0..1; <0 = unknown (no bar)
+        }
+
+        // Group order (Construction → Salvage → Excavation), then within a group:
+        // construction/salvage by priority then active workers; excavation by active
+        // workers then progress (closest to done first).
+        private static readonly Comparison<QueueRow> CompareRows = (a, b) =>
+        {
+            if (a.Kind != b.Kind) return ((int)a.Kind).CompareTo((int)b.Kind);
+            if (a.Kind == QueueKind.Excavation)
+            {
+                if (a.Workers != b.Workers) return b.Workers.CompareTo(a.Workers);
+                return b.Progress.CompareTo(a.Progress);
+            }
+            if (a.Priority != b.Priority) return b.Priority.CompareTo(a.Priority);
+            return b.Workers.CompareTo(a.Workers);
         };
+
+        // Reflection for the protected BuildSiteResource.constructionData (to flag SALVAGE sites).
+        private static FieldInfo? _constructionDataField;
+        private static bool _cdResolved;
 
         /// <summary>Transient show/hide for the overlay-toggle hotkey, independent of
         /// the enable pref and scene gate (Tick / ApplySceneVisibility still apply
@@ -118,26 +144,143 @@ namespace FFUIOverhaul.UI
         private void RefreshDisplay()
         {
             if (_contentText == null) return;
+            _rows.Clear();
+
+            // Construction + salvage (both are BuildSiteResource; salvage just carries a
+            // SALVAGE construction type, so it's already in the registry — just label it).
             Patches.BuildSiteRegistry.SnapshotInto(_sitesBuf);
-            var sites = _sitesBuf;
+            bool showSalvage = FFUIOverhaulMod.BuildQueueShowSalvage?.Value ?? true;
+            for (int i = 0; i < _sitesBuf.Count; i++)
+            {
+                var bs = _sitesBuf[i];
+                if (bs == null) continue;
+                bool salvage = IsSalvage(bs);
+                if (salvage && !showSalvage) continue;
+                _rows.Add(new QueueRow
+                {
+                    Kind = salvage ? QueueKind.Salvage : QueueKind.Construction,
+                    Name = SiteName(bs),
+                    Priority = bs.userDefinedBuilders,
+                    Workers = SafeBuilders(bs),
+                    Progress = -1f,
+                });
+            }
 
-            if (sites.Count == 0) { _contentText.text = "<i>No active build sites</i>"; return; }
+            // Abandoned camps (salvage) + relic ruins (excavation) — read FF's own
+            // ResourceManager collections (no new patches). Active sites only (workers or
+            // progress) so idle map objects don't flood the list.
+            GatherSites(_rows, showSalvage, FFUIOverhaulMod.BuildQueueShowExcavation?.Value ?? true);
 
-            sites.Sort(CompareByPriority);
+            if (_rows.Count == 0) { _contentText.text = "<i>No active build sites</i>"; return; }
+
+            _rows.Sort(CompareRows);
             var sb = _sb; sb.Clear();
-            int shown = Math.Min(MaxRows, sites.Count);
+            int shown = Math.Min(MaxRows, _rows.Count);
             for (int i = 0; i < shown; i++)
             {
-                var bs = sites[i];
-                int prio = bs.userDefinedBuilders;
-                int builders = bs.GetNumberOfBuilders();
-                string active = builders > 0 ? $"  <color=#7fbf7f>•{builders}</color>" : "";
-                sb.Append($"<color=#d8a93a>P{prio}</color> {SiteName(bs)}{active}");
+                var r = _rows[i];
+                sb.Append(TagFor(r.Kind, r.Priority)).Append(' ').Append(r.Name);
+                if (r.Workers > 0) { sb.Append("  <color=#7fbf7f>•"); sb.Append(r.Workers); sb.Append("</color>"); }
+                if (r.Progress >= 0f) { sb.Append(" <size=10>("); sb.Append(Mathf.RoundToInt(r.Progress * 100f)); sb.Append("%)</size>"); }
                 if (i < shown - 1) sb.AppendLine();
             }
-            if (sites.Count > shown)
-                sb.Append($"\n<size=10><i>+{sites.Count - shown} more…</i></size>");
+            if (_rows.Count > shown)
+                sb.Append($"\n<size=10><i>+{_rows.Count - shown} more…</i></size>");
             _contentText.text = sb.ToString();
+        }
+
+        private static string TagFor(QueueKind kind, int prio)
+        {
+            switch (kind)
+            {
+                case QueueKind.Salvage:    return "<color=#c98a5a>[SALV]</color>";
+                case QueueKind.Excavation: return "<color=#9a9ac0>[EXC]</color>";
+                default:                   return "<color=#d8a93a>P" + prio + "</color>";
+            }
+        }
+
+        private static int SafeBuilders(BuildSiteResource bs)
+        {
+            try { return bs.GetNumberOfBuilders(); } catch { return 0; }
+        }
+
+        // Salvage (deconstruction) build sites are BuildSiteResource with constructionType
+        // SALVAGE. constructionData is protected → reflect it once, cache the FieldInfo.
+        private static bool IsSalvage(BuildSiteResource bs)
+        {
+            try
+            {
+                if (!_cdResolved) { _cdResolved = true; _constructionDataField = AccessTools.Field(typeof(BuildSiteResource), "constructionData"); }
+                if (_constructionDataField == null) return false;
+                var cd = (ConstructionData)_constructionDataField.GetValue(bs);
+                return cd.constructionType == ConstructionType.SALVAGE;
+            }
+            catch { return false; }
+        }
+
+        // Abandoned camps → Salvage; relic ruins → Excavation. StoneRuinsResource is a stone
+        // deposit you MINE (not salvage/excavation), so it's deliberately excluded.
+        private void GatherSites(List<QueueRow> rows, bool showSalvage, bool showExcavation)
+        {
+            try
+            {
+                var gm = UnitySingleton<GameManager>.Instance;
+                var rm = gm != null ? gm.resourceManager : null;
+                if (rm == null) return;
+
+                if (showSalvage)      // abandoned camps / caches (gold + supplies) → SALVAGE
+                {
+                    var camps = rm.salvagingResourceInstancesRO;
+                    if (camps != null)
+                        for (int i = 0; i < camps.Count; i++)
+                        {
+                            var s = camps[i];
+                            if (s == null) continue;
+                            int w = Reservers(s);
+                            float p = SafeProgress(s);
+                            if (w <= 0 && !(p > 0f)) continue;    // active only
+                            rows.Add(new QueueRow { Kind = QueueKind.Salvage, Name = ExcName(s.gameObject, "Abandoned Camp"), Priority = 0, Workers = w, Progress = p });
+                        }
+                }
+
+                if (showExcavation)   // ruins with relics → EXCAVATE
+                {
+                    var ruins = rm.relicExtractionResourceInstancesRO;
+                    if (ruins != null)
+                        for (int i = 0; i < ruins.Count; i++)
+                        {
+                            var s = ruins[i];
+                            if (s == null) continue;
+                            int w = Reservers(s);
+                            float p = SafeProgress(s);
+                            if (w <= 0 && !(p > 0f)) continue;    // active only
+                            rows.Add(new QueueRow { Kind = QueueKind.Excavation, Name = ExcName(s.gameObject, "Relic Ruins"), Priority = 0, Workers = w, Progress = p });
+                        }
+                }
+            }
+            catch { }
+        }
+
+        private static int Reservers(Resource r)
+        {
+            try { return r != null && r.storage != null ? r.storage.GetNumberOfReservers() : 0; } catch { return 0; }
+        }
+
+        private static float SafeProgress(SalvagingResource s)      { try { return s.excavationProgress; } catch { return -1f; } }
+        private static float SafeProgress(RelicExtractionResource s) { try { return s.excavationProgress; } catch { return -1f; } }
+
+        private static string ExcName(GameObject go, string fallback)
+        {
+            try
+            {
+                string raw = go != null ? go.name : null;
+                if (string.IsNullOrEmpty(raw)) return fallback;
+                raw = raw.Replace("(Clone)", "").Trim();
+                raw = _trailingVariant.Replace(raw, "");
+                raw = raw.Replace('_', ' ').Trim();
+                return raw.Length == 0 ? fallback : raw;
+            }
+            catch { return fallback; }
         }
 
         private static string SiteName(BuildSiteResource bs)

@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.3.1", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.4.0", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -78,6 +78,10 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> PauseOnLoad { get; private set; } = null!;
         public static MelonPreferences_Entry<float> PauseOnLoadDelay { get; private set; } = null!;
 
+        // Double-click a save on the start screen to load without confirmation
+        public static MelonPreferences_Entry<bool> DoubleClickLoad { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> DoubleClickLoadWindow { get; private set; } = null!;
+
         // Planner button
         public static MelonPreferences_Entry<bool> ShowPlannerButton { get; private set; } = null!;
 
@@ -108,6 +112,15 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<float> BuildQueueOverlayOpacity { get; private set; } = null!;
         public static MelonPreferences_Entry<UI.OverlayGrowDirection> BuildQueueGrowDirection { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> BuildQueueCollapsed { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> BuildQueueShowSalvage { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> BuildQueueShowExcavation { get; private set; } = null!;
+
+        // Overlay snapping (drag a panel near another overlay / minimap / screen edge → snaps)
+        public static MelonPreferences_Entry<bool> SnapOverlaysEnabled { get; private set; } = null!;
+        public static MelonPreferences_Entry<float> SnapThresholdPx { get; private set; } = null!;
+
+        // Auto-shift the native building info window left so the build menu never covers it
+        public static MelonPreferences_Entry<bool> EnableInfoWindowDock { get; private set; } = null!;
 
         // Building colour variety (per-instance tint)
         public static MelonPreferences_Entry<bool> EnableBuildingVariety { get; private set; } = null!;
@@ -117,6 +130,11 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> EnableCrispMode { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CrispSharpness { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CrispVibrance { get; private set; } = null!;
+
+        // Forage Calendar (seasonality bar under the top-bar season strip + in-season popup line)
+        public static MelonPreferences_Entry<bool> EnableForageCalendar { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> ForageCalendarAlwaysShow { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> EnableInSeasonReadout { get; private set; } = null!;
 
         // Settings panel
         public static MelonPreferences_Entry<KeyCode> SettingsPanelHotkey { get; private set; } = null!;
@@ -389,6 +407,13 @@ namespace FFUIOverhaul
                 display_name: "Company Overlay Positions",
                 description: "Internal — per-company saved panel positions, 'name=x,y;…'. Drag a company header to change.", is_hidden: true);
 
+            DoubleClickLoad = _prefs.CreateEntry("DoubleClickLoad", false,
+                display_name: "Double-Click to Load",
+                description: "Double-click a save (start screen or in-game Load menu) to load it immediately, skipping the confirmation. A single click still shows the confirmation.");
+            DoubleClickLoadWindow = _prefs.CreateEntry("DoubleClickLoadWindow", 0.35f,
+                display_name: "Double-Click Speed (seconds)",
+                description: "Max gap between the two clicks. Also the tiny delay before a single click shows the confirmation.");
+
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
                 description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
@@ -400,9 +425,26 @@ namespace FFUIOverhaul
                 display_name: "Build Priority Strength",
                 description: "How strongly priority overrides distance. Higher = priority dominates (a far high-priority site beats a near low-priority one). 1000 = priority decides order, distance only breaks ties. Applies live.");
 
+            SnapOverlaysEnabled = _prefs.CreateEntry("SnapOverlaysEnabled", true,
+                display_name: "Snap Overlays",
+                description: "When dragging a Keep Clarity overlay, snap its edges to the other overlays, the minimap, and the screen edges.");
+            SnapThresholdPx = _prefs.CreateEntry("SnapThresholdPx", 12f,
+                display_name: "Snap Distance",
+                description: "How close (pixels) an edge must get before it snaps. 0 disables snapping. Applies live.");
+
+            EnableInfoWindowDock = _prefs.CreateEntry("EnableInfoWindowDock", false,
+                display_name: "Shift Building Info Off Build Menu (experimental)",
+                description: "When the Build menu is open, slide the building info window left so it never hides behind the menu. Experimental — FF re-asserts the window position each frame, so it can visibly snap back. Off by default.");
+
             EnableBuildQueueOverlay = _prefs.CreateEntry("EnableBuildQueueOverlay", false,
                 display_name: "Build Queue Overlay",
                 description: "Show a movable panel listing the top 10 active build sites by Build Priority, highest first. Drag to move; scale/opacity below.");
+            BuildQueueShowSalvage = _prefs.CreateEntry("BuildQueueShowSalvage", true,
+                display_name: "Build Queue: Include Salvage",
+                description: "Also list buildings being deconstructed and abandoned camps being salvaged in the Build Queue, tagged [SALV].");
+            BuildQueueShowExcavation = _prefs.CreateEntry("BuildQueueShowExcavation", true,
+                display_name: "Build Queue: Include Excavation",
+                description: "Also list ruins being excavated for relics in the Build Queue, tagged [EXC].");
             BuildQueueOverlayPosX = _prefs.CreateEntry("BuildQueueOverlayPosX", 0.005f,
                 display_name: "Build Queue Overlay X", description: "Internal — drag the panel to change.", is_hidden: true);
             BuildQueueOverlayPosY = _prefs.CreateEntry("BuildQueueOverlayPosY", 0.55f,
@@ -432,6 +474,16 @@ namespace FFUIOverhaul
             CrispVibrance = _prefs.CreateEntry("CrispVibrance", 0.6f,
                 display_name: "Crisp Vibrance",
                 description: "Color pop / saturation boost, weighted toward less-saturated pixels. 0 = none. Applies live.");
+
+            EnableForageCalendar = _prefs.CreateEntry("EnableForageCalendar", true,
+                display_name: "Forage Season Bar",
+                description: "Gantt-style bar under the top-bar season strip showing when each forageable on your map is in season. Shows with the game's own season popup (hover the strip, or pin it with FF's info toggle).");
+            ForageCalendarAlwaysShow = _prefs.CreateEntry("ForageCalendarAlwaysShow", false,
+                display_name: "Always Show Season Bar",
+                description: "Keep the forage season bar visible at all times instead of only with the season popup.");
+            EnableInSeasonReadout = _prefs.CreateEntry("EnableInSeasonReadout", true,
+                display_name: "In-Season Readout",
+                description: "Adds a live 'In season: ...' line to the date/weather popup text, updating as the calendar advances.");
 
             SettingsPanelHotkey = _prefs.CreateEntry("SettingsPanelHotkey", KeyCode.F10,
                 display_name: "Settings Panel Hotkey",
@@ -463,6 +515,11 @@ namespace FFUIOverhaul
             // need a GameManager and the panel is useful pre-load (e.g. flipping
             // a master toggle that requires a restart anyway).
             HandleSettingsPanelHotkey();
+
+            // Runs on the start scene (no GameManager yet) and the gameplay
+            // scene: flushes a held single-click on a save into the normal
+            // confirmation once the double-click window lapses.
+            Patches.DoubleClickLoad.Tick();
 
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
@@ -532,6 +589,8 @@ namespace FFUIOverhaul
             HandlePauseOnLoad(gm);
             Patches.DismissibleResourceAlerts.Tick();
             UI.CompanyOverlayManager.Tick();
+            Patches.InfoWindowDock.Tick();
+            UI.ForageCalendarBar.Tick();
             UI.CrispMode.Tick();
             UI.BuildingVariety.Tick();
         }
@@ -539,13 +598,17 @@ namespace FFUIOverhaul
         private void HandlePauseOnLoad(GameManager gm)
         {
             if (_pauseOnLoadDone || !PauseOnLoad.Value) return;
-            if (!GameManager.gameReadyToPlay) return; // wait for game to finish loading
+            // Gate on gameFullyInitialized, NOT gameReadyToPlay: the latter is already true
+            // during a NEW game's Town Center placement screen, so pausing there traps the
+            // player (you can't unpause during placement). gameFullyInitialized flips only
+            // once the simulation actually starts — after the TC is placed, or after a save
+            // finishes loading. (It's the same flag FF's own sim loop gates on.)
+            if (!GameManager.gameFullyInitialized) return;
 
-            // Tick the delay only once gameReadyToPlay is true. Lighting and
-            // post-processing take a bit to settle after that flag flips, so
-            // pausing immediately puts the player in a black "void" frame.
-            // Use unscaled time so a paused-by-something-else state doesn't
-            // freeze the timer.
+            // Tick the delay only once the sim is live. Lighting and post-processing take a
+            // bit to settle after that flag flips, so pausing immediately puts the player in
+            // a black "void" frame. Use unscaled time so a paused-by-something-else state
+            // doesn't freeze the timer.
             _pauseOnLoadTimer += Time.unscaledDeltaTime;
             if (_pauseOnLoadTimer < PauseOnLoadDelay.Value) return;
 
@@ -563,6 +626,9 @@ namespace FFUIOverhaul
             // menu, loading splashes, credits) and the overlays must hide.
             bool isMap = sceneName == "Frontier";
 
+            // Any scene change invalidates a held save-click's menu ref.
+            Patches.DoubleClickLoad.ResetState();
+
             if (isMap)
             {
                 // Construct lazily — both overlays use DontDestroyOnLoad so they
@@ -576,6 +642,9 @@ namespace FFUIOverhaul
 
                 if (_buildQueueOverlay == null) _buildQueueOverlay = new BuildQueueOverlay();
                 _buildQueueOverlay.Visible = true; // clear the toggle-hidden latch each load, like the siblings above
+
+                Patches.InfoWindowDock.ResetState(); // clear stale dock baseline on each save load
+                UI.ForageCalendarBar.ResetState();   // scene objects died with the old map; rebuild lazily
 
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
                 _pauseOnLoadTimer = 0f;
@@ -611,6 +680,7 @@ namespace FFUIOverhaul
                 // (self-guarded; appends EP education/mastery bonuses to the panel).
                 Patches.VillagerWorkInfoPatch.Initialize();
                 Patches.VillagerDiseaseInfoPatch.Initialize();
+                Patches.ForageCalendarPatch.Initialize();
             }
             else
             {
@@ -757,7 +827,9 @@ namespace FFUIOverhaul
             R("Overlay Settings", PinnedCollapsed, "Pinned Overlay Starts Collapsed",
                 "Pinned overlay opens collapsed to a tab");
             R("Overlay Settings", EnableCompanyOverlay, "Company Roster Overlay",
-                "Shift+Left-Click a banner (bottom of screen) to open a draggable roster panel for that company.");
+                "Shift+Left-Click a company banner (bottom of screen) opens a draggable roster panel; Ctrl+Left-Click opens that company's barracks.");
+            R("Overlay Settings", EnableInfoWindowDock, "Shift Building Info Off Build Menu (experimental)",
+                "When the Build menu is open, slide the building info window left so the menu never covers it. Restores when the menu closes.");
             RF("Overlay Settings", PinnedOverlayOpacity, "Pinned Overlay Opacity", 0.05f, 1f,
                 "How opaque the Pinned Resources chrome is. Text/buttons stay readable. Applies live.");
             RF("Overlay Settings", TechQueueOverlayOpacity, "Tech Queue Overlay Opacity", 0.05f, 1f,
@@ -786,12 +858,24 @@ namespace FFUIOverhaul
                 visibleWhen: () => EnableBuildPriority.Value);
             R("Build Priority", EnableBuildQueueOverlay, "Build Queue Overlay",
                 "Movable on-screen panel listing the top 10 build sites by priority, highest first.");
+            R("Build Priority", BuildQueueShowSalvage, "Build Queue: Include Salvage",
+                "Also list buildings being deconstructed and abandoned camps being salvaged, tagged [SALV].");
+            R("Build Priority", BuildQueueShowExcavation, "Build Queue: Include Excavation",
+                "Also list ruins being excavated for relics, tagged [EXC].");
             RF("Build Priority", BuildQueueOverlayScale, "Build Queue Scale", 0.5f, 2f,
                 "Build Queue panel size. Applies live.", visibleWhen: () => EnableBuildQueueOverlay.Value);
             RF("Build Priority", BuildQueueOverlayOpacity, "Build Queue Opacity", 0.05f, 1f,
                 "Build Queue panel opacity. Applies live.", visibleWhen: () => EnableBuildQueueOverlay.Value);
             RE("Build Priority", BuildQueueGrowDirection, "Build Queue Grow Direction",
                 "List grows Down from the header (default) or Up (header at bottom).");
+
+            // ── Snapping ─────────────────────────────────────────────────
+            _order = 0;
+            R("Snapping", SnapOverlaysEnabled, "Snap Overlays",
+                "When you drag a Keep Clarity overlay, snap it into alignment with the other overlays, the minimap, and the screen edges.");
+            RF("Snapping", SnapThresholdPx, "Snap Distance", 0f, 60f,
+                "How close (pixels) an edge must get before it snaps. 0 turns snapping off. Applies live.",
+                visibleWhen: () => SnapOverlaysEnabled.Value);
 
             // ── Building Variety ─────────────────────────────────────────
             // Live — applied/cleared via MaterialPropertyBlock each scan.
@@ -813,6 +897,15 @@ namespace FFUIOverhaul
             RF("Crisp Mode", CrispVibrance, "Vibrance", 0f, 1f,
                 "Color pop / saturation boost, weighted toward less-saturated pixels. Applies live.",
                 visibleWhen: () => EnableCrispMode.Value);
+
+            // ── Forage Calendar ──────────────────────────────────────────
+            _order = 0;
+            R("Forage Calendar", EnableForageCalendar, "Forage Season Bar",
+                "Bar under the top-bar season strip showing when each forageable on your map is in season. Hover the strip to peek; pin with the game's own info toggle. Applies live.");
+            R("Forage Calendar", ForageCalendarAlwaysShow, "Always Show Bar",
+                "Keep the season bar visible at all times instead of only with the season popup. Applies live.");
+            R("Forage Calendar", EnableInSeasonReadout, "In-Season Readout",
+                "Adds a live 'In season: ...' line to the date/weather popup. Applies live.");
 
             // ── Hotkeys — Building ───────────────────────────────────────
             _order = 0;
@@ -879,6 +972,11 @@ namespace FFUIOverhaul
 
             // ── Game Flow ────────────────────────────────────────────────
             _order = 0;
+            R("Game Flow", DoubleClickLoad, "Double-Click to Load",
+                "Double-click a save (start screen or in-game Load menu) to load it without the confirmation prompt. Single click still confirms.");
+            RF("Game Flow", DoubleClickLoadWindow, "Double-Click Speed (seconds)", 0.15f, 0.6f,
+                "Max gap between the two clicks (and the brief hold before a single click shows the prompt).",
+                visibleWhen: () => DoubleClickLoad.Value);
             R("Game Flow", PauseOnLoad, "Pause on Load", "Auto-pause once a save finishes loading");
             RF("Game Flow", PauseOnLoadDelay, "Pause on Load Delay (seconds)", 0f, 30f,
                 "Wait this many seconds before pausing — gives the scene time to render so the first frame isn't black. Increase for heavily-modded setups.",

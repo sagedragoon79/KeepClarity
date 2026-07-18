@@ -36,6 +36,7 @@ namespace FFUIOverhaul.UI
         private readonly List<SoldierRow> _rows = new();
         private float _refreshTimer;
         private bool _initialized;
+        private bool _restorePending;
 
         public bool IsValid =>
             _company != null && !_company.Equals(null)
@@ -55,7 +56,7 @@ namespace FFUIOverhaul.UI
         {
             if (!_initialized)
             {
-                try { Build(); _initialized = true; }
+                try { Build(); _initialized = true; _restorePending = true; }
                 catch (System.Exception e)
                 {
                     FFUIOverhaulMod.Log.Warning($"[CompanyOverlay] Build failed: {e.Message}\n{e.StackTrace}");
@@ -84,6 +85,17 @@ namespace FFUIOverhaul.UI
         public void Tick()
         {
             if (!_initialized || _canvasRoot == null || !_canvasRoot.activeSelf) return;
+
+            if (_restorePending)
+            {
+                _restorePending = false;
+                // Re-apply the saved position on the first tick, not in Show(): on the
+                // build frame the canvas isn't laid out yet, so anchoredPosition math
+                // there lands wrong. By the first Tick the layout has settled.
+                if (TryGetSavedNormalized(CompanyKey, out var norm) && _drag != null && _drag.Target != null)
+                    _drag.ApplyNormalized(norm, persist: false);
+            }
+
             UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.CompanyOverlayScale?.Value ?? 1f);
             ApplyGrowDirection();
 
@@ -650,6 +662,26 @@ namespace FFUIOverhaul.UI
             var overlay = new CompanyOverlay(company);
             overlay.Show();
             _open[company] = overlay;
+        }
+
+        /// <summary>Ctrl+Click on a company banner: select that company's garrison
+        /// (barracks) building so FF opens its native info window — the same call FF
+        /// itself uses for a company's barracks (decompile 293622). No-ops if the
+        /// company has no garrison building.</summary>
+        public static void OpenGarrisonBuilding(MilitaryCompany company)
+        {
+            if (company == null) return;
+            var barracks = company.garrisonBuilding;
+            if (barracks == null)
+            {
+                FFUIOverhaulMod.Log.Msg("[CompanyOverlay] Ctrl+Click: company has no garrison building to open.");
+                return;
+            }
+            var go = barracks.gameObject;
+            if (go == null) return;
+            var gm = UnitySingleton<GameManager>.Instance;
+            var im = gm != null ? gm.inputManager : null;
+            if (im != null) im.SelectGameObject(go, false);
         }
 
         internal static void RequestClose(MilitaryCompany company)

@@ -34,6 +34,10 @@ namespace FFUIOverhaul.UI
         private Canvas? Canvas => _canvas ??= GetComponentInParent<Canvas>();
         private RectTransform? CanvasRt => _canvasRt ??= Canvas?.transform as RectTransform;
 
+        // Self-register so other panels can snap to this one (and vice versa).
+        private void OnEnable() => Snapping.OverlayRegistry.Register(this);
+        private void OnDisable() => Snapping.OverlayRegistry.Unregister(this);
+
         public void OnBeginDrag(PointerEventData e)
         {
             if (Target == null || CanvasRt == null) return;
@@ -56,7 +60,7 @@ namespace FFUIOverhaul.UI
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 CanvasRt, e.position, e.pressEventCamera, out var local);
             var newPos = _startTargetPos + (local - _startPointerLocal);
-            ApplyPosition(newPos, persist: true);
+            ApplyPosition(newPos, persist: true, snap: true);
         }
 
         public void OnPointerClick(PointerEventData e)
@@ -70,9 +74,13 @@ namespace FFUIOverhaul.UI
         /// Set the target's anchoredPosition, clamped so at least 32px of the
         /// panel stays on-screen on every edge. Persists if requested.
         /// </summary>
-        public void ApplyPosition(Vector2 anchoredPos, bool persist)
+        public void ApplyPosition(Vector2 anchoredPos, bool persist, bool snap = false)
         {
             if (Target == null || CanvasRt == null) return;
+
+            // Edge-snap to other overlays / the minimap / the screen BEFORE clamping, so a
+            // snap toward the reserved top strip still gets clamped sane. Drag-only (snap).
+            if (snap) anchoredPos += ComputeSnapOffset(anchoredPos);
 
             // Clamp into a safe rect: panel pivot must stay within
             // [margin, canvasSize - margin - panelSize] (anchor-corrected).
@@ -116,6 +124,27 @@ namespace FFUIOverhaul.UI
 
             if (persist && OnPositionChanged != null)
                 OnPositionChanged(NormalizedFromAnchored(anchoredPos));
+        }
+
+        // Snap offset (canvas-local px) for the proposed position: aligns the nearest edge
+        // within the threshold to another overlay, the minimap, or a screen edge. Recomputed
+        // from the raw drag position every tick (no feedback, no hysteresis), rounded to whole
+        // pixels so flush panels land seam-free.
+        private Vector2 ComputeSnapOffset(Vector2 proposedAnchored)
+        {
+            var on = FFUIOverhaulMod.SnapOverlaysEnabled;
+            if (on == null || !on.Value) return Vector2.zero;
+            var canvas = Canvas;
+            if (Target == null || CanvasRt == null || canvas == null) return Vector2.zero;
+            float threshold = FFUIOverhaulMod.SnapThresholdPx != null ? FFUIOverhaulMod.SnapThresholdPx.Value : 12f;
+            if (threshold <= 0f) return Vector2.zero;
+
+            var cam = Snapping.SnapEngine.CanvasCamera(canvas);
+            if (!Snapping.SnapEngine.TryLocalRect(CanvasRt, cam, Target, out var cur)) return Vector2.zero;
+            var moveDelta = proposedAnchored - Target.anchoredPosition;   // canvas-local delta
+            var proposed = new Rect(cur.xMin + moveDelta.x, cur.yMin + moveDelta.y, cur.width, cur.height);
+            var off = Snapping.OverlayRegistry.ComputeSnap(this, CanvasRt, cam, proposed, threshold);
+            return new Vector2(Mathf.Round(off.x), Mathf.Round(off.y));
         }
 
         public void ApplyNormalized(Vector2 normalized, bool persist)
