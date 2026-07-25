@@ -88,12 +88,19 @@ namespace FFUIOverhaul.UI
 
             if (_restorePending)
             {
-                _restorePending = false;
-                // Re-apply the saved position on the first tick, not in Show(): on the
-                // build frame the canvas isn't laid out yet, so anchoredPosition math
-                // there lands wrong. By the first Tick the layout has settled.
-                if (TryGetSavedNormalized(CompanyKey, out var norm) && _drag != null && _drag.Target != null)
-                    _drag.ApplyNormalized(norm, persist: false);
+                // Re-apply the saved position on the first LAID-OUT tick, not in Show():
+                // a freshly-created ScreenSpaceOverlay canvas reports rect.size (0,0)
+                // until its first render pass, and the normalized→anchored math divides
+                // by that size — restoring too early lands the panel wrong (logs showed
+                // the restore firing while the panel still jumped). Wait until the canvas
+                // has real dimensions, then restore once.
+                var canvasRt = _canvasRoot != null ? _canvasRoot.transform as RectTransform : null;
+                if (canvasRt != null && canvasRt.rect.width > 1f && canvasRt.rect.height > 1f)
+                {
+                    _restorePending = false;
+                    if (TryGetSavedNormalized(CompanyKey, out var norm) && _drag != null && _drag.Target != null)
+                        _drag.ApplyNormalized(norm, persist: false);
+                }
             }
 
             UIScaleSync.Sync(_canvasScaler, FFUIOverhaulMod.CompanyOverlayScale?.Value ?? 1f);
@@ -274,7 +281,19 @@ namespace FFUIOverhaul.UI
 
         private void BuildRows()
         {
+            RebuildRows();
+            Refresh();
+        }
+
+        /// <summary>(Re)build one row per current soldier, destroying any existing
+        /// row GameObjects first. Called live from Refresh when roster membership
+        /// changes — the panel now stays alive across hide/show, so a dead soldier
+        /// has to be reconciled here rather than by the old close/reopen rebuild.</summary>
+        private void RebuildRows()
+        {
             if (_rowsContainer == null) return;
+            for (int i = _rows.Count - 1; i >= 0; i--)
+                if (_rows[i].Root != null) Object.Destroy(_rows[i].Root);
             _rows.Clear();
 
             // Group: iterate divisions in order — each division is one
@@ -290,7 +309,6 @@ namespace FFUIOverhaul.UI
                     if (row != null) _rows.Add(row);
                 }
             }
-            Refresh();
         }
 
         private SoldierRow? BuildRow(VillagerOccupationSoldier soldier, Sprite? classIcon)
@@ -412,6 +430,14 @@ namespace FFUIOverhaul.UI
 
         private void Refresh()
         {
+            // Reconcile roster membership first. A dead soldier is removed from
+            // division.soldiers but the row's soldier ref may not go null, so the
+            // null-prune below alone wouldn't drop them (the old code relied on a
+            // close/reopen rebuild). Rebuild when the live soldier set no longer
+            // matches our rows — covers deaths AND reinforcements, live.
+            if (RosterMembershipChanged())
+                RebuildRows();
+
             // Prune dead/invalid rows; refresh HP bars on the rest.
             bool anyAlive = false;
             for (int i = _rows.Count - 1; i >= 0; i--)
@@ -460,6 +486,24 @@ namespace FFUIOverhaul.UI
             }
             if (!anyAlive)
                 CompanyOverlayManager.RequestClose(_company);
+        }
+
+        /// <summary>True when the company's live soldier set no longer matches the
+        /// rows we're showing (a death removed one, or reinforcements added one).
+        /// Cheap — runs on the 0.25s refresh tick only while the panel is open.</summary>
+        private bool RosterMembershipChanged()
+        {
+            var current = new HashSet<VillagerOccupationSoldier>();
+            foreach (var division in _company.divisions)
+            {
+                if (division?.soldiers == null) continue;
+                foreach (var s in division.soldiers)
+                    if (s != null && s.villager != null) current.Add(s);
+            }
+            if (current.Count != _rows.Count) return true;
+            foreach (var r in _rows)
+                if (r.Soldier == null || !current.Contains(r.Soldier)) return true;
+            return false;
         }
 
         private static Color HpColor(float pct)
@@ -655,8 +699,13 @@ namespace FFUIOverhaul.UI
             if (company == null) return;
             if (_open.TryGetValue(company, out var existing))
             {
-                existing.Destroy();
-                _open.Remove(company);
+                // Hide instead of destroy so the live panel keeps its position —
+                // reopening it is a SetActive(true), not a rebuild-and-restore. This
+                // is why the persistent overlays remember their spot and the old
+                // destroy/recreate path did not. Cleared for real on company death
+                // (RequestClose) or scene change.
+                if (existing.Visible) existing.Hide();
+                else existing.Show();
                 return;
             }
             var overlay = new CompanyOverlay(company);
