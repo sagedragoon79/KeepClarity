@@ -1,0 +1,1653 @@
+# Swedish pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Swedish
+
+# ── Divine Hands ──
+DivineHands/meta/name=Divine Hands
+DivineHands/meta/desc=Gudakrafter och skaparverktyg: terrängformning, markörspawn och gudomliga kartverktyg bakom en panel i spelet (standardsnabbtangent Ctrl+G). Världsförändrande krafter är AV som standard.
+DivineHands/cat/General=Allmänt
+DivineHands/opt/MasterEnable/label=Aktiverad
+DivineHands/opt/MasterEnable/tip=Huvudbrytare för Divine Hands. När den är av gör panelens snabbtangent ingenting och ingen gudakraft tillämpas. Standard: PÅ.
+DivineHands/opt/PanelHotkey/label=Panelens snabbtangent
+DivineHands/opt/PanelHotkey/tip=Tangent eller kombination som växlar Divine Hands-panelen i spelet. Ett Unity KeyCode-namn eller en kombination med Ctrl/Alt/Shift — t.ex. Ctrl+G, F6, Alt+Shift+D. Standard: Ctrl+G.
+DivineHands/opt/ShowPanelOnMap/label=Öppna panelen vid kartladdning
+DivineHands/opt/ShowPanelOnMap/tip=Öppna panelen automatiskt när en karta laddas. Standard: AV.
+DivineHands/opt/DebugLog/label=Felsökningsloggning
+DivineHands/opt/DebugLog/tip=Utförlig diagnostikutskrift till MelonLoader.log. Standard: AV.
+DivineHands/opt/DiagBuildingScare/label=Logg: Tabell över djurskrämmande byggnader
+DivineHands/opt/DiagBuildingScare/tip=Skriver en referenstabell till MelonLoader.log som listar vilka byggnader som skrämmer bort vilt och vilka som inte gör det. FF delar upp kartan i 64 m spawn-celler; 3+ skrämmande byggnader i en cell driver bort den flocken (odlingsfält avhyser alltid, separat regel). Skrivskyddad — ändrar inget i spelet. Körs en gång när den slås på; slå av och sedan på igen för att köra på nytt. Standard: AV.
+DivineHands/opt/ClassicPanel/label=Klassisk panel
+DivineHands/opt/ClassicPanel/tip=Använd den ursprungliga lätta IMGUI-panelen istället för den FF-stilade. Reservlösning om den stilade panelen någonsin krånglar. Standard: AV.
+DivineHands/cat/God Tools=Gudomliga verktyg
+DivineHands/opt/EnableRevealMap/label=Avslöja karta
+DivineHands/opt/EnableRevealMap/tip=Gör Avslöja karta tillgänglig i Divine Hands-panelen i spelet — du aktiverar den där, inte här. När den aktiveras rensas hela krigsdimman; att slå av den återställer efter bästa förmåga den dimma du hade utforskat. Varning: FF sparar det utforskade tillståndet i sparfilen — om du sparar medan kartan är avslöjad förblir hela kartan utforskad. Standard: AV.
+DivineHands/opt/EnableBuildAnywhere/label=Bygg var som helst
+DivineHands/opt/EnableBuildAnywhere/tip=Gör Bygg var som helst tillgänglig i panelen i spelet — du aktiverar den där, inte här. När den aktiveras kan du placera NORMALA byggnader på mark som vanilla avvisar (branta sluttningar, ingen väg till staden, vatten/vägöverlapp), och tar bort 150 m-gränsen för väglängd (dra vägar av valfri längd; kostnaden skalar fortfarande med den verkliga längden). Broar lämnas orörda så de fortsätter följa vanilla och Keep Claritys Bridge Anywhere. Standard: AV.
+DivineHands/opt/PreserveOverlapTrees/label=Behåll överlappande träd
+DivineHands/opt/PreserveOverlapTrees/tip=Behåll träd placerade över byggnader (t.ex. ett träd på en torgruta via Bygg var som helst) över sparning/omladdning. Vanilla rensar om alla byggnaders fotavtryck från träd vid LADDNING — onödigt för vanliga sparfiler, så att hoppa över det är säkert; pågående byggnation rensar fortfarande träd normalt. Träd på VÄGAR försvinner fortfarande vid omladdning (separat vägrensning). Standard: PÅ.
+DivineHands/opt/EnableGodView/label=Gudavy
+DivineHands/opt/EnableGodView/tip=Gör Gudavy tillgänglig i panelen i spelet — du aktiverar den där, inte här. När den aktiveras lättar den på RTS-kamerans begränsningar — zooma långt ut, luta till en platt/ovanifrån-vinkel, överblicka hela kartan — återställs exakt när den stängs av. Standard: AV.
+DivineHands/opt/ProportionalZoom/label=Proportionell zoom
+DivineHands/opt/ProportionalZoom/tip=Medan Gudavy är aktiv, finare scroll-zoomsteg på nära håll (inget mer hopp från normalt till för nära). Utzoomning förblir vanilla. Av = platt vanilla-steg. Standard: PÅ.
+DivineHands/opt/ZoomCellsPerNotch/label=Zoomsteg (Gudavy)
+DivineHands/opt/ZoomCellsPerNotch/tip=Antal celler som gudavykameran flyttas per hjulsteg (2–50; 1 cell ≈ 5 m, så 2 ≈ 10 m, 50 ≈ 250 m). Högre = större hopp; lägre = finare. Nära håll avtar ~2x finare. Standard: 10 (~50 m/steg).
+DivineHands/opt/GodViewMaxZoom/label=Max utzoomning (m)
+DivineHands/opt/GodViewMaxZoom/tip=Längsta gudavyzoom, meter (200–900). Den viktigaste PRESTANDA-spaken — vid 900 ser kameran nästan hela kartan och kan hacka/hänga sig. Standard 450; Pangu begränsar till 600. Sänk om gudavyn är tung, höj för en bredare överblick.
+DivineHands/opt/GodViewDisableFog/label=Inaktivera dis (Gudavy)
+DivineHands/opt/GodViewDisableFog/tip=Stäng av avståndsdiset i miljön medan Gudavy är aktiv (skarpt, Pangu-stil). Återställs vid avslut. Skilt från krigsdimma / Avslöja karta. Standard: AV (behåll dis, lättare för bildrutor).
+DivineHands/opt/GodViewMinZoom/label=Min inzoomning (m)
+DivineHands/opt/GodViewMinZoom/tip=Närmaste gudavyzoom, meter (1–6). Vanilla-golvet är ~6; 2 är ungefär i höjd med en invånares huvud. Kombinera med Min kameravinkel 0 och vanillas Följ-knapp för en axelkamera på invånaren. Live — justera medan du följer. Standard: 6.
+DivineHands/opt/GodViewMinAngle/label=Min kameravinkel (°)
+DivineHands/opt/GodViewMinAngle/tip=Plattaste kameravinkel medan Gudavy är på (0–35). Vanilla stannar vid ~35 (alltid tittande nedåt); 0 är i höjd med horisonten. Live — justera medan du följer. Standard: 10.
+DivineHands/opt/HideFowHaze/label=Dölj krigsdimmans dis (visuellt)
+DivineHands/opt/HideFowHaze/tip=Inaktivera krigsdimmans EFTEREFFEKT — det grå outforskade diset som välver sig över himlen vid låga vinklar / Fri kamera. Rent visuellt: utforskningen påverkas inte, inget sparas i sparfilen, att slå av det återställer det direkt. Standard: AV.
+DivineHands/opt/FreeCamClearsHaze/label=Fri kamera: rensa himmelsdis
+DivineHands/opt/FreeCamClearsHaze/tip=Dölj automatiskt krigsdimmans dis endast MEDAN Fri kamera är aktiv — krigsdimma för normalt spel, klar himmel vid flygning, diset tillbaka så fort du avslutar. Rent visuellt. Standard: AV.
+DivineHands/opt/EnableFreeCam/label=Fri kamera
+DivineHands/opt/EnableFreeCam/tip=Gör Fri kamera tillgänglig i panelen i spelet — du aktiverar den där, inte här. Tryck Ctrl+F (konfigurerbart) för att gå in/ut, eller använd panelens brytare. WASD flyttar, Mellanslag/Ctrl upp/ner, Shift snabbt, mus för att titta. Avslut återställer exakt den normala kameran. Standard: AV.
+DivineHands/opt/FreeCamHotkey/label=Fri kameras snabbtangent
+DivineHands/opt/FreeCamHotkey/tip=Tangent/kombination som växlar Fri kamera på/av i spelet. Ett Unity KeyCode-namn eller en kombination med Ctrl/Alt/Shift — t.ex. Ctrl+F, F8, Alt+C. Standard: Ctrl+F.
+DivineHands/opt/FreeCamMoveSpeed/label=Fri kameras rörelsehastighet
+DivineHands/opt/FreeCamMoveSpeed/tip=Fri kameras flyghastighet i världsmeter per sekund. Standard: 40.
+DivineHands/opt/FreeCamFastMultiplier/label=Fri kameras snabbmultiplikator
+DivineHands/opt/FreeCamFastMultiplier/tip=Hastighetsmultiplikator medan Shift hålls nedtryckt i Fri kamera. Standard: 3.
+DivineHands/opt/FreeCamSensitivity/label=Fri kameras muskänslighet
+DivineHands/opt/FreeCamSensitivity/tip=Muskänslighet för att titta med Fri kamera. Standard: 2.
+DivineHands/opt/FreeCamGroundFloor/label=Fri kameras markgolv
+DivineHands/opt/FreeCamGroundFloor/tip=Håll Fri kamera ovanför terrängen så den inte kan klippa genom världen ner i baksidan/himmeltomrummet. Slå AV för bilder under kartan. Standard: på.
+DivineHands/opt/FreeCamFloorClearance/label=Fri kameras markmarginal
+DivineHands/opt/FreeCamFloorClearance/tip=Meter som golvet ligger ovanför ytan. Litet = bilder nästan i marknivå; 0 följer ytan (kan klippa nära planet). Standard: 1,0 m.
+DivineHands/opt/InstantBuildEnable/label=Direktbygge
+DivineHands/opt/InstantBuildEnable/tip=Gör Direktbygge tillgängligt i panelen i spelet — du aktiverar det där, inte här. Medan det är aktivt färdigställs varje byggplats (nyplacerad och redan väntande) på nästa bildruta via spelets egen färdigställningsväg. Återställs till av vid varje kartladdning. Standard: AV.
+DivineHands/opt/InstantBuildUseMaterials/label=Direktbygge använder material
+DivineHands/opt/InstantBuildUseMaterials/tip=Dra det material som krävs från stadens förråd direkt när en byggnad direktfärdigställs (arbetskraft är alltid gratis). Platser staden inte har råd med lämnas att byggas normalt. Av = materialfritt gudabygge. Standard: PÅ.
+DivineHands/opt/PersistRevealActive/label=Avslöja karta (sparat tillstånd)
+DivineHands/opt/PersistBuildAnywhereActive/label=Bygg var som helst (sparat tillstånd)
+DivineHands/opt/PersistGodViewActive/label=Gudavy (sparat tillstånd)
+DivineHands/cat/Terrain Sculpting=Terrängformning
+DivineHands/opt/TerrainEnable/label=Terrängformning
+DivineHands/opt/TerrainEnable/tip=Aktivera gudakraften för terränghöjd. När den är på, välj Terräng i panelen och applicera penseln över världen med applicera-tangenten. Standard: AV.
+DivineHands/opt/TerrainMode/label=Penselläge
+DivineHands/opt/TerrainMode/tip=0 = Höj, 1 = Sänk, 2 = Jämna ut, 3 = Platta till, 4 = Medelvärde. Håll Shift för att invertera Höj<->Sänk. Medelvärde drar hela penseln mot en platt medelnivå (TerrainHelper-stil); Jämna ut tar bara bort ojämnheter och behåller sluttningar.
+DivineHands/opt/TerrainStrength/label=Penselstyrka
+DivineHands/opt/TerrainStrength/tip=Höjändring för Höj/Sänk i världsmeter per applicering (även steget för Jämna ut och Medelvärde). Platta till ignorerar detta. Standard: 1,0.
+DivineHands/opt/TerrainGridWidth/label=Penselrutnätets bredd
+DivineHands/opt/TerrainGridWidth/tip=Fotavtryckets bredd (X) i höjdkartceller (1–20). Live: Vänster/Höger-pilar medan aktiverad. Varje cell ≈ Upplösning meter (~5 m). Standard: 3.
+DivineHands/opt/TerrainGridHeight/label=Penselrutnätets djup
+DivineHands/opt/TerrainGridHeight/tip=Fotavtryckets djup (Z) i höjdkartceller (1–20). Live: Upp/Ner-pilar medan aktiverad; Tab byter bredd/djup. Använd t.ex. 1×20 för att gröpa ut en stig. Standard: 3.
+DivineHands/opt/TerrainGridFineSnap/label=Fin rutnätsplacering
+DivineHands/opt/TerrainGridFineSnap/tip=För fri byggplacering (TerrainHelper-känsla): rutnätet stegar på ett halvt rutnätsraster och står stilla mellan stegen, vilket ger den icke-fästa byggnadsspöket spelrum att placeras var som helst inom halvcellfönstret utan att rutnätet glider under det. Placeringsguide — formningen avrundas fortfarande till hela celler vid applicering, så lämna av för skarpa platta underlag. Standard: av.
+DivineHands/opt/TerrainApplyKey/label=Applicera-tangent
+DivineHands/opt/TerrainApplyKey/tip=Tangent/knapp som applicerar penseln vid markören. Ett Unity KeyCode-namn eller en kombination. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse0.
+DivineHands/opt/TerrainUndoKey/label=Ångra-tangent
+DivineHands/opt/TerrainUndoKey/tip=Tangent/kombination som ångrar det senaste terrängdraget. Standard: Ctrl+Z.
+DivineHands/opt/TerrainArmHotkey/label=Aktiveringstangent för terräng
+DivineHands/opt/TerrainArmHotkey/tip=Tangent/kombination som aktiverar (tryck igen för att avaktivera) terrängpenseln utan att klicka på dess flik; öppnar panelen vid aktivering. Standard: End (TerrainHelper-konvention).
+DivineHands/cat/Cursor Spawners=Markörspawn
+DivineHands/opt/SpawnEnable/label=Markörspawn
+DivineHands/opt/SpawnEnable/tip=Aktivera gudakraften för markörspawn. Välj en familj, aktivera spawnaren i panelen och tryck applicera-tangenten över världen för att placera saker vid markören. Standard: AV.
+DivineHands/opt/SpawnFamily/label=Spawn-familj
+DivineHands/opt/SpawnFamily/tip=0 = Djur, 1 = Mineral, 2 = Invånare, 3 = Resurs.
+DivineHands/opt/SpawnSubtype/label=Spawn-undertyp
+DivineHands/opt/SpawnSubtype/tip=Index inom familjen. Djur: 0 Hjort/1 Björn/2 Vildsvin/3 Varg/4 Räv/5 Murmeldjur/6 Hund/7 Katt (4-7 kräver Cats & Dogs-DLC). Mineral: 0 Guld/1 Järn/2 Kol/3 Sten/4 Lera/5 Sand. Resurs: 0 Samlingsväxt/1 Träd/2 Klippa/3 Stenblock. Invånare ignorerar detta.
+DivineHands/opt/SpawnCount/label=Spawn-antal
+DivineHands/opt/SpawnCount/tip=Hur många som placeras per applicering (1–50), utspridda i en liten ring runt markören.
+DivineHands/opt/SpawnIsDeep/label=Djup fyndighet
+DivineHands/opt/SpawnIsDeep/tip=Endast mineraler. När den är på är spawnade fyndigheter (alla sex sorter) djupa/oändliga — kan ENDAST användas av byggnaderna Djupgruva / Djupgrop. När den är av är de ändliga ytfyndigheter för de vanliga gruv-/gropbyggnaderna. Standard: AV.
+DivineHands/opt/SpawnAnnounceVillagers/label=Meddela invånare
+DivineHands/opt/SpawnAnnounceVillagers/tip=Utlös invandringsmeddelandet 'anlände' vid spawning av invånare. Standard: AV.
+DivineHands/opt/SpawnPersistent/label=Beständig (noder/lyor)
+DivineHands/opt/SpawnPersistent/tip=Endast djur. När PÅ (standard): Hjort släpper en självåterspawnande spawn-områdesnod vid markören (cirkulär markör); Varg/Vildsvin släpper en lya. När AV spawnas de fritt. Björn är alltid fri. Lyor bevaras över sparning/laddning; hjortnoden återspawnar denna session men sparas inte (släpp igen efter omladdning). Standard: PÅ.
+DivineHands/opt/SpawnWolfDenGuid/label=Vargens lya-GUID
+DivineHands/opt/SpawnWolfDenGuid/tip=Valfritt reserv-GUID för varglya-prefab, används ENDAST om djurgruppens viktade lya-prefab inte kan hittas. Lämna standard om inte lyor misslyckas att spawna.
+DivineHands/opt/SpawnForageableGuids/label=Samlingsväxters GUID:er
+DivineHands/opt/SpawnForageableGuids/tip=Prefab-GUID:er avgränsade med komma/mellanslag/radbrytning som spawnas för typen Samlingsväxt. Varje applicering går igenom listan. Okända/DLC-GUID:er hoppas säkert över.
+DivineHands/opt/SpawnTreeGuids/label=Träds GUID:er
+DivineHands/opt/SpawnTreeGuids/tip=Avgränsade prefab-GUID:er för typen Träd (placeras via terrängens trädväxtsystem). Lämna TOM (standard) för att automatiskt använda kartans egna trädarter (Terrain2 TreePrototypes) — ingen inställning behövs. Fyll bara i GUID:er för att styra vilka träd som planteras.
+DivineHands/opt/SpawnRockGuids/label=Klippors GUID:er
+DivineHands/opt/SpawnRockGuids/tip=Avgränsade prefab-GUID:er för typen Klippa. Varje applicering går igenom listan.
+DivineHands/opt/SpawnGiantRockGuids/label=Stenblocks GUID:er
+DivineHands/opt/SpawnGiantRockGuids/tip=Avgränsade prefab-GUID:er för typen Stenblock.
+DivineHands/opt/SpawnApplyKey/label=Spawn-applicera-tangent
+DivineHands/opt/SpawnApplyKey/tip=Tangent/knapp som spawnar vid markören. Ett Unity KeyCode-namn eller en kombination. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse0.
+DivineHands/opt/SpawnerArmHotkey/label=Spawnarens aktiveringstangent
+DivineHands/opt/SpawnerArmHotkey/tip=Tangent/kombination som aktiverar (tryck igen för att avaktivera) spawnaren utan att klicka på dess flik; öppnar panelen vid aktivering. Standard: Home.
+DivineHands/cat/Lake Stamp=Sjöstämpel
+DivineHands/opt/LakeEnable/label=Sjö-/dammstämpel
+DivineHands/opt/LakeEnable/tip=Lägger till fliken Sjö i panelen i spelet. Stämplar en urgröpt, vattenfylld sjö vid markören (speglar Pangu) — sparas nativt. Standard: AV.
+DivineHands/opt/LakeShape/label=Form
+DivineHands/opt/LakeShape/tip=0 = Rektangel, 1 = Cirkel.
+DivineHands/opt/LakeGridWidth/label=Bredd (celler)
+DivineHands/opt/LakeGridWidth/tip=Kärnfotavtryckets halvbredd i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/LakeGridHeight/label=Djup (celler)
+DivineHands/opt/LakeGridHeight/tip=Kärnfotavtryckets halvdjup i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/LakeCarveDepth/label=Urgröpningsdjup
+DivineHands/opt/LakeCarveDepth/tip=Sjöbottens djup under vattenytan, meter (0,45–12). Standard: 4,6.
+DivineHands/opt/LakeFillRatio/label=Fyllnadsgrad
+DivineHands/opt/LakeFillRatio/tip=Förstorar sjön — multiplicerar Bredd/Djup (1,0–2,0). Standard: 1,0 (ingen förstoring).
+DivineHands/opt/LakeShoreWidth/label=Strandövergång
+DivineHands/opt/LakeShoreWidth/tip=Strandringens bredd som stiger tillbaka upp till land (2–40). Standard: 16.
+DivineHands/opt/LakeNoGoWidth/label=Extra storlek
+DivineHands/opt/LakeNoGoWidth/tip=Extra celler tillagda till sjöns fotavtryck på varje sida (0–24). Standard: 0.
+DivineHands/opt/LakeArmHotkey/label=Sjöns aktiveringstangent
+DivineHands/opt/LakeArmHotkey/tip=Tangent/kombination som aktiverar (tryck igen för att avaktivera) sjöstämpeln. Standard: Insert.
+DivineHands/opt/LakeApplyKey/label=Sjöns applicera-tangent
+DivineHands/opt/LakeApplyKey/tip=Tangent/knapp som stämplar sjön vid markören. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse0.
+DivineHands/opt/LakeStockFish/label=Sätt ut fisk
+DivineHands/opt/LakeStockFish/tip=Fyll den nya sjön med fisk + synliga stim (anpassade till sjön), så den blir fiskbar. Standard: på.
+DivineHands/opt/LakePersist/label=Bevara sjöar
+DivineHands/opt/LakePersist/tip=Gör att stämplade sjöar överlever sparning/omladdning. FF bakar bara in vatten i kartfilen vid generering, så en vanlig sparfil behåller den urgröpta bäckenet men förlorar vattnet — detta skriver en liten följefil bredvid varje sparfil och återuppbygger vattnet vid laddning (tas bort när sparfilen tas bort). Standard: PÅ.
+DivineHands/cat/Fertility Painter=Fruktbarhetsmålare
+DivineHands/opt/FertilityEnable/label=Fruktbarhetsmålare
+DivineHands/opt/FertilityEnable/tip=Lägger till fliken Fruktbarhet i panelen i spelet. Målar jordens fruktbarhet över ett justerbart område (sparas med sparfilen). Standard: AV.
+DivineHands/opt/FertilityShape/label=Form
+DivineHands/opt/FertilityShape/tip=0 = Rektangel, 1 = Cirkel.
+DivineHands/opt/FertilityGridWidth/label=Bredd (celler)
+DivineHands/opt/FertilityGridWidth/tip=Penselns halvbredd i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/FertilityGridHeight/label=Djup (celler)
+DivineHands/opt/FertilityGridHeight/tip=Penselns halvdjup i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/FertilityAmount/label=Fruktbarhet %
+DivineHands/opt/FertilityAmount/tip=Målfruktbarhet i jorden som penseln målar (0–100 %). Standard: 80.
+DivineHands/opt/FertilityMult/label=Gödningseffektivitet %
+DivineHands/opt/FertilityMult/tip=Gödnings-/komposteffektivitet per cell som penseln ställer in (0–100 %). Standard: 100.
+DivineHands/opt/FertilityConditionSoil/label=Bearbeta jord för fruktodlingar
+DivineHands/opt/FertilityConditionSoil/tip=Ställer även in jordtextur (sand/lera) + vatten till det ideala för fruktträd (läses från spelets egna straffkurvor) så att fruktodlingar inte dras ner av dålig jord. Utmärkt för fruktträd, eventuellt mindre idealiskt för grödor. Standard: av.
+DivineHands/opt/FertilityArmHotkey/label=Fruktbarhetens aktiveringstangent
+DivineHands/opt/FertilityArmHotkey/tip=Tangent/kombination för att aktivera (tryck igen för att avaktivera) fruktbarhetsmålaren — eller använd fliken Fruktbarhet. Standard: Alt+Insert.
+DivineHands/opt/FertilityApplyKey/label=Fruktbarhetens applicera-tangent
+DivineHands/opt/FertilityApplyKey/tip=Tangent/knapp som målar fruktbarhet vid markören. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse1.
+DivineHands/cat/Forest Brush=Skogspensel
+DivineHands/opt/ForestEnable/label=Skogspensel
+DivineHands/opt/ForestEnable/tip=Lägger till fliken Skog i panelen i spelet. Planterar kartans egna träd över ett justerbart område till en måltäckning (befintliga träd räknas, så återapplicering fyller på), och ställer eventuellt även in jordens fruktbarhet. Träd + fruktbarhet sparas med sparfilen. Standard: AV.
+DivineHands/opt/ForestShape/label=Form
+DivineHands/opt/ForestShape/tip=0 = Rektangel, 1 = Cirkel.
+DivineHands/opt/ForestGridWidth/label=Bredd (celler)
+DivineHands/opt/ForestGridWidth/tip=Penselns halvbredd i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/ForestGridHeight/label=Djup (celler)
+DivineHands/opt/ForestGridHeight/tip=Penselns halvdjup i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/ForestCoverage/label=Täckning %
+DivineHands/opt/ForestCoverage/tip=Måltäckning av träd inom fotavtrycket (0–100 %). Befintliga träd räknas med. Standard: 26.
+DivineHands/opt/ForestVariance/label=Variation
+DivineHands/opt/ForestVariance/tip=Slumpmässig xz-förskjutning (meter) per planterat träd så de inte hamnar rutnätsjusterade. Standard: 1,1.
+DivineHands/opt/ForestSetFertility/label=Ställ även in fruktbarhet
+DivineHands/opt/ForestSetFertility/tip=Skriver GRÖD-/jordfruktbarhet under penseln (som Pangu). Snabbar INTE upp de planterade träden (deras tillväxt styrs av biom-/teknologisystemet, inte jorden) — bearbetar bara marken för grödor/fruktodlingar som odlas där senare. Av = plantera bara träd. Standard: av.
+DivineHands/opt/ForestFertility/label=Fruktbarhet %
+DivineHands/opt/ForestFertility/tip=Jordfruktbarhet som ställs in när 'Ställ även in fruktbarhet' är på (0–100 %). Standard: 50.
+DivineHands/opt/ForestFertilityMult/label=Gödningseffektivitet %
+DivineHands/opt/ForestFertilityMult/tip=Gödningseffektivitet per cell som ställs in tillsammans med fruktbarhet (0–100 %). Standard: 100.
+DivineHands/opt/ForestArmHotkey/label=Skogens aktiveringstangent
+DivineHands/opt/ForestArmHotkey/tip=Tangent/kombination för att aktivera (tryck igen för att avaktivera) skogspenseln — eller använd fliken Skog. Standard: Shift+Insert.
+DivineHands/opt/ForestApplyKey/label=Skogens applicera-tangent
+DivineHands/opt/ForestApplyKey/tip=Tangent/knapp som planterar skogen vid markören. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse1.
+DivineHands/cat/Mountain Brush=Bergspensel
+DivineHands/opt/MountainEnable/label=Bergspensel
+DivineHands/opt/MountainEnable/tip=Lägger till fliken Berg i panelen i spelet. Höjer klippig terräng (kupol + ryggformat brus), målar om marken till klippa, ställer in bergsbiom och — när mängdreglagen är över 0 — sprider ut sten-/malmfyndigheter och bergsvilt. Terrängändringar är permanenta (ingen ångra). Standard: AV.
+DivineHands/opt/MountainShape/label=Form
+DivineHands/opt/MountainShape/tip=0 = Rektangel, 1 = Cirkel.
+DivineHands/opt/MountainGridWidth/label=Bredd (celler)
+DivineHands/opt/MountainGridWidth/tip=Penselns halvbredd i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/MountainGridHeight/label=Djup (celler)
+DivineHands/opt/MountainGridHeight/tip=Penselns halvdjup i celler (1–10). Piltangenter ändrar storlek medan aktiverad.
+DivineHands/opt/MountainHeight/label=Höjd
+DivineHands/opt/MountainHeight/tip=Meters höjning per 100 m av penselns spann. Standard: 20.
+DivineHands/opt/MountainMaxHeight/label=Maxhöjd
+DivineHands/opt/MountainMaxHeight/tip=Absolut gräns för total höjning, meter. Standard: 60.
+DivineHands/opt/MountainEdgeSoftness/label=Kantmjukhet
+DivineHands/opt/MountainEdgeSoftness/tip=Hur gradvis berget övergår i omgivande land (0 = klippa, 1 = bred fot). Standard: 0,72.
+DivineHands/opt/MountainRuggedness/label=Skrovlighet
+DivineHands/opt/MountainRuggedness/tip=Toppens taggighet (0 = mjuk kupol, 100 = kuperad). Standard: 55.
+DivineHands/opt/MountainTexture/label=Klipptextur %
+DivineHands/opt/MountainTexture/tip=Hur starkt marken målas om till klippa (0–100 %). Standard: 90.
+DivineHands/opt/MountainRockOre/label=Sten-/malmmängd %
+DivineHands/opt/MountainRockOre/tip=Densitet av utspridda sten- och mineralfyndigheter (0–100 %). Standard: 0.
+DivineHands/opt/MountainWildlife/label=Viltchans %
+DivineHands/opt/MountainWildlife/tip=Chans att spawna bergsdjur (hjort/vildsvin/varg/björn) (0–100 %). Standard: 0.
+DivineHands/opt/MountainArmHotkey/label=Bergets aktiveringstangent
+DivineHands/opt/MountainArmHotkey/tip=Tangent/kombination för att aktivera (tryck igen för att avaktivera) bergspenseln — eller använd fliken Berg. Standard: Ctrl+Insert.
+DivineHands/opt/MountainApplyKey/label=Bergets applicera-tangent
+DivineHands/opt/MountainApplyKey/tip=Tangent/knapp som höjer berget vid markören. Musknappar: Mouse0 = vänsterklick, Mouse1 = högerklick, Mouse2 = mittenklick. Standard: Ctrl+Mouse1.
+DivineHands/cat/Delete Selected=Ta bort markerad
+DivineHands/opt/DeleteEnable/label=Ta bort markerad
+DivineHands/opt/DeleteEnable/tip=Lägger till avsnittet Ta bort markerad i panelen i spelet och aktiverar snabbtangenten för borttagning. Markera en gruva / stenbrott / ler-/sandgrop / djupgruva / valfri byggnad — eller en resursnod (malm, ler-/sand-/stengrop, träd, klippa, samlingsväxt) — och ta bort den direkt. Allt annat (invånare, djur, fält) är en säker no-op. Borttagning av malmnod är en PERMANENT världsändring. Standard: AV.
+DivineHands/opt/DeleteHotkey/label=Snabbtangent för borttagning
+DivineHands/opt/DeleteHotkey/tip=Tangent/kombination som tar bort den aktuella markeringen. En avsiktlig kombination är säkrare än en enkel tangent. Standard: Ctrl+Delete.
+DivineHands/opt/DeleteRefund/label=Återbetalning vid borttagning
+DivineHands/opt/DeleteRefund/tip=Återbetala byggnadens byggmaterial vid borttagning (släpper även lagrade föremål på marken). Av = ren avdunstning, ingen återbetalningshög. Standard: AV.
+DivineHands/cat/Kill Selected=Döda markerad
+DivineHands/opt/KillEnable/label=Döda markerad
+DivineHands/opt/KillEnable/tip=Lägger till avsnittet Döda markerad i panelen i spelet och aktiverar snabbtangenten för dödande. Markera en invånare, plundrare eller valfritt djur (vild / boskap / husdjur) — en eller en grupp — och döda det direkt via spelets egen dödsväg (korrekt borttagning + döds-händelser). Byggnader/noder rörs aldrig (använd Ta bort markerad). Främst ett testverktyg, men detta är en gudamod. Standard: AV.
+DivineHands/opt/KillHotkey/label=Snabbtangent för dödande
+DivineHands/opt/KillHotkey/tip=Tangent/kombination som dödar den aktuella varelsen. En avsiktlig kombination är säkrare än en enkel tangent. Standard: Ctrl+D.
+DivineHands/cat/Selected Building=Vald byggnad
+DivineHands/opt/InjectEnable/label=Föremålsinjektion
+DivineHands/opt/InjectEnable/tip=Aktivera föremålsinjektion på den MARKERADE byggnaden. Markera en byggnad i spelet, använd sedan panelens avsnitt Vald byggnad för att lägga till föremål, lägga till boskap eller växla oändligt förråd. Oändligt förråd gäller ENDAST FÖR SESSIONEN — det tas automatiskt bort före varje sparning (manuell, autospara och avslut) så det aldrig bakas in i din .sav-fil. Standard: AV.
+DivineHands/opt/InjectItemIndex/label=Föremål att lägga till
+DivineHands/opt/InjectItemIndex/tip=Vilket föremål Lägg till föremål-knappen injicerar i den markerade byggnadens förråd (index i panelens föremålslista). Välj föremålet i panelen.
+DivineHands/opt/InjectUnrestricted/label=Obegränsad injektion
+DivineHands/opt/InjectUnrestricted/tip=Kringgå det smarta filtret per byggnad — VARJE föremål blir injicerbart i valfri markerad byggnad med förråd. Av = standardfiltret: förrådsbyggnader tar sin tillåtelselista, producenter sina receptindata, samlare sina handelsvaror, skydd ved+mat, och varje byggnad fyller på det den redan har. Standard: AV.
+DivineHands/opt/InjectItemCount/label=Antal föremål
+DivineHands/opt/InjectItemCount/tip=Hur många av det markerade föremålet som läggs till per klick (1–9999). Standard: 100.
+DivineHands/opt/InjectLivestockKind/label=Boskap att lägga till
+DivineHands/opt/InjectLivestockKind/tip=0 = Ko (Ladugård), 1 = Höna (Hönshus), 2 = Get (Getlada), 3 = Häst (Stall). Den markerade byggnaden måste matcha djuret. Standard: Ko.
+DivineHands/opt/LivestockGuidCow/label=Kons prefab-GUID
+DivineHands/opt/LivestockGuidCow/tip=Prefab-GUID som instansieras vid tillägg av en ko i en ladugård. Redigerbar om en DLC eller speluppdatering ändrar den. Okända GUID:er hoppas säkert över.
+DivineHands/opt/LivestockGuidChicken/label=Hönans prefab-GUID
+DivineHands/opt/LivestockGuidChicken/tip=Prefab-GUID som instansieras vid tillägg av en höna i ett hönshus.
+DivineHands/opt/LivestockGuidGoat/label=Getens prefab-GUID
+DivineHands/opt/LivestockGuidGoat/tip=Prefab-GUID som instansieras vid tillägg av en get i en getlada.
+DivineHands/opt/LivestockGuidHorse/label=Hästens prefab-GUID
+DivineHands/opt/LivestockGuidHorse/tip=Prefab-GUID som instansieras vid tillägg av en häst i ett stall.
+DivineHands/cat/Other settings=Övriga inställningar
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=Essential Provisions
+EssentialProvisions/meta/desc=Handplockat opt-in QoL-paket. Informationsöverlägg, varningar, hjälpmedel för speltempo. Varje funktion är AV som standard. Sammanslaget med kredit till de ursprungliga community-moddarna — se README för hela ursprungstabellen.
+EssentialProvisions/cat/Misc=Diverse
+EssentialProvisions/opt/EnableFastForward/label=Snabbspolning
+EssentialProvisions/opt/EnableFastForward/tip=Lås upp spelhastigheter över vanillas 3x-gräns. Hastigheter upp till 50x blir tillgängliga. Över 20x kan jägar- och strids-AI bete sig konstigt — en varning loggas. Brytaren träder i kraft direkt.
+EssentialProvisions/opt/EnableServiceBounds/label=Tjänsteradier
+EssentialProvisions/opt/EnableServiceBounds/tip=Klicka på valfri placerad byggnad för att se dess effektradie — vatten, önskvärdhet, marknadsräckvidd, skolräckvidd, arbetsområde. Samma cirkel som FF visar vid placering.
+EssentialProvisions/opt/EnableClearcutting/label=Kalhuggning
+EssentialProvisions/opt/EnableClearcutting/tip=Flagga automatiskt skördebara resurser inom en radie runt ditt Stadscentrum. Hoppar över farozoner runt plundrare, vargar och björnar.
+EssentialProvisions/opt/ClearcuttingTrees/label=    Träd
+EssentialProvisions/opt/ClearcuttingTrees/tip=Inkludera träd i den automatiska flaggningen.
+EssentialProvisions/opt/ClearcuttingStones/label=    Stenar
+EssentialProvisions/opt/ClearcuttingStones/tip=Inkludera stenar i den automatiska flaggningen.
+EssentialProvisions/opt/ClearcuttingForageables/label=    Samlingsväxter
+EssentialProvisions/opt/ClearcuttingForageables/tip=Inkludera samlingsväxter (bärbuskar, örter, svamp) i den automatiska flaggningen.
+EssentialProvisions/opt/ClearcuttingRadius/label=    Kalhuggningsradie
+EssentialProvisions/opt/ClearcuttingRadius/tip=Avstånd från Stadscentrum inom vilket automatisk flaggning sker.
+EssentialProvisions/opt/ClearcuttingRescan/label=    Skanna om nu
+EssentialProvisions/opt/ClearcuttingRescan/tip=Utlös en ny skanning omedelbart. Återställs automatiskt till AV efter utlösning.
+EssentialProvisions/cat/Villager Improvements=Invånarförbättringar
+EssentialProvisions/opt/EnableShortWalks/label=Korta promenader
+EssentialProvisions/opt/EnableShortWalks/tip=En gång i månaden omoptimeras invånarnas hemtilldelningar så de bor närmare sina arbetsplatser. Soldater, vakter och yrken som bor på arbetsplatsen hoppas över.
+EssentialProvisions/opt/EnableLongTravels/label=Långa resor
+EssentialProvisions/opt/EnableLongTravels/tip=Flagga produktionsbyggnader vars arbetare spenderar för mycket tid på att resa istället för att producera.
+EssentialProvisions/opt/LongTravelsThreshold/label=    Tröskel för långa resor (%)
+EssentialProvisions/opt/LongTravelsThreshold/tip=Utlös varningen när restiden överstiger denna andel av den totala arbetstiden.
+EssentialProvisions/opt/EnableSelfPreservation/label=Självbevarelsedrift
+EssentialProvisions/opt/EnableSelfPreservation/tip=Invånare flyr från närliggande plundrare utan att vänta på att striden ska börja. Jägare behåller vanillas kortdistansbeteende. Lägerförsvarande plundrare ignoreras.
+EssentialProvisions/opt/SelfPreservationRadius/label=    Upptäcktsradie
+EssentialProvisions/opt/SelfPreservationRadius/tip=Rutor inom vilka en aggressiv plundrare utlöser reträtt.
+EssentialProvisions/opt/EnableLaborShortage/label=Arbetskraftsbrist
+EssentialProvisions/opt/EnableLaborShortage/tip=Visa en varningsikon i toppfältet när arbetare och byggare understiger det rekommenderade antalet.
+EssentialProvisions/opt/EnableEfficientLabor/label=Effektiv arbetskraft
+EssentialProvisions/opt/EnableEfficientLabor/tip=Sysslolösa invånare inom hantverk och utomhusroller hjälper till som arbetare när deras eget jobb inte har något att göra. Deras riktiga jobb förblir prioriterat — de återgår så fort riktigt arbete dyker upp.
+EssentialProvisions/opt/EfficientLaborPollDays/label=    Skanna om var N:e dag
+EssentialProvisions/opt/EfficientLaborPollDays/tip=Hur ofta (spel-dagar) att skanna efter sysslolösa invånare att låna ut och frigöra de som hittat arbete. Sysslolöshetsstatus ändras knappt dag för dag, så 5 räcker gott; lägre = snabbare respons, högre = lättare på stora kartor.
+EssentialProvisions/opt/EnablePennyPincher/label=Snålvakt
+EssentialProvisions/opt/EnablePennyPincher/tip=Ställer automatiskt ner råttfångare när inga angrepp pågår, och vakttorn när inga plundringar pågår. Återaktiveras automatiskt när hot återkommer. Rör aldrig en byggnad du för tillfället har markerad.
+EssentialProvisions/opt/PennyPincherGuardTowers/label=    Ställ ner vakttorn
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=Ställ även ner vakttorn i fredstid (bemannas igen när plundringar närmar sig). Stäng av för att behålla full kontroll över vakttorn samtidigt som råttfångare fortfarande hanteras automatiskt — att stänga av det bemannar omedelbart alla torn den ställt ner. För att undanta enskilda torn istället, markera ett torn och tryck Ctrl+P (växlar; sparas per sparfil).
+EssentialProvisions/opt/EnableIdleHands/label=Sysslolösa händer
+EssentialProvisions/opt/EnableIdleHands/tip=Flagga produktionsbyggnader vars arbetare spenderar för mycket tid sysslolösa.
+EssentialProvisions/opt/IdleHandsThreshold/label=    Tröskel för sysslolösa händer (%)
+EssentialProvisions/opt/IdleHandsThreshold/tip=Utlös varningen när sysslolös tid överstiger denna andel av den totala arbetstiden.
+EssentialProvisions/opt/EnableLearnedHands/label=Lärda händer
+EssentialProvisions/opt/EnableLearnedHands/tip=Utbildade invånare arbetar snabbare — insamling, fältarbete OCH hantverk. +10 % per utbildningsnivå. Täpper till en vanilla-lucka som den officiella guiden beskriver men som spelet aldrig implementerar. Staplar med Arbetsplatsmästerskap. På/av — inget reglage.
+EssentialProvisions/opt/EnableWorkplaceMastery/label=Arbetsplatsmästerskap
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=Invånare arbetar snabbare ju längre de har samma jobb — insamling, fältarbete OCH hantverk. +1 %/år av anställningstid, begränsat till +25 % (25 år). Staplar med Lärda händer. Anställningstid är per yrke, sparas per sparfil; befintliga invånare börjar om från noll. Lägger till en mästerskapsvisning i invånarväljaren. På/av — inget reglage.
+EssentialProvisions/opt/EnableRabiesTreatable/label=Rabies: Behandlingsbar (osannolikt)
+EssentialProvisions/opt/EnableRabiesTreatable/tip=Gör vanillas garanterat dödliga rabies till en liten, helar-beroende chans. En rabiessmittad invånare blir sängliggande och behandlas i en sjuksäng — ~9 % i ett Helarhus upp till ~18 % med ett välförsett sjukhus. Kostnaden: de slutar arbeta och upptar en sjuksäng under sjukdomen, och dör hemma om ingen helarsäng är nåbar. Avsiktlig balansändring. AV som standard.
+EssentialProvisions/cat/Inventory Management=Lagerhantering
+EssentialProvisions/opt/EnableBroadShelves/label=Breda hyllor
+EssentialProvisions/opt/EnableBroadShelves/tip=Upplagsgårdar godtar järn. Silor godtar hö och lin. Silo (tidigare 'Spannmålsbod') byter namn i hela gränssnittet. Kräver omladdning av sparfilen för att gälla befintliga förrådsbyggnader.
+EssentialProvisions/opt/EnableSurplusSelling/label=Överskottsförsäljning
+EssentialProvisions/opt/EnableSurplusSelling/tip=Skjuter automatiskt över överskottslager till din handelspost baserat på observerad daglig förbrukning × månader. Endast icke-mat som standard — mat har en separat underinställning med skydd för kostvariation. Kräver att Förbrukningskontroll också är aktiverad: den samlar in de dagliga hastighetsdata som Överskottsförsäljning använder för att storleksbestämma sändningar.
+EssentialProvisions/opt/SurplusSellingMonths/label=    Behåll-i-staden-månader (icke-mat)
+EssentialProvisions/opt/SurplusSellingMonths/tip=Månaders lager att behålla i staden för varje spårat icke-matvaruföremål. Överskottet flödar till handelsposten.
+EssentialProvisions/opt/EnableSurplusSellingFood/label=    Inkludera mat
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=Skicka även automatiskt matöverskott. Skydd: total mat måste överstiga den samlade tröskeln OCH varje matsort stannar på ≥ 1 månads egen förbrukning.
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=    Behåll-i-staden-månader (mat)
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=Månaders matlager att behålla i staden. Standard 10 matchar FF:s invandringströskel.
+EssentialProvisions/opt/SurplusSellingPollDays/label=    Beräkna om var N:e dag
+EssentialProvisions/opt/SurplusSellingPollDays/tip=Hur ofta (spel-dagar) att beräkna om handelspostens lagermål. Det 30-dagars rullande medelvärdet rör sig knappt dag för dag, så dagligen är slöseri; 5 är gott och väl responsivt. Lägre = snabbare respons, högre = lättare på stora kartor.
+EssentialProvisions/opt/EnableConsumableControl/label=Förbrukningskontroll
+EssentialProvisions/opt/EnableConsumableControl/tip=Konfigurerar automatiskt handelspostens minsta lagernivåer baserat på observerad daglig förbrukning × månader. Handelspostens arbetare hämtar inte ett föremål från förrådet för att fylla på posten om inte stadens lager är över reserven. (Föremål redan i handelsposten är oavsett otillgängliga för invånarna.) Skalar automatiskt med befolkningen.
+EssentialProvisions/opt/ConsumableReserveMonths/label=    Reservmånader
+EssentialProvisions/opt/ConsumableReserveMonths/tip=Månaders förråd som måste finnas i stadens förråd innan arbetare hämtar ett föremål för att fylla på handelsposten.
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=    Tillväxtmarginal (%)
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=Marginal som läggs till det hastighetsbaserade målet för att förutse befolkningstillväxt (födslar, invandring). Delas mellan Förbrukningskontroll och Överskottsförsäljning.
+EssentialProvisions/opt/EnableProjectPrep/label=Projektförberedelse
+EssentialProvisions/opt/EnableProjectPrep/tip=Reservera byggmaterial så det inte töms av produktionsbyggnader. Reglagen nedan ställer in golv per material. Byggnation kan fortfarande använda reserven; produktion kan inte. 0 = ingen reserv.
+EssentialProvisions/opt/ProjectPrepLogs/label=    Stockreserv
+EssentialProvisions/opt/ProjectPrepLogs/tip=Minsta antal stockar att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepPlanks/label=    Plankreserv
+EssentialProvisions/opt/ProjectPrepPlanks/tip=Minsta antal plankor att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepStone/label=    Stenreserv
+EssentialProvisions/opt/ProjectPrepStone/tip=Minsta mängd sten att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepClay/label=    Lerreserv
+EssentialProvisions/opt/ProjectPrepClay/tip=Minsta mängd lera att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepSand/label=    Sandreserv
+EssentialProvisions/opt/ProjectPrepSand/tip=Minsta mängd sand att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepIron/label=    Järnreserv
+EssentialProvisions/opt/ProjectPrepIron/tip=Minsta mängd järn att ha i lager för byggnation.
+EssentialProvisions/opt/ProjectPrepCoal/label=    Kolreserv
+EssentialProvisions/opt/ProjectPrepCoal/tip=Minsta mängd kol att ha i lager för byggnation.
+EssentialProvisions/cat/Agriculture Alerts=Jordbruksvarningar
+EssentialProvisions/opt/EnableSoilWisdom/label=Jordvishet
+EssentialProvisions/opt/EnableSoilWisdom/tip=Markera riskabla grödsekvenser i odlingsinfofönstret — sjukdomskonflikter och säsongsrisker för frost/hetta.
+EssentialProvisions/opt/EnableBlightWatch/label=Skadedjursvakt
+EssentialProvisions/opt/EnableBlightWatch/tip=Fäst sjuka odlingsfält på kartan tills sjukdomen åtgärdats.
+EssentialProvisions/opt/EnableHarvestWatch/label=Skördevakt
+EssentialProvisions/opt/EnableHarvestWatch/tip=Årsrapport om hur många fruktträd i varje fruktodling som förblev oskördade och ruttnade, med en trend och byggnadens arbetarantal — din signal att lägga till arbetare eller minska arbetsområdet. Matar även ett direktuppdaterat antal oskördade träd till Fruktodlarpanelen.
+EssentialProvisions/opt/HarvestWatchMinFruit/label=    Min frukt att flagga
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=Minsta mängd oskördad frukt på ett träd innan det räknas som försummat (årssummering + realtidsräkning).
+EssentialProvisions/cat/Planting Almanac=Planteringsalmanacka
+EssentialProvisions/opt/EnablePlantingAlmanac/label=Planteringsalmanacka
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=Lägger till engångsklickbara förinställningar för växelbruk i odlingsfältfönstret. Levererar handplockade sjukdomssäkra rotationer; att applicera en ersätter hela fältets schema via spelets egen schemaläggare. Träder i kraft nästa gång du öppnar ett odlingsfältfönster.
+EssentialProvisions/cat/Other settings=Övriga inställningar
+EssentialProvisions/opt/PennyPincherExemptKey/label=    Snabbtangent för undantaget torn (Ctrl + denna tangent)
+EssentialProvisions/opt/PennyPincherExemptKey/tip=Med ett vakttorn markerat, håll Ctrl och tryck denna tangent för att växla det tornets undantag från Snålvakt. Undantagna torn ställs aldrig ner eller bemannas automatiskt — de förblir helt under din kontroll. Undantag sparas per sparfil. Alla Unity KeyCode-namn är giltiga (t.ex. P, F9, Slash); ogiltiga värden faller tillbaka till P.
+EssentialProvisions/opt/EfficientLaborOccupations/label=Effektiv arbetskraft: Tillåtna yrken
+EssentialProvisions/opt/EfficientLaborOccupations/tip=Kommaseparerad lista över FF:s Occupation-enumnamn. Invånare i dessa yrken omdirigeras till arbetararbete när de verkligen är sysslolösa. Redigera detta cfg-fält direkt för att lägga till/ta bort yrken — visas inte i KC-panelen för att hålla den ostökig. Starta om spelet för att ändringarna ska gälla.
+EssentialProvisions/opt/EfficientLaborVerbose/label=Effektiv arbetskraft: Utförlig loggning
+EssentialProvisions/opt/EfficientLaborVerbose/tip=När sant loggas varje invånare (yrke) när de registreras till / rensas från arbetarpoolen. Standard falskt loggar bara en sammanfattningsrad per dag, och endast på dagar då något ändrades. Endast cfg; visas inte i KC-panelen.
+EssentialProvisions/opt/InventoryDiagnostics/label=Lagerfunktioner: Diagnostikloggning
+EssentialProvisions/opt/InventoryDiagnostics/tip=När sant loggar Förbrukningskontroll och Överskottsförsäljning detaljer per föremål varje dag — observerad daglig hastighet, beräknat behåll-i-staden-/reservmål, aktuellt stadslager (uppdelning förråd/handelspost), och vad som skrevs var. Endast cfg; visas inte i KC-panelen. Använd för att verifiera att funktionerna beter sig korrekt, stäng sedan av igen.
+EssentialProvisions/opt/LearnedHandsVerbose/label=Lärda händer: Utförlig loggning
+EssentialProvisions/opt/LearnedHandsVerbose/tip=När sant loggas en rad per unik invånare första gången deras bonus tillämpas. Endast cfg; visas inte i KC-panelen. Standard är en enda engångsrad 'första tillämpning' som alltid utlöses, så du kan bekräfta att patchen är aktiv utan spam.
+EssentialProvisions/opt/DiseaseRosterDump/label=Sjukdomslistningsdump (diagnostik)
+EssentialProvisions/opt/DiseaseRosterDump/tip=När sant loggar EP vid första kartladdningen varje sjukdoms botklassificering, bästa möjliga tillfrisknande-%, och rå botdata (cureFactors, finalCureChance, curve, effMin/Max) till Latest.log — används för att validera DiseaseInfoApi:s botberäkning mot sjukdomslistan. Endast cfg; visas inte i KC-panelen. Lämna AV för normalt spel.
+EssentialProvisions/opt/ConsumableTrackedItems/label=Förbrukningskontroll: Spårade föremål
+EssentialProvisions/opt/ConsumableTrackedItems/tip=Kommaseparerad lista över ItemID-namn som Förbrukningskontroll hanterar. Redigera cfg-fältet direkt för att lägga till/ta bort föremål — visas inte i KC-panelen. Starta om för att ändringarna ska gälla.
+
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=Manifest Delivery
+ManifestDelivery/meta/desc=Vagnverkstadsöversyn: Läger-/knutpunktslägen, retur-lasthämtnings-AI, buffar för förrådsvagn
+ManifestDelivery/cat/Master=Huvudbrytare
+ManifestDelivery/opt/ModEnabled/label=Mod aktiverad
+ManifestDelivery/opt/ModEnabled/tip=Inaktivera för att återgå till vanillas vagnverkstadsbeteende
+ManifestDelivery/cat/Wagon Caps=Vagntak
+ManifestDelivery/opt/MaxWagonsStandard/label=Max vagnar — Standard
+ManifestDelivery/opt/MaxWagonsStandard/tip=Max antal vagnar en Standard-vagnverkstad kan producera (1–4).
+ManifestDelivery/opt/MaxWagonsCamp/label=Max vagnar — Läger
+ManifestDelivery/opt/MaxWagonsCamp/tip=2 rekommenderas: en fraktar produktion, en returnerar förnödenheter
+ManifestDelivery/opt/MaxWagonsHub/label=Max vagnar — Knutpunkt
+ManifestDelivery/opt/MaxWagonsHub/tip=Knutpunktsverkstäder betjänar hela bosättningen
+ManifestDelivery/cat/Backhaul AI=Returtransport-AI
+ManifestDelivery/opt/ReturnTripEnabled/label=Returhämtning
+ManifestDelivery/opt/ReturnTripEnabled/tip=Vagnar söker efter närliggande logistikförfrågningar vid avlämning innan de återvänder tomma
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=Sökradie för returresa
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=Sökradie i världsenheter för verkstäder i standardläge.
+ManifestDelivery/opt/PreferWorkshopInput/label=Föredra verkstäder vid returtransport
+ManifestDelivery/opt/PreferWorkshopInput/tip=Föredra att mata produktionsbyggnader (bageri, smedja, garveri, etc.) framför förrådsomflyttning
+ManifestDelivery/cat/Camp & Hub=Läger & knutpunkt
+ManifestDelivery/opt/CampHaulEnabled/label=Läger proaktiv transport
+ManifestDelivery/opt/CampHaulEnabled/tip=Lägervagnar transporterar proaktivt från närliggande produktion till knutpunktsförråd
+ManifestDelivery/opt/HubHaulEnabled/label=Knutpunkt proaktiv distribution
+ManifestDelivery/opt/HubHaulEnabled/tip=Knutpunktsvagnar betjänar proaktivt alla förfrågningar inom radie (marknader, skydd, producenter, förråd)
+ManifestDelivery/opt/HubMultiSourcePickup/label=Knutpunkt flerkällshämtning (experimentellt)
+ManifestDelivery/opt/HubMultiSourcePickup/tip=Knutpunktsvagnar begär endast Leverera/fyll på-förfrågningar (den specifika förfrågningen, inte hela byggnaden), så en vagn kan hämta från flera källförråd upp till full kapacitet istället för en nästan tom hämtning. Endast knutpunktsläge. Av som standard — experimentellt.
+ManifestDelivery/opt/CampWorkRadius/label=Lägrets arbetsradie
+ManifestDelivery/opt/CampWorkRadius/tip=Standard 120u täcker ett typiskt avlägset läger
+ManifestDelivery/opt/HubWorkRadius/label=Knutpunktens arbetsradie
+ManifestDelivery/opt/HubWorkRadius/tip=Standard 200u täcker ett helt stadscentrum
+ManifestDelivery/cat/Storage Cart=Förrådsvagn
+ManifestDelivery/opt/StorageCartCapacity/label=Kapacitet
+ManifestDelivery/opt/StorageCartCapacity/tip=Vanilla 750
+ManifestDelivery/opt/StorageCartSpeedMult/label=Omplaceringshastighetsmultiplikator
+ManifestDelivery/opt/StorageCartSpeedMult/tip=Hur snabbt vagnen 'kör' sig själv till en samlingspunkt
+ManifestDelivery/cat/Hotkeys=Snabbtangenter
+ManifestDelivery/opt/ModeCycleKey/label=Växla vagnverkstadsläge
+ManifestDelivery/opt/ModeCycleKey/tip=Unity KeyCode-namn. Växlar Standard / Läger / Knutpunkt medan en vagnverkstad är markerad.
+ManifestDelivery/cat/Diagnostics=Diagnostik
+ManifestDelivery/opt/HaulDiagnostics/label=Transportdiagnostik
+ManifestDelivery/opt/HaulDiagnostics/tip=Loggar hela formen på varje vagntransport (hämtnings-/avlämningsstopp, föremål, parametrar för betjänade förfrågningar, bärkapacitet) till MelonLoader-loggen. Undersökningsverktyg för finjustering av flerhämtning. Av som standard.
+ManifestDelivery/cat/Other settings=Övriga inställningar
+ManifestDelivery/opt/VerboseLogging/label=Utförlig loggning
+ManifestDelivery/opt/VerboseLogging/tip=När sant loggas varje leverans- och skanningshändelse (DELIVER / ReturnTrip / CampHaul / HubHaul CLAIM + EMPTY-rader) till MelonLoader-loggen. Användbart för att felsöka vagnruttning, men pratsamt på en livlig karta. Varningar och fel loggas alltid oavsett. Standard falskt.
+ManifestDelivery/opt/StatsEnabled/label=Transportstatistik — Aktiverad
+ManifestDelivery/opt/StatsEnabled/tip=När sant registrerar modden varje vagnleverans i en statistikfil per verkstad (livstids- + årsvis-totaler, uppdelning per föremål, uppdelning rå vs producerad). Tryck rapporttangenten (standard Ctrl+Shift+M) för att skriva ut en formaterad rapport till MelonLoader-loggen.
+ManifestDelivery/opt/StatsReportKey/label=Transportstatistik — Rapporttangent
+ManifestDelivery/opt/StatsReportKey/tip=Tryck CTRL+SHIFT+<denna tangent> för att skriva ut transportrapporten per verkstad till MelonLoader-loggen. Använd Unity KeyCode-namn (t.ex. M, J, F8).
+
+# ── Rivers Restored ──
+RiversRestored/meta/name=Rivers Restored
+RiversRestored/meta/desc=Återställer flodgenerering på FF-kartor och exponerar finjustering av flodtäthet/form/fiske
+RiversRestored/cat/Master=Huvudbrytare
+RiversRestored/opt/RiversEnabled/label=Floder aktiverade
+RiversRestored/opt/RiversEnabled/tip=Huvudbrytare. Av = vanilla (inga floder).
+RiversRestored/opt/RiverPreset/label=Flodförinställning (matchar kartans biom)
+RiversRestored/opt/RiverPreset/tip=Förinställt paket med flodinställningar matchade mot FF:s biomnamn. När den är satt till något annat än Anpassad, åsidosätter förinställningens värden de detaljerade reglagen. Välj alternativet som matchar din kartas biom för rimliga standardvärden.
+RiversRestored/opt/GranularSettings/label=Visa detaljerade inställningar (avancerat)
+RiversRestored/opt/GranularSettings/tip=När PÅ blir reglagen för flodform per reglage synliga nedan. De träder bara i kraft när Flodförinställning är satt till Anpassad.
+RiversRestored/opt/EnableRibbonAnimation/label=Rinnande vattenanimation
+RiversRestored/opt/EnableRibbonAnimation/tip=På = animerat bandflöde. Av = endast statisk vattenyta (billigare, sjöstil; sparar CPU/GPU på flodrika kartor).
+RiversRestored/opt/RiverPreferLakeWaterType/label=Föredra sjövatten (blått) för floder
+RiversRestored/opt/RiverPreferLakeWaterType/tip=På (standard) = floder använder sjötypens vatten (klarblått). Av = floder använder vilken vattentyp kartan tilldelar först (ofta Damm — grönt/grumligt).
+RiversRestored/opt/PondUseLakeMaterial/label=Tvinga dammvatten att renderas som sjö (blått)
+RiversRestored/opt/PondUseLakeMaterial/tip=PÅ (standard) = varje damm på varje karta renderas med blått sjömaterial istället för grön damm. Dammklassificeringen ändras inte, endast materialet byts. Åtgärdar även vattensynlighet vid sparning/omladdning — övergivna WaterTypes faller tillbaka på dammens (nu blå) material.
+RiversRestored/opt/EnableMapPreviewRender/label=[Beta] Rendera kartförhandsvisningar till PNG
+RiversRestored/opt/EnableMapPreviewRender/tip=Efter varje generering skriver RR en PNG-förhandsvisning uppifrån till UserData/RiversRestored/Previews/. Användbart för att verifiera RR:s genereringsresultat utan att starta en bosättning.
+RiversRestored/opt/ShowPreviewOverlay/label=[Beta] Visa förhandsvisningsöverlägg i spelet
+RiversRestored/opt/ShowPreviewOverlay/tip=Visa den senast renderade förhandsvisningen som en panel på höger sida av skärmen under spel. F8 växlar synlighet i spelet. Kräver att Rendera kartförhandsvisningar är PÅ.
+RiversRestored/cat/Flow Direction=Flödesriktning
+RiversRestored/opt/RiverFlowBias/label=Flodens flödesriktningsförskjutning
+RiversRestored/opt/RiverFlowBias/tip=Luta höjdkartan innan flodvägsgenerering så floder statistiskt flödar från ett valt högt hörn/kant till ett valt lågt. Ingen = ren fröstyrd (vanilla-beteende).
+RiversRestored/opt/RiverFlowBiasStrength/label=Flödesförskjutningens styrka
+RiversRestored/opt/RiverFlowBiasStrength/tip=Hur starkt höjdkartan lutas. 0,3 = subtilt, 0,4 = balanserad standard, 0,5 = starkt, 0,7+ = synligt lutad. Har ingen effekt när Riktningsförskjutning är Ingen.
+RiversRestored/cat/Density=Densitet
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/cat/Shape — Width / Depth=Form — Bredd / Djup
+RiversRestored/opt/MinWidth/label=Min bredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MinDepth/label=Min djup (m)
+RiversRestored/opt/MinDepth/tip=-1 = lämna orört (vanilla)
+RiversRestored/opt/MaxDepth/label=Max djup (m)
+RiversRestored/opt/MaxDepth/tip=-1 = lämna orört (vanilla)
+RiversRestored/cat/Carve Shape=Urgröpningsform
+RiversRestored/opt/RiverInnerRadius/label=Inre kanalradie (celler)
+RiversRestored/opt/RiverInnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/RiverOuterRadius/label=Yttre strandradie (celler)
+RiversRestored/opt/RiverOuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/RiverTrenchDepth/label=Kanaldjup (m)
+RiversRestored/opt/RiverTrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/RiverSmoothPasses/label=Strandutjämningspass
+RiversRestored/opt/RiverSmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/RiverJitterAmplitude/label=Slingeramplitud (m)
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/RiverJitterFrequency/label=Slingerfrekvens
+RiversRestored/opt/RiverJitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/cat/Water Plane / Fishing=Vattenyta / Fiske
+RiversRestored/opt/RiverRegisterAsWaterArea/label=Registrera som vattenområde
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=Behandla floder som vattenområden (sjöstil) — möjliggör fiske och stabil sparning
+RiversRestored/opt/RiverBlobRadius/label=Diskstämpelns radie (celler)
+RiversRestored/opt/RiverBlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/RiverBlobStride/label=Diskstämpelns steglängd (celler)
+RiversRestored/opt/RiverBlobStride/tip=Avstånd mellan diskstämplar längs vägen
+RiversRestored/opt/RiverFishingAreaMultiplier/label=Fiskeområdesmultiplikator
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = vanilla-densitet (gles), 4 = spelbar densitet
+RiversRestored/cat/Generator Gating=Generatorspärrar
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=Markera vatten som flodslut
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=DEN avgörande spärren — utan denna godkänns aldrig någon flod oavsett antal
+RiversRestored/opt/ForceCoastlineTerrain/label=Tvinga fram kustterräng
+RiversRestored/opt/ForceCoastlineTerrain/tip=Diagnostik: tvingar fram kustbiom (ger hav som garanterad flodmynning)
+RiversRestored/cat/Diagnostics=Diagnostik
+RiversRestored/opt/VerboseDiagnostics/label=Utförlig diagnostik
+RiversRestored/opt/VerboseDiagnostics/tip=Tillstånd per vattenområde vid sparning, antal vattenområden per steg under generering. Pratsamt i normalt spel.
+RiversRestored/cat/Preset · IdyllicValley=Förinställning · IdyllicValley
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/opt/MinWidth/label=Min bandbredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bandbredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/InnerRadius/label=Kanalbredd (fullt djup, celler)
+RiversRestored/opt/InnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/OuterRadius/label=Strandbredd (sluttning till mark, celler)
+RiversRestored/opt/OuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/BlobRadius/label=Synlig vattenbredd (celler)
+RiversRestored/opt/BlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/BlobStride/label=Vattenytans densitet (avancerat)
+RiversRestored/opt/BlobStride/tip=Steglängd mellan diskstämplar längs vägen; 3 = standard, högre = snabbare generering
+RiversRestored/opt/TrenchDepth/label=Floddjup (m under vattnet)
+RiversRestored/opt/TrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/SmoothPasses/label=Strandutjämning
+RiversRestored/opt/SmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/JitterAmplitude/label=Flodens slingerstyrka (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/JitterFrequency/label=Flodens slingerfrekvens
+RiversRestored/opt/JitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/opt/WaterMultiplier/label=Vattenmängdsmultiplikator
+RiversRestored/opt/WaterMultiplier/tip=Skalar fröets vattenvärde. 1.0 = vanilla. <1 = torrare, mindre sjöar. >1 = blötare. Påverkar förhandsvisning och spel. Standard: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, övriga 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=Flodfiskets produktivitetsboost
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (gles), 4 = spelbar densitet, 8+ = frodig
+RiversRestored/cat/Preset · LowlandLakes=Förinställning · LowlandLakes
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/opt/MinWidth/label=Min bandbredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bandbredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/InnerRadius/label=Kanalbredd (fullt djup, celler)
+RiversRestored/opt/InnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/OuterRadius/label=Strandbredd (sluttning till mark, celler)
+RiversRestored/opt/OuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/BlobRadius/label=Synlig vattenbredd (celler)
+RiversRestored/opt/BlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/BlobStride/label=Vattenytans densitet (avancerat)
+RiversRestored/opt/BlobStride/tip=Steglängd mellan diskstämplar längs vägen; 3 = standard, högre = snabbare generering
+RiversRestored/opt/TrenchDepth/label=Floddjup (m under vattnet)
+RiversRestored/opt/TrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/SmoothPasses/label=Strandutjämning
+RiversRestored/opt/SmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/JitterAmplitude/label=Flodens slingerstyrka (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/JitterFrequency/label=Flodens slingerfrekvens
+RiversRestored/opt/JitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/opt/WaterMultiplier/label=Vattenmängdsmultiplikator
+RiversRestored/opt/WaterMultiplier/tip=Skalar fröets vattenvärde. 1.0 = vanilla. <1 = torrare, mindre sjöar. >1 = blötare. Påverkar förhandsvisning och spel. Standard: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, övriga 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=Flodfiskets produktivitetsboost
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (gles), 4 = spelbar densitet, 8+ = frodig
+RiversRestored/cat/Preset · AridHighlands=Förinställning · AridHighlands
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/opt/MinWidth/label=Min bandbredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bandbredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/InnerRadius/label=Kanalbredd (fullt djup, celler)
+RiversRestored/opt/InnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/OuterRadius/label=Strandbredd (sluttning till mark, celler)
+RiversRestored/opt/OuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/BlobRadius/label=Synlig vattenbredd (celler)
+RiversRestored/opt/BlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/BlobStride/label=Vattenytans densitet (avancerat)
+RiversRestored/opt/BlobStride/tip=Steglängd mellan diskstämplar längs vägen; 3 = standard, högre = snabbare generering
+RiversRestored/opt/TrenchDepth/label=Floddjup (m under vattnet)
+RiversRestored/opt/TrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/SmoothPasses/label=Strandutjämning
+RiversRestored/opt/SmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/JitterAmplitude/label=Flodens slingerstyrka (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/JitterFrequency/label=Flodens slingerfrekvens
+RiversRestored/opt/JitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/opt/WaterMultiplier/label=Vattenmängdsmultiplikator
+RiversRestored/opt/WaterMultiplier/tip=Skalar fröets vattenvärde. 1.0 = vanilla. <1 = torrare, mindre sjöar. >1 = blötare. Påverkar förhandsvisning och spel. Standard: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, övriga 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=Flodfiskets produktivitetsboost
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (gles), 4 = spelbar densitet, 8+ = frodig
+RiversRestored/cat/Preset · Plains=Förinställning · Plains
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/opt/MinWidth/label=Min bandbredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bandbredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/InnerRadius/label=Kanalbredd (fullt djup, celler)
+RiversRestored/opt/InnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/OuterRadius/label=Strandbredd (sluttning till mark, celler)
+RiversRestored/opt/OuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/BlobRadius/label=Synlig vattenbredd (celler)
+RiversRestored/opt/BlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/BlobStride/label=Vattenytans densitet (avancerat)
+RiversRestored/opt/BlobStride/tip=Steglängd mellan diskstämplar längs vägen; 3 = standard, högre = snabbare generering
+RiversRestored/opt/TrenchDepth/label=Floddjup (m under vattnet)
+RiversRestored/opt/TrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/SmoothPasses/label=Strandutjämning
+RiversRestored/opt/SmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/JitterAmplitude/label=Flodens slingerstyrka (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/JitterFrequency/label=Flodens slingerfrekvens
+RiversRestored/opt/JitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/opt/WaterMultiplier/label=Vattenmängdsmultiplikator
+RiversRestored/opt/WaterMultiplier/tip=Skalar fröets vattenvärde. 1.0 = vanilla. <1 = torrare, mindre sjöar. >1 = blötare. Påverkar förhandsvisning och spel. Standard: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, övriga 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=Flodfiskets produktivitetsboost
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (gles), 4 = spelbar densitet, 8+ = frodig
+RiversRestored/cat/Preset · AlpineValleys=Förinställning · AlpineValleys
+RiversRestored/opt/NumRivers/label=Antal floder
+RiversRestored/opt/NumRivers/tip=Generatorn siktar på detta antal; slutligt antal beror på fröets genomförbarhet
+RiversRestored/opt/MinPoints/label=Minsta flodlängd
+RiversRestored/opt/MinPoints/tip=Minsta antal kontrollpunkter för att en flod ska godkännas
+RiversRestored/opt/MinWidth/label=Min bandbredd (celler)
+RiversRestored/opt/MinWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/MaxWidth/label=Max bandbredd (celler)
+RiversRestored/opt/MaxWidth/tip=0 = lämna orört (vanilla)
+RiversRestored/opt/InnerRadius/label=Kanalbredd (fullt djup, celler)
+RiversRestored/opt/InnerRadius/tip=Celler inom detta avstånd från mittlinjen gröps ur till kanaldjup
+RiversRestored/opt/OuterRadius/label=Strandbredd (sluttning till mark, celler)
+RiversRestored/opt/OuterRadius/tip=Var stränderna smälter tillbaka in i den ursprungliga terrängen
+RiversRestored/opt/BlobRadius/label=Synlig vattenbredd (celler)
+RiversRestored/opt/BlobRadius/tip=Diskstämpelns radie för sammanslagning av vattenområdespolygoner
+RiversRestored/opt/BlobStride/label=Vattenytans densitet (avancerat)
+RiversRestored/opt/BlobStride/tip=Steglängd mellan diskstämplar längs vägen; 3 = standard, högre = snabbare generering
+RiversRestored/opt/TrenchDepth/label=Floddjup (m under vattnet)
+RiversRestored/opt/TrenchDepth/tip=Hur djupt under vattenytan kanalen gröps ur
+RiversRestored/opt/SmoothPasses/label=Strandutjämning
+RiversRestored/opt/SmoothPasses/tip=0 = rå urgröpning, 4 = bra standard, 8 = mycket mjuk
+RiversRestored/opt/JitterAmplitude/label=Flodens slingerstyrka (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rak, större = mer slingrande
+RiversRestored/opt/JitterFrequency/label=Flodens slingerfrekvens
+RiversRestored/opt/JitterFrequency/tip=Vågsvängningar per Voronoi-segment
+RiversRestored/opt/WaterMultiplier/label=Vattenmängdsmultiplikator
+RiversRestored/opt/WaterMultiplier/tip=Skalar fröets vattenvärde. 1.0 = vanilla. <1 = torrare, mindre sjöar. >1 = blötare. Påverkar förhandsvisning och spel. Standard: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, övriga 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=Flodfiskets produktivitetsboost
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (gles), 4 = spelbar densitet, 8+ = frodig
+RiversRestored/cat/Other settings=Övriga inställningar
+RiversRestored/opt/RiversDontBlockWildlife/label=Floder blockerar inte viltspawning
+RiversRestored/opt/RiversDontBlockWildlife/tip=När PÅ kan hjortar och annat vilt spawna på andra sidan en flod istället för att blockeras eftersom området saknar en landväg till din stad. Åtgärdar 'inga hjortar bortom floden' på nya kartor; på en befintlig sparfil återfyller det även avskurna regioner vid laddning. Påverkar endast viltspawning — jägares fällfångst och invånares vägval förblir oförändrade. AV = vanilla-beteende (floder blockerar vilt på andra sidan).
+RiversRestored/opt/RiverFishPerCell/label=Flodfisk per vattencell
+RiversRestored/opt/RiverFishPerCell/tip=Storleksbestämmer en flods grundläggande fiskbestånd efter hur stor floden faktiskt är (dess antal fyllda vattenceller), istället för FF:s ytkurva som når ett tak — så en enorm kartöverspännande flod har proportionellt mer fisk än en liten bäck utan manuell justering. 1,0 = ~10-14 tusen fisk för en stor karteldelad flod (rekommenderas). Höj för rikare floder, sänk för magrare. 0 = inaktivera (använd vanilla-kurvan). Flodfiskets produktivitetsboost-multiplikator gäller fortfarande utöver denna bas.
+RiversRestored/opt/ScaleLakeFish/label=Storleksbestäm sjö-/dammfisk efter yta också
+RiversRestored/opt/ScaleLakeFish/tip=Tillämpar samma 'fisk per vattencell'-storleksbestämning (ovan) på sjöar och dammar, inte bara floder — så en stor sjö har proportionellt mer fisk än en liten damm istället för FF:s kurva som begränsar stora vattenkroppar. Endast boost: en vattenkropp hamnar aldrig med mindre fisk än vanilla (flodproduktivitetsmultiplikatorn tillämpas inte på sjöar). PÅ som standard. Slå AV för att behålla vanillas sjö-/dammfiskantal.
+
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=Sovereign Boons
+SovereignBoons/meta/desc=Kraftboostpaket: handplockade funktioner från community-moddar för att göra din bosättning starkare. Varje gåva är AV som standard. Sammanslaget med kredit till de ursprungliga community-moddarna — se README för ursprungstabellen.
+SovereignBoons/cat/Economy=Ekonomi
+SovereignBoons/opt/EnableCrownsBounty/label=Kronans gåva
+SovereignBoons/opt/EnableCrownsBounty/tip=Multiplicera guld från skatteuppbördshändelser. Trogen namnet — försäljning/återbetalning/händelsebelöningar berörs inte. Standard: AV.
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=Skattemultiplikator
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=Multiplikator tillämpad på guld från varje skattehändelse. Vanilla = 1,0. Standard: 2,0.
+SovereignBoons/opt/EnableWealthyCaravans/label=Förmögna karavaner
+SovereignBoons/opt/EnableWealthyCaravans/tip=Kraftfullare resande köpmän + högre lagertak för handelsposten. Standard: AV.
+SovereignBoons/opt/WealthyCaravansGoldMul/label=Guldmultiplikator
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=Multiplikator på köpmannens guldpool. Vanilla = 1,0. Standard: 2,0.
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=Varumultiplikator
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=Multiplikator på köpmannens varuantal. Vanilla = 1,0. Standard: 2,0.
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=Köp vad som helst
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=Köpmän köper alla föremål i sin varulista ELLER redan i förrådet. Standard: PÅ.
+SovereignBoons/opt/WealthyCaravansMaxStock/label=Handelspostens maxlager
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=Åsidosätt TradeManager.maxTradingPostStockCount. Vanilla = 100. Standard: 1000.
+SovereignBoons/opt/EnableMerchantsGambit/label=Köpmannens gambit
+SovereignBoons/opt/EnableMerchantsGambit/tip=Tryck snabbtangenten för att skanna besökande köpmän efter lönsam köp-lågt/sälj-högt-arbitrage och köra hela trappstegssekvensen i ett svep. Startar i Torrkörning (endast rapport). Standard: AV.
+SovereignBoons/opt/MerchantsGambitDryRun/label=Torrkörning (endast rapport)
+SovereignBoons/opt/MerchantsGambitDryRun/tip=Rapportera förväntad vinst via popup + logg utan att flytta några varor/guld. Verifiera siffrorna, stäng sedan av detta för att aktivera enklicksutförande. Standard: PÅ.
+SovereignBoons/opt/MerchantsGambitScanKey/label=Snabbtangent
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCode eller kombination — Ctrl+B, F6, Alt+Shift+M (modifierare: Ctrl/Alt/Shift). Standard: Ctrl+B.
+SovereignBoons/opt/MerchantsGambitMinProfit/label=Min vinst / enhet
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=Hoppa över arbitrage under denna guldvinst per enhet. Standard: 1.
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=Max cykler
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=Säkerhetsgräns för köp/sälj-steg per körning. Standard: 500.
+SovereignBoons/cat/Workforce=Arbetskraft
+SovereignBoons/opt/EnableSwiftFeet/label=Snabba fötter
+SovereignBoons/opt/EnableSwiftFeet/tip=Snabbare invånare + kraftfullare transportvagnar. Gäller karaktärer/vagnar som spawnas efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/SwiftFeetShoeBonus/label=Invånares skobonus
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=Ersätter Character._shoeBonusBase. Påverkar även plundrare. Vanilla = 0,15. Standard: 0,30.
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=Vagnens rörelsehastighet
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=Åsidosätter TransportWagon._movementSpeed. Vanilla ≈ 4,5. Standard: 8,0.
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=Vagnens bärkapacitet
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=Åsidosätter TransportWagon.carryCapacity. Vanilla = 150. Standard: 300.
+SovereignBoons/opt/EnableEagerHands/label=Ivriga händer
+SovereignBoons/opt/EnableEagerHands/tip=Sänker åldersgränser för arbetspoolen + skolans inskrivningsintervall. Standard: AV.
+SovereignBoons/opt/EagerHandsChildAge/label=Barns åldersgräns
+SovereignBoons/opt/EagerHandsChildAge/tip=Min ålder då en invånare blir barnarbetare. Vanilla = 15. Standard: 12.
+SovereignBoons/opt/EagerHandsAdolescentAge/label=Ungdomsåldersgräns
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=Ålder då en invånare befordras till vuxen arbetskraft. Vanilla = 25. Standard: 18.
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=Skolans minsta inskrivningsålder
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=Vanilla = 5. Standard: 5.
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=Skolans högsta inskrivningsålder
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=Sätt mycket lågt för att i praktiken inaktivera skolgång. Vanilla = 10. Standard: 10.
+SovereignBoons/opt/EnableKingsHighway/label=Kungens landsväg
+SovereignBoons/opt/EnableKingsHighway/tip=Snabbare resa på vägar + långsammare aggressiva djur. Vägbonusen beräknas om vid vägändring/omladdning; djursaktsaktning är live. Standard: AV.
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=Öka väghastighet
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=Multiplicera hastighetsbonusen på väg. Standard: PÅ (när gåvan är aktiverad).
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=Väghastighetsmultiplikator
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=Multiplikator på AIGridNode.nodeSpeedBonus. Vanilla = 1,0. Standard: 1,5.
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=Sakta ner aggressiva djur
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=Vargar/björnar/etc. rör sig långsammare — lättare att fly, lättare att jaga. Standard: PÅ.
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=Aggressiva djurs hastighetsmultiplikator
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=Vanilla = 1,0. Lägre = långsammare rovdjur. Standard: 0,85.
+SovereignBoons/cat/Buildings=Byggnader
+SovereignBoons/opt/EnableSpringsVigor/label=Vattenrikare brunnar
+SovereignBoons/opt/EnableSpringsVigor/tip=Snabbare brunnsladdning + större brunnskapacitet. Gäller brunnar placerade efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/SpringsVigorRechargeMult/label=Laddningsmultiplikator
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=Multiplikator på Well.waterGainPerSecond (vanilla = 0,01 per sekund). Standard: 2,0 (×2 → 0,02 per sekund).
+SovereignBoons/opt/SpringsVigorCapacityMult/label=Kapacitetsmultiplikator
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=Multiplikator på Well.maxWater (vanilla = 50). Standard: 2,0 (×2 → 100 max).
+SovereignBoons/cat/Combat=Strid
+SovereignBoons/opt/EnableLevysArms/label=Nödmilis
+SovereignBoons/opt/EnableLevysArms/tip=Snabbtangentstyrd milis. Beväpnar varje kvalificerad invånare med stridskonfiguration + statistikbuff. Standard: AV.
+SovereignBoons/opt/LevysArmsArmKey/label=Mobiliseringstangent
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCode eller kombination — Ctrl+A, F4, Alt+Shift+M (modifierare: Ctrl/Alt/Shift). Standard: Ctrl+A.
+SovereignBoons/opt/LevysArmsUnarmKey/label=Nedstigningstangent
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCode eller kombination (t.ex. Alt+A; modifierare Ctrl/Alt/Shift). Standard: Alt+A.
+SovereignBoons/opt/LevysArmsStatMagnitude/label=Statistikstyrka
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=Tillämpas på varje Perc-statistikfält (max liv, rustning, närstrids-/distansskada, etc.). Vanilla = 0. Källmoddens 'kraftfulla' förinställning = 1000. Standard: 100.
+SovereignBoons/cat/Misc=Diverse
+SovereignBoons/opt/EnableSteadfastResolve/label=Fuska framgångar
+SovereignBoons/opt/EnableSteadfastResolve/tip=Framgångar låses upp även med icke-standardinställningar eller moddar. Standard: AV.
+SovereignBoons/opt/EnableLongReach/label=Domänexpansion
+SovereignBoons/opt/EnableLongReach/tip=Multiplikatorer för arbetsradie per byggnad. Gäller byggnader placerade efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/LongReachWorkCampMul/label=Arbetslägerradie ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=Multiplikator på arbetslägrets arbetsradie (vanilla 60). 1,0 = ingen ändring, 1,5 = 1,5×, 2,0 = dubbelt. Standard: 1,0.
+SovereignBoons/opt/LongReachHunterMul/label=Jägarradie ×
+SovereignBoons/opt/LongReachHunterMul/tip=Multiplikator på jägarstugans radie (vanilla 60). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachFishingMul/label=Fiskeradie ×
+SovereignBoons/opt/LongReachFishingMul/tip=Multiplikator på fiskestugans radie (vanilla 30). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachArboristMul/label=Fruktodlarradie ×
+SovereignBoons/opt/LongReachArboristMul/tip=Multiplikator på fruktodlarens radie (vanilla 100). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachMarketMul/label=Marknadsradie ×
+SovereignBoons/opt/LongReachMarketMul/tip=Multiplikator på marknadens strategiska planeringsradie (vanilla 50). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachForagerMul/label=Samlarstugans radie ×
+SovereignBoons/opt/LongReachForagerMul/tip=Multiplikator på samlarstugans insamlingsradie (vanilla 60). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachRatCatcherMul/label=Råttfångarradie ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=Multiplikator på råttfångarens arbetsradie (vanilla 60). 1,0 = ingen ändring. Standard: 1,0.
+SovereignBoons/opt/LongReachDoghouseMul/label=Hundkojans vaktradie ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=Multiplikator på hundkojans vaktradie (vanilla 60) — hundens försvarsområde. 1,0 = ingen ändring. Standard: 1,0. [Hund/Katt-DLC]
+SovereignBoons/opt/EnableCivicPride/label=Medborgarstolthet
+SovereignBoons/opt/EnableCivicPride/tip=Multiplicera dekorationsbyggnadens önskvärdhetsradie/bonus. Gäller dekorationer placerade efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/CivicPrideRadiusMul/label=Radiemultiplikator
+SovereignBoons/opt/CivicPrideRadiusMul/tip=Multiplikator på Building._strategicPlanningRadius (vanilla = 50). Standard: 1,5.
+SovereignBoons/opt/CivicPrideBonusMul/label=Bonusmultiplikator
+SovereignBoons/opt/CivicPrideBonusMul/tip=Multiplikator på styrkan hos Building._strategicPlanningBonus. Vanilla = 1,0. Standard: 1,5.
+SovereignBoons/opt/EnableHallowedReliquary/label=Helgat reliekvarium
+SovereignBoons/opt/EnableHallowedReliquary/tip=Andlighetsbonusmultiplikator + koppla loss reliker från prästantal. Standard: AV.
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=Andlighetsbonusmultiplikator
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=Multiplikator på ReligionManager._spiritualityBonusPerRelic (vanilla = 50). Standard: 1,5.
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=Koppla loss reliker från prästantal
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=1 präst aktiverar varje tilldelad relik. Av = vanilla (prästantal spärrar aktiva reliker). Standard: PÅ.
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=Lås upp alla reliker
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=Kraftboost: låser upp varje relik i spelet vid kartladdning. När de väl mottagits sparas de i sparfilen (stäng av efteråt för att sluta återutlösa, men du behåller det du har). Standard: AV.
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=Extra relikplatser
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=Extra relikplatser tillagda till varje tempel (vanilla = 2). 0..13 → 2..15 totalt (matchar VC_ModifyTemple). Platswidgetar klonas från den befintliga gränssnittsmallen och läggs ut i rader om upp till 5. Standard: 4 (6 totalt). FF:s vanilla-relikpool är ~8, så allt över ~10 lämnar tomma platser. Träder i kraft vid nästa laddning av sparfil.
+SovereignBoons/opt/EnableHoardedStores/label=Hamstrade förråd
+SovereignBoons/opt/EnableHoardedStores/tip=Kapacitetsmultiplikator per förrådstyp. Gäller förrådsbyggnader placerade efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=Rotkällare — Tillämpa
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=Tillämpa kapacitetsmultiplikator på rotkällare. Standard: AV.
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=Rotkällare — Multiplikator
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=Kapacitetsmultiplikator för rotkällare. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=Silo — Tillämpa
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=Tillämpa kapacitetsmultiplikator på silo. Standard: AV.
+SovereignBoons/opt/HoardedStoresGranaryMul/label=Silo — Multiplikator
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=Kapacitetsmultiplikator för silo. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=Förrådshus — Tillämpa
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=Tillämpa kapacitetsmultiplikator på förrådshus. Standard: AV.
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=Förrådshus — Multiplikator
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=Kapacitetsmultiplikator för förrådshus. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=Lagerdepå — Tillämpa
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=Tillämpa kapacitetsmultiplikator på lagerdepå. Standard: AV.
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=Lagerdepå — Multiplikator
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=Kapacitetsmultiplikator för lagerdepå. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=Upplagsgård — Tillämpa
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=Tillämpa kapacitetsmultiplikator på upplagsgård. Standard: AV.
+SovereignBoons/opt/HoardedStoresStockyardMul/label=Upplagsgård — Multiplikator
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=Kapacitetsmultiplikator för upplagsgård. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=Skattkammare — Tillämpa
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=Tillämpa kapacitetsmultiplikator på skattkammare. Standard: AV.
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=Skattkammare — Multiplikator
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=Kapacitetsmultiplikator för skattkammare. Standard: 2,0.
+SovereignBoons/opt/HoardedStoresMarketEnable/label=Marknad — Tillämpa
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=Tillämpa kapacitetsmultiplikator på marknad. Standard: AV.
+SovereignBoons/opt/HoardedStoresMarketMul/label=Marknad — Multiplikator
+SovereignBoons/opt/HoardedStoresMarketMul/tip=Kapacitetsmultiplikator för marknad. Standard: 2,0.
+SovereignBoons/opt/EnableGreaterHalls/label=Större salar
+SovereignBoons/opt/EnableGreaterHalls/tip=Tillägg med +arbetare / +invånare per byggnad för ~52 byggnadstyper. Grupperat efter Boskap / Produktion / Resursplatser / Fältarbete / Civilt / Bostäder. Gäller byggnader placerade efter aktivering; ladda om sparfilen för att uppdatera befintliga. Standard: AV.
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=Ladugård +arbetare
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..6. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=Kattkennel +arbetare
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=Hönshus +arbetare
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=Hundkennel +arbetare
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=Getlada +arbetare
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=Stall +arbetare
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Boskap. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=Apotek +arbetare
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=Vapensmedja +arbetare
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=Bageri +arbetare
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=Korgmakeri +arbetare
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=Smedja +arbetare
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=Bokbinderi +arbetare
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=Bryggeri +arbetare
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=Tegelbruk +arbetare
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=Ljusgjuteri +arbetare
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=Kolmila +arbetare
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=Osteri +arbetare
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=Skomakeri +arbetare
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=Tunnbinderi +arbetare
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=Pilmakeri +arbetare
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=Gjuteri +arbetare
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=Möbelverkstad +arbetare
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..5. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=Glasbruk +arbetare
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..6. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=Pappersbruk +arbetare
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..5. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=Krukmakeri +arbetare
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=Konserveri +arbetare
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=Rökeri +arbetare
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=Väveri +arbetare
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=Väderkvarn +arbetare
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=Vedhuggarstuga +arbetare
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Produktion. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=Lergrop +arbetare
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..4. Standard: 0 (ingen ändring). Covers the Clay Pit — both the surface pit and its deep (infinite) version.
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=Mineralgruva +arbetare
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..4. Standard: 0 (ingen ändring). One class for ALL deep-deposit mines: every Iron, Gold and Coal mine, surface and deep. Ore type is data, not a separate building, so this can't target a single ore.
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=Sandgrop +arbetare
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..4. Standard: 0 (ingen ändring). Covers the Sand Pit — both the surface pit and its deep (infinite) version.
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=Såggrop +arbetare
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=Stenbrott +arbetare
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..8. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=Arbetsläger +arbetare
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Resursplatser. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=Fruktodlare +arbetare
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Fältarbete. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=Fiskestuga +arbetare
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Fältarbete. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=Samlarstuga +arbetare
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Fältarbete. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=Jägarstuga +arbetare
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Fältarbete. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=Kompostgård +arbetare
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=Vakttorn +arbetare
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=Gillessal +arbetare
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=Helarhus +arbetare
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=Bibliotek +arbetare
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..1. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=Marknad +arbetare
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=Pub +arbetare
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_School_Addon/label=Skola +arbetare
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=Tempel +arbetare
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..3. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=Vagnverkstad +arbetare
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Civilt. Intervall: 0..2. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=Skydd +arbetare
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Bostäder. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=Tillfälligt skydd +arbetare
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=Extra arbets-/boendeplatser tillagda utöver vanillas maxWorkers. Kategori: Bostäder. Intervall: 0..4. Standard: 0 (ingen ändring).
+SovereignBoons/opt/EnableBountifulFields/label=Bördiga fält
+SovereignBoons/opt/EnableBountifulFields/tip=Finjustering per gröda + jordbruksglobaler. Grödans dataposter ändras vid kartladdning — ladda om din sparfil efter att ha ändrat värden för att de ska träda i kraft.
+SovereignBoons/opt/EnableBountifulCrops/label=Bördiga grödor — 8 nya grödor
+SovereignBoons/opt/EnableBountifulCrops/tip=Lägger till Paprika (→Krydda), Munkrot (→Medicinska rötter), Hampa (→Fibrer), Sojabönor (→Nötter), Majs (→Spannmål), Purpurpil (→Vide), Kréminisvamp (→Svamp) och Örtträdgård (→Örter, återställer fruktbarhet) till planteringsväljaren. Finjustera dem per gröda med reglagen nedan, precis som vanilla-grödor. SPARFILSSÄKERT: att stänga av tar bara bort väljarikonerna — grödor som redan planterats i en sparfil fortsätter fungera. Standard: falskt.
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=Logga vanilla-värden
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=Skriv ut varje grödas vanilla-VegetableFieldsRecord-värden till MelonLoader.log vid kartladdning. Aktivera tillfälligt för att upptäcka standardvärden per gröda; stäng av när klar. Standard: falskt.
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=Logga grödsjukdomar
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=Skriv ut varje grödsjukdom (namn, målgrödor, infektions-/spridningsjustering) till MelonLoader.log vid kartladdning — ~80 rader. Endast diagnostik; det enda sättet att se sjukdomars listor över målgrödor (de finns i asset bundles). Standard: falskt.
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=Rutor per bonde-multiplikator
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=Multiplikator på AgricultureManager._gridsPerFarmer. Standard: 1,0 (vanilla).
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=Underhållslängd (dagar)
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=Åsidosätt AgricultureManager._maintenanceLengthInDays. Intervall 45..90 för att gälla; allt utanför det intervallet behandlas som ingen ändring. Standard: -1 (ingen ändring).
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=Rova — Tillämpa
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=Huvudbrytare för Rova-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=Rova — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Rova): 3.
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=Rova — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Rova): 10.
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=Rova — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Rova): 41.
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=Rova — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Rova): -5.0.
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=Rova — Frostdöd %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Rova): 0.
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=Rova — Värmedöd %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Rova): 35.
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=Morot — Tillämpa
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=Huvudbrytare för Morot-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=Morot — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Morot): 3.
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=Morot — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Morot): 10.
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=Morot — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Morot): 58.
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=Morot — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Morot): 0.0.
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=Morot — Frostdöd %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Morot): 0.
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=Morot — Värmedöd %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Morot): 50.
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=Vete — Tillämpa
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=Huvudbrytare för Vete-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=Vete — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Vete): 8.
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=Vete — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Vete): 10.
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=Vete — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Vete): 118.
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=Vete — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Vete): -4.0.
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=Vete — Frostdöd %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Vete): 20.
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=Vete — Värmedöd %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Vete): 0.
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=Bovete — Tillämpa
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=Huvudbrytare för Bovete-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=Bovete — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Bovete): 1.
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=Bovete — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Bovete): 10.
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=Bovete — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Bovete): 60.
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=Bovete — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Bovete): -10.0.
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=Bovete — Frostdöd %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Bovete): 80.
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=Bovete — Värmedöd %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Bovete): 0.
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=Råg — Tillämpa
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=Huvudbrytare för Råg-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=Råg — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Råg): 6.
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=Råg — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Råg): 10.
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=Råg — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Råg): 118.
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=Råg — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Råg): -6.0.
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=Råg — Frostdöd %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Råg): 0.
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=Råg — Värmedöd %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Råg): 0.
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=Böna — Tillämpa
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=Huvudbrytare för Böna-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=Böna — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Böna): -1.
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=Böna — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Böna): 10.
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=Böna — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Böna): 85.
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=Böna — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Böna): -2.0.
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=Böna — Frostdöd %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Böna): 80.
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=Böna — Värmedöd %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Böna): 0.
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=Ärta — Tillämpa
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=Huvudbrytare för Ärta-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=Ärta — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Ärta): -1.
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=Ärta — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Ärta): 10.
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=Ärta — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Ärta): 51.
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=Ärta — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Ärta): 0.0.
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=Ärta — Frostdöd %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Ärta): 0.
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=Ärta — Värmedöd %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Ärta): 75.
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=Kål — Tillämpa
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=Huvudbrytare för Kål-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=Kål — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Kål): 4.
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=Kål — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Kål): 10.
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=Kål — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Kål): 85.
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=Kål — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Kål): -3.0.
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=Kål — Frostdöd %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Kål): 0.
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=Kål — Värmedöd %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Kål): 0.
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=Purjolök — Tillämpa
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=Huvudbrytare för Purjolök-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=Purjolök — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Purjolök): 6.
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=Purjolök — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Purjolök): 10.
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=Purjolök — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Purjolök): 118.
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=Purjolök — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Purjolök): 0.0.
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=Purjolök — Frostdöd %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Purjolök): 0.
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=Purjolök — Värmedöd %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Purjolök): 0.
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=Lin — Tillämpa
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=Huvudbrytare för Lin-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=Lin — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Lin): 5.
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=Lin — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Lin): 10.
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=Lin — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Lin): 95.
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=Lin — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Lin): 0.0.
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=Lin — Frostdöd %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Lin): 0.
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=Lin — Värmedöd %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Lin): 0.
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=Klöver — Tillämpa
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=Huvudbrytare för Klöver-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=Klöver — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Klöver): -3.
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=Klöver — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Klöver): 10.
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=Klöver — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Klöver): 64.
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=Klöver — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Klöver): -8.0.
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=Klöver — Frostdöd %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Klöver): 0.
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=Klöver — Värmedöd %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Klöver): 0.
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=Hö — Tillämpa
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=Huvudbrytare för Hö-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=Hö — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Hö): 1.
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=Hö — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Hö): 10.
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=Hö — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Hö): 128.
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=Hö — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Hö): -5.0.
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=Hö — Frostdöd %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Hö): 0.
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=Hö — Värmedöd %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Hö): 0.
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=Paprika — Tillämpa
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=Huvudbrytare för Paprika-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=Paprika — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Paprika): 10.
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=Paprika — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Paprika): 10.
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=Paprika — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Paprika): 70.
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=Paprika — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Paprika): 1.0.
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=Paprika — Frostdöd %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Paprika): 80.
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=Paprika — Värmedöd %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Paprika): 5.
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=Munkrot — Tillämpa
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=Huvudbrytare för Munkrot-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=Munkrot — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Munkrot): 8.
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=Munkrot — Planteringsdagar
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Munkrot): 10.
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=Munkrot — Mognadsdagar
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Munkrot): 65.
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=Munkrot — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Munkrot): 1.0.
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=Munkrot — Frostdöd %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Munkrot): 30.
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=Munkrot — Värmedöd %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Munkrot): 10.
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=Hampa — Tillämpa
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=Huvudbrytare för Hampa-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=Hampa — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Hampa): 12.
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=Hampa — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Hampa): 10.
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=Hampa — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Hampa): 60.
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=Hampa — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Hampa): 1.0.
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=Hampa — Frostdöd %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Hampa): 25.
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=Hampa — Värmedöd %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Hampa): 10.
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=Sojaböna — Tillämpa
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=Huvudbrytare för Sojaböna-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=Sojaböna — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Sojaböna): 5.
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=Sojaböna — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Sojaböna): 10.
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=Sojaböna — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Sojaböna): 70.
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=Sojaböna — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Sojaböna): 1.0.
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=Sojaböna — Frostdöd %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Sojaböna): 45.
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=Sojaböna — Värmedöd %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Sojaböna): 10.
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=Majs — Tillämpa
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=Huvudbrytare för Majs-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=Majs — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Majs): 12.
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=Majs — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Majs): 10.
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=Majs — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Majs): 75.
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=Majs — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Majs): 1.0.
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=Majs — Frostdöd %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Majs): 70.
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=Majs — Värmedöd %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Majs): 5.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=Purpurpil — Tillämpa
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=Huvudbrytare för Purpurpil-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=Purpurpil — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Purpurpil): 4.
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=Purpurpil — Planteringsdagar
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Purpurpil): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=Purpurpil — Mognadsdagar
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Purpurpil): 80.
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=Purpurpil — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Purpurpil): 1.0.
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=Purpurpil — Frostdöd %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Purpurpil): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=Purpurpil — Värmedöd %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Purpurpil): 30.
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=Krémini-svamp — Tillämpa
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=Huvudbrytare för Krémini-svamp-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=Krémini-svamp — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Krémini-svamp): 2.
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=Krémini-svamp — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Krémini-svamp): 10.
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=Krémini-svamp — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Krémini-svamp): 45.
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=Krémini-svamp — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Krémini-svamp): 1.0.
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=Krémini-svamp — Frostdöd %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Krémini-svamp): 20.
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=Krémini-svamp — Värmedöd %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Krémini-svamp): 40.
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=Örter — Tillämpa
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=Huvudbrytare för Örter-åsidosättningar. AV → vanilla-värden används (reglagen nedan ignoreras). PÅ → värdena nedan skrivs till grödans datapost vid kartladdning. Standard: falskt.
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=Örter — Fruktbarhetsutarmning
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=Fruktbarhet förbrukad per planteringscykel. Negativt = återställer fruktbarhet. Intervall: -10..10. Standard (vanilla Örter): -3.
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=Örter — Planteringsdagar
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=Dagar att plantera innan tillväxten börjar. Lägre = snabbare omsättning. Intervall: 1..30. Standard (vanilla Örter): 10.
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=Örter — Mognadsdagar
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=Dagar från planterad till skördeklar. Lägre = snabbare gröda. Intervall: 10..300. Standard (vanilla Örter): 60.
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=Örter — Ogräsinjektion
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=Procent ogräsnivå tillagd varje plantering/skördecykel (`weedLevel += värde / 100`). Negativt = tar bort ogräs (de flesta vanilla-grödor). Lägre = mindre ogräs. Intervall: -20..10. Standard (vanilla Örter): -4.0.
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=Örter — Frostdöd %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=Procent av grödan som dör vid en frosthändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Örter): 15.
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=Örter — Värmedöd %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=Procent av grödan som dör vid en värmeböljehändelse. 0 = immun. Lägre = kraftboost. Intervall: 0..100. Standard (vanilla Örter): 15.
+SovereignBoons/cat/Weather=Väder
+SovereignBoons/opt/EnableTemperateSkies/label=Milda himlar
+SovereignBoons/opt/EnableTemperateSkies/tip=Undertrycker extrema väderhändelser. Borttagning av snöstorm/värmebölja gäller vid väderinitiering (omladdning); torka/extremchans är live. Standard: AV.
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=Inaktivera snöstorm
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=Ta bort snöstorm från slumpningen av extremväder. Standard: AV.
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=Inaktivera värmebölja
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=Ta bort värmebölja från slumpningen av extremväder. Standard: AV.
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=Inaktivera ALLT extremväder
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=Tvinga chanceOfExtremeWeather till 0. Staplar med brytarna per händelse. Standard: AV.
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=Inaktivera torka
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=Platt nollkurva som åsidosättning för WeatherProfile.chanceOfDrought. Standard: AV.
+
+# ── Tended Wilds ──
+TendedWilds/meta/name=Tended Wilds
+TendedWilds/meta/desc=Samlarstugeöversyn: helårsodling, vild plantering, prioritet 1-9, omplacering av samlingsväxter
+TendedWilds/cat/Master=Huvudbrytare
+TendedWilds/opt/ModEnabled/label=Mod aktiverad
+TendedWilds/opt/ModEnabled/tip=Inaktivera för att återgå till vanillas samlarstuga
+TendedWilds/opt/RelocationEnabled/label=Omplacering aktiverad
+TendedWilds/opt/RelocationEnabled/tip=Huvudbrytare för omplacering av samlingsväxter
+TendedWilds/cat/Relocate by Type=Flytta efter typ
+TendedWilds/opt/RelocateHerbs/label=Örter
+TendedWilds/opt/RelocateHerbs/tip=Tillåt omplacering av örtfläckar.
+TendedWilds/opt/RelocateMushrooms/label=Svamp
+TendedWilds/opt/RelocateMushrooms/tip=Tillåt omplacering av svampkluster.
+TendedWilds/opt/RelocateGreens/label=Grönsallad
+TendedWilds/opt/RelocateGreens/tip=Tillåt omplacering av grönsaladsfläckar.
+TendedWilds/opt/RelocateRoots/label=Rötter
+TendedWilds/opt/RelocateRoots/tip=Tillåt omplacering av rotkoncentrationer.
+TendedWilds/opt/RelocateNuts/label=Hasselnötter
+TendedWilds/opt/RelocateNuts/tip=Tillåt omplacering av hasselnötsbuskar.
+TendedWilds/opt/RelocateWillow/label=Vide
+TendedWilds/opt/RelocateWillow/tip=Tillåt omplacering av videbuskar.
+TendedWilds/opt/RelocateBerries/label=Bärbuskar
+TendedWilds/opt/RelocateBerries/tip=Hagtorn, sumak
+TendedWilds/cat/Cost=Kostnad
+TendedWilds/opt/GoldCostToRelocate/label=Guldkostnad per omplacering
+TendedWilds/opt/GoldCostToRelocate/tip=0 = gratis, endast arbete
+TendedWilds/cat/Foraging=Insamling
+TendedWilds/opt/ExemptForagingBuildings/label=Undanta brunnar/jägarstugor från insamlingsstraff
+TendedWilds/opt/ExemptForagingBuildings/tip=Brunnar och jägarstugor minskar inte närliggande insamlingsavkastning (samlarstugor redan undantagna i vanilla)
+
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=The Dockmaster's Dingy Boathouse
+TheDockmastersDingyBoathouse/meta/desc=Återaktiverar Farthest Frontiers båtfiske — en eka och hamnmästarens båthus.
+TheDockmastersDingyBoathouse/cat/Master=Huvudbrytare
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=Mod aktiverad
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=Inaktivera för att återgå till vanilla-beteende.
+TheDockmastersDingyBoathouse/cat/Boat=Båt
+TheDockmastersDingyBoathouse/opt/BoatScale/label=Ekans skala
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=Båtens visuella storlek. 1 = rå modell.
+TheDockmastersDingyBoathouse/cat/Boathouse=Båthus
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=Fotavtryckets bredd (celler)
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=Fotavtrycket täcker bara huset; bryggan sträcker sig ut över vattnet. Placera om efter ändring.
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=Fotavtryckets djup (celler)
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=Förankrad till modellens strandsida. Placera om efter ändring.
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=Lyktflimmer
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=Ljusliknande flimmer på lyktlågorna. Av = jämnt sken.
+TheDockmastersDingyBoathouse/opt/PostDepth/label=Stolpdjup ner i vattnet
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=Hur djupt strukturen sitter ner i vattnet. 0 = ursprunglig vattenlinje. Live.
+TheDockmastersDingyBoathouse/cat/Hotkeys=Snabbtangenter
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=Placera båthus
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=Registrera + gå in i placeringsläge för båthuset.
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=Spawna / segla eka
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=Sikta på vatten: första tryckningen släpper din eka, senare tryckningar seglar den dit.
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=Stuva undan eka
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=Ta bort din eka så du kan sätta ut den någon annanstans.
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=Eka större
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=Skala upp din eka.
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=Eka mindre
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=Skala ner din eka.
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=Diagnostikutskrift
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=Skriv ut byggnads-/prefabdiagnostik till loggen.
+
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=Warden of the Wilds
+WardenOfTheWilds/meta/desc=Jägaröversyn: T2-förgreningsvägar, distanshållande AI, fiske-/rökeri-justering, multiplikatorer för storviltspawn.
+WardenOfTheWilds/cat/Master Toggles=Huvudbrytare
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=Jägaröversyn
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=T2-förgreningsvägar, distanshållande AI, räckviddsbonusar för gömsle
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=Fiskeöversyn
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=Spöfiskar-/tinfiskarlägen, fiskebrygga, teknikbuff för hållbart fiske
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=Rökeriöversyn
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=Justering av rökeriets radie/arbetare/förråd
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=Diagnostikloggning
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=Utförlig loggning för utveckling — lämna av vid normalt spel
+WardenOfTheWilds/cat/Sub-systems=Delsystem
+WardenOfTheWilds/opt/HunterCombatEnabled/label=Jägarens strids-AI
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=Distanshållning, reträtt, undvikande av flera rovdjur — stridssystemets tunga lyft
+WardenOfTheWilds/opt/HunterRallyEnabled/label=Jägarsamlingens snabbtangenter
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=Kontroll av tangentbindningar per bildruta för samla/återvänd/markera alla
+WardenOfTheWilds/opt/HunterUIEnabled/label=Jägargränssnittsinjektion
+WardenOfTheWilds/opt/HunterUIEnabled/tip=Injektion av knapp + reglage för Storviltjägare / Fällmästare
+WardenOfTheWilds/opt/FishingUIEnabled/label=Fiskegränssnittsinjektion
+WardenOfTheWilds/opt/FishingUIEnabled/tip=Gränssnitt för Spöfiskar-/Tinfiskarläge
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=Teknikträdspatch
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=Åsidosättning av värde för Hållbart fiske
+WardenOfTheWilds/cat/Smokehouse=Rökeri
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=Anpassad arbetsradie
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=När PÅ visar rökeriet en synlig arbetsområdescirkel (synlig när byggnaden är markerad) vid den konfigurerade radien. Ställ AV för att inaktivera det visuella helt samtidigt som förråds-/arbetarbuffarna behålls.
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=Tillämpa radie
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=Vägra arbete utanför den konfigurerade radien
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=Arbetsradie
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=Radien på rökeriets arbetsområdescirkel. Vanilla har inget arbetsområde på rökeriet — det visuella är rent vägledande för att placera jägarstugor/fiskestugor inom räckhåll. 60u ≈ en bekväm försörjningszon. Lägre för täta kluster, högre för utspridda layouter.
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=Max arbetare
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=Antal arbetsplatser i varje rökeri. Vanilla = 1. 2 = en andra rökare kan bearbeta kött/fisk parallellt, vilket dubblar genomströmningen. Ställ på 1 för att behålla vanilla-paritet.
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=Lagertak för rått kött
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=Kapacitet för INKOMMANDE rått kött/fisk (bufferten som väntar på att rökas). Vanilla-taket är litet och stoppar produktionen när jägare kommer in med ett stort byte. 200 enheter ger en bekväm buffert. Fältet upptäcks automatiskt vid anslutning — se loggen.
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=Lagertak för rökt kött
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=Kapacitet för UTGÅENDE rökt kött/rökt fisk (som väntar på vagnhämtning). Större utgångsbuffert = färre vagnresor och inga produktionsstopp när förrådshus är fulla. 200 enheter = bekväm vagnlastbuffert.
+WardenOfTheWilds/cat/Hunter Cabin=Jägarstuga
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=Utgångsbuffertens tak
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=Kapacitet per föremål i stugans tillverkningsförråd. Högre = mer andrum innan stopp.
+WardenOfTheWilds/cat/Hunting Lodge=Jaktstuga
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=Radiemultiplikator
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=Arbetsradiemultiplikator tillämpad på jaktstugebyggnader. 1,35 = 35 % större radie än vanilla.
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=Köttmultiplikator
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=Liten köttavkastningsmultiplikator för jaktstugejägare. Jaktstugans huvudfördel är radie och 2 arbetsplatser (volym); detta är en blygsam kvalitetsbonus utöver det. 1,15 = 15 % mer kött per kadaver.
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=Terränghastighetsmultiplikator
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=Rörelsehastighetsmultiplikator för jaktstugejägare (storviltjägare, BGH). Tillämpas vid T2 som en grundläggande vägspecialiseringsbonus — staplar med teknikträdets terränghastighetsuppgradering (Stigfinnare). 1,35 = 35 % snabbare än en vanilla-jägare, tillräckligt för att BGH konsekvent ska kunna hålla avstånd till vargar och vildsvin. T1-jägare utan denna buff förlitar sig på skydd + inledande stridsavstånd för överlevnad. Snabbare reträtt = mer avstånd täckt per laddningscykel = säkrare distanshållning. Kräver bekräftelse av hastighetsfältets namn från stridsdumpen.
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=Skottintervallmultiplikator för storvilt
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=Lägre = snabbare eldhastighet mot vildsvin/varg/björn
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=Distanshållande AI
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=Jägare drar sig tillbaka till jaktgömsle/stuga mellan skott mot farligt byte
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=Slaktarhastighetsmultiplikator
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=Per arbetare — kombinerat med 2 arbetare
+WardenOfTheWilds/cat/Trapper Lodge=Fällfångarstuga
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=Pälsmultiplikator
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=Päls-/skinnsavkastningsmultiplikator för fällfångarstuga. 1,6 = 60 % fler pälsar än vanilla-stugan.
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=Max utplacerade fällor
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=Max antal samtidiga fällor en fällfångarstuga kan sätta ut. Vanilla T2 = 1 fälla (T1 har ingen fällfångst). 3 = tre aktiva fällinjer, matchande 26-dagarscykeln: vid ×1,6 pälsmultiplikator sjunker intervallet till ~16 dagar, så 3 fällor håller fällfångaren kontinuerligt sysselsatt utan sysslolös tid. Högre värden utökar räckvidden men en fällfångare kan bara sköta så många linjer.
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=Fällans tickhastighetsmultiplikator
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1,25 = 25 % snabbare fällintervall
+WardenOfTheWilds/opt/TrapperWaterBonus/label=Vattennärhetsbonus
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=Pälsavkastningsbonus när en fällfångarstuga ligger nära en vattenkropp. Fällfångare sätter linor längs floder och bäckar — historiskt de rikaste fångstmarkerna. 1,25 = 25 % mer pälsavkastning nära vatten.
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=Vattenbonusradie
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=Radie i världsenheter inom vilken en vattenkropp utlöser fällfångarstugans vattennärhetsbonus.
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=Vattenrutetröskel
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=Min antal samplade vattenrutor för att bonusen ska gälla
+WardenOfTheWilds/opt/TrapMasterBearChance/label=Björnfällechans
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=Chans per fällspawn att fällan fångar en björn
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=Slaktarhastighetsmultiplikator
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=Samma mekanik för fällfångarstuga. Små kadaver från fällor går genom samma slaktprocess — bonusen gäller.
+WardenOfTheWilds/cat/Big Game Yields=Storviltavkastning
+WardenOfTheWilds/opt/BearMegaYieldMult/label=Björnavkastningsmultiplikator
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=Staplar ovanpå andra bonusar för björnkadaver
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=BGH björnbonuskött
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=Bonuskött (ItemMeat) sätts in direkt i den dödande BGH-jägarens stuga när en björn dödas. Staplar ovanpå kadaverslaktavkastningen (vanilla generisk kadaver ≈ 30 kött). Standard 220 + 30 ≈ 250 kött/björn. Gäller endast jaktstuge- (BGH-) jägare — T1- och fällfångarvägarna använder endast vanilla kadaveravkastning.
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=BGH björnbonuspälsar
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=Bonuspälsar (ItemHide — FF kallar pälsar för 'hides' internt) sätts in i den dödande BGH-jägarens stuga när en björn dödas. Staplar på slaktavkastningen (≈ 2 skinn). Standard 3 + 2 ≈ 5 pälsar/björn. Endast BGH.
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=BGH björnbonustalg
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=Bonustalg (ItemTallow) sätts in i den dödande BGH-jägarens stuga när en björn dödas. Staplar på slaktavkastningen (≈ 3 talg). Standard 5 + 3 ≈ 8 talg/björn. Endast BGH.
+WardenOfTheWilds/cat/Spawn Multipliers=Spawn-multiplikatorer
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=Björnpopulation
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=Multiplikator på björnpopulationstaket per karta. 1,5 = 50 % fler björnar, vilket ger BGH-jägare meningsfulla storviltsmål. 1,0 = vanilla. Skalar initialSpawnCount + maxAnimalCount på björngruppen.
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=Vargpopulation
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=Multiplikator på vargpopulationstaket. 1,25 = 25 % fler vargar. Fler vargar innebär fler jägarstrider — ställ lägre om tidigt spel är för farligt.
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=Vildsvinspopulation
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=Multiplikator på vildsvinspopulationstaket. Vanilla-standarden är redan generös; 1,0 behåller balansen.
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=Hjortpopulation
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=Multiplikator på hjortpopulationstaket. Påverkar T1-jägares köttavkastning.
+WardenOfTheWilds/cat/Hunter AI=Jägar-AI
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=Reträtthälsa %
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=Dra sig ur under denna andel av max HP
+WardenOfTheWilds/opt/HunterMinArrows/label=Min pilar före jakt
+WardenOfTheWilds/opt/HunterMinArrows/tip=Jägare som bär färre pilar än detta antal blockeras från att jaga / samla in kadaver / slakta, vilket tvingar dem att fylla på förråd innan de återupptar arbetet. Höjer även vanillas logistiktröskel för pilhämtning (vanilla = 2) så arbetare levererar ersättning så fort det burna antalet sjunker under detta tal. 0 = inaktivera arbetsspärren (vanilla-logistiktröskeln höjs fortfarande).
+WardenOfTheWilds/opt/HunterDangerRadius/label=Farmedvetenhetsradie
+WardenOfTheWilds/opt/HunterDangerRadius/tip=Världsenheter inom vilka en varg, ett vildsvin eller en björn utlöser en proaktiv reträtt — även innan den anfaller. Jägare som jagar hjort nära en varglya drar sig undan när rovdjur kommer in i denna radie. 40 = ungefär 2× bågräckvidd. Ställ på 0 för att inaktivera närhetsreträtter.
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=Skyddets hotskanningsradie
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=Jägaren väntar i skydd tills hot lämnar denna radie
+WardenOfTheWilds/opt/T1MeleeThreshold/label=T1 närstridströskel för HP
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=T1-jägaren går in i närstrid under denna mål-HP %
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=Förföljelselinans multiplikator
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=Avbryt förföljelsen bortom (stugradie × detta)
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=Bakhållsskanningsradie
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=Avstånd runt en stridande jägare som skannas efter bakhållshot. Om ytterligare aggressiva djur (utöver det aktuella målet) dyker upp inom detta avstånd under en jakt, drar sig jägaren tillbaka. Fångar dödsscenariot 'vildsvinet lurade in mig i en vargflock'.
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=Bakhållströskel
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=Antal fientliga nära jägaren som utlöser reträtt
+WardenOfTheWilds/opt/BowReloadSeconds/label=Bågladdning (sekunder)
+WardenOfTheWilds/opt/BowReloadSeconds/tip=Jägarens bågladdnings-/attackintervall i sekunder. Används för att beräkna optimalt distanshållningsavstånd: reträtt = laddningstid × jägarhastighet. Standard 3,0 är en uppskattning — uppdatera när bekräftat från dump eller speltiming.
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=Armborstladdning (sekunder)
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=Jägarens armborstladdnings-/attackintervall i sekunder. Armborst avfyras långsammare än bågar men gör mer skada — längre laddning innebär att jägaren bör backa längre per skottcykel för att bibehålla säkert avstånd. Standard 4,5 är en uppskattning — uppdatera när bekräftat från dump.
+WardenOfTheWilds/cat/Hunting Blind=Jaktgömsle
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=Räckviddsbonus (rutor)
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=Bonusvärldsenheter tillagda till en jägares skotträckvidd när stationerad i ett jaktgömsle. Representerar höjdfördelen hos en fast upphöjd plattform. Staplar med teknikträdets räckviddsuppgraderingar.
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=Guldunderhåll
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=Guldunderhåll per beläget jaktgömsle per underhållsperiod i spelet. Speglar vakttornets civila-arbetare-modell. Ställ på 0 för att helt inaktivera underhåll. Kräver vakttornets underhållsfält från dump.
+WardenOfTheWilds/cat/Fishing — Angler=Fiske — Spöfiskare
+WardenOfTheWilds/opt/AnglerCatchMult/label=Fångstmultiplikator
+WardenOfTheWilds/opt/AnglerCatchMult/tip=Fångstutdatamultiplikator för arbetare i spöfiskarläge. Tillämpas per fiskecykel via GetNumFishCaught. 1,5 = 50 % mer fisk per fångst.
+WardenOfTheWilds/opt/AnglerTimerReduction/label=Fångsttimermultiplikator
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=Lägre = snabbare fångster
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=Bärkapacitetsbonus
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=Extra bärkapacitet för fisk för spöfiskararbetare. Vanilla = 25. 15 bonus = 40 totalt. Färre returresor = mer tid att fiska.
+WardenOfTheWilds/cat/Fishing — Creeler=Fiske — Tinfiskare
+WardenOfTheWilds/opt/CreelerRodMult/label=Spöutdatamultiplikator
+WardenOfTheWilds/opt/CreelerRodMult/tip=Spöfiskeutdatamultiplikator för tinfiskararbetare. Tinfiskare spenderar tid på att underhålla fällor, vilket minskar deras spöfiskeutdata. Riktig inkomst kommer från det dagliga fälltick-systemet. 0,5 = 50 % minskat spöfiske.
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=Fällspawnintervall (dagar)
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=Dagar mellan tinfiskarens fälls produktionstickar. Varje tinfiskararbetsplats producerar CrabTrapFishPerSpawn fisk var så här många dagar, automatiskt insatt i stugans förråd (abstraherar fiskarens insamlingstid). Vattenrutebonus delar detta ytterligare på vattenrika kartor. Standard 8 dagar tar hänsyn till insamlingstid; lägre = snabbare inkomst.
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=Fisk per fällspawn
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=Fisk producerad per tinfiskarplats per spawnhändelse. 2 tinfiskarplatser med 4 fisk / 5 dagar = ~584 fisk/år passivt. Justera ner om för starkt.
+WardenOfTheWilds/opt/CreelerTrapCount/label=Antal utplacerade fällor
+WardenOfTheWilds/opt/CreelerTrapCount/tip=Antal fysiska tinfällor som en fiskestuga i tinfiskarläge sätter ut i vattnet inom sin fiskeradie. Rekommenderat intervall 4-6. Varje fälla samlar oberoende fisk i en 5-dagarscykel och skördas av stugans fiskare.
+WardenOfTheWilds/opt/CreelerRadiusMult/label=Fiskeradiemultiplikator
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=Fiskeradiemultiplikator när någon tinfiskarplats är aktiv. 2,0 = 60u (vanilla 30u). Tinfällor sprids över bredare vatten. Fler vattenrutor inom räckhåll = bättre vattenbonus.
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=Vattenrutetröskel
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=Minsta antal vattenrutor inom utökad radie för att aktivera tinfiskarens vattenbonus. 15 på 8u-rutnät = måttlig sjökant. Stora djupa sjöar överskrider lätt detta — tinfiskarens hemmaplan.
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=Vattenbonusmultiplikator
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=Divisor för fällspawnintervall när vattenbonus är aktiv. 1,25 = 25 % snabbare fälltickar. Vid standard: 5d / 1,25 = 4d intervall.
+WardenOfTheWilds/cat/Fishing — Shared=Fiske — Gemensamt
+WardenOfTheWilds/opt/FishingDockOutputMult/label=Fiskebryggans utdata
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=Fiskutdatamultiplikator vid nivå 2-fiskebrygga (separat byggnad). 1,5 = 50 % mer fisk. Äldre konfiguration för fiskebryggbyggnader.
+WardenOfTheWilds/opt/FishReplenishOverride/label=Hållbart fiske %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=Påfyllningshastighet från teknik-noden (vanilla 0,30)
+WardenOfTheWilds/opt/FishingShackStorageCap/label=Stugans lagertak
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=Fisklagerkapacitet per stuga. Vanilla = 100. Ställ på 200 för att matcha vanilla-vagnlast (~200 fisk vid vikt 2).
+WardenOfTheWilds/cat/Hotkeys=Snabbtangenter
+WardenOfTheWilds/opt/HunterRallyKey/label=Samla jägare
+WardenOfTheWilds/opt/HunterRallyKey/tip=Unity KeyCode-namn (G, H, R, etc.)
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=Jägare återvänder hem
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=Skicka tillbaka alla jägare till sina tilldelade stugor. Användbart för att dra ut dem ur en strid när plundrare eskalerar. Samma tangentformat som samlingstangenten.
+WardenOfTheWilds/opt/HunterSelectAllKey/label=Markera alla jägare
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=Markerar varje jägare i vanillas flermarkering. Högerklicka sedan på terräng för att flytta dem normalt (vanillas klicka-för-att-flytta fungerar på civila när markerade). Bevarar befintliga icke-jägarmarkeringar om du vill blanda.
+WardenOfTheWilds/opt/HunterPathKey/label=Växla T2-väg
+WardenOfTheWilds/opt/HunterPathKey/tip=Växla Vanilla / Fällfångare / Jaktstuga medan en T2-stuga är markerad
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=Husdjur-DLC — Jakthund
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=Hundprovokation (tanka rovdjur)
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=Hunden drar med tvång bort ett rovdjur från jägaren och tankar det
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=Provokationspuls (s)
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=Sekunder mellan provokationsförnyelser under tankning
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=Provokation avtar efter flykt (s)
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=Rovdjuret jagar den flyende hunden så här länge, sedan släpper det
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=Provokationsräckvidd
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=Max avstånd jägare↔hund för att provokationen ska aktiveras. Större innebär att en efterföljande hund fortfarande reagerar när jägaren angriper på avstånd (hundar hamnar efter när du manuellt flyttar jägaren). Standard 100u (~en jägares arbetsradie).
+WardenOfTheWilds/opt/DogFleeHealthPct/label=Hundens flykthälsa %
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=HP-andel vid vilken en jakthund flyr (vanilla 0,5)
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=Hunden flyr med jägaren
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=Hunden drar sig ur och flyr när jägaren drar sig tillbaka
+WardenOfTheWilds/opt/DogHealthMult/label=Hundhälsomultiplikator (alla hundar)
+WardenOfTheWilds/opt/DogHealthMult/tip=Skalar max hälsa för VARJE hund (jakt- + hundkojevakter). 1,0 = vanilla, 1,5 = +50 % HP. Tillämpas vid spawn och kartladdning.
+WardenOfTheWilds/opt/DogArmorBonus/label=Hundrustningsbonus (alla hundar)
+WardenOfTheWilds/opt/DogArmorBonus/tip=Platt rustning tillagd till VARJE hunds grundrustning. 0 = vanilla. Hjälper hundar överleva längre när de tankar rovdjur.
+WardenOfTheWilds/opt/DogSpeedMult/label=Hundhastighetsmultiplikator (alla hundar)
+WardenOfTheWilds/opt/DogSpeedMult/tip=Snabbare hundar håller jämna steg med en manuellt flyttad jägare
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=Husdjur-DLC — Husdjurskyrkogård
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=Husdjurskyrkogårdsbrytare
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=Lägger till en [Människor]/[Husdjur]-brytare till kyrkogårdar; ställ en till Husdjur för att göra den till en husdjurskyrkogård
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=Kyrkogårdar startar stängda
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=Nya kyrkogårdar begraver ingen förrän du utser dem till Människor eller Husdjur (reservera en ren husdjurskyrkogård)
+WardenOfTheWilds/cat/Other settings=Övriga inställningar
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=Jägarstugans försvarseld
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=När PÅ skjuter jägare som söker skydd i sin stuga på aggressiva djur (Varg/Vildsvin/Björn) på kort avstånd istället för att sitta sysslolösa medan arbetare närstrider mot hotet utanför. Jägaren kliver ut, avfyrar en pil och återvänder till skydd — försvar i vakttornsstil. Hoppas över när sårad (se HunterCabinDefenseMinHp).
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=Jägarstugans försvarsradie (världsenheter)
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=Max stridsräckvidd för stugans försvarseld. Vanilla bågräckvidd är ~40u; standard 30u håller beteendet till kortdistans-"hemförsvar" snarare än att låta stugbundna jägare nå över hela sin jaktradie. Kombineras med HunterCabinDefenseMinDist för närdistansgolvet.
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=Jägarstugans minsta hotavstånd för försvar
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=Skicka inte försvarseld om hotet är närmare stugan än detta. Att kliva ut på nära håll försätter jägaren i omedelbar närstrid — bättre att låta väggarna ta smällen. Standard 20u: jägaren angriper hot i 20-30u-bandet (säker bågräckvidd), håller sig i skydd för allt närmare.
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=Jägarstugans försvars-min-HP (0–1)
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=Jägaren måste vara ≥ denna andel av full HP för att delta i stugans försvarseld. 0,5 = halv hälsa. Sårade jägare stannar i skydd oavsett närliggande hot. Ställ på 0 för att tillåta strid även sårad.
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=Husdjur-DLC: Aktivera WotW DLC-funktioner
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=Huvudbrytare för alla WotW-funktioner som beror på Farthest Frontiers Husdjur-DLC (räv-/murmeldjursfångster, jägare+hund-tankbeteende, etc.). Inaktiveras automatiskt om DLC:n inte ägs. Ställ falskt för att spela DLC-trogen utan WotW-tillägg.
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=Fällmästarens rävfällechans
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=Chans per fällutlösning att Fällmästaren fångar en räv som plundrar byns hönor. Vid framgång släpps bonusskinn (ingen kadaver — rävkött konsumeras inte i denna design). 0,10 = 10 %. Kräver Husdjur-DLC.
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=Fällmästarens murmeldjursfällechans
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=Chans per fällutlösning att Fällmästaren fångar ett murmeldjur som plundrar odlingsfält. Vid framgång släpps en liten kadaver + liten skinnbonus. 0,15 = 15 %. Kräver Husdjur-DLC.
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=Fällmästarens rävbonusskinn
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=Skinnenheter insatta per lyckad rävfångst. Rävar har värdefulla pälsar — färre per fångst men högre pälsavkastning.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=Fällmästarens murmeldjursbonuskadaver
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=Smådjurskadaverenheter insatta per lyckad murmeldjursfångst. Går till rökeriet som alla andra smådjurskadaver.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=Fällmästarens murmeldjursbonusskinn
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=Skinnenheter insatta per lyckad murmeldjursfångst.
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=Husdjur-DLC: Rävspawn-fördröjning (dagar)
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=Dagar efter det första hönshuset byggts innan rävar börjar försöka spawna. -1 = lämna vanilla-värdet orört. Högre = senare första plundring, vilket ger dig tid att bygga fällförsvar.
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=Husdjur-DLC: Murmeldjursspawn-fördröjning (dagar)
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=Dagar efter att det första odlingsfältet placerats innan murmeldjur börjar försöka spawna. -1 = lämna vanilla-värdet orört.
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=Husdjur-DLC: Rävspawn-multiplikator
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=Multiplikator på antalet rävplundringsvågor per hönsantal. Skalar AnimationCurve som mappar 'hur många hönor du har' till 'hur många rävgrupper som kan spawna.' 1,0 = vanilla. 2,0 = dubbelt så många. 0,5 = hälften så många. Användbart för svårighetsjustering eller BGH-vänliga genomspelningar där du vill ha mer byförsvarsaktion.
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=Husdjur-DLC: Murmeldjursspawn-multiplikator
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=Multiplikator på antalet murmeldjursplundringsvågor per antal odlingsfält. 1,0 = vanilla, 2,0 = dubbelt så många, 0,5 = hälften så många.
+WardenOfTheWilds/opt/WildFoxEnabled/label=Husdjur-DLC: Vild rävpopulation (strövande)
+WardenOfTheWilds/opt/WildFoxEnabled/tip=AV som standard. När aktiverad (och Husdjur-DLC:n ägs) spawnar WotW en strövande vild rävpopulation som vandrar över kartan som vargar istället för att bara dyka upp som hönshusplundrare. Detta är YTTERLIGARE vilt utöver vanilla DLC-plundrarrävarna (som spawnar från hönsantal oavsett) — att slå på det kan märkbart öka hur många rävar du ser. Växla den i Keep Claritys inställningspanel under Warden of the Wilds.
+WardenOfTheWilds/opt/WildFoxMaxCount/label=Husdjur-DLC: Vild räv max antal
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=Målpopulation av vilda rävar att upprätthålla på kartan. Påfyllningsloopen återspawnar döda rävar upp till detta tak (vanilla plundrarrävar räknas inte). 0 inaktiverar; högre = fler jaktbara små rovdjur för BGH.
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=Husdjur-DLC: Vild räv påfyllningsintervall (sekunder)
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=Väggklocksekunder mellan kontroller av vild rävpopulation. Lägre = snabbare återbefolkning efter dödanden, men fler loggmeddelanden. Rekommenderas: 60–300.
+WardenOfTheWilds/opt/CatRatHuntRadius/label=Husdjur-DLC: Kattens råttjaktslinaradie
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=Max avstånd (enheter) från kattens hem (bostad/kattkennel/närmaste skydd) vid vilken katten accepterar en råttjaktsuppgift. Håller fritt strövande katter inom byn istället för att traska 40 enheter in i skogen för att jaga en råtta. Katter anställda av en råttfångarbyggnad använder byggnadens vanilla-radie och påverkas inte. Standard 25 ≈ en tät bykärna.
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=Husdjur-DLC: Kattens hotupptäcktsräckviddsmultiplikator
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=Multiplikator på kattens fiendeupptäcktsradie. 2,0 = katter upptäcker vargar och björnar dubbelt så långt bort, vilket ger dem mer tid att dra sig tillbaka. Högre = säkrare katter men de drar sig tillbaka oftare (kan avbryta råttjakter).
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=Husdjur-DLC: Kattens hotskanningsintervall (sekunder)
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=Hur ofta en katt skannar om efter närliggande hot. Vanilla är 5 sekunder — en varg kan rusa in och bita innan nästa skanning. 1,0 = katter märker inkommande vargar nästan omedelbart.
+WardenOfTheWilds/opt/DogLeashKeyName/label=Husdjur-DLC: Hundlinans växlingstangent
+WardenOfTheWilds/opt/DogLeashKeyName/tip=Medan en jägarstuga är markerad, tryck denna tangent för att växla dess 'hundar stannar inom arbetsområdet'-lina. Standard L. Använd Unity KeyCode-namn.
+WardenOfTheWilds/opt/DogRallyKeyName/label=Husdjur-DLC: Hundsamlingens snabbtangent
+WardenOfTheWilds/opt/DogRallyKeyName/tip=Markerar varje hund tilldelad en jägare på kartan. Högerklicka efter tryckning för att flytta hela flocken. Standard Ctrl+D. Format: 'Ctrl+D', 'Alt+R', eller enkel tangent 'D'.
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=Husdjur-DLC: Jägare angriper rävar
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=Lägger till rävlaget i jägarens jaktbara-djurmask så jägare aktivt skjuter rävar under HuntSubTask, precis som de skjuter vargar/björnar/vildsvin. Utan detta ignorerar vanilla-jägare rävar (rävar tillhör Team.Pests, som inte finns i vanillas jägarmålmask).
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=Husdjur-DLC: Rovdjursvarningar per djur
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=Ersätter den generiska röda varningen 'Rovdjur anfaller!' med en version per djur: visar djurets faktiska sprite och en gulbrun (lågt hot: räv upptäckt / vildsvin flyr) mot röd (varg/björn/anfallande vildsvin) färg. Kosmetiskt — ändrar inte stridsbeteende.
+WardenOfTheWilds/opt/AutoNamePets/label=Husdjur-DLC: Automatiska namn för hundar & katter
+WardenOfTheWilds/opt/AutoNamePets/tip=Nya hundar och katter får ett slumpmässigt namn från en handplockad lista istället för det generiska 'Hund'/'Katt'. Befintliga och spelaromdöpta husdjur behåller sina namn. Kosmetiskt.
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=Husdjur-DLC: Murmeldjursdödandets skinn
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=Skinnenheter automatiskt looatade in i den närmaste jägarstugan (inom 300u) när ett murmeldjur dödas i strid. Litet vilt = liten belöning: standard 1 päls, ingen kadaver. 0 inaktiverar murmeldjursbyte helt.
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=Jägare kräver båge för arbete
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=När PÅ blockeras jägare utan båge/armborst från att jaga/samla in kadaver/slakta tills vanilla-logistiken levererar en ersättning. Förhindrar att bågelösa jägare blir uppätna medan de samlar kadaver. AV = vanilla-beteende (en bågelös jägare kommer att arbeta och troligen dö).
+
+# ── Keep Clarity ──
+KeepClarity/meta/name=Keep Clarity
+KeepClarity/meta/desc=Gränssnitts-livskvalitet: förbättrade verktygstips, fästbart resursöverlägg, byggnadssnabbtangenter, inställningspanel.
+KeepClarity/cat/Hotkeys — Reports & Panels=Snabbtangenter — Rapporter & paneler
+KeepClarity/opt/ReportsHotkey/label=Växla rapporter
+KeepClarity/opt/ReportsHotkey/tip=Öppna/stäng 12-månadersrapportfönstret
+KeepClarity/opt/ToggleOverlayHotkey/label=Växla överlägg
+KeepClarity/opt/ToggleOverlayHotkey/tip=Visa/dölj överläggen för fästa resurser, teknikkö, byggkö och militärkompani
+KeepClarity/opt/SettingsPanelHotkey/label=Öppna inställningspanel
+KeepClarity/opt/SettingsPanelHotkey/tip=Öppnar just detta fönster
+KeepClarity/cat/Overlay Settings=Överläggsinställningar
+KeepClarity/opt/PinnedCollapsed/label=Fäst överlägg startar hopfällt
+KeepClarity/opt/PinnedCollapsed/tip=Fäst överlägg öppnas hopfällt till en flik
+KeepClarity/opt/EnableCompanyOverlay/label=Kompanirosteröverlägg
+KeepClarity/opt/EnableCompanyOverlay/tip=Shift+vänsterklick på en kompanifana (nederst på skärmen) öppnar en dragbar rosterpanel; Ctrl+vänsterklick öppnar det kompaniets kasern.
+KeepClarity/opt/EnableInfoWindowDock/label=Flytta byggnadsinfo bort från byggmenyn (experimentellt)
+KeepClarity/opt/EnableInfoWindowDock/tip=När byggmenyn är öppen glider byggnadsinfofönstret åt vänster så menyn aldrig täcker det. Återställs när menyn stängs.
+KeepClarity/opt/PinnedOverlayOpacity/label=Fäst överläggs opacitet
+KeepClarity/opt/PinnedOverlayOpacity/tip=Hur ogenomskinligt Fästa resurser-ramverket är. Text/knappar förblir läsbara. Gäller direkt.
+KeepClarity/opt/TechQueueOverlayOpacity/label=Teknikkö-överläggets opacitet
+KeepClarity/opt/TechQueueOverlayOpacity/tip=Hur ogenomskinligt Teknikkö-ramverket är. Text/knappar förblir läsbara. Gäller direkt.
+KeepClarity/opt/CompanyOverlayOpacity/label=Kompaniöverläggets opacitet
+KeepClarity/opt/CompanyOverlayOpacity/tip=Hur ogenomskinlig kompanirosterns kropp är. Rubrik/text förblir solida. Gäller direkt.
+KeepClarity/opt/PinnedOverlayScale/label=Fäst överläggs skala
+KeepClarity/opt/PinnedOverlayScale/tip=Storleksmultiplikator för panelen Fästa resurser. Oberoende av FF:s gränssnittsskala. Gäller direkt.
+KeepClarity/opt/TechQueueOverlayScale/label=Teknikkö-överläggets skala
+KeepClarity/opt/TechQueueOverlayScale/tip=Storleksmultiplikator för teknikköpanelen. Oberoende av FF:s gränssnittsskala. Gäller direkt.
+KeepClarity/opt/CompanyOverlayScale/label=Kompaniöverläggets skala
+KeepClarity/opt/CompanyOverlayScale/tip=Storleksmultiplikator för kompanirosterpanelen. Oberoende av FF:s gränssnittsskala. Gäller direkt.
+KeepClarity/opt/PinnedGrowDirection/label=Fästa resurser tillväxtriktning
+KeepClarity/opt/PinnedGrowDirection/tip=Fästa resurser: listan växer Nedåt från rubriken (standard) eller Uppåt.
+KeepClarity/opt/TechQueueGrowDirection/label=Teknikköns tillväxtriktning
+KeepClarity/opt/TechQueueGrowDirection/tip=Teknikkö: listan växer Nedåt från rubriken (standard) eller Uppåt.
+KeepClarity/opt/CompanyGrowDirection/label=Kompaniets tillväxtriktning
+KeepClarity/opt/CompanyGrowDirection/tip=Kompaniroster: växer Nedåt från rubriken (standard) eller Uppåt.
+KeepClarity/cat/Build Priority=Byggprioritet
+KeepClarity/opt/EnableBuildPriority/label=Byggprioritet
+KeepClarity/opt/EnableBuildPriority/tip=Återanvänd byggplatsens byggarpilar som en 1-9-prioritet. Byggare betjänar högre prioriterade platser först; varje plats kan ha sitt fulla antal byggare.
+KeepClarity/opt/BuildPriorityWeight/label=Prioritetsstyrka
+KeepClarity/opt/BuildPriorityWeight/tip=Hur starkt prioritet slår avstånd. 1000 = prioritet avgör ordning. Gäller direkt.
+KeepClarity/opt/EnableBuildQueueOverlay/label=Byggköns överlägg
+KeepClarity/opt/EnableBuildQueueOverlay/tip=Flyttbar skärmpanel som listar de 10 främsta byggplatserna efter prioritet, högst först.
+KeepClarity/opt/BuildQueueShowSalvage/label=Byggkö: inkludera bärgning
+KeepClarity/opt/BuildQueueShowSalvage/tip=Lista även byggnader som rivs och övergivna läger som bärgas, taggade [BÄRG].
+KeepClarity/opt/BuildQueueShowExcavation/label=Byggkö: inkludera utgrävning
+KeepClarity/opt/BuildQueueShowExcavation/tip=Lista även ruiner som grävs ut efter reliker, taggade [UTGR].
+KeepClarity/opt/BuildQueueOverlayScale/label=Byggköns skala
+KeepClarity/opt/BuildQueueOverlayScale/tip=Byggköpanelens storlek. Gäller direkt.
+KeepClarity/opt/BuildQueueOverlayOpacity/label=Byggköns opacitet
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=Byggköpanelens opacitet. Gäller direkt.
+KeepClarity/opt/BuildQueueGrowDirection/label=Byggköns tillväxtriktning
+KeepClarity/opt/BuildQueueGrowDirection/tip=Listan växer Nedåt från rubriken (standard) eller Uppåt (rubrik längst ner).
+KeepClarity/cat/Snapping=Snäppning
+KeepClarity/opt/SnapOverlaysEnabled/label=Snäpp överlägg
+KeepClarity/opt/SnapOverlaysEnabled/tip=När du drar ett Keep Clarity-överlägg, snäpp det i linje med de andra överläggen, minikartan och skärmkanterna.
+KeepClarity/opt/SnapThresholdPx/label=Snäppningsavstånd
+KeepClarity/opt/SnapThresholdPx/tip=Hur nära (pixlar) en kant måste komma innan den snäpper. 0 stänger av snäppning. Gäller direkt.
+KeepClarity/cat/Building Variety=Byggnadsvariation
+KeepClarity/opt/EnableBuildingVariety/label=Byggnadsfärgvariation
+KeepClarity/opt/EnableBuildingVariety/tip=Varje struktur får en subtil unik vittrad ton så att identiska byggnadstyper inte ser klonstämplade ut. Deterministiskt per byggnad (stabilt över omladdningar).
+KeepClarity/opt/BuildingVarietyIntensity/label=Variationens intensitet
+KeepClarity/opt/BuildingVarietyIntensity/tip=Variationsintervall mellan byggnader. 0 = identiska, 1 = bredast (fortfarande smakfullt). Gäller direkt.
+KeepClarity/cat/Crisp Mode=Skärpeläge
+KeepClarity/opt/EnableCrispMode/label=Skärpeläge
+KeepClarity/opt/EnableCrispMode/tip=Inbyggd skärpning + färgstyrka-efterbearbetning — ett lättviktigt inbyggt alternativ till en ReShade CAS-förinställning. Endast världen; HUD orört.
+KeepClarity/opt/CrispSharpness/label=Skärpa
+KeepClarity/opt/CrispSharpness/tip=Styrka för kontrastadaptiv skärpning. 0 = mjuk, 1 = skarp. Gäller direkt.
+KeepClarity/opt/CrispVibrance/label=Färgstyrka
+KeepClarity/opt/CrispVibrance/tip=Färgpuff/mättnadsboost, viktad mot mindre mättade pixlar. Gäller direkt.
+KeepClarity/cat/Forage Calendar=Insamlingskalender
+KeepClarity/opt/EnableForageCalendar/label=Insamlingssäsongsfält
+KeepClarity/opt/EnableForageCalendar/tip=Fält under toppfältets säsongsremsa som visar när varje samlingsväxt på din karta är i säsong. Hovra över remsan för att kika; fäst med spelets egen infobrytare. Gäller direkt.
+KeepClarity/opt/ForageCalendarAlwaysShow/label=Visa alltid fältet
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=Håll säsongsfältet synligt hela tiden istället för bara med säsongspopupen. Gäller direkt.
+KeepClarity/opt/EnableInSeasonReadout/label=Säsongsavläsning
+KeepClarity/opt/EnableInSeasonReadout/tip=Lägger till en direktuppdaterad 'I säsong: ...'-rad till datum-/väderpopupen. Gäller direkt.
+KeepClarity/cat/Hotkeys — Building=Snabbtangenter — Byggnad
+KeepClarity/opt/UpgradeHotkey/label=Uppgradera
+KeepClarity/opt/UpgradeHotkey/tip=Snabbtangent för att uppgradera markerad byggnad
+KeepClarity/opt/RelocateHotkey/label=Flytta
+KeepClarity/opt/RelocateHotkey/tip=Snabbtangent för att flytta markerad byggnad. Flyttar även samlingsväxter när Tended Wilds är installerat.
+KeepClarity/opt/ToggleEmployHotkey/label=Växla byggnadsproduktion
+KeepClarity/opt/ToggleEmployHotkey/tip=Snabbtangent för att starta/stoppa produktion på den markerade byggnaden (växlar anställningsrutan).
+KeepClarity/opt/DemolishHotkey/label=Bärga byggnad
+KeepClarity/opt/DemolishHotkey/tip=Standard T. Delete fungerar fortfarande som fast reserv oavsett ombindning.
+KeepClarity/opt/CycleBuildingLeftHotkey/label=Växla byggnad vänster
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=Växla till föregående byggnad av samma typ (speglar <-knappen högst upp i infopanelen)
+KeepClarity/opt/CycleBuildingRightHotkey/label=Växla byggnad höger
+KeepClarity/opt/CycleBuildingRightHotkey/tip=Växla till nästa byggnad av samma typ (speglar >-knappen högst upp i infopanelen)
+KeepClarity/opt/MoveWorkAreaHotkey/label=Flytta arbetsområde
+KeepClarity/opt/MoveWorkAreaHotkey/tip=Byggnader med ett arbetsområde (jägare, skogsbrukare, örtsamlare…) — börja flytta det. Samma som panelens omriktningsknapp.
+KeepClarity/cat/Hotkeys — Build Site=Snabbtangenter — Byggplats
+KeepClarity/opt/DeleteBuildSiteHotkey/label=Ta bort byggplats
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=Standard T. Delete fungerar fortfarande som fast reserv oavsett ombindning.
+KeepClarity/opt/ConstructionEnabledHotkey/label=Byggnationsbrytare
+KeepClarity/opt/ConstructionEnabledHotkey/tip=Snabbtangent för att växla rutan Byggnation aktiverad på en bygg-/rivningsplats
+KeepClarity/opt/PrioritizeHotkey/label=Prioritera
+KeepClarity/opt/PrioritizeHotkey/tip=Snabbtangent för att växla rutan Prioriterad på en bygg-/rivningsplats
+KeepClarity/opt/DecrementBuildersHotkey/label=Minska byggare (-)
+KeepClarity/opt/DecrementBuildersHotkey/tip=Snabbtangent för att ta bort en byggare från en bygg-/rivningsplats
+KeepClarity/opt/IncrementBuildersHotkey/label=Öka byggare (+)
+KeepClarity/opt/IncrementBuildersHotkey/tip=Snabbtangent för att lägga till en byggare på en bygg-/rivningsplats
+KeepClarity/cat/Hotkeys — Forageables=Snabbtangenter — Samlingsväxter
+KeepClarity/opt/RelocateHotkey/label=Flytta
+KeepClarity/opt/RelocateHotkey/tip=Endast samlingsväxter — delar samma tangent som Byggnadsflytt (ombindning här ombinder även där). Träd, stenfyndigheter och ruiner kan inte flyttas.
+KeepClarity/opt/ForageableHarvestHotkey/label=Skörda
+KeepClarity/opt/ForageableHarvestHotkey/tip=Utlöser den inbyggda Skörda-knappen. Fungerar på samlingsväxter, träd, stenfyndigheter och utgrävda ruiner.
+KeepClarity/opt/ForageableDeleteHotkey/label=Ta bort
+KeepClarity/opt/ForageableDeleteHotkey/tip=Utlöser den inbyggda Ta bort/Rensa-knappen. Fungerar på samlingsväxter, träd, stenfyndigheter och utgrävda ruiner.
+KeepClarity/opt/ForageablePrioritizeHotkey/label=Prioritera
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=Utlöser den inbyggda Prioritera-brytaren. Fungerar på samlingsväxter, träd, stenfyndigheter, utgrävda ruiner och fruktträd.
+KeepClarity/opt/CullForWoodHotkey/label=Fäll fruktträd för virke
+KeepClarity/opt/CullForWoodHotkey/tip=Endast fruktträd — markera trädet för fällning för virke (inbyggd 'Fäll för virke').
+KeepClarity/cat/Hotkeys — Crop Field=Snabbtangenter — Odlingsfält
+KeepClarity/opt/CropCopyHotkey/label=Kopiera inställningar
+KeepClarity/opt/CropCopyHotkey/tip=Kopiera detta odlingsfälts inställningar (inbyggd knapp).
+KeepClarity/opt/CropPasteHotkey/label=Klistra in inställningar
+KeepClarity/opt/CropPasteHotkey/tip=Klistra in kopierade odlingsfältinställningar (inbyggd knapp).
+KeepClarity/opt/CropExpandHotkey/label=Utöka fält
+KeepClarity/opt/CropExpandHotkey/tip=Utöka odlingsfältet (inbyggd knapp).
+KeepClarity/opt/CropClearHotkey/label=Rensa vald gröda
+KeepClarity/opt/CropClearHotkey/tip=Rensa den valda grödan (inbyggd knapp).
+KeepClarity/opt/CropSalvageHotkey/label=Bärga
+KeepClarity/opt/CropSalvageHotkey/tip=Bärga odlingsfältet (inbyggd knapp).
+KeepClarity/cat/Hotkeys — Confirmation Dialog=Snabbtangenter — Bekräftelsedialog
+KeepClarity/opt/ConfirmHotkey/label=Bekräfta
+KeepClarity/opt/ConfirmHotkey/tip=Standard Y. Enter fungerar också som fast reserv.
+KeepClarity/opt/CancelHotkey/label=Avbryt
+KeepClarity/opt/CancelHotkey/tip=Standard N. Esc fungerar också som fast reserv.
+KeepClarity/cat/Notifications=Aviseringar
+KeepClarity/opt/TraderWarningDays/label=Varningsdagar för handlarens avfärd
+KeepClarity/opt/TraderWarningDays/tip=Dagar innan en handlare lämnar för att visa aviseringen 'Handlare avreser' (0 inaktiverar)
+KeepClarity/opt/DismissibleResourceAlerts/label=Avvisbara resursvarningar
+KeepClarity/opt/DismissibleResourceAlerts/tip=Klicka på en '!'-varning i toppfältet för att tysta den till nästa månadsskifte.
+KeepClarity/cat/Game and Map Settings=Spel- och karta-inställningar
+KeepClarity/opt/KeepMapTypeOnReroll/label=Behåll karttyp vid omslumpning
+KeepClarity/opt/KeepMapTypeOnReroll/tip=Tärningsknappen slumpar om fröet inom din valda biom istället för att tvinga fram Slumpmässig.
+KeepClarity/opt/RememberCustomSettings/label=Kom ihåg anpassade inställningar
+KeepClarity/opt/RememberCustomSettings/tip=Ta en ögonblicksbild av panelen Anpassade inställningars val vid Bekräfta och återställ vid nästa öppning.
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=Synkronisera karttyp med Rivers Restored
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=Tvåvägssynkronisering mellan FF:s terrängväljare och RR:s flodförinställning. Inaktiverad när RR är inaktiverad eller satt till Anpassad.
+KeepClarity/opt/BridgeAnywhere/label=Broar var som helst (inget vatten / valfri höjd)
+KeepClarity/opt/BridgeAnywhere/tip=Tar bort reglerna 'måste vara över vatten' och 'snäpp till vattennivå' så du kan spänna över torra raviner och floder med höga stränder utan terrängformning. Bron ligger vid start-/slutcellernas terränghöjd.
+KeepClarity/cat/Game Flow=Spelflöde
+KeepClarity/opt/DoubleClickLoad/label=Dubbelklicka för att ladda
+KeepClarity/opt/DoubleClickLoad/tip=Dubbelklicka på en sparfil (startskärm eller ladda-meny i spelet) för att ladda den utan bekräftelsedialog. Enkelklick bekräftar fortfarande.
+KeepClarity/opt/DoubleClickLoadWindow/label=Dubbelklickshastighet (sekunder)
+KeepClarity/opt/DoubleClickLoadWindow/tip=Max mellanrum mellan de två klicken (och den korta pausen innan ett enkelklick visar dialogen).
+KeepClarity/opt/PauseOnLoad/label=Pausa vid laddning
+KeepClarity/opt/PauseOnLoad/tip=Pausa automatiskt när en sparfil har laddats klart
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=Pausfördröjning vid laddning (sekunder)
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Vänta så här många sekunder innan pausning — ger scenen tid att rendera så den första bildrutan inte är svart. Öka för tungt moddade uppsättningar.
+KeepClarity/opt/SkipNewMapIntro/label=Hoppa över introfilm
+KeepClarity/opt/SkipNewMapIntro/tip=Hoppa över introvideon och gå direkt till kartladdning.
+KeepClarity/opt/CustomPopulationCap/label=Anpassat befolkningstak
+KeepClarity/opt/CustomPopulationCap/tip=Åsidosätt de fyra reglagestoppen (200/500/1000/2000) med valfritt värde. 0 = lämna vanilla-beteende.
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorera befolkningskrav för uppgradering
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Kringgå befolkningsspärrar vid uppgradering av stadscentrum så lågbefolkade sparfiler fortfarande kan gå vidare.
+KeepClarity/cat/Other Settings=Övriga inställningar
+KeepClarity/opt/SettingsVerboseLog/label=Utförlig inställningslogg
+KeepClarity/opt/SettingsVerboseLog/tip=Logga varje anspråks-/upptäcktsbeslut till MelonLoader/Latest.log. Av som standard; slå på endast vid felsökning av panelen.
+KeepClarity/cat/Other settings=Övriga inställningar
+KeepClarity/opt/ShowPlannerButton/label=Visa planerarknapp
+KeepClarity/opt/ShowPlannerButton/tip=Visa PLAN-ikonen i toppfältet som öppnar SageDragoons Farthest Frontier Planner i din webbläsare. Omstart krävs för att träda i kraft.
+KeepClarity/opt/UseLegacyImguiPanel/label=Använd äldre IMGUI-panel
+KeepClarity/opt/UseLegacyImguiPanel/tip=Steg 1-reserv. När falskt (standard) öppnar F10 den polerade UGUI-canvasen. När sant öppnar F10 den ursprungliga IMGUI-prototypen. Byt till sant om UGUI-panelen krånglar.
+
+# ── LootScaling ──
+LootScaling/meta/name=LootScaling
+LootScaling/cat/LootScaling=LootScaling
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=Setup
+Setup/opt/verboseLogging/label=verboseLogging
+

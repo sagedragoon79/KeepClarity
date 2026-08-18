@@ -1,0 +1,1641 @@
+# Japanese pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Japanese
+# ── Divine Hands ──
+DivineHands/meta/name=Divine Hands
+DivineHands/meta/desc=神の力・創造ツール：地形彫刻、カーソルスポナー、マップ用の神ツールを1つの画面内パネルにまとめる（デフォルトホットキー Ctrl+G）。世界を変える力はデフォルトでOFF。
+DivineHands/cat/General=全般
+DivineHands/opt/MasterEnable/label=有効
+DivineHands/opt/MasterEnable/tip=Divine Handsのマスタースイッチ。OFFの場合パネルのホットキーは無効になり、神の力は一切適用されない。デフォルト: ON。
+DivineHands/opt/PanelHotkey/label=パネルホットキー
+DivineHands/opt/PanelHotkey/tip=ゲーム内Divine Handsパネルを開閉するキー/コード。Unity KeyCode名またはCtrl/Alt/Shiftを含むコード — 例: Ctrl+G, F6, Alt+Shift+D。デフォルト: Ctrl+G。
+DivineHands/opt/ShowPanelOnMap/label=マップ読み込み時にパネルを開く
+DivineHands/opt/ShowPanelOnMap/tip=マップ読み込み時に自動でパネルを開く。デフォルト: OFF。
+DivineHands/opt/DebugLog/label=デバッグログ
+DivineHands/opt/DebugLog/tip=MelonLoader.logへの詳細な診断出力。デフォルト: OFF。
+DivineHands/opt/DiagBuildingScare/label=ログ: 動物警戒テーブル
+DivineHands/opt/DiagBuildingScare/tip=どの建物が野生動物を追い払い、どれが追い払わないかの一覧をMelonLoader.logに書き出す。FFはマップを64mのスポーンセルに分割しており、1セル内に3つ以上の警戒建物があるとその群れは別の場所に移動する（作物畑は常に追い払う、別ルール）。読み取り専用 — ゲームには何も変更しない。ONにすると一度だけ実行される。再度実行するにはOFF→ONで切り替え。デフォルト: OFF。
+DivineHands/opt/ClassicPanel/label=クラシックパネル
+DivineHands/opt/ClassicPanel/tip=FF風パネルの代わりに元の軽量IMGUIパネルを使用する。スタイル付きパネルが不具合を起こした場合のフォールバック。デフォルト: OFF。
+DivineHands/cat/God Tools=神ツール
+DivineHands/opt/EnableRevealMap/label=マップ全開示
+DivineHands/opt/EnableRevealMap/tip=ゲーム内Divine Handsパネルでマップ全開示を利用可能にする — 有効化はここではなくパネルで行う。有効化すると戦場の霧を全て消し、OFFにすると探索済みの霧をベストエフォートで復元する。注意: FFは探索状態をセーブに保存するため、開示中にセーブすると地図全体が探索済みのままになる。デフォルト: OFF。
+DivineHands/opt/EnableBuildAnywhere/label=どこでも建築
+DivineHands/opt/EnableBuildAnywhere/tip=ゲーム内パネルでどこでも建築を利用可能にする — 有効化はここではなくパネルで行う。有効化するとバニラでは拒否される地形（急斜面、町への道がない、水/道路との重なり）にも通常建物を配置でき、道路の150m長制限も解除される（どんな長さでもドラッグ可、コストは実際の長さに応じてスケール）。橋はバニラおよびKeep ClarityのBridge Anywhereに任せるため対象外。デフォルト: OFF。
+DivineHands/opt/PreserveOverlapTrees/label=重なった木を保持
+DivineHands/opt/PreserveOverlapTrees/tip=セーブ/再読み込みをまたいでも建物の上に配置された木（どこでも建築でプラザタイルに生えた木など）を保持する。バニラは読み込み時に建物のフットプリント上の木を毎回クリアするため — 通常のセーブでは冗長なので省略しても安全。実際の建設中は通常通り木がクリアされる。道路上の木は再読み込み時に依然として消える（別処理）。デフォルト: ON。
+DivineHands/opt/EnableGodView/label=ゴッドビュー
+DivineHands/opt/EnableGodView/tip=ゲーム内パネルでゴッドビューを利用可能にする — 有効化はここではなくパネルで行う。有効化するとRTSカメラの制限が緩和され — 遠くまでズームアウト、水平/俯瞰アングルに傾け、マップ全体を見渡せる — OFFにすると元に戻る。デフォルト: OFF。
+DivineHands/opt/ProportionalZoom/label=比例ズーム
+DivineHands/opt/ProportionalZoom/tip=ゴッドビュー中、近距離ではスクロールズームの刻みが細かくなる（通常から近すぎる状態へ一気に飛ばない）。遠距離ズームはバニラのまま。OFF = 一定刻み。デフォルト: ON。
+DivineHands/opt/ZoomCellsPerNotch/label=ズーム刻み（ゴッドビュー）
+DivineHands/opt/ZoomCellsPerNotch/tip=ホイール1ノッチでゴッドビューカメラが移動するセル数（2〜50；1セル≈5m、2≈10m、50≈250m）。高いほど大きく移動、低いほど細かい。近距離では約2倍細かくなる。デフォルト: 10（約50m/ノッチ）。
+DivineHands/opt/GodViewMaxZoom/label=最大ズームアウト距離（m）
+DivineHands/opt/GodViewMaxZoom/tip=ゴッドビューの最大ズーム距離、メートル（200〜900）。主なパフォーマンス要因 — 900ではカメラがマップのほぼ全体を映し、カクつき/フリーズすることがある。デフォルト450、Panguの上限は600。ゴッドビューが重い場合は下げ、広範囲を見渡したい場合は上げる。
+DivineHands/opt/GodViewDisableFog/label=霞を無効化（ゴッドビュー）
+DivineHands/opt/GodViewDisableFog/tip=ゴッドビュー中の環境遠景の霞をオフにする（くっきりした、Pangu風の見た目）。終了時に復元。戦場の霧/マップ全開示とは別機能。デフォルト: OFF（霞を残し、フレーム負荷を軽くする）。
+DivineHands/opt/GodViewMinZoom/label=最小ズームイン距離（m）
+DivineHands/opt/GodViewMinZoom/tip=ゴッドビューの最も近いズーム距離、メートル（1〜6）。バニラの下限は約6；2は村人の頭の高さ程度。最小カメラ角度0とバニラのフォローボタンを組み合わせると肩越しの村人カメラになる。ライブ — フォロー中に調整可能。デフォルト: 6。
+DivineHands/opt/GodViewMinAngle/label=最小カメラ角度（°）
+DivineHands/opt/GodViewMinAngle/tip=ゴッドビュー中の最も水平なカメラピッチ（0〜35）。バニラは約35で停止（常に見下ろす）；0は地平線と水平。ライブ — フォロー中に調整可能。デフォルト: 10。
+DivineHands/opt/HideFowHaze/label=戦場の霧の霞を非表示（見た目のみ）
+DivineHands/opt/HideFowHaze/tip=戦場の霧のポストエフェクト — 低い角度/フリーカムで空にドーム状にかかる灰色の霞 — を無効化する。純粋に見た目のみ：探索状態には影響せず、セーブにも保存されず、OFFにすると即座に元に戻る。デフォルト: OFF。
+DivineHands/opt/FreeCamClearsHaze/label=フリーカム: 空の霞をクリア
+DivineHands/opt/FreeCamClearsHaze/tip=フリーカム中のみ戦場の霧の霞を自動非表示にする — 通常プレイでは戦場の霧、飛行中はクリアな空、終了すると即座に霞が戻る。純粋に見た目のみ。デフォルト: OFF。
+DivineHands/opt/EnableFreeCam/label=フリーカム
+DivineHands/opt/EnableFreeCam/tip=ゲーム内パネルでフリーカムを利用可能にする — 有効化はここではなくパネルで行う。Ctrl+F（変更可）で切り替え、またはパネルのトグルを使用。WASDで移動、Space/Ctrlで上下、Shiftで高速、マウスで視点操作。終了すると通常カメラに正確に戻る。デフォルト: OFF。
+DivineHands/opt/FreeCamHotkey/label=フリーカムホットキー
+DivineHands/opt/FreeCamHotkey/tip=ゲーム内でフリーカムのON/OFFを切り替えるキー/コード。Unity KeyCode名またはCtrl/Alt/Shiftを含むコード — 例: Ctrl+F, F8, Alt+C。デフォルト: Ctrl+F。
+DivineHands/opt/FreeCamMoveSpeed/label=フリーカム移動速度
+DivineHands/opt/FreeCamMoveSpeed/tip=フリーカムの飛行速度、ワールド単位メートル/秒。デフォルト: 40。
+DivineHands/opt/FreeCamFastMultiplier/label=フリーカム高速倍率
+DivineHands/opt/FreeCamFastMultiplier/tip=フリーカム中にShiftを押している間の速度倍率。デフォルト: 3。
+DivineHands/opt/FreeCamSensitivity/label=フリーカムマウス感度
+DivineHands/opt/FreeCamSensitivity/tip=フリーカムのマウス視点操作感度。デフォルト: 2。
+DivineHands/opt/FreeCamGroundFloor/label=フリーカム地面フロア
+DivineHands/opt/FreeCamGroundFloor/tip=フリーカムを地形の上に保ち、裏面/空のボイドにめり込まないようにする。地下からのショットを撮る場合はOFFにする。デフォルト: on。
+DivineHands/opt/FreeCamFloorClearance/label=フリーカム地面クリアランス
+DivineHands/opt/FreeCamFloorClearance/tip=フロアが地表から浮く高さ、メートル。小さい値 = 地表すれすれのショット；0は地表に乗る（近接面がクリップすることがある）。デフォルト: 1.0m。
+DivineHands/opt/InstantBuildEnable/label=即時建築
+DivineHands/opt/InstantBuildEnable/tip=ゲーム内パネルで即時建築を利用可能にする — 有効化はここではなくパネルで行う。有効中は、すべての建設予定地（新規配置・既存の保留中とも）がゲーム自身の完成処理により次のフレームで完成する。マップ読み込みごとにOFFにリセットされる。デフォルト: OFF。
+DivineHands/opt/InstantBuildUseMaterials/label=即時建築で資材を消費
+DivineHands/opt/InstantBuildUseMaterials/tip=建物を即時完成させる際、必要な建設資材を町の倉庫から事前に消費する（労働力は常に無料）。町が支払えない予定地は通常通り建設される。OFF = 資材不要の神建築。デフォルト: ON。
+DivineHands/opt/PersistRevealActive/label=マップ全開示（保存状態）
+DivineHands/opt/PersistBuildAnywhereActive/label=どこでも建築（保存状態）
+DivineHands/opt/PersistGodViewActive/label=ゴッドビュー（保存状態）
+DivineHands/cat/Terrain Sculpting=地形彫刻
+DivineHands/opt/TerrainEnable/label=地形彫刻
+DivineHands/opt/TerrainEnable/tip=地形標高の神の力を有効にする。ONにするとパネルで地形を選び、適用キーでブラシを世界に適用できる。デフォルト: OFF。
+DivineHands/opt/TerrainMode/label=ブラシモード
+DivineHands/opt/TerrainMode/tip=0 = 上げる, 1 = 下げる, 2 = 均す, 3 = 平坦化, 4 = 平均化。Shiftを押すと上げる/下げるが反転する。平均化はブラシ全体を1つの平坦な平均レベルに近づける（TerrainHelper方式）；均すは凹凸のみ除去し傾斜は維持する。
+DivineHands/opt/TerrainStrength/label=ブラシ強度
+DivineHands/opt/TerrainStrength/tip=1回の適用あたりの上げる/下げる高さ変化、ワールド単位メートル（均す・平均化の刻みでもある）。平坦化には影響しない。デフォルト: 1.0。
+DivineHands/opt/TerrainGridWidth/label=ブラシグリッド幅
+DivineHands/opt/TerrainGridWidth/tip=フットプリント幅（X）、標高マップセル単位（1〜20）。ライブ: 装備中に左右矢印キー。1セル≈解像度メートル（約5m）。デフォルト: 3。
+DivineHands/opt/TerrainGridHeight/label=ブラシグリッド奥行き
+DivineHands/opt/TerrainGridHeight/tip=フットプリント奥行き（Z）、標高マップセル単位（1〜20）。ライブ: 装備中に上下矢印キー；Tabで幅/奥行きを切り替え。1×20などで道を彫るのに使える。デフォルト: 3。
+DivineHands/opt/TerrainGridFineSnap/label=微細グリッド配置
+DivineHands/opt/TerrainGridFineSnap/tip=フリービルド配置向け（TerrainHelper風）：グリッドが半セル格子上で刻まれ、各ステップ間で静止するため、スナップされていない建物のゴーストがグリッドの下で滑ることなく半セル分の幅で自由に配置できる。あくまで配置ガイドであり、彫刻自体は適用時に整数セルに解決される。きれいな平坦地を作るにはOFFのままにする。デフォルト: off。
+DivineHands/opt/TerrainApplyKey/label=適用キー
+DivineHands/opt/TerrainApplyKey/tip=カーソル位置にブラシを適用するキー/ボタン。Unity KeyCode名またはコード。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse0。
+DivineHands/opt/TerrainUndoKey/label=元に戻すキー
+DivineHands/opt/TerrainUndoKey/tip=直前の地形操作を元に戻すキー/コード。デフォルト: Ctrl+Z。
+DivineHands/opt/TerrainArmHotkey/label=地形装備ホットキー
+DivineHands/opt/TerrainArmHotkey/tip=タブをクリックせずに地形ブラシを装備（再押下で解除）するキーボードキー/コード；装備時にパネルを開く。デフォルト: End（TerrainHelperの慣習）。
+DivineHands/cat/Cursor Spawners=カーソルスポナー
+DivineHands/opt/SpawnEnable/label=カーソルスポナー
+DivineHands/opt/SpawnEnable/tip=カーソルスポナーの神の力を有効にする。パネルで種類を選び、スポナーを装備し、適用キーを世界に対して押すとカーソル位置に生成される。デフォルト: OFF。
+DivineHands/opt/SpawnFamily/label=スポーンファミリー
+DivineHands/opt/SpawnFamily/tip=0 = 動物, 1 = 鉱物, 2 = 村人, 3 = 資源。
+DivineHands/opt/SpawnSubtype/label=スポーンサブタイプ
+DivineHands/opt/SpawnSubtype/tip=ファミリー内のインデックス。動物: 0 鹿/1 熊/2 猪/3 狼/4 キツネ/5 グラウンドホッグ/6 犬/7 猫（4-7はCats & Dogs DLCが必要）。鉱物: 0 金/1 鉄/2 石炭/3 石/4 粘土/5 砂。資源: 0 採集物/1 木/2 岩/3 巨岩。村人はこの項目を無視。
+DivineHands/opt/SpawnCount/label=スポーン数
+DivineHands/opt/SpawnCount/tip=1回の適用で生成する数（1〜50）、カーソル周囲の小さな輪に散らばる。
+DivineHands/opt/SpawnIsDeep/label=深部鉱床
+DivineHands/opt/SpawnIsDeep/tip=鉱物のみ。ONにすると生成される鉱床（全6種）は深部/無限になり — Deep Mine/Deep Pit建物専用になる。OFFの場合は通常の鉱山/採掘場向けの有限地表鉱床になる。デフォルト: OFF。
+DivineHands/opt/SpawnAnnounceVillagers/label=村人到着を通知
+DivineHands/opt/SpawnAnnounceVillagers/tip=村人を生成する際に移民の「到着」通知を発火させる。デフォルト: OFF。
+DivineHands/opt/SpawnPersistent/label=永続化（拠点/巣）
+DivineHands/opt/SpawnPersistent/tip=動物のみ。ON（デフォルト）の場合：鹿はカーソル位置に自己再スポーンするスポーンエリアノード（円形マーカー）を、猪/狼は巣を落とす。OFFの場合は単体で生成される。熊は常に単体。巣はセーブ/読み込みをまたいで永続するが、鹿のノードはこのセッション内では再スポーンするもののシリアライズされない（再読み込み後は再配置が必要）。デフォルト: ON。
+DivineHands/opt/SpawnWolfDenGuid/label=狼の巣GUID
+DivineHands/opt/SpawnWolfDenGuid/tip=動物グループの重み付き巣プレハブが解決できない場合にのみ使われる、任意のフォールバック狼巣プレハブGUID。巣が生成に失敗しない限りデフォルトのままでよい。
+DivineHands/opt/SpawnForageableGuids/label=採集物GUID
+DivineHands/opt/SpawnForageableGuids/tip=採集物タイプ用にカンマ/スペース/改行区切りで指定するプレハブGUID。適用ごとにリストを巡回する。不明/DLCのGUIDは安全にスキップされる。
+DivineHands/opt/SpawnTreeGuids/label=木GUID
+DivineHands/opt/SpawnTreeGuids/tip=木タイプ用の区切りプレハブGUID（地形の育成システム経由で配置）。空欄のまま（デフォルト）にすると現在のマップ自身の樹種（Terrain2 TreePrototypes）を自動使用する — 設定不要。植える木の種類を上書きしたい場合のみGUIDを入力する。
+DivineHands/opt/SpawnRockGuids/label=岩GUID
+DivineHands/opt/SpawnRockGuids/tip=岩タイプ用の区切りプレハブGUID。適用ごとにリストを巡回する。
+DivineHands/opt/SpawnGiantRockGuids/label=巨岩GUID
+DivineHands/opt/SpawnGiantRockGuids/tip=巨岩タイプ用の区切りプレハブGUID。
+DivineHands/opt/SpawnApplyKey/label=スポーン適用キー
+DivineHands/opt/SpawnApplyKey/tip=カーソル位置に生成するキー/ボタン。Unity KeyCode名またはコード。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse0。
+DivineHands/opt/SpawnerArmHotkey/label=スポナー装備ホットキー
+DivineHands/opt/SpawnerArmHotkey/tip=タブをクリックせずにスポナーを装備（再押下で解除）するキーボードキー/コード；装備時にパネルを開く。デフォルト: Home。
+DivineHands/cat/Lake Stamp=湖スタンプ
+DivineHands/opt/LakeEnable/label=湖/池スタンプ
+DivineHands/opt/LakeEnable/tip=ゲーム内パネルにLakeタブを追加する。カーソル位置に彫刻された水を張った湖をスタンプする（Panguを踏襲） — ネイティブに永続する。デフォルト: OFF。
+DivineHands/opt/LakeShape/label=形状
+DivineHands/opt/LakeShape/tip=0 = 長方形, 1 = 円形。
+DivineHands/opt/LakeGridWidth/label=幅（セル）
+DivineHands/opt/LakeGridWidth/tip=コアフットプリントの半幅、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/LakeGridHeight/label=奥行き（セル）
+DivineHands/opt/LakeGridHeight/tip=コアフットプリントの半奥行き、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/LakeCarveDepth/label=彫刻深度
+DivineHands/opt/LakeCarveDepth/tip=水面から湖底までの深さ、メートル（0.45〜12）。デフォルト: 4.6。
+DivineHands/opt/LakeFillRatio/label=充填比率
+DivineHands/opt/LakeFillRatio/tip=湖を拡大する — 幅/奥行きに乗算する（1.0〜2.0）。デフォルト: 1.0（拡大なし）。
+DivineHands/opt/LakeShoreWidth/label=岸の馴染み幅
+DivineHands/opt/LakeShoreWidth/tip=陸地に向かって傾斜が戻る岸のリング幅（2〜40）。デフォルト: 16。
+DivineHands/opt/LakeNoGoWidth/label=追加サイズ
+DivineHands/opt/LakeNoGoWidth/tip=湖のフットプリントに各辺で追加されるセル数（0〜24）。デフォルト: 0。
+DivineHands/opt/LakeArmHotkey/label=湖装備ホットキー
+DivineHands/opt/LakeArmHotkey/tip=湖スタンプを装備（再押下で解除）するキー/コード。デフォルト: Insert。
+DivineHands/opt/LakeApplyKey/label=湖適用キー
+DivineHands/opt/LakeApplyKey/tip=カーソル位置に湖をスタンプするキー/ボタン。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse0。
+DivineHands/opt/LakeStockFish/label=魚を放流
+DivineHands/opt/LakeStockFish/tip=新しい湖に魚と見える魚群（湖のサイズに合わせる）を配置し、釣りができるようにする。デフォルト: on。
+DivineHands/opt/LakePersist/label=湖を永続化
+DivineHands/opt/LakePersist/tip=スタンプした湖をセーブ/再読み込み後も残す。FFは生成時にのみ水をマップファイルに焼き付けるため、通常のセーブでは彫った湖底は残るが水が失われる — この機能は各セーブの横に小さな付属ファイルを書き込み、読み込み時に水を再構築する（セーブを削除すると一緒に削除される）。デフォルト: ON。
+DivineHands/cat/Fertility Painter=地力ペインター
+DivineHands/opt/FertilityEnable/label=地力ペインター
+DivineHands/opt/FertilityEnable/tip=ゲーム内パネルにFertilityタブを追加する。調整可能な範囲に土壌の地力を塗る（セーブに保存される）。デフォルト: OFF。
+DivineHands/opt/FertilityShape/label=形状
+DivineHands/opt/FertilityShape/tip=0 = 長方形, 1 = 円形。
+DivineHands/opt/FertilityGridWidth/label=幅（セル）
+DivineHands/opt/FertilityGridWidth/tip=ブラシの半幅、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/FertilityGridHeight/label=奥行き（セル）
+DivineHands/opt/FertilityGridHeight/tip=ブラシの半奥行き、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/FertilityAmount/label=地力 %
+DivineHands/opt/FertilityAmount/tip=ブラシが塗る目標土壌地力（0〜100%）。デフォルト: 80。
+DivineHands/opt/FertilityMult/label=肥料効果 %
+DivineHands/opt/FertilityMult/tip=ブラシが設定するセルごとの肥料/堆肥効果（0〜100%）。デフォルト: 100。
+DivineHands/opt/FertilityConditionSoil/label=果樹園向けに土壌を調整
+DivineHands/opt/FertilityConditionSoil/tip=土壌の質感（砂/粘土）と水分も果樹の理想値（ゲーム自身のペナルティカーブから読み取る）に設定し、悪い土壌で果樹園の足を引っ張らないようにする。果樹には最適だが、作物にはやや不向きな場合がある。デフォルト: off。
+DivineHands/opt/FertilityArmHotkey/label=地力装備ホットキー
+DivineHands/opt/FertilityArmHotkey/tip=地力ペインターを装備（再押下で解除）するキー/コード — またはFertilityタブを使用。デフォルト: Alt+Insert。
+DivineHands/opt/FertilityApplyKey/label=地力適用キー
+DivineHands/opt/FertilityApplyKey/tip=カーソル位置に地力を塗るキー/ボタン。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse1。
+DivineHands/cat/Forest Brush=森林ブラシ
+DivineHands/opt/ForestEnable/label=森林ブラシ
+DivineHands/opt/ForestEnable/tip=ゲーム内パネルにForestタブを追加する。調整可能な範囲に、マップ自身の樹種を目標被覆率で植える（既存の木もカウントされるため、再適用で上乗せできる）、任意で土壌の地力も設定できる。木と地力はセーブに保存される。デフォルト: OFF。
+DivineHands/opt/ForestShape/label=形状
+DivineHands/opt/ForestShape/tip=0 = 長方形, 1 = 円形。
+DivineHands/opt/ForestGridWidth/label=幅（セル）
+DivineHands/opt/ForestGridWidth/tip=ブラシの半幅、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/ForestGridHeight/label=奥行き（セル）
+DivineHands/opt/ForestGridHeight/tip=ブラシの半奥行き、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/ForestCoverage/label=被覆率 %
+DivineHands/opt/ForestCoverage/tip=フットプリントの目標樹木被覆率（0〜100%）。既存の木もカウントされる。デフォルト: 26。
+DivineHands/opt/ForestVariance/label=ばらつき
+DivineHands/opt/ForestVariance/tip=植えた木ごとのランダムなxzジッター（メートル）で、格子状に揃わないようにする。デフォルト: 1.1。
+DivineHands/opt/ForestSetFertility/label=地力も設定
+DivineHands/opt/ForestSetFertility/tip=ブラシ範囲の作物/土壌地力を書き込む（Pangu風）。植えた木の成長は速くならない（木の成長はバイオーム/技術システムであり土壌ではない）— そこで後から育てる作物/果樹園向けに地を整えるだけ。OFF = 木だけ植える。デフォルト: off。
+DivineHands/opt/ForestFertility/label=地力 %
+DivineHands/opt/ForestFertility/tip=「地力も設定」がONのときに設定される土壌地力（0〜100%）。デフォルト: 50。
+DivineHands/opt/ForestFertilityMult/label=肥料効果 %
+DivineHands/opt/ForestFertilityMult/tip=地力とあわせて設定されるセルごとの肥料効果（0〜100%）。デフォルト: 100。
+DivineHands/opt/ForestArmHotkey/label=森林装備ホットキー
+DivineHands/opt/ForestArmHotkey/tip=森林ブラシを装備（再押下で解除）するキー/コード — またはForestタブを使用。デフォルト: Shift+Insert。
+DivineHands/opt/ForestApplyKey/label=森林適用キー
+DivineHands/opt/ForestApplyKey/tip=カーソル位置に森を植えるキー/ボタン。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse1。
+DivineHands/cat/Mountain Brush=山岳ブラシ
+DivineHands/opt/MountainEnable/label=山岳ブラシ
+DivineHands/opt/MountainEnable/tip=ゲーム内パネルにMountainタブを追加する。岩がちな地形を隆起させ（ドーム+リッジノイズ）、地面を岩に塗り替え、山岳バイオームを設定する。量スライダーが0より大きい場合は石/鉱石の鉱床と山岳の野生動物も散布する。地形編集は恒久的（元に戻せない）。デフォルト: OFF。
+DivineHands/opt/MountainShape/label=形状
+DivineHands/opt/MountainShape/tip=0 = 長方形, 1 = 円形。
+DivineHands/opt/MountainGridWidth/label=幅（セル）
+DivineHands/opt/MountainGridWidth/tip=ブラシの半幅、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/MountainGridHeight/label=奥行き（セル）
+DivineHands/opt/MountainGridHeight/tip=ブラシの半奥行き、セル単位（1〜10）。装備中は矢印キーでサイズ変更。
+DivineHands/opt/MountainHeight/label=高さ
+DivineHands/opt/MountainHeight/tip=ブラシ範囲100mあたりの隆起メートル数。デフォルト: 20。
+DivineHands/opt/MountainMaxHeight/label=最大高さ
+DivineHands/opt/MountainMaxHeight/tip=総隆起量の上限、メートル。デフォルト: 60。
+DivineHands/opt/MountainEdgeSoftness/label=端の柔らかさ
+DivineHands/opt/MountainEdgeSoftness/tip=山が周囲の土地にどれだけ滑らかに馴染むか（0 = 崖、1 = 幅広いスカート状）。デフォルト: 0.72。
+DivineHands/opt/MountainRuggedness/label=険しさ
+DivineHands/opt/MountainRuggedness/tip=山頂のギザギザ具合（0 = 滑らかなドーム、100 = ゴツゴツ）。デフォルト: 55。
+DivineHands/opt/MountainTexture/label=岩肌テクスチャ %
+DivineHands/opt/MountainTexture/tip=地面をどれだけ強く岩に塗り替えるか（0〜100%）。デフォルト: 90。
+DivineHands/opt/MountainRockOre/label=岩/鉱石量 %
+DivineHands/opt/MountainRockOre/tip=散布される石+鉱物鉱床の密度（0〜100%）。デフォルト: 0。
+DivineHands/opt/MountainWildlife/label=野生動物出現率 %
+DivineHands/opt/MountainWildlife/tip=山岳動物（鹿/猪/狼/熊）が出現する確率（0〜100%）。デフォルト: 0。
+DivineHands/opt/MountainArmHotkey/label=山岳装備ホットキー
+DivineHands/opt/MountainArmHotkey/tip=山岳ブラシを装備（再押下で解除）するキー/コード — またはMountainタブを使用。デフォルト: Ctrl+Insert。
+DivineHands/opt/MountainApplyKey/label=山岳適用キー
+DivineHands/opt/MountainApplyKey/tip=カーソル位置に山を隆起させるキー/ボタン。マウスボタン: Mouse0 = 左クリック、Mouse1 = 右クリック、Mouse2 = 中クリック。デフォルト: Ctrl+Mouse1。
+DivineHands/cat/Delete Selected=選択対象を削除
+DivineHands/opt/DeleteEnable/label=選択対象を削除
+DivineHands/opt/DeleteEnable/tip=ゲーム内パネルに選択対象削除セクションを追加し、削除ホットキーを有効にする。鉱山/採石場/粘土砂採掘場/深部鉱山/任意の建物 — または資源ノード（鉱石、粘土/砂/石の採掘場、木、岩、採集物）— を選択して即座に削除する。それ以外（村人、動物、畑）は安全な無操作。鉱石ノードの削除は恒久的な世界編集となる。デフォルト: OFF。
+DivineHands/opt/DeleteHotkey/label=削除ホットキー
+DivineHands/opt/DeleteHotkey/tip=現在の選択対象を削除するキー/コード。単独キーより意図的なコードの方が安全。デフォルト: Ctrl+Delete。
+DivineHands/opt/DeleteRefund/label=削除時に返還
+DivineHands/opt/DeleteRefund/tip=削除時に建物の建設資材を返還する（保管物も地面に落とす）。OFF = 返還なしのクリーンな消去。デフォルト: OFF。
+DivineHands/cat/Kill Selected=選択対象を殺す
+DivineHands/opt/KillEnable/label=選択対象を殺す
+DivineHands/opt/KillEnable/tip=ゲーム内パネルに選択対象殺害セクションを追加し、殺害ホットキーを有効にする。村人、襲撃者、任意の動物（野生/家畜/ペット）— 単体またはグループ — を選択し、ゲーム自身の死亡処理（適切な除去+死亡イベント）で即座に殺害する。建物/ノードには一切影響しない（選択対象削除を使用）。主にテスト用途だが、これは神Modである。デフォルト: OFF。
+DivineHands/opt/KillHotkey/label=殺害ホットキー
+DivineHands/opt/KillHotkey/tip=現在の生物を殺害するキー/コード。単独キーより意図的なコードの方が安全。デフォルト: Ctrl+D。
+DivineHands/cat/Selected Building=選択中の建物
+DivineHands/opt/InjectEnable/label=アイテム注入
+DivineHands/opt/InjectEnable/tip=選択中の建物へのアイテム注入を有効にする。ゲーム内で建物を選択し、パネルの選択中の建物セクションでアイテムの追加、家畜の追加、無限倉庫の切り替えを行う。無限倉庫はセッション限定 — セーブ（手動・オートセーブ・終了時）のたびに自動で取り除かれるため、.savファイルには決して焼き付かない。デフォルト: OFF。
+DivineHands/opt/InjectItemIndex/label=追加するアイテム
+DivineHands/opt/InjectItemIndex/tip=アイテム追加ボタンで選択中の建物の倉庫に注入されるアイテム（パネルのアイテムリストのインデックス）。パネルでアイテムを選択する。
+DivineHands/opt/InjectUnrestricted/label=無制限注入
+DivineHands/opt/InjectUnrestricted/tip=スマートな建物ごとのフィルターを無視する — あらゆるアイテムが倉庫を持つ任意の選択建物に注入可能になる。OFF = デフォルトのフィルター: 倉庫系はその許可リスト、生産系はレシピの入力材料、採集系は交易品、シェルターは薪+食料、その他すべての建物は既に保有しているものを補充する。デフォルト: OFF。
+DivineHands/opt/InjectItemCount/label=アイテム数
+DivineHands/opt/InjectItemCount/tip=クリック1回で追加する選択アイテムの数（1〜9999）。デフォルト: 100。
+DivineHands/opt/InjectLivestockKind/label=追加する家畜
+DivineHands/opt/InjectLivestockKind/tip=0 = 牛（納屋）, 1 = 鶏（鶏小屋）, 2 = ヤギ（ヤギ小屋）, 3 = 馬（厩舎）。選択中の建物は動物の種類と一致している必要がある。デフォルト: 牛。
+DivineHands/opt/LivestockGuidCow/label=牛プレハブGUID
+DivineHands/opt/LivestockGuidCow/tip=納屋に牛を追加する際に生成されるプレハブGUID。DLCやゲームアップデートで変わる場合に備えて編集可能。不明なGUIDは安全にスキップされる。
+DivineHands/opt/LivestockGuidChicken/label=鶏プレハブGUID
+DivineHands/opt/LivestockGuidChicken/tip=鶏小屋に鶏を追加する際に生成されるプレハブGUID。
+DivineHands/opt/LivestockGuidGoat/label=ヤギプレハブGUID
+DivineHands/opt/LivestockGuidGoat/tip=ヤギ小屋にヤギを追加する際に生成されるプレハブGUID。
+DivineHands/opt/LivestockGuidHorse/label=馬プレハブGUID
+DivineHands/opt/LivestockGuidHorse/tip=厩舎に馬を追加する際に生成されるプレハブGUID。
+DivineHands/cat/Other settings=その他の設定
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=Essential Provisions
+EssentialProvisions/meta/desc=厳選されたオプトインQoLバンドル。情報オーバーレイ、アラート、プレイテンポ補助。すべての機能はデフォルトでOFF。オリジナルのコミュニティMod作者のクレジット付きで統合 — 全出典表はREADME参照。
+EssentialProvisions/cat/Misc=その他
+EssentialProvisions/opt/EnableFastForward/label=早送り
+EssentialProvisions/opt/EnableFastForward/tip=バニラの3倍上限を超えるゲーム速度を解禁する。最大50倍まで利用可能になる。20倍を超えると狩人と戦闘AIが不安定になることがある — 警告がログに記録される。トグルは即座に反映される。
+EssentialProvisions/opt/EnableServiceBounds/label=サービス範囲
+EssentialProvisions/opt/EnableServiceBounds/tip=配置済みの建物をクリックすると効果範囲（給水、快適度、市場圏、学校範囲、作業エリア）が表示される。配置中にFFが表示するのと同じ円。
+EssentialProvisions/opt/EnableClearcutting/label=皆伐
+EssentialProvisions/opt/EnableClearcutting/tip=町の中心を中心とした半径内の採取可能資源を自動でフラグする。襲撃者、狼、熊の危険地帯はスキップする。
+EssentialProvisions/opt/ClearcuttingTrees/label=　木
+EssentialProvisions/opt/ClearcuttingTrees/tip=自動フラグの対象に木を含める。
+EssentialProvisions/opt/ClearcuttingStones/label=　石
+EssentialProvisions/opt/ClearcuttingStones/tip=自動フラグの対象に石を含める。
+EssentialProvisions/opt/ClearcuttingForageables/label=　採集物
+EssentialProvisions/opt/ClearcuttingForageables/tip=自動フラグの対象に採集物（ベリーの茂み、ハーブ、キノコ）を含める。
+EssentialProvisions/opt/ClearcuttingRadius/label=　皆伐半径
+EssentialProvisions/opt/ClearcuttingRadius/tip=町の中心から自動フラグする範囲までの距離。
+EssentialProvisions/opt/ClearcuttingRescan/label=　今すぐ再スキャン
+EssentialProvisions/opt/ClearcuttingRescan/tip=即座に新しいスキャンを実行する。実行後は自動でOFFに戻る。
+EssentialProvisions/cat/Villager Improvements=村人の改善
+EssentialProvisions/opt/EnableShortWalks/label=近距離通勤
+EssentialProvisions/opt/EnableShortWalks/tip=月に一度、村人の自宅割り当てを再最適化し、職場の近くに住まわせる。兵士、衛兵、職場在住の職業はスキップされる。
+EssentialProvisions/opt/EnableLongTravels/label=長距離通勤
+EssentialProvisions/opt/EnableLongTravels/tip=生産よりも移動に時間を取られすぎている生産建物にフラグを立てる。
+EssentialProvisions/opt/LongTravelsThreshold/label=　長距離通勤しきい値（%）
+EssentialProvisions/opt/LongTravelsThreshold/tip=移動時間が総労働時間のこの割合を超えたときにアラートを発生させる。
+EssentialProvisions/opt/EnableSelfPreservation/label=自己保存本能
+EssentialProvisions/opt/EnableSelfPreservation/tip=村人は戦闘開始を待たずに近くの襲撃者から逃げる。狩人はバニラの短距離挙動を維持する。キャンプを守る襲撃者は無視される。
+EssentialProvisions/opt/SelfPreservationRadius/label=　検知半径
+EssentialProvisions/opt/SelfPreservationRadius/tip=敵対的な襲撃者が退避を誘発するタイル範囲。
+EssentialProvisions/opt/EnableLaborShortage/label=労働力不足
+EssentialProvisions/opt/EnableLaborShortage/tip=労働者と建築工が推奨数を下回ったときにトップバーへアラートバッジを表示する。
+EssentialProvisions/opt/EnableEfficientLabor/label=効率的な労働力
+EssentialProvisions/opt/EnableEfficientLabor/tip=工芸・屋外職の暇な村人は、自分の仕事がないとき労働者として手伝う。本来の仕事が最優先で、実際の仕事が現れると即座に戻る。
+EssentialProvisions/opt/EfficientLaborPollDays/label=　N日ごとに再スキャン
+EssentialProvisions/opt/EfficientLaborPollDays/tip=暇な村人を貸し出し、仕事が見つかった村人を解放するためのスキャン頻度（ゲーム内日数）。暇状態は日々ほとんど変化しないため5で十分；低くすると即応性が上がり、高くすると大規模マップで軽くなる。
+EssentialProvisions/opt/EnablePennyPincher/label=節約家
+EssentialProvisions/opt/EnablePennyPincher/tip=害獣被害がないときはネズミ捕り係を、襲撃がないときは見張り塔を自動で休止させる。脅威が再発すると自動で再稼働する。現在選択中の建物には触れない。
+EssentialProvisions/opt/PennyPincherGuardTowers/label=　見張り塔も休止
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=平時には見張り塔も休止させる（襲撃が近づくと再稼働）。見張り塔を完全に自分で管理しつつネズミ捕り係の自動管理は維持したい場合はOFFに — OFFにすると休止中の塔は即座に再稼働する。個別の塔を除外したい場合は塔を選択してCtrl+P（トグル；セーブごとに保持）。
+EssentialProvisions/opt/EnableIdleHands/label=遊休の手
+EssentialProvisions/opt/EnableIdleHands/tip=作業員が暇な時間を取りすぎている生産建物にフラグを立てる。
+EssentialProvisions/opt/IdleHandsThreshold/label=　遊休の手しきい値（%）
+EssentialProvisions/opt/IdleHandsThreshold/tip=遊休時間が総労働時間のこの割合を超えたときにアラートを発生させる。
+EssentialProvisions/opt/EnableLearnedHands/label=学びし手
+EssentialProvisions/opt/EnableLearnedHands/tip=教育を受けた村人は採集、畑仕事、工芸すべてで作業が速くなる — 教育レベルごとに+10%。公式ガイドには記載されているがゲームには実装されていないバニラの隙間を埋める。職場熟練度と重複適用される。ON/OFFのみ — スライダーなし。
+EssentialProvisions/opt/EnableWorkplaceMastery/label=職場熟練度
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=同じ仕事を長く続けるほど村人の作業が速くなる — 採集、畑仕事、工芸すべて対象。在職年数あたり+1%、最大+25%（25年）。学びし手と重複適用される。在職年数は職業ごとにセーブに保持され、既存の村人は0からスタートする。村人選択パネルに熟練度表示を追加。ON/OFFのみ — スライダーなし。
+EssentialProvisions/opt/EnableRabiesTreatable/label=狂犬病: 治療可能（一縷の望み）
+EssentialProvisions/opt/EnableRabiesTreatable/tip=バニラでは確実に死に至る狂犬病を、治療師次第のわずかな可能性のあるものに変える。狂犬病に罹った村人は寝込み、病床で治療を受ける — 治療院で約9%、備品の揃った病院で最大約18%。代償として、病気の間は働けず病床を占有し、治療できるベッドが見つからない場合は自宅で死亡する。意図的なバランス変更。デフォルトOFF。
+EssentialProvisions/cat/Inventory Management=在庫管理
+EssentialProvisions/opt/EnableBroadShelves/label=広い棚
+EssentialProvisions/opt/EnableBroadShelves/tip=ストックヤードが鉄を受け入れる。穀物庫が干し草と亜麻を受け入れる。穀物庫はUI上すべて「サイロ」に改名される。既存の倉庫建物に適用するにはセーブの再読み込みが必要。
+EssentialProvisions/opt/EnableSurplusSelling/label=余剰販売
+EssentialProvisions/opt/EnableSurplusSelling/tip=観測された1日あたりの消費量×月数に基づいて余剰在庫を自動で交易所に送る。デフォルトでは食料以外のみ対象 — 食料には食生活の多様性を守る別サブトグルがある。消費管理も有効化する必要がある：余剰販売が出荷量を決めるための日次データを収集するのに使われる。
+EssentialProvisions/opt/SurplusSellingMonths/label=　町に残す月数（非食料）
+EssentialProvisions/opt/SurplusSellingMonths/tip=非食料の追跡アイテムごとに町に残しておく在庫月数。余剰分は交易所に流れる。
+EssentialProvisions/opt/EnableSurplusSellingFood/label=　食料も含める
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=食料の余剰も自動出荷する。安全策: 食料合計がしきい値を超え、かつ各食料タイプが自身の消費量の1か月分以上残っている必要がある。
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=　町に残す月数（食料）
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=町に残しておく食料在庫の月数。デフォルト10はFFの移民しきい値と一致する。
+EssentialProvisions/opt/SurplusSellingPollDays/label=　N日ごとに再計算
+EssentialProvisions/opt/SurplusSellingPollDays/tip=交易所の在庫目標を再計算する頻度（ゲーム内日数）。30日移動平均は日々ほとんど動かないため毎日計算するのは無駄；5で十分応答性がある。低くすると即応性が上がり、高くすると大規模マップで軽くなる。
+EssentialProvisions/opt/EnableConsumableControl/label=消費管理
+EssentialProvisions/opt/EnableConsumableControl/tip=観測された1日あたりの消費量×月数に基づいて交易所の補充最低ラインを自動設定する。町の在庫が備蓄ラインを上回らない限り、交易所職員はアイテムを倉庫から出して交易所に補充しない（既に交易所にあるアイテムは村人が利用できない）。人口に応じて自動でスケールする。
+EssentialProvisions/opt/ConsumableReserveMonths/label=　備蓄月数
+EssentialProvisions/opt/ConsumableReserveMonths/tip=職員が交易所補充のためにアイテムを取り出す前に町の倉庫にあるべき供給月数。
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=　成長余裕（%）
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=人口増加（出生・移民）を見越してレートベースの目標に加えられる余裕。消費管理と余剰販売で共有される。
+EssentialProvisions/opt/EnableProjectPrep/label=建設準備
+EssentialProvisions/opt/EnableProjectPrep/tip=建設資材が生産建物に消費されないよう確保する。下のスライダーで資材ごとの下限を設定する。建設は備蓄分にアクセスできるが、生産はできない。0 = 備蓄なし。
+EssentialProvisions/opt/ProjectPrepLogs/label=　丸太の備蓄
+EssentialProvisions/opt/ProjectPrepLogs/tip=建設用に確保しておく丸太の最低量。
+EssentialProvisions/opt/ProjectPrepPlanks/label=　板材の備蓄
+EssentialProvisions/opt/ProjectPrepPlanks/tip=建設用に確保しておく板材の最低量。
+EssentialProvisions/opt/ProjectPrepStone/label=　石材の備蓄
+EssentialProvisions/opt/ProjectPrepStone/tip=建設用に確保しておく石材の最低量。
+EssentialProvisions/opt/ProjectPrepClay/label=　粘土の備蓄
+EssentialProvisions/opt/ProjectPrepClay/tip=建設用に確保しておく粘土の最低量。
+EssentialProvisions/opt/ProjectPrepSand/label=　砂の備蓄
+EssentialProvisions/opt/ProjectPrepSand/tip=建設用に確保しておく砂の最低量。
+EssentialProvisions/opt/ProjectPrepIron/label=　鉄の備蓄
+EssentialProvisions/opt/ProjectPrepIron/tip=建設用に確保しておく鉄の最低量。
+EssentialProvisions/opt/ProjectPrepCoal/label=　石炭の備蓄
+EssentialProvisions/opt/ProjectPrepCoal/tip=建設用に確保しておく石炭の最低量。
+EssentialProvisions/cat/Agriculture Alerts=農業アラート
+EssentialProvisions/opt/EnableSoilWisdom/label=土壌の知恵
+EssentialProvisions/opt/EnableSoilWisdom/tip=作物情報ウィンドウで危険な作付け順序 — 病気の競合や季節的な霜/熱リスク — をハイライトする。
+EssentialProvisions/opt/EnableBlightWatch/label=疫病監視
+EssentialProvisions/opt/EnableBlightWatch/tip=病気の作物畑を、対処されるまでマップ上にピン留めする。
+EssentialProvisions/opt/EnableHarvestWatch/label=収穫監視
+EssentialProvisions/opt/EnableHarvestWatch/tip=各果樹園で未収穫のまま腐った果樹の数を年末に報告し、傾向と建物の作業員数も表示する — 作業員を追加すべきか作業エリアを縮小すべきかの合図になる。樹木栽培パネルにも未収穫の木の数をリアルタイムで表示する。
+EssentialProvisions/opt/HarvestWatchMinFruit/label=　フラグする最低果実数
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=木に未収穫の果実がこの数以上あると放置扱いとしてカウントされる（年末集計＋リアルタイムカウント）。
+EssentialProvisions/cat/Planting Almanac=作付け暦
+EssentialProvisions/opt/EnablePlantingAlmanac/label=作付け暦
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=作物畑ウィンドウにワンクリックの輪作プリセットを追加する。厳選された病気を避ける輪作を提供し、適用するとゲーム自身のスケジューラーで畑のスケジュール全体を置き換える。次に作物畑ウィンドウを開いたときから反映される。
+EssentialProvisions/cat/Other settings=その他の設定
+EssentialProvisions/opt/PennyPincherExemptKey/label=　塔除外ホットキー（Ctrl + このキー）
+EssentialProvisions/opt/PennyPincherExemptKey/tip=見張り塔を選択した状態でCtrlを押しながらこのキーを押すと、その塔を節約家の対象から除外する。除外された塔は自動で休止/再稼働されず、常に自分で完全にコントロールできる。除外設定はセーブごとに保持される。任意のUnity KeyCode名が使用可（例: P, F9, Slash）；不正な値はPにフォールバックする。
+EssentialProvisions/opt/EfficientLaborOccupations/label=効率的な労働力: 対象職業
+EssentialProvisions/opt/EfficientLaborOccupations/tip=FFのOccupation列挙名のカンマ区切りリスト。これらの職業の村人は、本当に暇なときに労働者作業に振り向けられる。この設定はcfgフィールドを直接編集して追加/削除する — パネルを煩雑にしないためKCパネルには表示しない。変更を反映するにはゲームの再起動が必要。
+EssentialProvisions/opt/EfficientLaborVerbose/label=効率的な労働力: 詳細ログ
+EssentialProvisions/opt/EfficientLaborVerbose/tip=trueの場合、各村人（職業）が労働者プールに登録/解除されるたびにログを記録する。デフォルトfalseでは何か変化があった日にのみ1日1回の要約行のみログする。cfg専用；KCパネルには表示しない。
+EssentialProvisions/opt/InventoryDiagnostics/label=在庫機能: 診断ログ
+EssentialProvisions/opt/InventoryDiagnostics/tip=trueの場合、消費管理と余剰販売が毎日アイテムごとの詳細 — 観測された日次レート、計算された備蓄/保持目標、現在の町在庫（倉庫と交易所の内訳）、どこに何を書き込んだか — をログに記録する。cfg専用；KCパネルには表示しない。機能が正しく動作しているか確認したら再びOFFにすること。
+EssentialProvisions/opt/LearnedHandsVerbose/label=学びし手: 詳細ログ
+EssentialProvisions/opt/LearnedHandsVerbose/tip=trueの場合、各固有村人にボーナスが初めて適用されたときに1行ログする。cfg専用；KCパネルには表示しない。デフォルトは「初回適用」の1行が常に発火するため、パッチが有効であることをスパムなしで確認できる。
+EssentialProvisions/opt/DiseaseRosterDump/label=病気一覧ダンプ（診断用）
+EssentialProvisions/opt/DiseaseRosterDump/tip=trueの場合、初回のマップ読み込み時にすべての病気の治療分類、最良回復率、生の治療データ（cureFactors、finalCureChance、curve、effMin/Max）をLatest.logに記録する — DiseaseInfoApiの治療導出を病気一覧に対して検証するために使用。cfg専用；KCパネルには表示しない。通常プレイではOFFのままにすること。
+EssentialProvisions/opt/ConsumableTrackedItems/label=消費管理: 追跡アイテム
+EssentialProvisions/opt/ConsumableTrackedItems/tip=消費管理が管理するItemID名のカンマ区切りリスト。cfgフィールドを直接編集して追加/削除する — KCパネルには表示しない。変更を反映するには再起動が必要。
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=Manifest Delivery
+ManifestDelivery/meta/desc=荷馬車屋の全面改修: キャンプ/ハブモード、復路の帰り荷AI、荷馬車強化
+ManifestDelivery/cat/Master=マスター
+ManifestDelivery/opt/ModEnabled/label=Mod有効
+ManifestDelivery/opt/ModEnabled/tip=無効にするとバニラの荷馬車屋の挙動に戻る
+ManifestDelivery/cat/Wagon Caps=荷馬車上限
+ManifestDelivery/opt/MaxWagonsStandard/label=最大荷馬車数 — 標準
+ManifestDelivery/opt/MaxWagonsStandard/tip=標準の荷馬車屋が保有できる最大荷馬車数（1〜4）。
+ManifestDelivery/opt/MaxWagonsCamp/label=最大荷馬車数 — キャンプ
+ManifestDelivery/opt/MaxWagonsCamp/tip=推奨2台: 1台が出荷、1台が補給品を持ち帰る
+ManifestDelivery/opt/MaxWagonsHub/label=最大荷馬車数 — ハブ
+ManifestDelivery/opt/MaxWagonsHub/tip=ハブ拠点は集落全体にサービスする
+ManifestDelivery/cat/Backhaul AI=帰り荷AI
+ManifestDelivery/opt/ReturnTripEnabled/label=復路の荷受け
+ManifestDelivery/opt/ReturnTripEnabled/tip=荷馬車は荷下ろし地点で空で戻る前に近くの物流要請を探す
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=復路の探索半径
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=標準モードの拠点のワールド単位の探索半径。
+ManifestDelivery/opt/PreferWorkshopInput/label=帰り荷で工房を優先
+ManifestDelivery/opt/PreferWorkshopInput/tip=倉庫の移し替えより生産建物（パン屋、鍛冶場、なめし革工房など）への供給を優先する
+ManifestDelivery/cat/Camp & Hub=キャンプ&ハブ
+ManifestDelivery/opt/CampHaulEnabled/label=キャンプの積極運搬
+ManifestDelivery/opt/CampHaulEnabled/tip=キャンプの荷馬車が近くの生産物をハブ倉庫へ積極的に運ぶ
+ManifestDelivery/opt/HubHaulEnabled/label=ハブの積極配送
+ManifestDelivery/opt/HubHaulEnabled/tip=ハブの荷馬車が半径内のあらゆる要請（市場、シェルター、生産者、倉庫）に積極的にサービスする
+ManifestDelivery/opt/HubMultiSourcePickup/label=ハブの複数拠点集荷（実験的）
+ManifestDelivery/opt/HubMultiSourcePickup/tip=ハブの荷馬車は配送/補充要請（建物全体ではなく特定の要請のみ）だけを担当するため、1台の荷馬車が複数の供給元倉庫を巡って積載量まで集荷でき、ほぼ空の1拠点だけの集荷を避けられる。ハブモード限定。デフォルトOFF — 実験的機能。
+ManifestDelivery/opt/CampWorkRadius/label=キャンプ作業半径
+ManifestDelivery/opt/CampWorkRadius/tip=デフォルト120uは一般的な遠隔キャンプをカバーする
+ManifestDelivery/opt/HubWorkRadius/label=ハブ作業半径
+ManifestDelivery/opt/HubWorkRadius/tip=デフォルト200uは町の中心全体をカバーする
+ManifestDelivery/cat/Storage Cart=保管カート
+ManifestDelivery/opt/StorageCartCapacity/label=容量
+ManifestDelivery/opt/StorageCartCapacity/tip=バニラは750
+ManifestDelivery/opt/StorageCartSpeedMult/label=移動速度倍率
+ManifestDelivery/opt/StorageCartSpeedMult/tip=カートが集合地点まで自走する速さ
+ManifestDelivery/cat/Hotkeys=ホットキー
+ManifestDelivery/opt/ModeCycleKey/label=荷馬車屋モードを切り替え
+ManifestDelivery/opt/ModeCycleKey/tip=Unity KeyCode名。荷馬車屋を選択中に標準/キャンプ/ハブを循環切り替えする。
+ManifestDelivery/cat/Diagnostics=診断
+ManifestDelivery/opt/HaulDiagnostics/label=運搬診断
+ManifestDelivery/opt/HaulDiagnostics/tip=各荷馬車運搬の全体像（集荷/荷下ろし地点、アイテム、要請処理のスロットリングパラメータ、積載容量）をMelonLoaderログに記録する。複数集荷の調整用の調査ツール。デフォルトOFF。
+ManifestDelivery/cat/Other settings=その他の設定
+ManifestDelivery/opt/VerboseLogging/label=詳細ログ
+ManifestDelivery/opt/VerboseLogging/tip=trueの場合、すべての配送/スキャンイベント（DELIVER / ReturnTrip / CampHaul / HubHaulのCLAIM+EMPTY行）をMelonLoaderログに記録する。荷馬車の経路の診断に有用だが、忙しいマップではログが多くなる。警告とエラーは常に記録される。デフォルトfalse。
+ManifestDelivery/opt/StatsEnabled/label=運搬統計 — 有効
+ManifestDelivery/opt/StatsEnabled/tip=trueの場合、Modは各拠点の統計ファイルにすべての荷馬車配送を記録する（累計＋年初来合計、アイテム別内訳、原材料と生産品の内訳）。レポートキー（デフォルトCtrl+Shift+M）を押すと整形されたレポートをMelonLoaderログに出力する。
+ManifestDelivery/opt/StatsReportKey/label=運搬統計 — レポートキー
+ManifestDelivery/opt/StatsReportKey/tip=CTRL+SHIFT+<このキー>を押すと拠点ごとの運搬レポートをMelonLoaderログに出力する。Unity KeyCode名を使用（例: M, J, F8）。
+# ── Rivers Restored ──
+RiversRestored/meta/name=Rivers Restored
+RiversRestored/meta/desc=FFマップでの河川生成を復活させ、河川の密度/形状/釣り場調整を公開する
+RiversRestored/cat/Master=マスター
+RiversRestored/opt/RiversEnabled/label=河川を有効化
+RiversRestored/opt/RiversEnabled/tip=マスタートグル。OFF = バニラ（河川なし）。
+RiversRestored/opt/RiverPreset/label=河川プリセット（マップのバイオームに合わせる）
+RiversRestored/opt/RiverPreset/tip=FFのバイオーム名に合わせて調整済みの河川設定バンドル。Custom以外を選ぶと、プリセットの値が個別スライダーを上書きする。マップのバイオームに合ったオプションを選ぶと適切なデフォルト値になる。
+RiversRestored/opt/GranularSettings/label=詳細設定を表示（上級者向け）
+RiversRestored/opt/GranularSettings/tip=ONにすると、下にスライダーごとの河川形状コントロールが表示される。河川プリセットがCustomに設定されているときのみ有効。
+RiversRestored/opt/EnableRibbonAnimation/label=流水アニメーション
+RiversRestored/opt/EnableRibbonAnimation/tip=ON = アニメーション付きの水流。OFF = 静止した水面のみ（軽量、湖風、河川の多いマップでCPU/GPUを節約）。
+RiversRestored/opt/RiverPreferLakeWaterType/label=河川に湖（青）の水を優先
+RiversRestored/opt/RiverPreferLakeWaterType/tip=ON（デフォルト）= 河川は湖タイプの水（澄んだ青）を使用する。OFF = 河川はマップが最初に割り当てる水タイプ（多くの場合ポンド — 緑色で濁った水）を使用する。
+RiversRestored/opt/PondUseLakeMaterial/label=池の水を湖（青）として描画
+RiversRestored/opt/PondUseLakeMaterial/tip=ON（デフォルト）= すべてのマップのすべての池が緑のPondではなく青いLakeマテリアルで描画される。池の分類自体は変わらず、マテリアルのみ変わる。セーブ/再読み込み時の水の表示崩れも修正する — 孤立したWaterTypeはPond（今は青）のマテリアルにフォールバックする。
+RiversRestored/opt/EnableMapPreviewRender/label=[ベータ] マッププレビューをPNGに出力
+RiversRestored/opt/EnableMapPreviewRender/tip=各生成後、RRはUserData/RiversRestored/Previews/に俯瞰プレビューPNGを書き出す。集落を始めずにRRの生成結果を確認するのに便利。
+RiversRestored/opt/ShowPreviewOverlay/label=[ベータ] ゲーム内でプレビューオーバーレイを表示
+RiversRestored/opt/ShowPreviewOverlay/tip=プレイ中、最新のレンダリング済みプレビューを画面右側のパネルとして表示する。F8でゲーム内の表示を切り替える。マッププレビュー出力がONである必要がある。
+RiversRestored/cat/Flow Direction=流水方向
+RiversRestored/opt/RiverFlowBias/label=河川の流水方向バイアス
+RiversRestored/opt/RiverFlowBias/tip=河川経路生成前に標高マップを傾け、選んだ高い角/辺から選んだ低い方へ河川が統計的に流れるようにする。None = 純粋にシード駆動（バニラの挙動）。
+RiversRestored/opt/RiverFlowBiasStrength/label=流水バイアス強度
+RiversRestored/opt/RiverFlowBiasStrength/tip=標高マップをどれだけ強く傾けるか。0.3 = 微妙、0.4 = バランス型デフォルト、0.5 = 強め、0.7以上 = 明らかに傾く。方向バイアスがNoneの場合は無効。
+RiversRestored/cat/Density=密度
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/cat/Shape — Width / Depth=形状 — 幅/深さ
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/MinDepth/label=最小深さ（m）
+RiversRestored/opt/MinDepth/tip=-1 = バニラのまま
+RiversRestored/opt/MaxDepth/label=最大深さ（m）
+RiversRestored/opt/MaxDepth/tip=-1 = バニラのまま
+RiversRestored/cat/Carve Shape=彫刻形状
+RiversRestored/opt/RiverInnerRadius/label=河床内側半径（セル）
+RiversRestored/opt/RiverInnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/RiverOuterRadius/label=岸外側半径（セル）
+RiversRestored/opt/RiverOuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/RiverTrenchDepth/label=河床の深さ（m）
+RiversRestored/opt/RiverTrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/RiverSmoothPasses/label=岸の平滑化パス数
+RiversRestored/opt/RiverSmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/RiverJitterAmplitude/label=蛇行振幅（m）
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/RiverJitterFrequency/label=蛇行頻度
+RiversRestored/opt/RiverJitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/cat/Water Plane / Fishing=水面/釣り
+RiversRestored/opt/RiverRegisterAsWaterArea/label=水域として登録
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=河川を水域として扱う（湖風）— 釣りと安定した永続化を可能にする
+RiversRestored/opt/RiverBlobRadius/label=円形スタンプ半径（セル）
+RiversRestored/opt/RiverBlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/RiverBlobStride/label=円形スタンプ間隔（セル）
+RiversRestored/opt/RiverBlobStride/tip=経路に沿った円形スタンプ間の間隔
+RiversRestored/opt/RiverFishingAreaMultiplier/label=釣りエリア倍率
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = バニラ密度（少なめ）、4 = プレイに適した密度
+RiversRestored/cat/Generator Gating=生成器のゲート条件
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=水を河川終端としてマーク
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=最重要ゲート — これがないと数に関わらず河川は一切成立しない
+RiversRestored/opt/ForceCoastlineTerrain/label=海岸線地形を強制
+RiversRestored/opt/ForceCoastlineTerrain/tip=診断用: 海岸線バイオームを強制する（海を確実な河川終端にする）
+RiversRestored/cat/Diagnostics=診断
+RiversRestored/opt/VerboseDiagnostics/label=詳細診断
+RiversRestored/opt/VerboseDiagnostics/tip=セーブ時のWaterAreaごとの状態、生成中の段階ごとのwaterAreas数。通常プレイではログが多くなる。
+RiversRestored/cat/Preset · IdyllicValley=プリセット · IdyllicValley
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/InnerRadius/label=チャンネル幅（全深度、セル）
+RiversRestored/opt/InnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/OuterRadius/label=岸幅（地面への傾斜、セル）
+RiversRestored/opt/OuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/BlobRadius/label=見える水域幅（セル）
+RiversRestored/opt/BlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/BlobStride/label=水面密度（上級者向け）
+RiversRestored/opt/BlobStride/tip=経路に沿った円形スタンプ間の間隔；3 = デフォルト、高いほど生成が速い
+RiversRestored/opt/TrenchDepth/label=河川の深さ（水面下m）
+RiversRestored/opt/TrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/SmoothPasses/label=岸の滑らかさ
+RiversRestored/opt/SmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/JitterAmplitude/label=河川の蛇行強度（m）
+RiversRestored/opt/JitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/JitterFrequency/label=河川の蛇行頻度
+RiversRestored/opt/JitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=シードの水量値をスケールする。1.0 = バニラ。1未満 = より乾燥し湖が小さくなる。1超 = より湿潤。プレビューとゲームプレイ両方に影響する。デフォルト: IdyllicValley 0.75、LowlandLakes 0.7、AlpineValleys 0.85、その他 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川釣り生産性ブースト
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = バニラ（少なめ）、4 = プレイに適した密度、8以上 = 豊富
+RiversRestored/cat/Preset · LowlandLakes=プリセット · LowlandLakes
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/InnerRadius/label=チャンネル幅（全深度、セル）
+RiversRestored/opt/InnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/OuterRadius/label=岸幅（地面への傾斜、セル）
+RiversRestored/opt/OuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/BlobRadius/label=見える水域幅（セル）
+RiversRestored/opt/BlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/BlobStride/label=水面密度（上級者向け）
+RiversRestored/opt/BlobStride/tip=経路に沿った円形スタンプ間の間隔；3 = デフォルト、高いほど生成が速い
+RiversRestored/opt/TrenchDepth/label=河川の深さ（水面下m）
+RiversRestored/opt/TrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/SmoothPasses/label=岸の滑らかさ
+RiversRestored/opt/SmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/JitterAmplitude/label=河川の蛇行強度（m）
+RiversRestored/opt/JitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/JitterFrequency/label=河川の蛇行頻度
+RiversRestored/opt/JitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=シードの水量値をスケールする。1.0 = バニラ。1未満 = より乾燥し湖が小さくなる。1超 = より湿潤。プレビューとゲームプレイ両方に影響する。デフォルト: IdyllicValley 0.75、LowlandLakes 0.7、AlpineValleys 0.85、その他 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川釣り生産性ブースト
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = バニラ（少なめ）、4 = プレイに適した密度、8以上 = 豊富
+RiversRestored/cat/Preset · AridHighlands=プリセット · AridHighlands
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/InnerRadius/label=チャンネル幅（全深度、セル）
+RiversRestored/opt/InnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/OuterRadius/label=岸幅（地面への傾斜、セル）
+RiversRestored/opt/OuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/BlobRadius/label=見える水域幅（セル）
+RiversRestored/opt/BlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/BlobStride/label=水面密度（上級者向け）
+RiversRestored/opt/BlobStride/tip=経路に沿った円形スタンプ間の間隔；3 = デフォルト、高いほど生成が速い
+RiversRestored/opt/TrenchDepth/label=河川の深さ（水面下m）
+RiversRestored/opt/TrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/SmoothPasses/label=岸の滑らかさ
+RiversRestored/opt/SmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/JitterAmplitude/label=河川の蛇行強度（m）
+RiversRestored/opt/JitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/JitterFrequency/label=河川の蛇行頻度
+RiversRestored/opt/JitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=シードの水量値をスケールする。1.0 = バニラ。1未満 = より乾燥し湖が小さくなる。1超 = より湿潤。プレビューとゲームプレイ両方に影響する。デフォルト: IdyllicValley 0.75、LowlandLakes 0.7、AlpineValleys 0.85、その他 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川釣り生産性ブースト
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = バニラ（少なめ）、4 = プレイに適した密度、8以上 = 豊富
+RiversRestored/cat/Preset · Plains=プリセット · Plains
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/InnerRadius/label=チャンネル幅（全深度、セル）
+RiversRestored/opt/InnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/OuterRadius/label=岸幅（地面への傾斜、セル）
+RiversRestored/opt/OuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/BlobRadius/label=見える水域幅（セル）
+RiversRestored/opt/BlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/BlobStride/label=水面密度（上級者向け）
+RiversRestored/opt/BlobStride/tip=経路に沿った円形スタンプ間の間隔；3 = デフォルト、高いほど生成が速い
+RiversRestored/opt/TrenchDepth/label=河川の深さ（水面下m）
+RiversRestored/opt/TrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/SmoothPasses/label=岸の滑らかさ
+RiversRestored/opt/SmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/JitterAmplitude/label=河川の蛇行強度（m）
+RiversRestored/opt/JitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/JitterFrequency/label=河川の蛇行頻度
+RiversRestored/opt/JitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=シードの水量値をスケールする。1.0 = バニラ。1未満 = より乾燥し湖が小さくなる。1超 = より湿潤。プレビューとゲームプレイ両方に影響する。デフォルト: IdyllicValley 0.75、LowlandLakes 0.7、AlpineValleys 0.85、その他 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川釣り生産性ブースト
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = バニラ（少なめ）、4 = プレイに適した密度、8以上 = 豊富
+RiversRestored/cat/Preset · AlpineValleys=プリセット · AlpineValleys
+RiversRestored/opt/NumRivers/label=河川の数
+RiversRestored/opt/NumRivers/tip=生成器はこの数を目標にする；最終的な数はシードの実現可能性に依存する
+RiversRestored/opt/MinPoints/label=最小河川長
+RiversRestored/opt/MinPoints/tip=河川が採用されるための最小制御点数
+RiversRestored/opt/MinWidth/label=最小幅（セル）
+RiversRestored/opt/MinWidth/tip=0 = バニラのまま
+RiversRestored/opt/MaxWidth/label=最大幅（セル）
+RiversRestored/opt/MaxWidth/tip=0 = バニラのまま
+RiversRestored/opt/InnerRadius/label=チャンネル幅（全深度、セル）
+RiversRestored/opt/InnerRadius/tip=中心線からこの距離内のセルは河床の深さまで彫られる
+RiversRestored/opt/OuterRadius/label=岸幅（地面への傾斜、セル）
+RiversRestored/opt/OuterRadius/tip=岸が元の地形に馴染む位置
+RiversRestored/opt/BlobRadius/label=見える水域幅（セル）
+RiversRestored/opt/BlobRadius/tip=水域ポリゴン結合用の円形スタンプ半径
+RiversRestored/opt/BlobStride/label=水面密度（上級者向け）
+RiversRestored/opt/BlobStride/tip=経路に沿った円形スタンプ間の間隔；3 = デフォルト、高いほど生成が速い
+RiversRestored/opt/TrenchDepth/label=河川の深さ（水面下m）
+RiversRestored/opt/TrenchDepth/tip=水面からどれだけ深く河床を彫るか
+RiversRestored/opt/SmoothPasses/label=岸の滑らかさ
+RiversRestored/opt/SmoothPasses/tip=0 = 生の彫刻、4 = 良好なデフォルト、8 = 非常に緩やか
+RiversRestored/opt/JitterAmplitude/label=河川の蛇行強度（m）
+RiversRestored/opt/JitterAmplitude/tip=0 = 直線、大きいほど蛇行が増える
+RiversRestored/opt/JitterFrequency/label=河川の蛇行頻度
+RiversRestored/opt/JitterFrequency/tip=Voronoiセグメントあたりの波の振動数
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=シードの水量値をスケールする。1.0 = バニラ。1未満 = より乾燥し湖が小さくなる。1超 = より湿潤。プレビューとゲームプレイ両方に影響する。デフォルト: IdyllicValley 0.75、LowlandLakes 0.7、AlpineValleys 0.85、その他 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川釣り生産性ブースト
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = バニラ（少なめ）、4 = プレイに適した密度、8以上 = 豊富
+RiversRestored/cat/Other settings=その他の設定
+RiversRestored/opt/RiversDontBlockWildlife/label=河川で野生動物のスポーンをブロックしない
+RiversRestored/opt/RiversDontBlockWildlife/tip=ONにすると、鹿などの野生動物が、町への陸路がないという理由でブロックされることなく川の対岸にもスポーンできるようになる。新規マップの「川の向こうに鹿がいない」問題を修正する；既存のセーブでも読み込み時に孤立した地域を再スポーンさせる。野生動物のスポーンのみに影響し、狩人の罠猟や村人の経路探索には影響しない。OFF = バニラの挙動（河川が対岸の野生動物をブロックする）。
+RiversRestored/opt/RiverFishPerCell/label=水セルあたりの河川魚数
+RiversRestored/opt/RiverFishPerCell/tip=上限のあるFFの面積カーブの代わりに、河川の実際の大きさ（満水セル数）に応じて河川の基本魚プールをサイズ設定する — そのためマップを横断する巨大な河川は手動調整なしで小川より比例して多くの魚を持つ。1.0 = マップを二分する大河で約1万〜1.4万匹（推奨）。上げるとより豊かな河川に、下げると控えめに。0 = 無効（バニラのカーブを使用）。釣りエリア倍率はこの基本値の上にさらに適用される。
+RiversRestored/opt/ScaleLakeFish/label=湖/池の魚も面積でサイズ設定
+RiversRestored/opt/ScaleLakeFish/tip=上記の「水セルあたりの魚数」設定を、河川だけでなく湖や池にも適用する — 大きな水域を頭打ちにするFFのカーブと違い、大きな湖は小さな池より比例して多くの魚を持つようになる。ブースト専用: 水域がバニラより魚が少なくなることはない（河川の生産性倍率は湖には適用されない）。デフォルトON。バニラの湖/池の魚数を維持したい場合はOFFにする。
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=Sovereign Boons
+SovereignBoons/meta/desc=パワースパイクパック: コミュニティModから厳選した機能で集落を強化する。すべてのブーンはデフォルトでOFF。オリジナルのコミュニティMod作者のクレジット付きで統合 — 出典表はREADME参照。
+SovereignBoons/cat/Economy=経済
+SovereignBoons/opt/EnableCrownsBounty/label=王の褒賞
+SovereignBoons/opt/EnableCrownsBounty/tip=税徴収イベントで得る金を倍増する。名前通り正直な効果 — 売買/払い戻し/イベント報酬には影響しない。デフォルト: OFF。
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=税倍率
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=各税イベントの金に適用される倍率。バニラ = 1.0。デフォルト: 2.0。
+SovereignBoons/opt/EnableWealthyCaravans/label=裕福な隊商
+SovereignBoons/opt/EnableWealthyCaravans/tip=より豊かな行商人＋交易所の在庫上限アップ。デフォルト: OFF。
+SovereignBoons/opt/WealthyCaravansGoldMul/label=金倍率
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=商人の金の総量に対する倍率。バニラ = 1.0。デフォルト: 2.0。
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=商品倍率
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=商人の商品数に対する倍率。バニラ = 1.0。デフォルト: 2.0。
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=何でも買う
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=商人は自分の商品リストにあるアイテム、または既に倉庫にあるアイテムを購入する。デフォルト: ON。
+SovereignBoons/opt/WealthyCaravansMaxStock/label=交易所最大在庫
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=TradeManager.maxTradingPostStockCountを上書きする。バニラ = 100。デフォルト: 1000。
+SovereignBoons/opt/EnableMerchantsGambit/label=商人の策略
+SovereignBoons/opt/EnableMerchantsGambit/tip=ホットキーを押すと来訪中の商人を安値買い/高値売りの裁定機会についてスキャンし、一連の取引を一度に実行する。ドライラン（レポートのみ）で開始する。デフォルト: OFF。
+SovereignBoons/opt/MerchantsGambitDryRun/label=ドライラン（レポートのみ）
+SovereignBoons/opt/MerchantsGambitDryRun/tip=商品/金を動かさずにトースト+ログで見込み利益を報告する。数値を確認したらOFFにしてワンクリック実行を有効にする。デフォルト: ON。
+SovereignBoons/opt/MerchantsGambitScanKey/label=ホットキー
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCodeまたはコード — Ctrl+B, F6, Alt+Shift+M（修飾キー: Ctrl/Alt/Shift）。デフォルト: Ctrl+B。
+SovereignBoons/opt/MerchantsGambitMinProfit/label=最低利益/単位
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=この単位あたりの金利益を下回る裁定取引はスキップする。デフォルト: 1。
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=最大サイクル数
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=1回の実行あたりの売買ステップ数の安全上限。デフォルト: 500。
+SovereignBoons/cat/Workforce=労働力
+SovereignBoons/opt/EnableSwiftFeet/label=俊足
+SovereignBoons/opt/EnableSwiftFeet/tip=村人を高速化し、輸送荷馬車を強化する。有効化後にスポーンしたキャラクター/荷馬車に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/SwiftFeetShoeBonus/label=村人の靴ボーナス
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=Character._shoeBonusBaseを置き換える。襲撃者にも適用される。バニラ = 0.15。デフォルト: 0.30。
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=荷馬車移動速度
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=TransportWagon._movementSpeedを上書きする。バニラ≈4.5。デフォルト: 8.0。
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=荷馬車積載量
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=TransportWagon.carryCapacityを上書きする。バニラ = 150。デフォルト: 300。
+SovereignBoons/opt/EnableEagerHands/label=意欲的な手
+SovereignBoons/opt/EnableEagerHands/tip=労働力プールと学校入学の年齢下限を引き下げる。デフォルト: OFF。
+SovereignBoons/opt/EagerHandsChildAge/label=子供の下限年齢
+SovereignBoons/opt/EagerHandsChildAge/tip=村人が子供労働者になる最低年齢。バニラ = 15。デフォルト: 12。
+SovereignBoons/opt/EagerHandsAdolescentAge/label=青年の下限年齢
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=村人が成人労働に昇格する年齢。バニラ = 25。デフォルト: 18。
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=学校入学最低年齢
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=バニラ = 5。デフォルト: 5。
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=学校入学最高年齢
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=非常に低く設定すると実質的に就学を無効化できる。バニラ = 10。デフォルト: 10。
+SovereignBoons/opt/EnableKingsHighway/label=王の街道
+SovereignBoons/opt/EnableKingsHighway/tip=道路上の移動を高速化し、攻撃的な動物を遅くする。道路ボーナスは道路変更/再読み込み時に再計算され、動物の減速はライブ反映される。デフォルト: OFF。
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=道路速度を強化
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=道路上の速度ボーナスを倍増する。デフォルト: ON（ブーン有効時）。
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=道路速度倍率
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=AIGridNode.nodeSpeedBonusに対する倍率。バニラ = 1.0。デフォルト: 1.5。
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=攻撃的な動物を減速
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=狼/熊などの移動速度が下がる — 逃げやすく、狩りやすくなる。デフォルト: ON。
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=攻撃的な動物の速度倍率
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=バニラ = 1.0。低いほど捕食者が遅くなる。デフォルト: 0.85。
+SovereignBoons/cat/Buildings=建物
+SovereignBoons/opt/EnableSpringsVigor/label=潤う井戸
+SovereignBoons/opt/EnableSpringsVigor/tip=井戸の回復速度アップ＋容量アップ。有効化後に設置した井戸に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/SpringsVigorRechargeMult/label=回復倍率
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=Well.waterGainPerSecondに対する倍率（バニラ = 毎秒0.01）。デフォルト: 2.0（×2 → 毎秒0.02）。
+SovereignBoons/opt/SpringsVigorCapacityMult/label=容量倍率
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=Well.maxWaterに対する倍率（バニラ = 50）。デフォルト: 2.0（×2 → 最大100）。
+SovereignBoons/cat/Combat=戦闘
+SovereignBoons/opt/EnableLevysArms/label=非常召集
+SovereignBoons/opt/EnableLevysArms/tip=ホットキーで発動する民兵召集。対象となるすべての村人を戦闘装備＋ステータスバフで武装させる。デフォルト: OFF。
+SovereignBoons/opt/LevysArmsArmKey/label=召集ホットキー
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCodeまたはコード — Ctrl+A, F4, Alt+Shift+M（修飾キー: Ctrl/Alt/Shift）。デフォルト: Ctrl+A。
+SovereignBoons/opt/LevysArmsUnarmKey/label=解散ホットキー
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCodeまたはコード（例: Alt+A；修飾キー Ctrl/Alt/Shift）。デフォルト: Alt+A。
+SovereignBoons/opt/LevysArmsStatMagnitude/label=ステータス倍率
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=すべてのPerc系ステータス項目（最大HP、防御力、近接/遠距離ダメージなど）に適用される。バニラ = 0。元Modの「強力」プリセットは1000。デフォルト: 100。
+SovereignBoons/cat/Misc=その他
+SovereignBoons/opt/EnableSteadfastResolve/label=実績チーズ
+SovereignBoons/opt/EnableSteadfastResolve/tip=デフォルト設定でなくても、またModを使っていても実績が解除される。デフォルト: OFF。
+SovereignBoons/opt/EnableLongReach/label=領域拡張
+SovereignBoons/opt/EnableLongReach/tip=建物ごとの作業半径倍率。有効化後に設置した建物に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/LongReachWorkCampMul/label=作業キャンプ半径 ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=作業キャンプの作業半径に対する倍率（バニラ60）。1.0 = 変更なし、1.5 = 1.5倍、2.0 = 2倍。デフォルト: 1.0。
+SovereignBoons/opt/LongReachHunterMul/label=狩猟小屋半径 ×
+SovereignBoons/opt/LongReachHunterMul/tip=狩猟小屋の半径に対する倍率（バニラ60）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachFishingMul/label=漁師小屋半径 ×
+SovereignBoons/opt/LongReachFishingMul/tip=漁師小屋の半径に対する倍率（バニラ30）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachArboristMul/label=樹木栽培場半径 ×
+SovereignBoons/opt/LongReachArboristMul/tip=樹木栽培場の半径に対する倍率（バニラ100）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachMarketMul/label=市場半径 ×
+SovereignBoons/opt/LongReachMarketMul/tip=市場の戦略計画半径に対する倍率（バニラ50）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachForagerMul/label=採集小屋半径 ×
+SovereignBoons/opt/LongReachForagerMul/tip=採集小屋の採集半径に対する倍率（バニラ60）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachRatCatcherMul/label=ネズミ捕り係半径 ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=ネズミ捕り建物の作業半径に対する倍率（バニラ60）。1.0 = 変更なし。デフォルト: 1.0。
+SovereignBoons/opt/LongReachDoghouseMul/label=犬小屋警戒半径 ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=犬小屋の警戒半径に対する倍率（バニラ60）— 犬の防衛エリア。1.0 = 変更なし。デフォルト: 1.0。[Dog/Cat DLC]
+SovereignBoons/opt/EnableCivicPride/label=市民の誇り
+SovereignBoons/opt/EnableCivicPride/tip=DecorativeBuildingの快適度半径/ボーナスを倍増する。有効化後に設置した装飾物に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/CivicPrideRadiusMul/label=半径倍率
+SovereignBoons/opt/CivicPrideRadiusMul/tip=Building._strategicPlanningRadiusに対する倍率（バニラ = 50）。デフォルト: 1.5。
+SovereignBoons/opt/CivicPrideBonusMul/label=ボーナス倍率
+SovereignBoons/opt/CivicPrideBonusMul/tip=Building._strategicPlanningBonusの大きさに対する倍率。バニラ = 1.0。デフォルト: 1.5。
+SovereignBoons/opt/EnableHallowedReliquary/label=聖なる聖遺物庫
+SovereignBoons/opt/EnableHallowedReliquary/tip=信仰ボーナス倍率＋聖遺物を司祭数から解放。デフォルト: OFF。
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=信仰ボーナス倍率
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=ReligionManager._spiritualityBonusPerRelicに対する倍率（バニラ = 50）。デフォルト: 1.5。
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=聖遺物を司祭数から解放
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=司祭1人ですべての割り当て済み聖遺物が有効化される。OFF = バニラ（司祭数が有効な聖遺物数を制限する）。デフォルト: ON。
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=全聖遺物を解禁
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=パワースパイク: マップ読み込み時にゲーム内の全聖遺物を解禁する。一度受け取るとセーブに保持される（再トリガーを止めたい場合は後でOFFにしても入手済みは維持される）。デフォルト: OFF。
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=追加聖遺物スロット
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=すべての神殿に追加される聖遺物スロット（バニラ = 2）。0..13 → 合計2..15（VC_ModifyTempleと一致）。スロットウィジェットは既存のUIテンプレートから複製され、最大5個ずつの行に配置される。デフォルト: 4（合計6）。FFのバニラ聖遺物プールは約8個なので、約10を超えると空きスロットが生じる。次回セーブ読み込み時に反映。
+SovereignBoons/opt/EnableHoardedStores/label=貯蔵の秘訣
+SovereignBoons/opt/EnableHoardedStores/tip=倉庫タイプごとの容量倍率。有効化後に設置した倉庫建物に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=地下貯蔵庫 — 適用
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=地下貯蔵庫に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=地下貯蔵庫 — 倍率
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=地下貯蔵庫の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=穀物庫 — 適用
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=穀物庫に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresGranaryMul/label=穀物庫 — 倍率
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=穀物庫の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=倉庫 — 適用
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=倉庫に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=倉庫 — 倍率
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=倉庫の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=集積所 — 適用
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=集積所に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=集積所 — 倍率
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=集積所の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=ストックヤード — 適用
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=ストックヤードに容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresStockyardMul/label=ストックヤード — 倍率
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=ストックヤードの容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=財宝庫 — 適用
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=財宝庫に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=財宝庫 — 倍率
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=財宝庫の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/HoardedStoresMarketEnable/label=市場 — 適用
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=市場に容量倍率を適用する。デフォルト: OFF。
+SovereignBoons/opt/HoardedStoresMarketMul/label=市場 — 倍率
+SovereignBoons/opt/HoardedStoresMarketMul/tip=市場の容量倍率。デフォルト: 2.0。
+SovereignBoons/opt/EnableGreaterHalls/label=偉大なる会館
+SovereignBoons/opt/EnableGreaterHalls/tip=約52種の建物タイプ向けの建物ごとの＋作業員/＋居住者アドオン。家畜/生産/資源採取地/野外作業/公共/住居でグループ分けされている。有効化後に設置した建物に適用される；既存に反映するにはセーブを再読み込みする。デフォルト: OFF。
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=納屋＋作業員
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..6。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=猫小屋＋作業員
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=鶏小屋＋作業員
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=犬小屋＋作業員
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=ヤギ小屋＋作業員
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=厩舎＋作業員
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 家畜。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=薬種店＋作業員
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=武器庫＋作業員
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=パン屋＋作業員
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=籠細工店＋作業員
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=鍛冶場＋作業員
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=製本屋＋作業員
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=醸造所＋作業員
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=煉瓦工場＋作業員
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=蝋燭店＋作業員
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=炭焼き窯＋作業員
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=チーズ工房＋作業員
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=靴屋＋作業員
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=樽職人＋作業員
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=矢師＋作業員
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=鋳造所＋作業員
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=家具工房＋作業員
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..5。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=ガラス工房＋作業員
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..6。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=製紙所＋作業員
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..5。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=陶芸工房＋作業員
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=保存食工房＋作業員
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=燻製小屋＋作業員
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=織物工房＋作業員
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=風車＋作業員
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=木こり小屋＋作業員
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 生産。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=粘土採掘場＋作業員
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..4。デフォルト: 0（変更なし）。　粘土採掘場を対象 — 地表の採掘場と深部（無限）版の両方を含む。
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=鉱山＋作業員
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..4。デフォルト: 0（変更なし）。　すべての深部鉱床鉱山（鉄・金・石炭、地表・深部を問わず）を1つのクラスで扱う。鉱石種別は別建物ではなくデータのため、特定の鉱石のみを対象にすることはできない。
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=砂採掘場＋作業員
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..4。デフォルト: 0（変更なし）。　砂採掘場を対象 — 地表の採掘場と深部（無限）版の両方を含む。
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=製材場＋作業員
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=石切場＋作業員
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..8。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=作業キャンプ＋作業員
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 資源採取地。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=樹木栽培場＋作業員
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 野外作業。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=漁師小屋＋作業員
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 野外作業。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=採集小屋＋作業員
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 野外作業。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=狩猟小屋＋作業員
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 野外作業。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=堆肥場＋作業員
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=見張り塔＋作業員
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=ギルドホール＋作業員
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=治療院＋作業員
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=図書館＋作業員
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..1。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=市場＋作業員
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=酒場＋作業員
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_School_Addon/label=学校＋作業員
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=神殿＋作業員
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..3。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=荷馬車屋＋作業員
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 公共。範囲: 0..2。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=シェルター＋作業員
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 住居。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=仮設シェルター＋作業員
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=バニラのmaxWorkersに上乗せされる追加の作業員/居住枠。カテゴリ: 住居。範囲: 0..4。デフォルト: 0（変更なし）。
+SovereignBoons/opt/EnableBountifulFields/label=豊穣の畑
+SovereignBoons/opt/EnableBountifulFields/tip=作物ごとの調整＋農業全体の設定。作物データはマップ読み込み時に書き換えられる — 値を変更したらセーブを再読み込みして反映させること。
+SovereignBoons/opt/EnableBountifulCrops/label=豊穣の作物 — 新規作物8種
+SovereignBoons/opt/EnableBountifulCrops/tip=唐辛子（→香辛料）、モンクスコンフォート（→薬草根）、麻（→繊維）、大豆（→木の実）、トウモロコシ（→穀物）、紫柳（→柳）、クレミニ茸（→キノコ）、ハーブ園（→ハーブ、地力を回復）を植え付けピッカーに追加する。下のスライダーでバニラ作物と同様に作物ごとに調整可能。セーブセーフ: OFFにしてもピッカーのアイコンが消えるだけ — セーブ内で既に植えられている作物はそのまま機能する。デフォルト: false。
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=バニラ値をログ出力
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=マップ読み込み時にすべての作物のバニラVegetableFieldsRecord値をMelonLoader.logに出力する。作物ごとのデフォルトを調べるために一時的に有効化し、終わったらOFFにする。デフォルト: false。
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=作物病害をログ出力
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=マップ読み込み時にすべての作物病害（名前、対象作物、感染/拡散調整）をMelonLoader.logに出力する — 約80行。診断専用；病害の対象作物リストを確認できる唯一の方法（アセットバンドル内にあるため）。デフォルト: false。
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=農民あたりグリッド数倍率
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=AgricultureManager._gridsPerFarmerに対する倍率。デフォルト: 1.0（バニラ）。
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=手入れ期間（日数）
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=AgricultureManager._maintenanceLengthInDaysを上書きする。適用範囲は45〜90；範囲外は変更なし扱い。デフォルト: -1（変更なし）。
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=カブ — 適用
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=カブの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=カブ — 地力消耗
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのカブ）: 3.。
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=カブ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのカブ）: 10.。
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=カブ — 成熟日数
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのカブ）: 41.。
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=カブ — 雑草付加
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのカブ）: -5.0.。
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=カブ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのカブ）: 0.。
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=カブ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのカブ）: 35.。
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=ニンジン — 適用
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=ニンジンの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=ニンジン — 地力消耗
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのニンジン）: 3.。
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=ニンジン — 植え付け日数
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのニンジン）: 10.。
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=ニンジン — 成熟日数
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのニンジン）: 58.。
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=ニンジン — 雑草付加
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのニンジン）: 0.0.。
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=ニンジン — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのニンジン）: 0.。
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=ニンジン — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのニンジン）: 50.。
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=小麦 — 適用
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=小麦の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=小麦 — 地力消耗
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの小麦）: 8.。
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=小麦 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの小麦）: 10.。
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=小麦 — 成熟日数
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの小麦）: 118.。
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=小麦 — 雑草付加
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの小麦）: -4.0.。
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=小麦 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの小麦）: 20.。
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=小麦 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの小麦）: 0.。
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=ソバ — 適用
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=ソバの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=ソバ — 地力消耗
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのソバ）: 1.。
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=ソバ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのソバ）: 10.。
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=ソバ — 成熟日数
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのソバ）: 60.。
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=ソバ — 雑草付加
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのソバ）: -10.0.。
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=ソバ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのソバ）: 80.。
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=ソバ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのソバ）: 0.。
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=ライ麦 — 適用
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=ライ麦の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=ライ麦 — 地力消耗
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのライ麦）: 6.。
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=ライ麦 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのライ麦）: 10.。
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=ライ麦 — 成熟日数
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのライ麦）: 118.。
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=ライ麦 — 雑草付加
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのライ麦）: -6.0.。
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=ライ麦 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのライ麦）: 0.。
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=ライ麦 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのライ麦）: 0.。
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=豆 — 適用
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=豆の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=豆 — 地力消耗
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの豆）: -1.。
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=豆 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの豆）: 10.。
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=豆 — 成熟日数
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの豆）: 85.。
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=豆 — 雑草付加
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの豆）: -2.0.。
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=豆 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの豆）: 80.。
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=豆 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの豆）: 0.。
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=エンドウ豆 — 適用
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=エンドウ豆の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=エンドウ豆 — 地力消耗
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのエンドウ豆）: -1.。
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=エンドウ豆 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのエンドウ豆）: 10.。
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=エンドウ豆 — 成熟日数
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのエンドウ豆）: 51.。
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=エンドウ豆 — 雑草付加
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのエンドウ豆）: 0.0.。
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=エンドウ豆 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのエンドウ豆）: 0.。
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=エンドウ豆 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのエンドウ豆）: 75.。
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=キャベツ — 適用
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=キャベツの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=キャベツ — 地力消耗
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのキャベツ）: 4.。
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=キャベツ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのキャベツ）: 10.。
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=キャベツ — 成熟日数
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのキャベツ）: 85.。
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=キャベツ — 雑草付加
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのキャベツ）: -3.0.。
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=キャベツ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのキャベツ）: 0.。
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=キャベツ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのキャベツ）: 0.。
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=リーキ — 適用
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=リーキの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=リーキ — 地力消耗
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのリーキ）: 6.。
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=リーキ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのリーキ）: 10.。
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=リーキ — 成熟日数
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのリーキ）: 118.。
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=リーキ — 雑草付加
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのリーキ）: 0.0.。
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=リーキ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのリーキ）: 0.。
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=リーキ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのリーキ）: 0.。
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=亜麻 — 適用
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=亜麻の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=亜麻 — 地力消耗
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの亜麻）: 5.。
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=亜麻 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの亜麻）: 10.。
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=亜麻 — 成熟日数
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの亜麻）: 95.。
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=亜麻 — 雑草付加
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの亜麻）: 0.0.。
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=亜麻 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの亜麻）: 0.。
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=亜麻 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの亜麻）: 0.。
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=クローバー — 適用
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=クローバーの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=クローバー — 地力消耗
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのクローバー）: -3.。
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=クローバー — 植え付け日数
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのクローバー）: 10.。
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=クローバー — 成熟日数
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのクローバー）: 64.。
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=クローバー — 雑草付加
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのクローバー）: -8.0.。
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=クローバー — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのクローバー）: 0.。
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=クローバー — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのクローバー）: 0.。
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=牧草 — 適用
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=牧草の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=牧草 — 地力消耗
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの牧草）: 1.。
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=牧草 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの牧草）: 10.。
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=牧草 — 成熟日数
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの牧草）: 128.。
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=牧草 — 雑草付加
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの牧草）: -5.0.。
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=牧草 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの牧草）: 0.。
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=牧草 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの牧草）: 0.。
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=唐辛子 — 適用
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=唐辛子の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=唐辛子 — 地力消耗
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの唐辛子）: 10.。
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=唐辛子 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの唐辛子）: 10.。
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=唐辛子 — 成熟日数
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの唐辛子）: 70.。
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=唐辛子 — 雑草付加
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの唐辛子）: 1.0.。
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=唐辛子 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの唐辛子）: 80.。
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=唐辛子 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの唐辛子）: 5.。
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=モンクスコンフォート — 適用
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=モンクスコンフォートの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=モンクスコンフォート — 地力消耗
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのモンクスコンフォート）: 8.。
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=モンクスコンフォート — 植え付け日数
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのモンクスコンフォート）: 10.。
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=モンクスコンフォート — 成熟日数
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのモンクスコンフォート）: 65.。
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=モンクスコンフォート — 雑草付加
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのモンクスコンフォート）: 1.0.。
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=モンクスコンフォート — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのモンクスコンフォート）: 30.。
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=モンクスコンフォート — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのモンクスコンフォート）: 10.。
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=麻 — 適用
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=麻の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=麻 — 地力消耗
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの麻）: 12.。
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=麻 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの麻）: 10.。
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=麻 — 成熟日数
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの麻）: 60.。
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=麻 — 雑草付加
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの麻）: 1.0.。
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=麻 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの麻）: 25.。
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=麻 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの麻）: 10.。
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=大豆 — 適用
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=大豆の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=大豆 — 地力消耗
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの大豆）: 5.。
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=大豆 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの大豆）: 10.。
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=大豆 — 成熟日数
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの大豆）: 70.。
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=大豆 — 雑草付加
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの大豆）: 1.0.。
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=大豆 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの大豆）: 45.。
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=大豆 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの大豆）: 10.。
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=トウモロコシ — 適用
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=トウモロコシの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=トウモロコシ — 地力消耗
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのトウモロコシ）: 12.。
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=トウモロコシ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのトウモロコシ）: 10.。
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=トウモロコシ — 成熟日数
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのトウモロコシ）: 75.。
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=トウモロコシ — 雑草付加
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのトウモロコシ）: 1.0.。
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=トウモロコシ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのトウモロコシ）: 70.。
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=トウモロコシ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのトウモロコシ）: 5.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=紫柳 — 適用
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=紫柳の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=紫柳 — 地力消耗
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラの紫柳）: 4.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=紫柳 — 植え付け日数
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラの紫柳）: 10.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=紫柳 — 成熟日数
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラの紫柳）: 80.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=紫柳 — 雑草付加
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラの紫柳）: 1.0.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=紫柳 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの紫柳）: 10.。
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=紫柳 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラの紫柳）: 30.。
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=クレミニ茸 — 適用
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=クレミニ茸の上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=クレミニ茸 — 地力消耗
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのクレミニ茸）: 2.。
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=クレミニ茸 — 植え付け日数
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのクレミニ茸）: 10.。
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=クレミニ茸 — 成熟日数
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのクレミニ茸）: 45.。
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=クレミニ茸 — 雑草付加
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのクレミニ茸）: 1.0.。
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=クレミニ茸 — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのクレミニ茸）: 20.。
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=クレミニ茸 — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのクレミニ茸）: 40.。
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=ハーブ — 適用
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=ハーブの上書き設定のマスタースイッチ。OFF → バニラの値を使用（下の項目は無視）。ON → 下の値がマップ読み込み時に作物データへ書き込まれる。デフォルト: false。
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=ハーブ — 地力消耗
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=1栽培サイクルごとに消費される地力。負の値は地力を回復する。範囲: -10..10。デフォルト（バニラのハーブ）: -3.。
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=ハーブ — 植え付け日数
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=成長が始まるまでの植え付け日数。低いほど回転が早い。範囲: 1..30。デフォルト（バニラのハーブ）: 10.。
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=ハーブ — 成熟日数
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=植え付けから収穫可能になるまでの日数。低いほど早く育つ。範囲: 10..300。デフォルト（バニラのハーブ）: 60.。
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=ハーブ — 雑草付加
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=植え付け・収穫サイクルごとに追加される雑草レベルの割合（`weedLevel += value / 100`）。負の値は雑草を減らす（バニラのほとんどの作物）。低いほど雑草が少ない。範囲: -20..10。デフォルト（バニラのハーブ）: -4.0.。
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=ハーブ — 霜による枯死率 %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=霜イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのハーブ）: 15.。
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=ハーブ — 熱波による枯死率 %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=熱波イベントで枯れる作物の割合。0 = 免疫。低いほどパワースパイク。範囲: 0..100。デフォルト（バニラのハーブ）: 15.。
+SovereignBoons/cat/Weather=天候
+SovereignBoons/opt/EnableTemperateSkies/label=温暖な空
+SovereignBoons/opt/EnableTemperateSkies/tip=極端な天候イベントを抑制する。吹雪/熱波の除去は天候初期化時（再読み込み）に適用される；干ばつ/極端天候発生率はライブ反映される。デフォルト: OFF。
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=吹雪を無効化
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=極端天候の抽選から吹雪を除外する。デフォルト: OFF。
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=熱波を無効化
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=極端天候の抽選から熱波を除外する。デフォルト: OFF。
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=極端天候をすべて無効化
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=chanceOfExtremeWeatherを強制的に0にする。イベントごとのトグルと重複適用される。デフォルト: OFF。
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=干ばつを無効化
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=WeatherProfile.chanceOfDroughtのカーブを一律0に上書きする。デフォルト: OFF。
+# ── Tended Wilds ──
+TendedWilds/meta/name=Tended Wilds
+TendedWilds/meta/desc=採集小屋の全面改修: 年間を通じた栽培、野生植栽、1-9優先度、採集物の移設
+TendedWilds/cat/Master=マスター
+TendedWilds/opt/ModEnabled/label=Mod有効
+TendedWilds/opt/ModEnabled/tip=無効にするとバニラの採集小屋に戻る
+TendedWilds/opt/RelocationEnabled/label=移設を有効化
+TendedWilds/opt/RelocationEnabled/tip=採集物移設のマスタートグル
+TendedWilds/cat/Relocate by Type=種類別の移設
+TendedWilds/opt/RelocateHerbs/label=ハーブ
+TendedWilds/opt/RelocateHerbs/tip=ハーブの群生地の移設を許可する。
+TendedWilds/opt/RelocateMushrooms/label=キノコ
+TendedWilds/opt/RelocateMushrooms/tip=キノコの群生地の移設を許可する。
+TendedWilds/opt/RelocateGreens/label=青物
+TendedWilds/opt/RelocateGreens/tip=青物の群生地の移設を許可する。
+TendedWilds/opt/RelocateRoots/label=根菜
+TendedWilds/opt/RelocateRoots/tip=根菜の群生地の移設を許可する。
+TendedWilds/opt/RelocateNuts/label=ヘーゼルナッツ
+TendedWilds/opt/RelocateNuts/tip=ヘーゼルナッツの茂みの移設を許可する。
+TendedWilds/opt/RelocateWillow/label=柳
+TendedWilds/opt/RelocateWillow/tip=柳の茂みの移設を許可する。
+TendedWilds/opt/RelocateBerries/label=ベリーの茂み
+TendedWilds/opt/RelocateBerries/tip=サンザシ、ウルシ
+TendedWilds/cat/Cost=コスト
+TendedWilds/opt/GoldCostToRelocate/label=移設1回あたりの金コスト
+TendedWilds/opt/GoldCostToRelocate/tip=0 = 無料、労働力のみ
+TendedWilds/cat/Foraging=採集
+TendedWilds/opt/ExemptForagingBuildings/label=井戸/狩猟小屋を採集ペナルティから除外
+TendedWilds/opt/ExemptForagingBuildings/tip=井戸と狩猟小屋は近くの採集物産出量を減らさなくなる（採集小屋はバニラで既に除外済み）
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=The Dockmaster's Dingy Boathouse
+TheDockmastersDingyBoathouse/meta/desc=Farthest Frontierのボート釣りを再活性化する — 小舟とドックマスターのボートハウス。
+TheDockmastersDingyBoathouse/cat/Master=マスター
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=Mod有効
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=無効にするとバニラの挙動に戻る。
+TheDockmastersDingyBoathouse/cat/Boat=ボート
+TheDockmastersDingyBoathouse/opt/BoatScale/label=小舟のスケール
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=ボートの見た目のサイズ。1 = モデルそのまま。
+TheDockmastersDingyBoathouse/cat/Boathouse=ボートハウス
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=フットプリント幅（セル）
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=フットプリントは家屋部分のみをカバーし、桟橋は水面に張り出す。変更後は再配置すること。
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=フットプリント奥行き（セル）
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=モデルの岸側に固定される。変更後は再配置すること。
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=ランタンの揺らめき
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=ランタンの炎のろうそくのような揺らめき。OFF = 一定の光。
+TheDockmastersDingyBoathouse/opt/PostDepth/label=水中への杭の深さ
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=構造物が水中にどれだけ沈むか。0 = 作成時の水位。ライブ反映。
+TheDockmastersDingyBoathouse/cat/Hotkeys=ホットキー
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=ボートハウスを配置
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=ボートハウスを登録し、配置モードに入る。
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=小舟を出す/航行
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=水面を狙う: 初回は小舟を降ろし、以降は押すたびにそこへ航行させる。
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=小舟をしまう
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=小舟を撤去し、別の場所に配備できるようにする。
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=小舟を大きく
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=小舟のスケールを上げる。
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=小舟を小さく
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=小舟のスケールを下げる。
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=診断ダンプ
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=建物/プレハブの診断情報をログに出力する。
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=Warden of the Wilds
+WardenOfTheWilds/meta/desc=狩人の全面改修: T2分岐パス、キャンプAI、釣り/燻製小屋の調整、大物出現倍率。
+WardenOfTheWilds/cat/Master Toggles=マスタートグル
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=狩人の全面改修
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=T2分岐パス、キャンプAI、狩猟台の射程ボーナス
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=釣りの全面改修
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=アングラー/クリーラーモード、漁港、持続可能な漁業技術バフ
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=燻製小屋の全面改修
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=燻製小屋の半径/作業員/保管容量の調整
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=診断ログ
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=開発用の詳細ログ — 通常プレイではOFFのままにする
+WardenOfTheWilds/cat/Sub-systems=サブシステム
+WardenOfTheWilds/opt/HunterCombatEnabled/label=狩人戦闘AI
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=キャンプ移動、撤退、複数捕食者回避 — 戦闘系の主要機能
+WardenOfTheWilds/opt/HunterRallyEnabled/label=狩人集合ホットキー
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=集合/帰還/全選択のキーバインドをフレームごとにポーリングする
+WardenOfTheWilds/opt/HunterUIEnabled/label=狩人UI注入
+WardenOfTheWilds/opt/HunterUIEnabled/tip=ビッグゲームハンター/トラップマスターのボタン+スライダー注入
+WardenOfTheWilds/opt/FishingUIEnabled/label=釣りUI注入
+WardenOfTheWilds/opt/FishingUIEnabled/tip=アングラー/クリーラーモードUI
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=技術ツリーパッチ
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=持続可能な漁業の値を上書きする
+WardenOfTheWilds/cat/Smokehouse=燻製小屋
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=カスタム作業半径
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=ONにすると、燻製小屋は設定された半径で見える作業エリアの円を表示する（建物選択時に表示）。表示だけを無効にしたい場合はOFFにする（保管/作業員のバフは維持される）。
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=半径を強制
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=設定した半径の外での作業を拒否する
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=作業半径
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=燻製小屋の作業エリアの円の半径。バニラでは燻製小屋にWorkAreaはない — この表示は純粋に狩人小屋/漁師小屋を範囲内に配置するための目安。60u≈適切な供給圏。密集配置には低め、広がったレイアウトには高めに。
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=最大作業員数
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=各燻製小屋の作業員スロット数。バニラ = 1。2にすると2人目の燻製職人が並行して肉/魚を処理でき、処理量が倍増する。バニラと同等にするには1に設定。
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=生肉保管上限
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=入荷する生肉/魚（燻製待ちのバッファ）の容量。バニラの上限は小さく、狩人が大量に持ち帰ると生産が滞る。200単位で余裕のあるバッファになる。フィールドはアタッチ時に自動検出される — ログ参照。
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=燻製肉保管上限
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=出荷待ちの燻製肉/燻製魚（荷馬車の集荷待ち）の容量。出力バッファが大きいほど荷馬車の往復回数が減り、倉庫が満杯でも生産が止まらない。200単位で荷馬車1台分に相当する余裕のあるバッファになる。
+WardenOfTheWilds/cat/Hunter Cabin=狩人小屋
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=出力バッファ上限
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=小屋の製造用倉庫のアイテムごとの容量。高いほど生産停止までの余裕が増える。
+WardenOfTheWilds/cat/Hunting Lodge=ハンティングロッジ
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=半径倍率
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=ハンティングロッジ建物に適用される作業半径倍率。1.35 = バニラより35%広い半径。
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=肉倍率
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=ハンティングロッジの狩人向けの小さな肉産出倍率。ハンティングロッジの主な利点は半径と作業員2枠（量）であり、これはその上に乗る控えめな品質ボーナス。1.15 = 死骸あたり肉15%増。
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=オフロード速度倍率
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=ハンティングロッジ（BGH）狩人の移動速度倍率。T2時に基礎的な経路特化ボーナスとして適用され — 技術ツリーのオフロード速度アップグレード（トレイルブレイジング）と重複する。1.35 = バニラ狩人より35%速く、BGHが狼や猪を安定してキャンプで出し抜くのに十分。このバフのないT1狩人は生存のためシェルターと初期交戦距離に頼る。撤退が速い = リロードサイクルごとの移動距離が増える = キャンプがより安全になる。戦闘ダンプから速度フィールド名の確認が必要。
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=大物射撃間隔倍率
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=低いほど猪/狼/熊への発射速度が上がる
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=キャンプAI
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=危険な獲物相手には、狩人は発射の合間に狩猟台/小屋へ後退する
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=解体速度倍率
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=作業員1人あたり — 2人の作業員と組み合わさる
+WardenOfTheWilds/cat/Trapper Lodge=罠猟師ロッジ
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=毛皮倍率
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=罠猟師ロッジの毛皮/皮産出倍率。1.6 = バニラロッジより毛皮60%増。
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=最大設置罠数
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=罠猟師ロッジが同時に設置できる最大罠数。バニラT2 = 罠1個（T1に罠猟はない）。3にすると3本の罠ラインを同時運用でき、26日サイクルと一致する: 毛皮倍率×1.6では間隔が約16日に縮まるため、3本あれば罠猟師を遊ばせずに済む。値を上げると射程は広がるが、1人の罠猟師が管理できるライン数には限りがある。
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=罠処理速度倍率
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1.25 = 罠の間隔が25%短縮
+WardenOfTheWilds/opt/TrapperWaterBonus/label=水辺ボーナス
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=罠猟師ロッジが水域の近くにあるときの毛皮産出ボーナス。罠猟師は川や小川沿いに罠を仕掛ける — 歴史的に最も豊かな猟場。1.25 = 水辺付近で毛皮産出25%増。
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=水ボーナス半径
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=水域が罠猟師ロッジの水辺ボーナスを発動させるワールド単位の半径。
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=水タイルしきい値
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=ボーナス適用に必要な最低サンプル水タイル数
+WardenOfTheWilds/opt/TrapMasterBearChance/label=熊の罠確率
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=罠発動ごとに熊が罠にかかる確率
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=解体速度倍率
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=罠猟師ロッジにも同じ仕組みが適用される。罠からの小さな死骸も同じ解体パイプラインを通るため、ボーナスが適用される。
+WardenOfTheWilds/cat/Big Game Yields=大物産出量
+WardenOfTheWilds/opt/BearMegaYieldMult/label=熊産出倍率
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=熊の死骸に対する他のボーナスの上に重複適用される
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=BGH熊ボーナス肉
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=熊を倒したとき、討伐したBGH狩人の小屋に直接投入されるボーナス肉（ItemMeat）。死骸の解体産出（バニラの汎用死骸≈肉30）に上乗せされる。デフォルト220+30≈250肉/熊。ハンティングロッジ（BGH）狩人のみ対象 — T1と罠猟師パスはバニラの死骸のみ産出。
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=BGH熊ボーナス毛皮
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=熊を倒したとき、討伐したBGH狩人の小屋に投入されるボーナス毛皮（ItemHide — FF内部では毛皮を「hide」と呼ぶ）。解体産出（≈皮2）に上乗せされる。デフォルト3+2≈5毛皮/熊。BGH限定。
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=BGH熊ボーナス獣脂
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=熊を倒したとき、討伐したBGH狩人の小屋に投入されるボーナス獣脂（ItemTallow）。解体産出（≈獣脂3）に上乗せされる。デフォルト5+3≈8獣脂/熊。BGH限定。
+WardenOfTheWilds/cat/Spawn Multipliers=出現倍率
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=熊個体数
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=マップごとの熊の個体数上限に対する倍率。1.5 = 熊50%増、BGH狩人に意味のある大物ターゲットを与える。1.0 = バニラ。熊グループのinitialSpawnCount+maxAnimalCountをスケールする。
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=狼個体数
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=狼の個体数上限に対する倍率。1.25 = 狼25%増。狼が増えると狩人との交戦も増える — 序盤が危険すぎる場合は下げること。
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=猪個体数
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=猪の個体数上限に対する倍率。バニラのデフォルトは既に十分な数なので、1.0でバランスを維持できる。
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=鹿個体数
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=鹿の個体数上限に対する倍率。T1狩人の肉産出に影響する。
+WardenOfTheWilds/cat/Hunter AI=狩人AI
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=撤退HP%
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=最大HPのこの割合を下回ると交戦を離脱する
+WardenOfTheWilds/opt/HunterMinArrows/label=狩猟前の最低矢数
+WardenOfTheWilds/opt/HunterMinArrows/tip=所持矢数がこの数を下回る狩人は、狩猟/死骸回収/解体を行えなくなり、作業再開前に補充を強制される。バニラの矢補充ロジスティクスしきい値（バニラ=2）も引き上げ、所持数がこの数を下回った瞬間に労働者が補充を届けるようにする。0 = 作業ゲートを無効化（バニラのロジスティクスしきい値の引き上げは維持）。
+WardenOfTheWilds/opt/HunterDangerRadius/label=危険察知半径
+WardenOfTheWilds/opt/HunterDangerRadius/tip=この範囲内に狼・猪・熊が入ると、攻撃を受ける前でも先制的な撤退がトリガーされるワールド単位。狼の巣近くで鹿を追う狩人は、捕食者がこの半径に入ると後退する。40 = 弓の射程の約2倍。0にすると近接撤退を無効化。
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=シェルター脅威スキャン半径
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=脅威がこの半径から離れるまで狩人はシェルターで待機する
+WardenOfTheWilds/opt/T1MeleeThreshold/label=T1近接HPしきい値
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=T1狩人は目標HP%がこれを下回ると近接戦に移行する
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=追跡限界倍率
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=（小屋の半径×この値）を超えると追跡を中止する
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=待ち伏せスキャン半径
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=交戦中の狩人の周囲で待ち伏せの脅威をスキャンする距離。追跡中にこの範囲内に（現在の標的以外の）追加の攻撃的な動物が現れると狩人は撤退する。「猪に誘われて狼の群れに突っ込んだ」死亡シナリオを防ぐ。
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=待ち伏せしきい値
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=撤退をトリガーする狩人付近の敵対数
+WardenOfTheWilds/opt/BowReloadSeconds/label=弓のリロード（秒）
+WardenOfTheWilds/opt/BowReloadSeconds/tip=狩人の弓のリロード/攻撃間隔（秒）。最適なキャンプ距離の計算に使用: 撤退距離=リロード時間×狩人速度。デフォルト3.0は推定値 — ダンプまたはゲーム内タイミングで確認され次第更新する。
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=クロスボウのリロード（秒）
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=狩人のクロスボウのリロード/攻撃間隔（秒）。クロスボウは弓より発射が遅いがダメージが大きい — リロードが長いほど、1発ごとに狩人はより下がって安全な距離を保つべき。デフォルト4.5は推定値 — ダンプで確認され次第更新する。
+WardenOfTheWilds/cat/Hunting Blind=狩猟台
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=射程ボーナス（タイル）
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=狩猟台に配置されているとき狩人の射程に加算されるワールド単位のボーナス。固定された高台の高度優位性を表す。技術ツリーの射程アップグレードと重複適用される。
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=金の維持費
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=占有中の狩猟台1つあたり、ゲーム内の維持期間ごとの金の維持費。見張り塔の民間作業員モデルを踏襲。0にすると維持費を完全に無効化できる。ダンプから見張り塔の維持費フィールドが必要。
+WardenOfTheWilds/cat/Fishing — Angler=釣り — アングラー
+WardenOfTheWilds/opt/AnglerCatchMult/label=漁獲倍率
+WardenOfTheWilds/opt/AnglerCatchMult/tip=アングラーモードの作業員の漁獲量倍率。GetNumFishCaught経由で釣りサイクルごとに適用される。1.5 = 1回の漁獲で魚が50%増。
+WardenOfTheWilds/opt/AnglerTimerReduction/label=漁獲タイマー倍率
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=低いほど漁獲が速くなる
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=運搬容量ボーナス
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=アングラー作業員の追加魚運搬容量。バニラ=25。ボーナス15で合計40。往復回数が減る=釣りに使える時間が増える。
+WardenOfTheWilds/cat/Fishing — Creeler=釣り — クリーラー
+WardenOfTheWilds/opt/CreelerRodMult/label=釣り竿産出倍率
+WardenOfTheWilds/opt/CreelerRodMult/tip=クリーラー作業員の竿釣り産出倍率。クリーラーは罠の管理に時間を割くため竿釣り産出が下がる。実際の収入源は日次ティックの罠システム。0.5 = 竿釣り50%減。
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=罠発生間隔（日）
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=クリーラー罠の産出ティック間の日数。各クリーラー作業員スロットは、この日数ごとにCrabTrapFishPerSpawn分の魚を産出し、小屋の倉庫に自動投入される（漁師の回収時間を抽象化）。水タイルボーナスは水の多いマップでこれをさらに短縮する。デフォルト8日は回収時間を考慮したもの；低くすると収入が速くなる。
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=罠発生あたりの魚数
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=クリーラースロット1つあたり、発生イベントごとに産出される魚。クリーラースロット2つ×5日ごとに魚4匹=年間約584匹の受動収入。強すぎる場合は下げること。
+WardenOfTheWilds/opt/CreelerTrapCount/label=設置罠数
+WardenOfTheWilds/opt/CreelerTrapCount/tip=クリーラーモードの漁師小屋がその釣り半径内の水中に設置する物理的な蟹罠の数。推奨範囲4〜6。各罠は独立して5日サイクルで魚を蓄積し、小屋の漁師が回収する。
+WardenOfTheWilds/opt/CreelerRadiusMult/label=釣り半径倍率
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=クリーラースロットが1つでも稼働中のときの釣り半径倍率。2.0 = 60u（バニラ30u）。クリーラーの罠はより広い水域に広がる。射程内の水タイルが増えると水ボーナスも上がる。
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=水タイルしきい値
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=拡張半径内でクリーラー水ボーナスを発動させる最低水タイル数。8uグリッドで15は中規模な湖岸程度。大きな深い湖なら容易に超える — クリーラーの本領。
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=水ボーナス倍率
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=水ボーナス発動時の罠発生間隔の除数。1.25 = 罠ティックが25%高速化。デフォルトでは: 5日/1.25=4日間隔。
+WardenOfTheWilds/cat/Fishing — Shared=釣り — 共通
+WardenOfTheWilds/opt/FishingDockOutputMult/label=漁港産出量
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=Tier2漁港（別建物）の魚産出倍率。1.5 = 魚50%増。FishingDock建物向けのレガシー設定。
+WardenOfTheWilds/opt/FishReplenishOverride/label=持続可能な漁業 %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=技術ノードからの補充率（バニラ0.30）
+WardenOfTheWilds/opt/FishingShackStorageCap/label=小屋保管上限
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=小屋ごとの魚保管容量。バニラ=100。バニラの荷馬車1台分（重量2で魚約200匹）に合わせるには200に設定。
+WardenOfTheWilds/cat/Hotkeys=ホットキー
+WardenOfTheWilds/opt/HunterRallyKey/label=狩人を集合
+WardenOfTheWilds/opt/HunterRallyKey/tip=Unity KeyCode名（G, H, Rなど）
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=狩人を帰還させる
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=すべての狩人を割り当てられた小屋に帰還させる。襲撃者がエスカレートしたときに戦闘から引き離すのに便利。集合キーと同じ形式。
+WardenOfTheWilds/opt/HunterSelectAllKey/label=全狩人を選択
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=すべての狩人をバニラの複数選択に含める。その後地形を右クリックすると通常通り移動する（選択された民間人はバニラのクリック移動が有効）。混在させたい場合は既存の非狩人の選択を維持する。
+WardenOfTheWilds/opt/HunterPathKey/label=T2パスを切り替え
+WardenOfTheWilds/opt/HunterPathKey/tip=T2小屋を選択中に バニラ/罠猟師/ハンティングロッジ を循環切り替えする
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=Pets DLC — 狩猟犬
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=犬の挑発（捕食者をタンク）
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=犬が捕食者1体を狩人から強制的に引き剥がしタンクする
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=挑発パルス（秒）
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=タンク中に挑発を再発動する間隔の秒数
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=逃走後の挑発消滅（秒）
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=捕食者が逃げる犬をこの秒数追いかけた後、追跡を止める
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=挑発範囲
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=挑発が発動する狩人↔犬間の最大距離。値を大きくすると、狩人が遠方から交戦しても遅れている犬が反応するようになる（狩人を手動移動させると犬が遅れることがある）。デフォルト100u（≈狩人の作業半径程度）。
+WardenOfTheWilds/opt/DogFleeHealthPct/label=犬の逃走HP%
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=狩猟犬が逃走するHP割合（バニラ0.5）
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=狩人と共に逃走
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=狩人が撤退すると犬も離脱して逃走する
+WardenOfTheWilds/opt/DogHealthMult/label=犬の体力倍率（全犬）
+WardenOfTheWilds/opt/DogHealthMult/tip=すべての犬（狩猟犬+犬小屋の番犬）の最大体力をスケールする。1.0=バニラ、1.5=+50%HP。スポーン時とマップ読み込み時に適用される。
+WardenOfTheWilds/opt/DogArmorBonus/label=犬の防御力ボーナス（全犬）
+WardenOfTheWilds/opt/DogArmorBonus/tip=すべての犬の基礎防御力に加算される固定値。0=バニラ。捕食者をタンクする際の生存性を高める。
+WardenOfTheWilds/opt/DogSpeedMult/label=犬の速度倍率（全犬）
+WardenOfTheWilds/opt/DogSpeedMult/tip=犬が速くなると手動移動中の狩人についていける
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=Pets DLC — ペット墓地
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=ペット墓地トグル
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=墓地に[人間]/[ペット]切り替えを追加する；ペットに設定するとペット専用墓地になる
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=墓地は閉鎖状態で開始
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=新しい墓地は人間かペットに指定するまで誰も埋葬しない（清潔なペット墓地を確保できる）
+WardenOfTheWilds/cat/Other settings=その他の設定
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=狩人小屋の防衛射撃
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=ONにすると、小屋に避難中の狩人は近距離の攻撃的な動物（狼/猪/熊）に発砲するようになり、労働者が外で近接戦を強いられるのを防ぐ。狩人は外に出て矢を1本放ち、シェルターに戻る — 見張り塔風の防衛。負傷時はスキップする（HunterCabinDefenseMinHp参照）。
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=狩人小屋防衛半径（ワールド単位）
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=小屋防衛射撃の最大交戦距離。バニラの弓射程は約40u；デフォルト30uは、小屋に留まる狩人が本来の狩猟半径全体に届くのではなく短距離の「自宅防衛」に留まるようにする。近距離の下限はHunterCabinDefenseMinDistと対になる。
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=狩人小屋防衛最低脅威距離
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=脅威が小屋からこの距離より近い場合は防衛射撃を発動しない。至近距離で外に出ると狩人がすぐ近接戦に巻き込まれる — それより壁に受けさせた方が良い。デフォルト20u: 狩人は20〜30uの帯（安全な弓射程）の脅威に交戦し、それより近い場合はシェルターに留まる。
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=狩人小屋防衛最低HP（0〜1）
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=小屋防衛射撃に参加するには狩人の体力がこの割合以上である必要がある。0.5=体力半分。負傷した狩人は近くに脅威があってもシェルターに留まる。0にすると負傷時でも交戦を許可する。
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=Pets DLC: WotWのDLC機能を有効化
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=Farthest Frontier Pets DLCに依存するすべてのWotW機能（キツネ/グラウンドホッグ捕獲、狩人+犬のタンク行動など）のマスタートグル。DLCを所有していない場合は自動でOFFになる。WotWの追加要素なしでDLCコンテンツの忠実な体験をしたい場合はfalseに設定する。
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=トラップマスター キツネ罠確率
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=罠発動ごとに、村の鶏を襲うキツネをトラップマスターが捕らえる確率。成功するとボーナス毛皮が出る（死骸なし — このデザインではキツネ肉は消費されない）。0.10=10%。Pets DLCが必要。
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=トラップマスター グラウンドホッグ罠確率
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=罠発動ごとに、作物畑を荒らすグラウンドホッグをトラップマスターが捕らえる確率。成功すると小さな死骸+小さな毛皮ボーナスが出る。0.15=15%。Pets DLCが必要。
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=トラップマスター キツネボーナス毛皮
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=キツネの捕獲成功ごとに投入される毛皮単位数。キツネの毛皮は価値が高い — 1回あたりは少ないが毛皮職人の産出は高くなる。
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=トラップマスター グラウンドホッグボーナス死骸
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=グラウンドホッグの捕獲成功ごとに投入される小死骸単位数。他の小動物の死骸と同様に燻製小屋へ回される。
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=トラップマスター グラウンドホッグボーナス毛皮
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=グラウンドホッグの捕獲成功ごとに投入される毛皮単位数。
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=Pets DLC: キツネ出現遅延（日）
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=最初の鶏小屋が建設されてからキツネが出現を試み始めるまでの日数。-1=バニラ値を変更しない。高いほど最初の襲撃が遅くなり、罠の防衛を構築する時間ができる。
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=Pets DLC: グラウンドホッグ出現遅延（日）
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=最初の作物畑が設置されてからグラウンドホッグが出現を試み始めるまでの日数。-1=バニラ値を変更しない。
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=Pets DLC: キツネ出現倍率
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=鶏の数あたりのキツネ襲撃波数に対する倍率。「鶏の数」から「出現できるキツネ群れの数」への変換に使われるAnimationCurveをスケールする。1.0=バニラ。2.0=倍。0.5=半分。難易度調整やBGH向けの村防衛アクションを増やしたいプレイに便利。
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=Pets DLC: グラウンドホッグ出現倍率
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=作物畑数あたりのグラウンドホッグ襲撃波数に対する倍率。1.0=バニラ、2.0=倍、0.5=半分。
+WardenOfTheWilds/opt/WildFoxEnabled/label=Pets DLC: 野生キツネ個体群（放浪）
+WardenOfTheWilds/opt/WildFoxEnabled/tip=デフォルトOFF。有効化すると（Pets DLC所有時）、WotWは鶏小屋を襲うだけでなく、狼のようにマップを放浪する野生キツネの個体群を出現させる。これはバニラDLCの襲撃キツネ（鶏の数に応じて常に出現）に加えて追加される野生動物であり、有効にすると見かけるキツネの数が明らかに増える可能性がある。Keep Clarity設定パネルのWarden of the Wildsの項で切り替え可能。
+WardenOfTheWilds/opt/WildFoxMaxCount/label=Pets DLC: 野生キツネ最大数
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=マップ上で維持する野生キツネ個体数の目標。補充ループは死んだキツネをこの上限まで再スポーンさせる（バニラの襲撃キツネはカウントしない）。0で無効；高いほどBGH向けの狩猟対象小型捕食者が増える。
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=Pets DLC: 野生キツネ補充間隔（秒）
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=野生キツネの個体数チェック間の実時間秒数。低いほど討伐後の再繁殖が速くなるが、ログのノイズが増える。推奨: 60〜300。
+WardenOfTheWilds/opt/CatRatHuntRadius/label=Pets DLC: 猫のネズミ狩り限界半径
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=猫の自宅（住居/CatKennel/最寄りのシェルター）から、その猫がネズミ狩りタスクを受け入れる最大距離（単位）。放し飼いの猫がネズミを追って森の中40単位まで出かけるのではなく、村の中に留まるようにする。ネズミ捕り建物に雇用された猫は建物のバニラ半径を使用し、この設定の影響を受けない。デフォルト25≈こぢんまりとした村の中心部。
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=Pets DLC: 猫の脅威検知範囲倍率
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=猫の敵検知半径に対する倍率。2.0=猫は狼や熊を2倍遠くから察知でき、撤退の余裕が増える。高いほど猫は安全になるが撤退が頻繁になる（ネズミ狩りが中断されることがある）。
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=Pets DLC: 猫の脅威スキャン間隔（秒）
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=猫が近くの脅威を再スキャンする頻度。バニラは5秒 — 次のスキャンまでの間に狼が突進して噛みつくことがある。1.0にすると猫はほぼ即座に迫る狼に気づく。
+WardenOfTheWilds/opt/DogLeashKeyName/label=Pets DLC: 犬のリーシュ切り替えキー
+WardenOfTheWilds/opt/DogLeashKeyName/tip=狩人小屋を選択中にこのキーを押すと「犬を作業エリア内に留める」リーシュを切り替える。デフォルトL。Unity KeyCode名を使用。
+WardenOfTheWilds/opt/DogRallyKeyName/label=Pets DLC: 犬集合ホットキー
+WardenOfTheWilds/opt/DogRallyKeyName/tip=マップ上の狩人に割り当てられたすべての犬を選択する。押した後右クリックすると群れ全体を移動できる。デフォルトCtrl+D。形式: 'Ctrl+D', 'Alt+R'、または単一キー'D'。
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=Pets DLC: 狩人がキツネを狙う
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=狩人の狩猟対象マスクにキツネチームを追加し、狼/熊/猪と同様にHuntSubTask中に積極的にキツネを撃つようにする。これがないとバニラの狩人はキツネを無視する（キツネはTeam.Pestsに属し、バニラの狩人ターゲットマスクに含まれない）。
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=Pets DLC: 動物別捕食者アラート
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=汎用の赤い「捕食者が攻撃中！」アラートを、動物ごとのバージョンに置き換える: 実際の動物のスプライトと、琥珀色（低脅威: キツネ発見/猪逃走中）対 赤（狼/熊/攻撃中の猪）の色分けを表示する。見た目のみ — 戦闘挙動は変わらない。
+WardenOfTheWilds/opt/AutoNamePets/label=Pets DLC: 犬・猫を自動命名
+WardenOfTheWilds/opt/AutoNamePets/tip=新しい犬や猫には、汎用の「Dog」/「Cat」の代わりに厳選リストからランダムな名前が付けられる。既存の、またはプレイヤーが改名済みのペットは名前を維持する。見た目のみ。
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=Pets DLC: グラウンドホッグ討伐毛皮
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=グラウンドホッグ/マーモットが戦闘で倒されたとき、最寄りの狩人小屋（300u以内）に自動で回収される毛皮単位数。小型獲物=小さな報酬: デフォルト毛皮1、死骸なし。0にするとグラウンドホッグの戦利品を完全に無効化する。
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=狩人に作業には弓が必要
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=ONにすると、弓/クロスボウを持たない狩人はバニラのロジスティクスが補充を届けるまで狩猟/死骸回収/解体を行えなくなる。弓を持たない狩人が死骸を集めに行って食われるのを防ぐ。OFF=バニラの挙動（弓なしの狩人は作業に出て死ぬ可能性が高い）。
+# ── Keep Clarity ──
+KeepClarity/meta/name=Keep Clarity
+KeepClarity/meta/desc=UIの快適性向上: 強化ツールチップ、ピン留め可能なリソースオーバーレイ、建物ホットキー、設定パネル。
+KeepClarity/cat/Hotkeys — Reports & Panels=ホットキー — レポート＆パネル
+KeepClarity/opt/ReportsHotkey/label=レポート切り替え
+KeepClarity/opt/ReportsHotkey/tip=12か月レポートウィンドウを開閉する
+KeepClarity/opt/ToggleOverlayHotkey/label=オーバーレイ切り替え
+KeepClarity/opt/ToggleOverlayHotkey/tip=ピン留め、技術キュー、建築キュー、軍団オーバーレイの表示/非表示を切り替える
+KeepClarity/opt/SettingsPanelHotkey/label=設定パネルを開く
+KeepClarity/opt/SettingsPanelHotkey/tip=このウィンドウを開く
+KeepClarity/cat/Overlay Settings=オーバーレイ設定
+KeepClarity/opt/PinnedCollapsed/label=ピン留めオーバーレイを折りたたんで開始
+KeepClarity/opt/PinnedCollapsed/tip=ピン留めオーバーレイをタブに折りたたんだ状態で開く
+KeepClarity/opt/EnableCompanyOverlay/label=軍団名簿オーバーレイ
+KeepClarity/opt/EnableCompanyOverlay/tip=Shift+左クリックで軍団バナー（画面下部）をクリックするとドラッグ可能な名簿パネルが開く；Ctrl+左クリックでその軍団の兵舎を開く。
+KeepClarity/opt/EnableInfoWindowDock/label=建物情報を建築メニューからずらす（実験的）
+KeepClarity/opt/EnableInfoWindowDock/tip=建築メニューが開いているとき、建物情報ウィンドウを左にずらしてメニューが隠さないようにする。メニューを閉じると元に戻る。
+KeepClarity/opt/PinnedOverlayOpacity/label=ピン留めオーバーレイ不透明度
+KeepClarity/opt/PinnedOverlayOpacity/tip=ピン留めリソースの枠の不透明度。テキスト/ボタンは読みやすさを維持する。ライブ反映。
+KeepClarity/opt/TechQueueOverlayOpacity/label=技術キューオーバーレイ不透明度
+KeepClarity/opt/TechQueueOverlayOpacity/tip=技術キューの枠の不透明度。テキスト/ボタンは読みやすさを維持する。ライブ反映。
+KeepClarity/opt/CompanyOverlayOpacity/label=軍団オーバーレイ不透明度
+KeepClarity/opt/CompanyOverlayOpacity/tip=軍団名簿本体の不透明度。ヘッダー/テキストは維持される。ライブ反映。
+KeepClarity/opt/PinnedOverlayScale/label=ピン留めオーバーレイサイズ
+KeepClarity/opt/PinnedOverlayScale/tip=ピン留めリソースパネルのサイズ倍率。FFのUIスケールとは独立。ライブ反映。
+KeepClarity/opt/TechQueueOverlayScale/label=技術キューオーバーレイサイズ
+KeepClarity/opt/TechQueueOverlayScale/tip=技術キューパネルのサイズ倍率。FFのUIスケールとは独立。ライブ反映。
+KeepClarity/opt/CompanyOverlayScale/label=軍団オーバーレイサイズ
+KeepClarity/opt/CompanyOverlayScale/tip=軍団名簿パネルのサイズ倍率。FFのUIスケールとは独立。ライブ反映。
+KeepClarity/opt/PinnedGrowDirection/label=ピン留めの展開方向
+KeepClarity/opt/PinnedGrowDirection/tip=ピン留めリソース: ヘッダーから下（デフォルト）または上にリストが伸びる。
+KeepClarity/opt/TechQueueGrowDirection/label=技術キューの展開方向
+KeepClarity/opt/TechQueueGrowDirection/tip=技術キュー: ヘッダーから下（デフォルト）または上にリストが伸びる。
+KeepClarity/opt/CompanyGrowDirection/label=軍団の展開方向
+KeepClarity/opt/CompanyGrowDirection/tip=軍団名簿: ヘッダーから下（デフォルト）または上に伸びる。
+KeepClarity/cat/Build Priority=建築優先度
+KeepClarity/opt/EnableBuildPriority/label=建築優先度
+KeepClarity/opt/EnableBuildPriority/tip=建設予定地の建築工矢印を1〜9の優先度として再利用する。建築工は優先度の高い予定地から作業し、各予定地は完全な建築工数を確保できる。
+KeepClarity/opt/BuildPriorityWeight/label=優先度の強さ
+KeepClarity/opt/BuildPriorityWeight/tip=優先度が距離にどれだけ強く勝るか。1000=優先度で順序が決まる。ライブ反映。
+KeepClarity/opt/EnableBuildQueueOverlay/label=建築キューオーバーレイ
+KeepClarity/opt/EnableBuildQueueOverlay/tip=優先度順に上位10件の建設予定地を一覧表示する移動可能な画面パネル。
+KeepClarity/opt/BuildQueueShowSalvage/label=建築キュー: 解体を含める
+KeepClarity/opt/BuildQueueShowSalvage/tip=解体中の建物や回収中の放棄キャンプも[SALV]タグ付きで一覧に含める。
+KeepClarity/opt/BuildQueueShowExcavation/label=建築キュー: 発掘を含める
+KeepClarity/opt/BuildQueueShowExcavation/tip=聖遺物発掘中の遺跡も[EXC]タグ付きで一覧に含める。
+KeepClarity/opt/BuildQueueOverlayScale/label=建築キューサイズ
+KeepClarity/opt/BuildQueueOverlayScale/tip=建築キューパネルのサイズ。ライブ反映。
+KeepClarity/opt/BuildQueueOverlayOpacity/label=建築キュー不透明度
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=建築キューパネルの不透明度。ライブ反映。
+KeepClarity/opt/BuildQueueGrowDirection/label=建築キューの展開方向
+KeepClarity/opt/BuildQueueGrowDirection/tip=ヘッダーから下（デフォルト）または上（ヘッダーが下部）にリストが伸びる。
+KeepClarity/cat/Snapping=スナップ
+KeepClarity/opt/SnapOverlaysEnabled/label=オーバーレイをスナップ
+KeepClarity/opt/SnapOverlaysEnabled/tip=Keep Clarityのオーバーレイをドラッグすると、他のオーバーレイ、ミニマップ、画面端に位置を合わせてスナップする。
+KeepClarity/opt/SnapThresholdPx/label=スナップ距離
+KeepClarity/opt/SnapThresholdPx/tip=スナップが発生するまでの端の近さ（ピクセル）。0にするとスナップを無効化する。ライブ反映。
+KeepClarity/cat/Building Variety=建物のバリエーション
+KeepClarity/opt/EnableBuildingVariety/label=建物の色バリエーション
+KeepClarity/opt/EnableBuildingVariety/tip=各構造物に微妙な独自の風化トーンを与え、同じ建物タイプがコピー貼り付けに見えないようにする。建物ごとに決定的（再読み込みしても安定）。
+KeepClarity/opt/BuildingVarietyIntensity/label=バリエーションの強さ
+KeepClarity/opt/BuildingVarietyIntensity/tip=建物間のばらつきの範囲。0=同一、1=最大（それでも上品な範囲）。ライブ反映。
+KeepClarity/cat/Crisp Mode=クリスプモード
+KeepClarity/opt/EnableCrispMode/label=クリスプモード
+KeepClarity/opt/EnableCrispMode/tip=ネイティブのシャープ化+彩度強調ポストプロセス — ReShade CASプリセットの軽量な組み込み代替。ワールドのみ；HUDには影響しない。
+KeepClarity/opt/CrispSharpness/label=シャープネス
+KeepClarity/opt/CrispSharpness/tip=コントラスト適応型シャープ化の強さ。0=柔らかい、1=シャープ。ライブ反映。
+KeepClarity/opt/CrispVibrance/label=彩度
+KeepClarity/opt/CrispVibrance/tip=色の鮮やかさ/彩度の強調（彩度の低いピクセルほど強くかかる）。ライブ反映。
+KeepClarity/cat/Forage Calendar=採集カレンダー
+KeepClarity/opt/EnableForageCalendar/label=採集シーズンバー
+KeepClarity/opt/EnableForageCalendar/tip=マップ上の各採集物が旬かどうかを示す、トップバーの季節ストリップ下のバー。ストリップにホバーすると確認でき、ゲーム自身の情報トグルでピン留めできる。ライブ反映。
+KeepClarity/opt/ForageCalendarAlwaysShow/label=常にバーを表示
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=季節ポップアップ時だけでなく、常に季節バーを表示したままにする。ライブ反映。
+KeepClarity/opt/EnableInSeasonReadout/label=旬表示
+KeepClarity/opt/EnableInSeasonReadout/tip=日付/天候ポップアップにリアルタイムの「旬: ...」行を追加する。ライブ反映。
+KeepClarity/cat/Hotkeys — Building=ホットキー — 建物
+KeepClarity/opt/UpgradeHotkey/label=アップグレード
+KeepClarity/opt/UpgradeHotkey/tip=選択中の建物をアップグレードするホットキー
+KeepClarity/opt/RelocateHotkey/label=移設
+KeepClarity/opt/RelocateHotkey/tip=選択中の建物を移設するホットキー。Tended Wildsがインストールされている場合、採集物の移設にも使われる。
+KeepClarity/opt/ToggleEmployHotkey/label=建物の生産を切り替え
+KeepClarity/opt/ToggleEmployHotkey/tip=選択中の建物の生産を開始/停止するホットキー（雇用チェックボックスを切り替える）。
+KeepClarity/opt/DemolishHotkey/label=建物を解体
+KeepClarity/opt/DemolishHotkey/tip=デフォルトT。再割り当てに関わらずDeleteキーも固定フォールバックとして動作する。
+KeepClarity/opt/CycleBuildingLeftHotkey/label=前の建物へ
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=同じタイプの前の建物に切り替える（情報パネル上部の＜ボタンと同じ）
+KeepClarity/opt/CycleBuildingRightHotkey/label=次の建物へ
+KeepClarity/opt/CycleBuildingRightHotkey/tip=同じタイプの次の建物に切り替える（情報パネル上部の＞ボタンと同じ）
+KeepClarity/opt/MoveWorkAreaHotkey/label=作業エリアを移動
+KeepClarity/opt/MoveWorkAreaHotkey/tip=作業エリアを持つ建物（狩人、林業家、薬草師…）の移動を開始する。パネルの再設定ボタンと同じ。
+KeepClarity/cat/Hotkeys — Build Site=ホットキー — 建設予定地
+KeepClarity/opt/DeleteBuildSiteHotkey/label=建設予定地を削除
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=デフォルトT。再割り当てに関わらずDeleteキーも固定フォールバックとして動作する。
+KeepClarity/opt/ConstructionEnabledHotkey/label=建設切り替え
+KeepClarity/opt/ConstructionEnabledHotkey/tip=建設/解体予定地の建設有効チェックボックスを切り替えるホットキー
+KeepClarity/opt/PrioritizeHotkey/label=優先化
+KeepClarity/opt/PrioritizeHotkey/tip=建設/解体予定地の優先化チェックボックスを切り替えるホットキー
+KeepClarity/opt/DecrementBuildersHotkey/label=建築工を減らす（-）
+KeepClarity/opt/DecrementBuildersHotkey/tip=建設/解体予定地から建築工を1人減らすホットキー
+KeepClarity/opt/IncrementBuildersHotkey/label=建築工を増やす（+）
+KeepClarity/opt/IncrementBuildersHotkey/tip=建設/解体予定地に建築工を1人加えるホットキー
+KeepClarity/cat/Hotkeys — Forageables=ホットキー — 採集物
+KeepClarity/opt/RelocateHotkey/label=移設
+KeepClarity/opt/RelocateHotkey/tip=選択中の建物を移設するホットキー。Tended Wildsがインストールされている場合、採集物の移設にも使われる。
+KeepClarity/opt/ForageableHarvestHotkey/label=収穫
+KeepClarity/opt/ForageableHarvestHotkey/tip=ネイティブの収穫ボタンを発動する。採集物、木、石鉱床、発掘済み遺跡に有効。
+KeepClarity/opt/ForageableDeleteHotkey/label=削除
+KeepClarity/opt/ForageableDeleteHotkey/tip=ネイティブの削除/クリアボタンを発動する。採集物、木、石鉱床、発掘済み遺跡に有効。
+KeepClarity/opt/ForageablePrioritizeHotkey/label=優先化
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=ネイティブの優先化トグルを発動する。採集物、木、石鉱床、発掘済み遺跡、果樹に有効。
+KeepClarity/opt/CullForWoodHotkey/label=果樹を伐採して木材に
+KeepClarity/opt/CullForWoodHotkey/tip=果樹のみ — 木材用に伐採するマークを付ける（ネイティブの「木材用に伐採」）。
+KeepClarity/cat/Hotkeys — Crop Field=ホットキー — 作物畑
+KeepClarity/opt/CropCopyHotkey/label=設定をコピー
+KeepClarity/opt/CropCopyHotkey/tip=この作物畑の設定をコピーする（ネイティブボタン）。
+KeepClarity/opt/CropPasteHotkey/label=設定を貼り付け
+KeepClarity/opt/CropPasteHotkey/tip=コピーした作物畑設定を貼り付ける（ネイティブボタン）。
+KeepClarity/opt/CropExpandHotkey/label=畑を拡張
+KeepClarity/opt/CropExpandHotkey/tip=作物畑を拡張する（ネイティブボタン）。
+KeepClarity/opt/CropClearHotkey/label=選択中の作物をクリア
+KeepClarity/opt/CropClearHotkey/tip=選択中の作物をクリアする（ネイティブボタン）。
+KeepClarity/opt/CropSalvageHotkey/label=解体
+KeepClarity/opt/CropSalvageHotkey/tip=作物畑を解体する（ネイティブボタン）。
+KeepClarity/cat/Hotkeys — Confirmation Dialog=ホットキー — 確認ダイアログ
+KeepClarity/opt/ConfirmHotkey/label=確認
+KeepClarity/opt/ConfirmHotkey/tip=デフォルトY。Enterキーも固定フォールバックとして動作する。
+KeepClarity/opt/CancelHotkey/label=キャンセル
+KeepClarity/opt/CancelHotkey/tip=デフォルトN。Escキーも固定フォールバックとして動作する。
+KeepClarity/cat/Notifications=通知
+KeepClarity/opt/TraderWarningDays/label=行商人出発警告日数
+KeepClarity/opt/TraderWarningDays/tip=行商人が出発する何日前に「行商人が出発します」通知を表示するか（0で無効）
+KeepClarity/opt/DismissibleResourceAlerts/label=リソースアラートを消去可能に
+KeepClarity/opt/DismissibleResourceAlerts/tip=トップバーの「！」警告をクリックすると次の月替わりまで沈黙させる。
+KeepClarity/cat/Game and Map Settings=ゲームとマップの設定
+KeepClarity/opt/KeepMapTypeOnReroll/label=再抽選時にマップタイプを維持
+KeepClarity/opt/KeepMapTypeOnReroll/tip=サイコロボタンはランダムに強制する代わりに、選択中のバイオーム内でシードを再抽選する。
+KeepClarity/opt/RememberCustomSettings/label=カスタム設定を記憶
+KeepClarity/opt/RememberCustomSettings/tip=確認時にカスタム設定パネルの選択を記録し、次回開いたときに復元する。
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=マップタイプをRivers Restoredと同期
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=FFの地形セレクターとRRのRiverPresetを双方向同期する。RRが無効、またはCustomに設定されている場合は無効。
+KeepClarity/opt/BridgeAnywhere/label=橋をどこでも（水域不要/高さ制限なし）
+KeepClarity/opt/BridgeAnywhere/tip=「水域上でなければならない」「水面高さにスナップ」ルールを解除し、地形改変なしで乾いた渓谷や高い岸の河川にも橋を架けられるようにする。橋は始点/終点セルの地形高さに合わせて配置される。
+KeepClarity/cat/Game Flow=ゲームフロー
+KeepClarity/opt/DoubleClickLoad/label=ダブルクリックで読み込み
+KeepClarity/opt/DoubleClickLoad/tip=セーブ（スタート画面またはゲーム内のロードメニュー）をダブルクリックすると確認プロンプトなしで読み込む。シングルクリックは引き続き確認が必要。
+KeepClarity/opt/DoubleClickLoadWindow/label=ダブルクリック判定速度（秒）
+KeepClarity/opt/DoubleClickLoadWindow/tip=2回のクリック間の最大間隔（およびシングルクリックでプロンプトが表示されるまでの短い保持時間）。
+KeepClarity/opt/PauseOnLoad/label=読み込み時に一時停止
+KeepClarity/opt/PauseOnLoad/tip=セーブの読み込みが完了したら自動で一時停止する
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=読み込み時の一時停止遅延（秒）
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=一時停止する前にこの秒数だけ待機する — シーンが描画される時間を確保し、最初のフレームが黒くならないようにする。重くModが入っている環境では増やすこと。
+KeepClarity/opt/SkipNewMapIntro/label=ゲーム開始時のムービーをスキップ
+KeepClarity/opt/SkipNewMapIntro/tip=イントロ動画を飛ばし、マップ読み込みに直行する。
+KeepClarity/opt/CustomPopulationCap/label=カスタム人口上限
+KeepClarity/opt/CustomPopulationCap/tip=4つのスライダー停止点（200/500/1000/2000）を任意の値で上書きする。0=バニラの挙動を維持。
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=アップグレード人口要件を無視
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=町の中心の段階アップにかかる人口ゲートを回避し、低人口のセーブでも進行できるようにする。
+KeepClarity/cat/Other Settings=その他の設定
+KeepClarity/opt/SettingsVerboseLog/label=詳細設定ログ
+KeepClarity/opt/SettingsVerboseLog/tip=すべてのclaim/discovery判定をMelonLoader/Latest.logに記録する。デフォルトOFF；パネルのデバッグ時のみONにすること。
+KeepClarity/cat/Other settings=その他の設定
+KeepClarity/opt/ShowPlannerButton/label=プランナーボタンを表示
+KeepClarity/opt/ShowPlannerButton/tip=トップバーにブラウザでSageDragoonのFarthest Frontier Plannerを開くPLANアイコンを表示する。反映には再起動が必要。
+KeepClarity/opt/UseLegacyImguiPanel/label=レガシーIMGUIパネルを使用
+KeepClarity/opt/UseLegacyImguiPanel/tip=ステージ1フォールバック。false（デフォルト）のときF10は洗練されたUGUIキャンバスを開く。trueのときF10は元のIMGUIプロトタイプを開く。UGUIパネルが不具合を起こす場合はtrueに切り替える。
+# ── LootScaling ──
+LootScaling/meta/name=LootScaling
+LootScaling/cat/LootScaling=LootScaling
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=Setup
+Setup/opt/verboseLogging/label=verboseLogging

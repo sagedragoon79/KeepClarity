@@ -1,0 +1,1653 @@
+# Korean pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Korean
+
+# ── Divine Hands ──
+DivineHands/meta/name=Divine Hands
+DivineHands/meta/desc=신의 힘 & 창작 도구: 지형 조각, 커서 스포너, 맵 신급 도구를 게임 내 패널 하나로 묶었습니다(기본 단축키 Ctrl+G). 세계를 바꾸는 강력한 기능은 기본적으로 꺼져 있습니다.
+DivineHands/cat/General=일반
+DivineHands/opt/MasterEnable/label=활성화
+DivineHands/opt/MasterEnable/tip=Divine Hands 마스터 스위치. 꺼져 있으면 패널 단축키가 작동하지 않고 어떤 신의 힘도 적용되지 않습니다. 기본값: ON.
+DivineHands/opt/PanelHotkey/label=패널 단축키
+DivineHands/opt/PanelHotkey/tip=게임 내 Divine Hands 패널을 여닫는 키 또는 조합키. Unity KeyCode 이름이나 Ctrl/Alt/Shift 조합키 — 예: Ctrl+G, F6, Alt+Shift+D. 기본값: Ctrl+G.
+DivineHands/opt/ShowPanelOnMap/label=맵 로드 시 패널 열기
+DivineHands/opt/ShowPanelOnMap/tip=맵이 로드될 때 패널을 자동으로 엽니다. 기본값: OFF.
+DivineHands/opt/DebugLog/label=디버그 로깅
+DivineHands/opt/DebugLog/tip=MelonLoader.log에 상세 진단 출력을 기록합니다. 기본값: OFF.
+DivineHands/opt/DiagBuildingScare/label=로그: 동물 겁주기 표
+DivineHands/opt/DiagBuildingScare/tip=야생동물을 쫓아내는 건물과 그렇지 않은 건물을 정리한 참고표를 MelonLoader.log에 기록합니다. FF는 맵을 64m 스폰 셀로 나누며, 한 셀에 겁주는 건물이 3개 이상이면 그 무리를 다른 곳으로 몰아냅니다(농경지는 별도 규칙으로 항상 쫓아냄). 읽기 전용 — 게임 내 아무것도 바꾸지 않습니다. 켜는 순간 한 번 실행되며, 다시 실행하려면 껐다가 다시 켜세요. 기본값: OFF.
+DivineHands/opt/ClassicPanel/label=클래식 패널
+DivineHands/opt/ClassicPanel/tip=FF 스타일 패널 대신 가벼운 원조 IMGUI 패널을 사용합니다. 스타일 패널이 오작동할 때의 대안입니다. 기본값: OFF.
+DivineHands/cat/God Tools=신의 도구
+DivineHands/opt/EnableRevealMap/label=맵 공개
+DivineHands/opt/EnableRevealMap/tip=게임 내 Divine Hands 패널에서 맵 공개 기능을 사용할 수 있게 합니다 — 활성화는 여기가 아니라 그 패널에서 합니다. 활성화하면 전장의 안개가 전부 걷히며, 다시 끄면 탐험했던 만큼의 안개를 최대한 복원합니다. 주의: FF는 탐험 상태를 세이브에 저장하므로, 공개 상태에서 저장하면 맵 전체가 탐험 완료로 남습니다. 기본값: OFF.
+DivineHands/opt/EnableBuildAnywhere/label=어디든 건설
+DivineHands/opt/EnableBuildAnywhere/tip=게임 내 패널에서 어디든 건설 기능을 사용할 수 있게 합니다 — 활성화는 여기가 아니라 그 패널에서 합니다. 활성화하면 바닐라가 거부하는 지형(급경사, 마을과 연결되지 않음, 물/도로 겹침)에도 일반 건물을 지을 수 있고, 150m 도로 길이 제한도 사라집니다(원하는 만큼 도로를 끌 수 있으며 비용은 실제 길이에 비례). 다리는 건드리지 않아 바닐라와 Keep Clarity의 어디든 다리 기능에 그대로 맡깁니다. 기본값: OFF.
+DivineHands/opt/PreserveOverlapTrees/label=겹친 나무 유지
+DivineHands/opt/PreserveOverlapTrees/tip=건물 위에 놓인 나무(예: 어디든 건설로 광장 타일에 놓은 나무)를 저장/재로드 후에도 유지합니다. 바닐라는 로드 시 모든 건물 부지의 나무를 다시 정리하는데, 일반 세이브에서는 불필요한 작업이라 건너뛰어도 안전합니다. 실제 건설 중에는 여전히 정상적으로 나무를 정리합니다. 도로 위의 나무는 재로드 시 여전히 사라집니다(별도 도로 정리 로직). 기본값: ON.
+DivineHands/opt/EnableGodView/label=신의 시점
+DivineHands/opt/EnableGodView/tip=게임 내 패널에서 신의 시점 기능을 사용할 수 있게 합니다 — 활성화는 여기가 아니라 그 패널에서 합니다. 활성화하면 RTS 카메라 제한이 완화되어 멀리 줌아웃하거나 수평/부감 각도로 기울여 맵 전체를 살필 수 있으며, 끄면 정확히 원래대로 복원됩니다. 기본값: OFF.
+DivineHands/opt/ProportionalZoom/label=비례 줌
+DivineHands/opt/ProportionalZoom/tip=신의 시점이 활성화된 동안, 가까이 다가갈수록 스크롤 줌 단계가 더 세밀해집니다(일반 상태에서 갑자기 너무 가까워지는 문제 없음). 멀리 줌아웃할 때는 바닐라 그대로입니다. Off = 균일한 바닐라 단계. 기본값: ON.
+DivineHands/opt/ZoomCellsPerNotch/label=줌 단계 (신의 시점)
+DivineHands/opt/ZoomCellsPerNotch/tip=휠 한 칸당 신의 시점 카메라가 이동하는 셀 수(2–50; 1셀 ≈ 5m, 즉 2 ≈ 10m, 50 ≈ 250m). 높을수록 크게 이동, 낮을수록 세밀. 가까이 갈수록 약 2배 더 세밀해집니다. 기본값: 10 (~50m/칸).
+DivineHands/opt/GodViewMaxZoom/label=최대 줌아웃 (m)
+DivineHands/opt/GodViewMaxZoom/tip=신의 시점 최대 줌아웃 거리, 미터(200–900). 성능에 가장 큰 영향을 주는 값입니다 — 900이면 카메라가 맵 거의 전체를 보게 되어 끊김/멈춤이 발생할 수 있습니다. 기본값 450; Pangu는 600으로 제한. 신의 시점이 무겁다면 낮추고, 더 넓게 살피려면 높이세요.
+DivineHands/opt/GodViewDisableFog/label=안개 끄기 (신의 시점)
+DivineHands/opt/GodViewDisableFog/tip=신의 시점이 활성화된 동안 원거리 대기 안개 효과를 끕니다(선명한 Pangu 스타일). 종료 시 복원됩니다. 전장의 안개/맵 공개와는 별개입니다. 기본값: OFF (안개 유지, 프레임에 더 가벼움).
+DivineHands/opt/GodViewMinZoom/label=최소 줌인 (m)
+DivineHands/opt/GodViewMinZoom/tip=신의 시점 최대 줌인 거리, 미터(1–6). 바닐라 하한은 약 6; 2 정도면 주민 머리 높이입니다. 최소 카메라 각도 0과 바닐라 따라가기 버튼을 함께 쓰면 어깨너머 주민 시점을 만들 수 있습니다. 실시간 적용 — 따라가는 중에도 조정 가능. 기본값: 6.
+DivineHands/opt/GodViewMinAngle/label=최소 카메라 각도 (°)
+DivineHands/opt/GodViewMinAngle/tip=신의 시점이 켜져 있을 때 가장 낮출 수 있는 카메라 각도(0–35). 바닐라는 약 35에서 멈춤(항상 아래를 내려다봄); 0은 수평선과 같은 높이. 실시간 적용 — 따라가는 중에도 조정 가능. 기본값: 10.
+DivineHands/opt/HideFowHaze/label=전장의 안개 헤이즈 숨기기 (시각 효과)
+DivineHands/opt/HideFowHaze/tip=전장의 안개 후처리 효과 — 낮은 각도/자유 카메라에서 하늘을 덮는 회색 미탐험 안개 — 를 끕니다. 순수하게 시각적인 효과라 탐험 상태는 그대로이며 세이브에 아무것도 기록되지 않고, 끄면 즉시 원래대로 복원됩니다. 기본값: OFF.
+DivineHands/opt/FreeCamClearsHaze/label=자유 카메라: 하늘 안개 제거
+DivineHands/opt/FreeCamClearsHaze/tip=자유 카메라가 활성화된 동안에만 전장의 안개 헤이즈를 자동으로 숨깁니다 — 평소 플레이에서는 전장의 안개 그대로, 비행 중에는 맑은 하늘, 종료하는 순간 헤이즈가 돌아옵니다. 순수하게 시각적인 효과. 기본값: OFF.
+DivineHands/opt/EnableFreeCam/label=자유 카메라
+DivineHands/opt/EnableFreeCam/tip=게임 내 패널에서 자유 카메라 기능을 사용할 수 있게 합니다 — 활성화는 여기가 아니라 그 패널에서 합니다. Ctrl+F(설정 가능)로 진입/종료하거나 패널의 토글을 사용하세요. WASD 이동, Space/Ctrl 상하 이동, Shift로 빠르게, 마우스로 시점 조작. 종료하면 정확히 원래 카메라로 복원됩니다. 기본값: OFF.
+DivineHands/opt/FreeCamHotkey/label=자유 카메라 단축키
+DivineHands/opt/FreeCamHotkey/tip=게임 내에서 자유 카메라를 켜고 끄는 키/조합키. Unity KeyCode 이름이나 Ctrl/Alt/Shift 조합키 — 예: Ctrl+F, F8, Alt+C. 기본값: Ctrl+F.
+DivineHands/opt/FreeCamMoveSpeed/label=자유 카메라 이동 속도
+DivineHands/opt/FreeCamMoveSpeed/tip=자유 카메라 비행 속도, 초당 월드 미터. 기본값: 40.
+DivineHands/opt/FreeCamFastMultiplier/label=자유 카메라 고속 배율
+DivineHands/opt/FreeCamFastMultiplier/tip=자유 카메라에서 Shift를 누르고 있을 때의 속도 배율. 기본값: 3.
+DivineHands/opt/FreeCamSensitivity/label=자유 카메라 마우스 감도
+DivineHands/opt/FreeCamSensitivity/tip=자유 카메라 마우스 시점 감도. 기본값: 2.
+DivineHands/opt/FreeCamGroundFloor/label=자유 카메라 바닥 제한
+DivineHands/opt/FreeCamGroundFloor/tip=자유 카메라가 지형 아래로 뚫고 들어가 뒷면/하늘 공허로 빠지지 않도록 지형 위에 유지합니다. 맵 아래 촬영을 하려면 OFF로 설정하세요. 기본값: on.
+DivineHands/opt/FreeCamFloorClearance/label=자유 카메라 바닥 여유고도
+DivineHands/opt/FreeCamFloorClearance/tip=바닥이 지표면 위로 떠 있는 높이(미터). 값이 작을수록 지면 스침 촬영; 0이면 지표면에 붙습니다(근접 평면이 잘릴 수 있음). 기본값: 1.0m.
+DivineHands/opt/InstantBuildEnable/label=즉시 건설
+DivineHands/opt/InstantBuildEnable/tip=게임 내 패널에서 즉시 건설 기능을 사용할 수 있게 합니다 — 활성화는 여기가 아니라 그 패널에서 합니다. 활성화되어 있으면 모든 건설 부지(새로 놓은 것과 이미 대기 중인 것 모두)가 게임 자체의 완료 처리 경로를 통해 다음 프레임에 완공됩니다. 맵을 로드할 때마다 꺼짐으로 초기화됩니다. 기본값: OFF.
+DivineHands/opt/InstantBuildUseMaterials/label=즉시 건설 시 자재 소모
+DivineHands/opt/InstantBuildUseMaterials/tip=건물을 즉시 완공할 때 필요한 건설 자재를 마을 창고에서 미리 차감합니다(노동력은 항상 무료). 마을이 감당할 수 없는 부지는 정상적으로 건설되도록 남겨둡니다. Off = 자재 없이 짓는 신의 건설. 기본값: ON.
+DivineHands/opt/PersistRevealActive/label=맵 공개 (저장된 상태)
+DivineHands/opt/PersistBuildAnywhereActive/label=어디든 건설 (저장된 상태)
+DivineHands/opt/PersistGodViewActive/label=신의 시점 (저장된 상태)
+DivineHands/cat/Terrain Sculpting=지형 조각
+DivineHands/opt/TerrainEnable/label=지형 조각
+DivineHands/opt/TerrainEnable/tip=지형 고도 조작 신의 힘을 활성화합니다. 켜져 있으면 패널에서 지형을 선택하고 적용 키로 세계에 브러시를 적용할 수 있습니다. 기본값: OFF.
+DivineHands/opt/TerrainMode/label=브러시 모드
+DivineHands/opt/TerrainMode/tip=0 = 높이기, 1 = 낮추기, 2 = 매끄럽게, 3 = 평탄화, 4 = 평균화. Shift를 누르면 높이기<->낮추기가 반전됩니다. 평균화는 브러시 전체를 하나의 평평한 평균 높이로 서서히 맞춥니다(TerrainHelper 방식); 매끄럽게는 요철만 제거하고 경사는 유지합니다.
+DivineHands/opt/TerrainStrength/label=브러시 강도
+DivineHands/opt/TerrainStrength/tip=적용 1회당 높이기/낮추기 높이 변화량, 월드 미터 단위(매끄럽게·평균화 단계에도 적용). 평탄화에는 적용되지 않습니다. 기본값: 1.0.
+DivineHands/opt/TerrainGridWidth/label=브러시 격자 너비
+DivineHands/opt/TerrainGridWidth/tip=브러시 범위의 너비(X), 높이맵 셀 단위(1–20). 실시간: 브러시 활성 중 좌/우 화살표. 셀 하나는 약 해상도 미터(~5m). 기본값: 3.
+DivineHands/opt/TerrainGridHeight/label=브러시 격자 깊이
+DivineHands/opt/TerrainGridHeight/tip=브러시 범위의 깊이(Z), 높이맵 셀 단위(1–20). 실시간: 브러시 활성 중 상/하 화살표; Tab으로 너비/깊이 전환. 예: 1×20으로 길을 깎을 수 있습니다. 기본값: 3.
+DivineHands/opt/TerrainGridFineSnap/label=정밀 격자 배치
+DivineHands/opt/TerrainGridFineSnap/tip=자유 배치용(TerrainHelper 느낌): 격자가 1/2 격자 단위로 움직이고 단계 사이에 멈춰 있어, 스냅되지 않은 건물 고스트가 격자가 밀리지 않는 상태로 반 셀 범위 안 어디든 놓일 수 있게 합니다. 배치 안내용일 뿐 — 실제 조각은 적용 시 여전히 정수 셀 단위로 처리되므로, 깔끔한 평지를 원하면 꺼두세요. 기본값: off.
+DivineHands/opt/TerrainApplyKey/label=적용 키
+DivineHands/opt/TerrainApplyKey/tip=커서 위치에 브러시를 적용하는 키/버튼. Unity KeyCode 이름 또는 조합키. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse0.
+DivineHands/opt/TerrainUndoKey/label=실행 취소 키
+DivineHands/opt/TerrainUndoKey/tip=마지막 지형 획을 취소하는 키/조합키. 기본값: Ctrl+Z.
+DivineHands/opt/TerrainArmHotkey/label=지형 브러시 활성화 단축키
+DivineHands/opt/TerrainArmHotkey/tip=탭을 클릭하지 않고도 지형 브러시를 활성화(다시 누르면 비활성화)하는 키보드 키/조합키. 활성화 시 패널도 함께 열립니다. 기본값: End (TerrainHelper 관례).
+DivineHands/cat/Cursor Spawners=커서 스포너
+DivineHands/opt/SpawnEnable/label=커서 스포너
+DivineHands/opt/SpawnEnable/tip=커서 스포너 신의 힘을 활성화합니다. 계열을 고르고 패널에서 스포너를 활성화한 뒤, 세계 위에서 적용 키를 눌러 커서 위치에 소환합니다. 기본값: OFF.
+DivineHands/opt/SpawnFamily/label=소환 계열
+DivineHands/opt/SpawnFamily/tip=0 = 동물, 1 = 광물, 2 = 주민, 3 = 자원.
+DivineHands/opt/SpawnSubtype/label=소환 세부 유형
+DivineHands/opt/SpawnSubtype/tip=계열 내 인덱스. 동물: 0 사슴/1 곰/2 멧돼지/3 늑대/4 여우/5 마멋/6 개/7 고양이(4-7은 개&고양이 DLC 필요). 광물: 0 금/1 철/2 석탄/3 돌/4 점토/5 모래. 자원: 0 채집물/1 나무/2 바위/3 거석. 주민은 이 항목을 무시합니다.
+DivineHands/opt/SpawnCount/label=소환 수
+DivineHands/opt/SpawnCount/tip=적용 1회당 소환할 개수(1–50), 커서 주변 작은 원형으로 흩뿌려집니다.
+DivineHands/opt/SpawnIsDeep/label=심층 매장지
+DivineHands/opt/SpawnIsDeep/tip=광물 전용. 켜져 있으면 소환된 매장지(6종 모두)가 심층/무한 매장지가 되어 심층 광산/채취장 건물에서만 사용할 수 있습니다. 꺼져 있으면 일반 광산/채취장용 유한 지표 매장지가 됩니다. 기본값: OFF.
+DivineHands/opt/SpawnAnnounceVillagers/label=주민 소환 알림
+DivineHands/opt/SpawnAnnounceVillagers/tip=주민을 소환할 때 이민 '도착' 알림을 발생시킵니다. 기본값: OFF.
+DivineHands/opt/SpawnPersistent/label=영구 유지 (노드/굴)
+DivineHands/opt/SpawnPersistent/tip=동물 전용. ON(기본값)일 때: 사슴은 커서 위치에 스스로 재생성되는 스폰 구역 노드(원형 마커)를 남기고, 늑대/멧돼지는 굴을 남깁니다. OFF면 그냥 개체만 소환됩니다. 곰은 항상 개체만 소환됩니다. 굴은 저장/로드 후에도 유지되지만, 사슴 노드는 이번 세션에서만 재생성되고 저장되지 않습니다(재로드 후 다시 배치 필요). 기본값: ON.
+DivineHands/opt/SpawnWolfDenGuid/label=늑대 굴 GUID
+DivineHands/opt/SpawnWolfDenGuid/tip=동물 그룹의 가중치 굴 프리팹을 찾지 못했을 때만 사용되는 예비 늑대 굴 프리팹 GUID. 굴 소환이 실패하지 않는 한 기본값을 유지하세요.
+DivineHands/opt/SpawnForageableGuids/label=채집물 GUID
+DivineHands/opt/SpawnForageableGuids/tip=채집물 유형으로 소환되는 프리팹 GUID 목록(쉼표/공백/줄바꿈으로 구분). 적용할 때마다 목록을 순환합니다. 알 수 없거나 DLC 전용 GUID는 안전하게 건너뜁니다.
+DivineHands/opt/SpawnTreeGuids/label=나무 GUID
+DivineHands/opt/SpawnTreeGuids/tip=나무 유형의 프리팹 GUID 목록(지형 나무 생성 시스템을 통해 배치됨). 비워두면(기본값) 현재 맵의 실제 수종(Terrain2 TreePrototypes)을 자동으로 사용합니다 — 별도 설정 불필요. 심을 나무 종류를 직접 지정하려는 경우에만 GUID를 입력하세요.
+DivineHands/opt/SpawnRockGuids/label=바위 GUID
+DivineHands/opt/SpawnRockGuids/tip=바위 유형의 프리팹 GUID 목록. 적용할 때마다 목록을 순환합니다.
+DivineHands/opt/SpawnGiantRockGuids/label=거석 GUID
+DivineHands/opt/SpawnGiantRockGuids/tip=거석 유형의 프리팹 GUID 목록.
+DivineHands/opt/SpawnApplyKey/label=소환 적용 키
+DivineHands/opt/SpawnApplyKey/tip=커서 위치에 소환하는 키/버튼. Unity KeyCode 이름 또는 조합키. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse0.
+DivineHands/opt/SpawnerArmHotkey/label=스포너 활성화 단축키
+DivineHands/opt/SpawnerArmHotkey/tip=탭을 클릭하지 않고도 스포너를 활성화(다시 누르면 비활성화)하는 키보드 키/조합키. 활성화 시 패널도 함께 열립니다. 기본값: Home.
+DivineHands/cat/Lake Stamp=호수 스탬프
+DivineHands/opt/LakeEnable/label=호수 / 연못 스탬프
+DivineHands/opt/LakeEnable/tip=게임 내 패널에 호수 탭을 추가합니다. 커서 위치에 물을 채운 호수를 조각해 찍습니다(Pangu 방식) — 게임 자체적으로 저장됩니다. 기본값: OFF.
+DivineHands/opt/LakeShape/label=형태
+DivineHands/opt/LakeShape/tip=0 = 사각형, 1 = 원형.
+DivineHands/opt/LakeGridWidth/label=너비 (셀)
+DivineHands/opt/LakeGridWidth/tip=핵심 영역의 절반 너비, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/LakeGridHeight/label=깊이 (셀)
+DivineHands/opt/LakeGridHeight/tip=핵심 영역의 절반 깊이, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/LakeCarveDepth/label=굴착 깊이
+DivineHands/opt/LakeCarveDepth/tip=수면 아래 호수 바닥까지의 깊이, 미터(0.45–12). 기본값: 4.6.
+DivineHands/opt/LakeFillRatio/label=채움 비율
+DivineHands/opt/LakeFillRatio/tip=호수를 확장합니다 — 너비/깊이에 곱해집니다(1.0–2.0). 기본값: 1.0 (확장 없음).
+DivineHands/opt/LakeShoreWidth/label=호숫가 블렌드
+DivineHands/opt/LakeShoreWidth/tip=육지로 다시 올라가는 경사 둔치의 폭(2–40). 기본값: 16.
+DivineHands/opt/LakeNoGoWidth/label=추가 크기
+DivineHands/opt/LakeNoGoWidth/tip=호수 영역 사방에 추가되는 셀 수(0–24). 기본값: 0.
+DivineHands/opt/LakeArmHotkey/label=호수 활성화 단축키
+DivineHands/opt/LakeArmHotkey/tip=호수 스탬프를 활성화(다시 누르면 비활성화)하는 키/조합키. 기본값: Insert.
+DivineHands/opt/LakeApplyKey/label=호수 적용 키
+DivineHands/opt/LakeApplyKey/tip=커서 위치에 호수를 찍는 키/버튼. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse0.
+DivineHands/opt/LakeStockFish/label=물고기 채우기
+DivineHands/opt/LakeStockFish/tip=새 호수에 물고기와 눈에 보이는 물고기 떼(호수 크기에 맞춤)를 채워 낚시가 가능하게 합니다. 기본값: on.
+DivineHands/opt/LakePersist/label=호수 영구 유지
+DivineHands/opt/LakePersist/tip=찍은 호수가 저장/재로드 후에도 유지되게 합니다. FF는 맵 생성 시에만 물을 맵 파일에 굽기 때문에, 일반 저장은 깎인 분지는 유지하되 물은 사라집니다 — 이 기능은 각 세이브 옆에 작은 보조 파일을 만들어 로드 시 물을 재구성합니다(세이브 삭제 시 함께 삭제). 기본값: ON.
+DivineHands/cat/Fertility Painter=비옥도 페인터
+DivineHands/opt/FertilityEnable/label=비옥도 페인터
+DivineHands/opt/FertilityEnable/tip=게임 내 패널에 비옥도 탭을 추가합니다. 조절 가능한 영역에 토양 비옥도를 칠합니다(세이브에 저장됨). 기본값: OFF.
+DivineHands/opt/FertilityShape/label=형태
+DivineHands/opt/FertilityShape/tip=0 = 사각형, 1 = 원형.
+DivineHands/opt/FertilityGridWidth/label=너비 (셀)
+DivineHands/opt/FertilityGridWidth/tip=브러시 절반 너비, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/FertilityGridHeight/label=깊이 (셀)
+DivineHands/opt/FertilityGridHeight/tip=브러시 절반 깊이, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/FertilityAmount/label=비옥도 %
+DivineHands/opt/FertilityAmount/tip=브러시가 칠하는 목표 토양 비옥도(0–100%). 기본값: 80.
+DivineHands/opt/FertilityMult/label=비료 효과 %
+DivineHands/opt/FertilityMult/tip=브러시가 셀마다 설정하는 비료/퇴비 효과(0–100%). 기본값: 100.
+DivineHands/opt/FertilityConditionSoil/label=과수원용 토양 조성
+DivineHands/opt/FertilityConditionSoil/tip=토양 질감(모래/점토)과 수분도 과일나무에 이상적인 값으로 함께 설정합니다(게임 자체 페널티 곡선 기준). 나쁜 토양 때문에 과수원이 손해 보지 않게 합니다. 과일나무에는 좋지만 작물에는 덜 이상적일 수 있습니다. 기본값: off.
+DivineHands/opt/FertilityArmHotkey/label=비옥도 페인터 활성화 단축키
+DivineHands/opt/FertilityArmHotkey/tip=비옥도 페인터를 활성화(다시 누르면 비활성화)하는 키/조합키 — 또는 비옥도 탭을 사용하세요. 기본값: Alt+Insert.
+DivineHands/opt/FertilityApplyKey/label=비옥도 적용 키
+DivineHands/opt/FertilityApplyKey/tip=커서 위치에 비옥도를 칠하는 키/버튼. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse1.
+DivineHands/cat/Forest Brush=숲 브러시
+DivineHands/opt/ForestEnable/label=숲 브러시
+DivineHands/opt/ForestEnable/tip=게임 내 패널에 숲 탭을 추가합니다. 조절 가능한 영역에 맵의 실제 수종을 목표 밀도만큼 심습니다(기존 나무도 계산에 포함되므로 다시 적용하면 부족분만 채움), 선택적으로 토양 비옥도도 함께 설정할 수 있습니다. 나무와 비옥도는 세이브에 저장됩니다. 기본값: OFF.
+DivineHands/opt/ForestShape/label=형태
+DivineHands/opt/ForestShape/tip=0 = 사각형, 1 = 원형.
+DivineHands/opt/ForestGridWidth/label=너비 (셀)
+DivineHands/opt/ForestGridWidth/tip=브러시 절반 너비, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/ForestGridHeight/label=깊이 (셀)
+DivineHands/opt/ForestGridHeight/tip=브러시 절반 깊이, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/ForestCoverage/label=밀도 %
+DivineHands/opt/ForestCoverage/tip=영역의 목표 나무 밀도(0–100%). 기존 나무도 포함해 계산합니다. 기본값: 26.
+DivineHands/opt/ForestVariance/label=편차
+DivineHands/opt/ForestVariance/tip=심는 나무마다 격자에 정렬되지 않도록 주는 무작위 xz 흔들림(미터). 기본값: 1.1.
+DivineHands/opt/ForestSetFertility/label=비옥도도 함께 설정
+DivineHands/opt/ForestSetFertility/tip=브러시 영역의 작물/토양 비옥도를 함께 기록합니다(Pangu 방식). 심긴 나무의 성장은 빨라지지 않습니다(성장은 토양이 아닌 생물군계/기술 체계에 좌우) — 나중에 그 자리에 농사를 지을 경우를 위해 토양만 조성합니다. Off = 나무만 심기. 기본값: off.
+DivineHands/opt/ForestFertility/label=비옥도 %
+DivineHands/opt/ForestFertility/tip='비옥도도 함께 설정'이 켜져 있을 때 설정되는 토양 비옥도(0–100%). 기본값: 50.
+DivineHands/opt/ForestFertilityMult/label=비료 효과 %
+DivineHands/opt/ForestFertilityMult/tip=비옥도와 함께 셀마다 설정되는 비료 효과(0–100%). 기본값: 100.
+DivineHands/opt/ForestArmHotkey/label=숲 브러시 활성화 단축키
+DivineHands/opt/ForestArmHotkey/tip=숲 브러시를 활성화(다시 누르면 비활성화)하는 키/조합키 — 또는 숲 탭을 사용하세요. 기본값: Shift+Insert.
+DivineHands/opt/ForestApplyKey/label=숲 적용 키
+DivineHands/opt/ForestApplyKey/tip=커서 위치에 숲을 심는 키/버튼. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse1.
+DivineHands/cat/Mountain Brush=산 브러시
+DivineHands/opt/MountainEnable/label=산 브러시
+DivineHands/opt/MountainEnable/tip=게임 내 패널에 산 탭을 추가합니다. 암석 지형(돔 + 능선형 노이즈)을 융기시키고, 지면을 바위로 다시 칠하고, 산 생물군계로 설정하며, 슬라이더가 0보다 크면 돌/광석 매장지와 산악 야생동물도 흩뿌립니다. 지형 편집은 영구적입니다(되돌리기 불가). 기본값: OFF.
+DivineHands/opt/MountainShape/label=형태
+DivineHands/opt/MountainShape/tip=0 = 사각형, 1 = 원형.
+DivineHands/opt/MountainGridWidth/label=너비 (셀)
+DivineHands/opt/MountainGridWidth/tip=브러시 절반 너비, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/MountainGridHeight/label=깊이 (셀)
+DivineHands/opt/MountainGridHeight/tip=브러시 절반 깊이, 셀 단위(1–10). 활성 중 화살표 키로 크기 조절.
+DivineHands/opt/MountainHeight/label=높이
+DivineHands/opt/MountainHeight/tip=브러시 범위 100m당 융기 높이(미터). 기본값: 20.
+DivineHands/opt/MountainMaxHeight/label=최대 높이
+DivineHands/opt/MountainMaxHeight/tip=총 융기 높이의 상한(미터). 기본값: 60.
+DivineHands/opt/MountainEdgeSoftness/label=가장자리 부드러움
+DivineHands/opt/MountainEdgeSoftness/tip=산이 주변 지형과 얼마나 완만하게 이어지는지(0 = 절벽, 1 = 넓은 자락). 기본값: 0.72.
+DivineHands/opt/MountainRuggedness/label=험준함
+DivineHands/opt/MountainRuggedness/tip=봉우리의 울퉁불퉁함(0 = 매끄러운 돔, 100 = 험준함). 기본값: 55.
+DivineHands/opt/MountainTexture/label=암석 질감 %
+DivineHands/opt/MountainTexture/tip=지면이 바위로 얼마나 강하게 다시 칠해지는지(0–100%). 기본값: 90.
+DivineHands/opt/MountainRockOre/label=돌/광석 양 %
+DivineHands/opt/MountainRockOre/tip=흩뿌려지는 돌+광물 매장지의 밀도(0–100%). 기본값: 0.
+DivineHands/opt/MountainWildlife/label=야생동물 출현 확률 %
+DivineHands/opt/MountainWildlife/tip=산악 동물(사슴/멧돼지/늑대/곰) 소환 확률(0–100%). 기본값: 0.
+DivineHands/opt/MountainArmHotkey/label=산 브러시 활성화 단축키
+DivineHands/opt/MountainArmHotkey/tip=산 브러시를 활성화(다시 누르면 비활성화)하는 키/조합키 — 또는 산 탭을 사용하세요. 기본값: Ctrl+Insert.
+DivineHands/opt/MountainApplyKey/label=산 적용 키
+DivineHands/opt/MountainApplyKey/tip=커서 위치에 산을 융기시키는 키/버튼. 마우스 버튼: Mouse0 = 좌클릭, Mouse1 = 우클릭, Mouse2 = 휠클릭. 기본값: Ctrl+Mouse1.
+DivineHands/cat/Delete Selected=선택 항목 삭제
+DivineHands/opt/DeleteEnable/label=선택 항목 삭제
+DivineHands/opt/DeleteEnable/tip=게임 내 패널에 선택 항목 삭제 섹션을 추가하고 삭제 단축키를 활성화합니다. 광산/채석장/점토-모래 채취장/심층 광산/모든 건물이나 자원 노드(광석, 점토/모래/돌 채취장, 나무, 바위, 채집물)를 선택해 즉시 삭제할 수 있습니다. 그 외(주민, 동물, 경작지)는 안전하게 아무 일도 일어나지 않습니다. 광석 노드 삭제는 영구적인 세계 편집입니다. 기본값: OFF.
+DivineHands/opt/DeleteHotkey/label=삭제 단축키
+DivineHands/opt/DeleteHotkey/tip=현재 선택을 삭제하는 키/조합키. 단일 키보다 의도적인 조합키가 더 안전합니다. 기본값: Ctrl+Delete.
+DivineHands/opt/DeleteRefund/label=삭제 시 환불
+DivineHands/opt/DeleteRefund/tip=삭제 시 건물의 건설 자재를 환불합니다(보관 중이던 아이템도 바닥에 떨어뜨림). Off = 아무것도 남기지 않고 깔끔하게 소멸. 기본값: OFF.
+DivineHands/cat/Kill Selected=선택 개체 처치
+DivineHands/opt/KillEnable/label=선택 개체 처치
+DivineHands/opt/KillEnable/tip=게임 내 패널에 선택 개체 처치 섹션을 추가하고 처치 단축키를 활성화합니다. 주민, 습격자, 또는 동물(야생/가축/반려동물) 하나 또는 여러 개체를 선택해 게임 자체 사망 처리 경로로 즉시 처치합니다(정상적인 제거 + 사망 이벤트 발생). 건물/노드는 건드리지 않습니다(선택 항목 삭제 사용). 주로 테스트용이지만 신급 기능이니 유의하세요. 기본값: OFF.
+DivineHands/opt/KillHotkey/label=처치 단축키
+DivineHands/opt/KillHotkey/tip=현재 생물을 처치하는 키/조합키. 단일 키보다 의도적인 조합키가 더 안전합니다. 기본값: Ctrl+D.
+DivineHands/cat/Selected Building=선택된 건물
+DivineHands/opt/InjectEnable/label=아이템 주입
+DivineHands/opt/InjectEnable/tip=선택한 건물에 아이템 주입을 활성화합니다. 게임 내에서 건물을 선택한 뒤, 패널의 선택된 건물 섹션에서 아이템 추가, 가축 추가, 무한 저장소 전환을 사용하세요. 무한 저장소는 세션 한정 기능으로, 저장(수동/자동저장/종료) 전에 항상 자동으로 제거되어 .sav 파일에 절대 기록되지 않습니다. 기본값: OFF.
+DivineHands/opt/InjectItemIndex/label=추가할 아이템
+DivineHands/opt/InjectItemIndex/tip=아이템 추가 버튼이 선택한 건물의 저장소에 주입할 아이템(패널 아이템 목록의 인덱스). 패널에서 아이템을 고르세요.
+DivineHands/opt/InjectUnrestricted/label=제한 없는 주입
+DivineHands/opt/InjectUnrestricted/tip=건물별 스마트 필터를 우회합니다 — 저장소가 있는 어떤 건물에도 모든 아이템을 주입할 수 있게 됩니다. Off = 기본 필터: 저장 건물은 허용 목록, 생산 건물은 레시피 재료, 채집 건물은 거래 상품, 쉼터는 장작+식량, 그 외 모든 건물은 이미 보유한 것을 보충합니다. 기본값: OFF.
+DivineHands/opt/InjectItemCount/label=아이템 수량
+DivineHands/opt/InjectItemCount/tip=클릭 1회당 추가할 선택 아이템의 수량(1–9999). 기본값: 100.
+DivineHands/opt/InjectLivestockKind/label=추가할 가축
+DivineHands/opt/InjectLivestockKind/tip=0 = 소(축사), 1 = 닭(닭장), 2 = 염소(염소 축사), 3 = 말(마구간). 선택한 건물이 해당 동물과 일치해야 합니다. 기본값: 소.
+DivineHands/opt/LivestockGuidCow/label=소 프리팹 GUID
+DivineHands/opt/LivestockGuidCow/tip=축사에 소를 추가할 때 생성되는 프리팹 GUID. DLC나 게임 업데이트로 값이 바뀔 경우를 대비해 편집 가능합니다. 알 수 없는 GUID는 안전하게 건너뜁니다.
+DivineHands/opt/LivestockGuidChicken/label=닭 프리팹 GUID
+DivineHands/opt/LivestockGuidChicken/tip=닭장에 닭을 추가할 때 생성되는 프리팹 GUID.
+DivineHands/opt/LivestockGuidGoat/label=염소 프리팹 GUID
+DivineHands/opt/LivestockGuidGoat/tip=염소 축사에 염소를 추가할 때 생성되는 프리팹 GUID.
+DivineHands/opt/LivestockGuidHorse/label=말 프리팹 GUID
+DivineHands/opt/LivestockGuidHorse/tip=마구간에 말을 추가할 때 생성되는 프리팹 GUID.
+DivineHands/cat/Other settings=기타 설정
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=Essential Provisions
+EssentialProvisions/meta/desc=엄선된 선택형 편의 기능 모음. 정보 오버레이, 알림, 진행 보조 기능들. 모든 기능은 기본적으로 꺼져 있습니다. 원작 커뮤니티 모더들의 공로를 밝히며 통합했습니다 — 전체 출처 표는 README를 참고하세요.
+EssentialProvisions/cat/Misc=기타
+EssentialProvisions/opt/EnableFastForward/label=빨리 감기
+EssentialProvisions/opt/EnableFastForward/tip=바닐라 3배속 상한을 넘는 게임 속도를 잠금 해제합니다. 최대 50배속까지 사용할 수 있습니다. 20배속을 넘으면 사냥꾼과 전투 AI가 오작동할 수 있으며 경고가 로그에 남습니다. 전환 즉시 적용됩니다.
+EssentialProvisions/opt/EnableServiceBounds/label=서비스 반경
+EssentialProvisions/opt/EnableServiceBounds/tip=배치된 건물을 클릭하면 효과 반경(물, 매력도, 시장 범위, 학교 범위, 작업 구역)을 볼 수 있습니다. 배치 중 FF가 보여주는 것과 같은 원입니다.
+EssentialProvisions/opt/EnableClearcutting/label=일괄 벌채 지정
+EssentialProvisions/opt/EnableClearcutting/tip=타운 센터 주변 반경 내 수확 가능한 자원을 자동으로 지정합니다. 습격자, 늑대, 곰 근처의 위험 구역은 건너뜁니다.
+EssentialProvisions/opt/ClearcuttingTrees/label=    나무
+EssentialProvisions/opt/ClearcuttingTrees/tip=자동 지정에 나무를 포함합니다.
+EssentialProvisions/opt/ClearcuttingStones/label=    돌
+EssentialProvisions/opt/ClearcuttingStones/tip=자동 지정에 돌을 포함합니다.
+EssentialProvisions/opt/ClearcuttingForageables/label=    채집물
+EssentialProvisions/opt/ClearcuttingForageables/tip=자동 지정에 채집물(베리 덤불, 허브, 버섯)을 포함합니다.
+EssentialProvisions/opt/ClearcuttingRadius/label=    일괄 벌채 반경
+EssentialProvisions/opt/ClearcuttingRadius/tip=타운 센터로부터 자동 지정이 적용되는 거리.
+EssentialProvisions/opt/ClearcuttingRescan/label=    지금 다시 스캔
+EssentialProvisions/opt/ClearcuttingRescan/tip=즉시 새로 스캔을 실행합니다. 실행 후 자동으로 OFF로 초기화됩니다.
+EssentialProvisions/cat/Villager Improvements=주민 개선
+EssentialProvisions/opt/EnableShortWalks/label=짧은 통근
+EssentialProvisions/opt/EnableShortWalks/tip=매달 한 번, 주민들이 직장에 더 가까이 살도록 거주지 배정을 재최적화합니다. 병사, 경비병, 직장에 거주하는 직업은 제외됩니다.
+EssentialProvisions/opt/EnableLongTravels/label=장거리 통근
+EssentialProvisions/opt/EnableLongTravels/tip=일꾼이 생산보다 이동에 너무 많은 시간을 쓰는 생산 건물을 표시합니다.
+EssentialProvisions/opt/LongTravelsThreshold/label=    장거리 통근 임계값 (%)
+EssentialProvisions/opt/LongTravelsThreshold/tip=이동 시간이 전체 작업 시간의 이 비율을 초과하면 경고가 발생합니다.
+EssentialProvisions/opt/EnableSelfPreservation/label=자기 보호 본능
+EssentialProvisions/opt/EnableSelfPreservation/tip=주민들이 전투가 시작되길 기다리지 않고 근처 습격자로부터 도망칩니다. 사냥꾼은 바닐라의 단거리 행동을 유지합니다. 진지를 방어하는 습격자는 무시됩니다.
+EssentialProvisions/opt/SelfPreservationRadius/label=    감지 반경
+EssentialProvisions/opt/SelfPreservationRadius/tip=공격적인 습격자가 후퇴를 유발하는 타일 범위.
+EssentialProvisions/opt/EnableLaborShortage/label=노동력 부족
+EssentialProvisions/opt/EnableLaborShortage/tip=노동자와 건축가 수가 권장 인원보다 적어지면 상단 바에 경고 배지를 표시합니다.
+EssentialProvisions/opt/EnableEfficientLabor/label=효율적 노동력
+EssentialProvisions/opt/EnableEfficientLabor/tip=자기 일이 없을 때 제작·야외 직종의 유휴 주민이 노동자로 도와줍니다. 본래 직업이 여전히 우선순위이며, 실제 일이 생기면 즉시 복귀합니다.
+EssentialProvisions/opt/EfficientLaborPollDays/label=    N일마다 재스캔
+EssentialProvisions/opt/EfficientLaborPollDays/tip=유휴 주민을 빌려주고 일을 찾은 주민을 해제할지 스캔하는 주기(게임 내 일수). 유휴 상태는 하루하루 거의 변하지 않으므로 5일이면 충분합니다; 낮을수록 반응이 빠르고, 높을수록 큰 맵에서 가볍습니다.
+EssentialProvisions/opt/EnablePennyPincher/label=알뜰 관리인
+EssentialProvisions/opt/EnablePennyPincher/tip=쥐가 없을 때 쥐잡이꾼을, 습격이 없을 때 경비탑을 자동으로 대기시킵니다. 위협이 다시 나타나면 자동으로 재가동됩니다. 현재 선택 중인 건물은 건드리지 않습니다.
+EssentialProvisions/opt/PennyPincherGuardTowers/label=    경비탑 대기시키기
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=평시에도 경비탑을 대기시킵니다(습격이 다가오면 재가동). 끄면 쥐잡이꾼은 계속 자동 관리하면서 경비탑은 완전히 직접 통제할 수 있습니다 — 끄는 즉시 대기시켰던 탑들이 다시 가동됩니다. 개별 탑만 예외로 두려면 탑을 선택하고 Ctrl+P를 누르세요(토글; 세이브별로 저장됨).
+EssentialProvisions/opt/EnableIdleHands/label=노는 손
+EssentialProvisions/opt/EnableIdleHands/tip=일꾼이 유휴 상태로 너무 많은 시간을 보내는 생산 건물을 표시합니다.
+EssentialProvisions/opt/IdleHandsThreshold/label=    노는 손 임계값 (%)
+EssentialProvisions/opt/IdleHandsThreshold/tip=유휴 시간이 전체 작업 시간의 이 비율을 초과하면 경고가 발생합니다.
+EssentialProvisions/opt/EnableLearnedHands/label=숙련된 손
+EssentialProvisions/opt/EnableLearnedHands/tip=교육받은 주민은 채집, 현장 작업, 제작 모두 더 빠르게 일합니다. 교육 단계당 +10%. 공식 가이드에는 나와 있지만 게임에는 구현되지 않은 바닐라의 빈틈을 메웁니다. 직장 숙련도와 중첩됩니다. On/off만 있으며 슬라이더는 없습니다.
+EssentialProvisions/opt/EnableWorkplaceMastery/label=직장 숙련도
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=같은 직업을 오래 유지할수록 채집, 현장 작업, 제작 모두 더 빠르게 일합니다. 근속 연차당 +1%, 최대 +25%(25년). 숙련된 손과 중첩됩니다. 근속은 직업별로 계산되며 세이브별로 저장됩니다; 기존 주민은 0부터 시작합니다. 주민 선택 창에 숙련도 표시가 추가됩니다. On/off만 있으며 슬라이더는 없습니다.
+EssentialProvisions/opt/EnableRabiesTreatable/label=광견병: 치료 가능 (희박한 확률)
+EssentialProvisions/opt/EnableRabiesTreatable/tip=바닐라에서 100% 치명적인 광견병을 치료사에게 달린 희박한 생존 확률로 바꿉니다. 광견병에 걸린 주민은 몸져누워 병상에서 치료받습니다 — 치료사의 집에서 약 9%, 물자가 갖춰진 병원에서 최대 약 18%. 대가로 앓는 동안 일을 멈추고 병상을 하나 차지하며, 치료 병상에 닿지 못하면 집에서 사망합니다. 의도적인 밸런스 변경입니다. 기본값: OFF.
+EssentialProvisions/cat/Inventory Management=재고 관리
+EssentialProvisions/opt/EnableBroadShelves/label=넓은 선반
+EssentialProvisions/opt/EnableBroadShelves/tip=야적장이 철을 받습니다. 곡물창고가 건초와 아마를 받습니다. 곡물창고는 UI 전체에서 '사일로'로 이름이 바뀝니다. 기존 저장 건물에 적용하려면 세이브를 다시 불러와야 합니다.
+EssentialProvisions/opt/EnableSurplusSelling/label=잉여 판매
+EssentialProvisions/opt/EnableSurplusSelling/tip=관측된 일일 소비량 × 개월 수를 기준으로 남는 재고를 교역소로 자동 이동시킵니다. 기본적으로 식량은 제외되며, 식량은 식단 다양성 안전장치가 있는 별도 하위 스위치로 관리됩니다. 소모품 관리도 함께 켜야 합니다 — 잉여 판매가 배송량을 산정하는 데 쓰는 일일 소비율 데이터를 수집해 주기 때문입니다.
+EssentialProvisions/opt/SurplusSellingMonths/label=    마을 내 보유 개월 수 (비식량)
+EssentialProvisions/opt/SurplusSellingMonths/tip=추적 대상 비식량 품목마다 마을에 보관할 재고 개월 수. 초과분은 교역소로 흘러갑니다.
+EssentialProvisions/opt/EnableSurplusSellingFood/label=    식량 포함
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=식량 잉여도 자동으로 보냅니다. 안전장치: 전체 식량이 합산 임계값을 초과해야 하며, 각 식량 종류도 자기 소비량의 1개월 이상은 남겨둡니다.
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=    마을 내 보유 개월 수 (식량)
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=마을에 보관할 식량 재고 개월 수. 기본값 10은 FF의 이민 임계값과 일치합니다.
+EssentialProvisions/opt/SurplusSellingPollDays/label=    N일마다 재계산
+EssentialProvisions/opt/SurplusSellingPollDays/tip=교역소 재고 목표를 재계산하는 주기(게임 내 일수). 30일 이동 평균은 하루 단위로 거의 변하지 않으므로 매일 계산하는 것은 낭비입니다; 5일이면 충분히 반응합니다. 낮을수록 반응이 빠르고, 높을수록 큰 맵에서 가볍습니다.
+EssentialProvisions/opt/EnableConsumableControl/label=소모품 관리
+EssentialProvisions/opt/EnableConsumableControl/tip=관측된 일일 소비량 × 개월 수를 기준으로 교역소 최소 재고량을 자동 설정합니다. 마을 재고가 예비량을 넘지 않으면 교역소 일꾼이 창고에서 물품을 꺼내 채우지 않습니다(이미 교역소에 있는 물품은 어차피 주민이 쓸 수 없습니다). 인구에 맞춰 자동 조정됩니다.
+EssentialProvisions/opt/ConsumableReserveMonths/label=    예비 개월 수
+EssentialProvisions/opt/ConsumableReserveMonths/tip=일꾼이 교역소를 채우려고 물품을 꺼내기 전, 마을 창고에 있어야 하는 최소 보급 개월 수.
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=    성장 여유분 (%)
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=인구 증가(출생, 이민)를 대비해 소비율 기반 목표치에 더해지는 여유분. 소모품 관리와 잉여 판매가 공유합니다.
+EssentialProvisions/opt/EnableProjectPrep/label=공사 준비
+EssentialProvisions/opt/EnableProjectPrep/tip=생산 건물이 건설 자재를 다 써버리지 않도록 예비분을 확보합니다. 아래 슬라이더가 자재별 최저 보유량을 설정합니다. 건설은 예비분에 접근할 수 있지만 생산은 접근할 수 없습니다. 0 = 예비분 없음.
+EssentialProvisions/opt/ProjectPrepLogs/label=    통나무 예비량
+EssentialProvisions/opt/ProjectPrepLogs/tip=건설을 위해 확보해 둘 최소 통나무량.
+EssentialProvisions/opt/ProjectPrepPlanks/label=    판자 예비량
+EssentialProvisions/opt/ProjectPrepPlanks/tip=건설을 위해 확보해 둘 최소 판자량.
+EssentialProvisions/opt/ProjectPrepStone/label=    돌 예비량
+EssentialProvisions/opt/ProjectPrepStone/tip=건설을 위해 확보해 둘 최소 돌량.
+EssentialProvisions/opt/ProjectPrepClay/label=    점토 예비량
+EssentialProvisions/opt/ProjectPrepClay/tip=건설을 위해 확보해 둘 최소 점토량.
+EssentialProvisions/opt/ProjectPrepSand/label=    모래 예비량
+EssentialProvisions/opt/ProjectPrepSand/tip=건설을 위해 확보해 둘 최소 모래량.
+EssentialProvisions/opt/ProjectPrepIron/label=    철 예비량
+EssentialProvisions/opt/ProjectPrepIron/tip=건설을 위해 확보해 둘 최소 철량.
+EssentialProvisions/opt/ProjectPrepCoal/label=    석탄 예비량
+EssentialProvisions/opt/ProjectPrepCoal/tip=건설을 위해 확보해 둘 최소 석탄량.
+EssentialProvisions/cat/Agriculture Alerts=농업 경고
+EssentialProvisions/opt/EnableSoilWisdom/label=토양 지혜
+EssentialProvisions/opt/EnableSoilWisdom/tip=작물 정보 창에서 위험한 작물 순서(질병 충돌, 계절별 서리/폭염 위험)를 강조 표시합니다.
+EssentialProvisions/opt/EnableBlightWatch/label=역병 감시
+EssentialProvisions/opt/EnableBlightWatch/tip=질병이 해결될 때까지 병든 농경지를 맵에 고정 표시합니다.
+EssentialProvisions/opt/EnableHarvestWatch/label=수확 감시
+EssentialProvisions/opt/EnableHarvestWatch/tip=각 과수원에서 수확되지 않고 썩은 과일나무 수를 추세 및 건물 일꾼 수와 함께 연말 보고서로 제공합니다 — 일꾼을 늘릴지, 작업 구역을 줄일지 판단하는 신호가 됩니다. 원예사 패널에도 실시간 미수확 나무 수를 표시합니다.
+EssentialProvisions/opt/HarvestWatchMinFruit/label=    표시 최소 과일 수
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=나무 한 그루가 방치된 것으로 집계되기 위한 최소 미수확 과일 수(연말 집계 + 실시간 집계).
+EssentialProvisions/cat/Planting Almanac=파종 연감
+EssentialProvisions/opt/EnablePlantingAlmanac/label=파종 연감
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=작물 밭 창에 원클릭 윤작 프리셋을 추가합니다. 질병 없이 안전하게 검증된 윤작을 제공하며, 적용하면 게임 자체 스케줄러를 통해 밭의 전체 일정이 교체됩니다. 다음에 작물 밭 창을 열 때 적용됩니다.
+EssentialProvisions/cat/Other settings=기타 설정
+EssentialProvisions/opt/PennyPincherExemptKey/label=    탑 예외 단축키 (Ctrl + 이 키)
+EssentialProvisions/opt/PennyPincherExemptKey/tip=경비탑을 선택한 상태에서 Ctrl을 누른 채 이 키를 누르면 해당 탑을 알뜰 관리인 대상에서 제외/포함 전환합니다. 예외로 지정된 탑은 자동으로 대기하거나 재가동되지 않으며 완전히 직접 통제됩니다. 예외 지정은 세이브별로 저장됩니다. 유효한 Unity KeyCode 이름이면 무엇이든 가능(예: P, F9, Slash); 잘못된 값은 P로 대체됩니다.
+EssentialProvisions/opt/EfficientLaborOccupations/label=효율적 노동력: 허용 직업
+EssentialProvisions/opt/EfficientLaborOccupations/tip=FF Occupation 열거형 이름을 쉼표로 구분한 목록. 이 목록의 직업을 가진 주민은 완전히 유휴 상태일 때 노동자 작업으로 전환됩니다. 직업을 추가/삭제하려면 이 cfg 필드를 직접 편집하세요 — KC 패널을 깔끔하게 유지하기 위해 패널에는 노출되지 않습니다. 변경 사항을 적용하려면 게임을 재시작하세요.
+EssentialProvisions/opt/EfficientLaborVerbose/label=효율적 노동력: 상세 로깅
+EssentialProvisions/opt/EfficientLaborVerbose/tip=true로 설정하면 주민(직업)이 노동자 풀에 등록/해제될 때마다 로그를 남깁니다. 기본값 false는 하루에 한 줄 요약만, 그것도 변화가 있었던 날에만 기록합니다. cfg 전용이며 KC 패널에는 노출되지 않습니다.
+EssentialProvisions/opt/InventoryDiagnostics/label=재고 기능: 진단 로깅
+EssentialProvisions/opt/InventoryDiagnostics/tip=true로 설정하면 소모품 관리와 잉여 판매가 매일 품목별 상세 내역(관측된 일일 소비율, 계산된 마을 내 보유/예비 목표, 현재 마을 재고(창고 대 교역소 분류), 어디에 무엇을 기록했는지)을 로그로 남깁니다. cfg 전용이며 KC 패널에는 노출되지 않습니다. 기능이 정상 동작하는지 확인한 뒤 다시 꺼두세요.
+EssentialProvisions/opt/LearnedHandsVerbose/label=숙련된 손: 상세 로깅
+EssentialProvisions/opt/LearnedHandsVerbose/tip=true로 설정하면 각 주민에게 보너스가 처음 적용될 때 한 줄씩 로그를 남깁니다. cfg 전용이며 KC 패널에는 노출되지 않습니다. 기본값은 스팸 없이 패치 작동을 확인할 수 있도록 항상 한 번만 기록되는 '최초 적용' 로그입니다.
+EssentialProvisions/opt/DiseaseRosterDump/label=질병 목록 덤프 (진단용)
+EssentialProvisions/opt/DiseaseRosterDump/tip=true로 설정하면 첫 맵 로드 시 EP가 모든 질병의 치료 분류, 최선의 회복률 %, 원본 치료 데이터(cureFactors, finalCureChance, curve, effMin/Max)를 Latest.log에 기록합니다 — DiseaseInfoApi의 치료율 계산을 질병 목록과 대조 검증하는 데 사용됩니다. cfg 전용이며 KC 패널에는 노출되지 않습니다. 일반 플레이 시에는 OFF로 두세요.
+EssentialProvisions/opt/ConsumableTrackedItems/label=소모품 관리: 추적 품목
+EssentialProvisions/opt/ConsumableTrackedItems/tip=소모품 관리가 다룰 ItemID 이름을 쉼표로 구분한 목록. 품목을 추가/삭제하려면 이 cfg 필드를 직접 편집하세요 — KC 패널에는 노출되지 않습니다. 변경 사항을 적용하려면 재시작하세요.
+
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=Manifest Delivery
+ManifestDelivery/meta/desc=짐마차 상점 전면 개편: 캠프/허브 모드, 귀환 시 화물 회수 AI, 저장 수레 강화
+ManifestDelivery/cat/Master=마스터
+ManifestDelivery/opt/ModEnabled/label=모드 활성화
+ManifestDelivery/opt/ModEnabled/tip=끄면 바닐라 짐마차 상점 동작으로 돌아갑니다
+ManifestDelivery/cat/Wagon Caps=짐마차 상한
+ManifestDelivery/opt/MaxWagonsStandard/label=최대 짐마차 — 표준
+ManifestDelivery/opt/MaxWagonsStandard/tip=표준 짐마차 상점이 만들 수 있는 최대 짐마차 수(1–4).
+ManifestDelivery/opt/MaxWagonsCamp/label=최대 짐마차 — 캠프
+ManifestDelivery/opt/MaxWagonsCamp/tip=2대 권장: 한 대는 산출물 운송, 한 대는 보급품 회수
+ManifestDelivery/opt/MaxWagonsHub/label=최대 짐마차 — 허브
+ManifestDelivery/opt/MaxWagonsHub/tip=허브 상점은 정착지 전체를 담당합니다
+ManifestDelivery/cat/Backhaul AI=회수 AI
+ManifestDelivery/opt/ReturnTripEnabled/label=귀환 시 물자 수거
+ManifestDelivery/opt/ReturnTripEnabled/tip=짐마차가 짐을 내린 뒤 빈 채로 돌아가기 전에 근처 물류 요청을 찾습니다
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=귀환 탐색 반경
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=표준 모드 상점의 탐색 반경, 월드 유닛 단위.
+ManifestDelivery/opt/PreferWorkshopInput/label=귀환 시 작업장 우선
+ManifestDelivery/opt/PreferWorkshopInput/tip=저장소 사이 재배치보다 생산 건물(제빵소, 대장간, 무두질 작업장 등) 공급을 우선합니다
+ManifestDelivery/cat/Camp & Hub=캠프 & 허브
+ManifestDelivery/opt/CampHaulEnabled/label=캠프 선제 운송
+ManifestDelivery/opt/CampHaulEnabled/tip=캠프 짐마차가 인근 생산지에서 허브 창고로 선제적으로 운송합니다
+ManifestDelivery/opt/HubHaulEnabled/label=허브 선제 분배
+ManifestDelivery/opt/HubHaulEnabled/tip=허브 짐마차가 반경 내 모든 요청(시장, 쉼터, 생산지, 창고)을 선제적으로 처리합니다
+ManifestDelivery/opt/HubMultiSourcePickup/label=허브 다중 출처 수거 (실험적)
+ManifestDelivery/opt/HubMultiSourcePickup/tip=허브 짐마차가 건물 전체가 아니라 배송/보충 요청 하나만 맡아, 짐마차 한 대가 거의 빈 창고 하나만 들르는 대신 여러 출처 창고를 돌며 적재량을 채웁니다. 허브 모드 전용. 실험적 기능이라 기본값은 OFF.
+ManifestDelivery/opt/CampWorkRadius/label=캠프 작업 반경
+ManifestDelivery/opt/CampWorkRadius/tip=기본값 120유닛은 일반적인 외딴 캠프를 커버합니다
+ManifestDelivery/opt/HubWorkRadius/label=허브 작업 반경
+ManifestDelivery/opt/HubWorkRadius/tip=기본값 200유닛은 타운 센터 전체를 커버합니다
+ManifestDelivery/cat/Storage Cart=저장 수레
+ManifestDelivery/opt/StorageCartCapacity/label=적재량
+ManifestDelivery/opt/StorageCartCapacity/tip=바닐라 750
+ManifestDelivery/opt/StorageCartSpeedMult/label=이동 속도 배율
+ManifestDelivery/opt/StorageCartSpeedMult/tip=수레가 집결지로 스스로 '이동'하는 속도
+ManifestDelivery/cat/Hotkeys=단축키
+ManifestDelivery/opt/ModeCycleKey/label=짐마차 상점 모드 전환
+ManifestDelivery/opt/ModeCycleKey/tip=Unity KeyCode 이름. 짐마차 상점이 선택된 상태에서 표준/캠프/허브 모드를 순환합니다.
+ManifestDelivery/cat/Diagnostics=진단
+ManifestDelivery/opt/HaulDiagnostics/label=운송 진단
+ManifestDelivery/opt/HaulDiagnostics/tip=짐마차 운송 하나하나의 전체 구조(수거/하차 지점, 물품, 처리된 요청 조절 파라미터, 적재량)를 MelonLoader 로그에 기록합니다. 다중 수거 조정을 위한 조사용 도구입니다. 기본값은 OFF.
+ManifestDelivery/cat/Other settings=기타 설정
+ManifestDelivery/opt/VerboseLogging/label=상세 로깅
+ManifestDelivery/opt/VerboseLogging/tip=true로 설정하면 배송·스캔 이벤트(DELIVER / ReturnTrip / CampHaul / HubHaul CLAIM + EMPTY 라인) 전부를 MelonLoader 로그에 기록합니다. 짐마차 경로 문제 진단에 유용하지만 바쁜 맵에서는 로그가 많아집니다. 경고와 오류는 이 설정과 무관하게 항상 기록됩니다. 기본값: false.
+ManifestDelivery/opt/StatsEnabled/label=운송 통계 — 활성화
+ManifestDelivery/opt/StatsEnabled/tip=true로 설정하면 모드가 모든 짐마차 배송을 상점별 통계 파일(누적 + 올해 누계, 품목별 내역, 원자재 대 생산품 비율)에 기록합니다. 보고서 키(기본 Ctrl+Shift+M)를 누르면 정리된 보고서를 MelonLoader 로그에 출력합니다.
+ManifestDelivery/opt/StatsReportKey/label=운송 통계 — 보고서 키
+ManifestDelivery/opt/StatsReportKey/tip=CTRL+SHIFT+<이 키>를 누르면 상점별 운송 보고서를 MelonLoader 로그에 출력합니다. Unity KeyCode 이름 사용(예: M, J, F8).
+
+# ── Rivers Restored ──
+RiversRestored/meta/name=Rivers Restored
+RiversRestored/meta/desc=FF 맵의 강 생성을 복원하고 강의 밀도/형태/낚시 관련 조정 옵션을 제공합니다
+RiversRestored/cat/Master=마스터
+RiversRestored/opt/RiversEnabled/label=강 활성화
+RiversRestored/opt/RiversEnabled/tip=마스터 스위치. Off = 바닐라(강 없음).
+RiversRestored/opt/RiverPreset/label=강 프리셋 (맵 생물군계에 맞춤)
+RiversRestored/opt/RiverPreset/tip=FF의 생물군계 이름에 맞춰 미리 조정된 강 설정 묶음. Custom이 아닌 값으로 설정하면 프리셋 값이 세부 슬라이더를 덮어씁니다. 맵의 생물군계에 맞는 항목을 선택하면 무난한 기본값을 얻을 수 있습니다.
+RiversRestored/opt/GranularSettings/label=세부 설정 표시 (고급)
+RiversRestored/opt/GranularSettings/tip=ON이면 아래에 강 형태를 조절하는 개별 슬라이더가 표시됩니다. 강 프리셋이 Custom으로 설정된 경우에만 적용됩니다.
+RiversRestored/opt/EnableRibbonAnimation/label=흐르는 물 애니메이션
+RiversRestored/opt/EnableRibbonAnimation/tip=On = 리본형 흐름 애니메이션. Off = 정지된 수면만 표시(더 가벼운 호수 스타일; 강이 많은 맵에서 CPU/GPU 절약).
+RiversRestored/opt/RiverPreferLakeWaterType/label=강에 호수(파란색) 수질 우선 사용
+RiversRestored/opt/RiverPreferLakeWaterType/tip=On(기본값) = 강이 호수형 수질(맑은 파란색)을 사용합니다. Off = 맵이 처음 지정하는 수질(대개 연못 — 녹색/탁함)을 그대로 사용합니다.
+RiversRestored/opt/PondUseLakeMaterial/label=연못 수질을 호수(파란색)로 강제 렌더링
+RiversRestored/opt/PondUseLakeMaterial/tip=ON(기본값) = 모든 맵의 모든 연못이 녹색 연못 대신 파란색 호수 재질로 렌더링됩니다. 연못 분류 자체는 그대로이며 재질만 바뀝니다. 저장/재로드 시 물이 보이지 않던 문제도 함께 해결합니다 — 소속을 잃은 WaterType은 (이제 파란색이 된) 연못 재질로 대체됩니다.
+RiversRestored/opt/EnableMapPreviewRender/label=[베타] 맵 미리보기를 PNG로 렌더링
+RiversRestored/opt/EnableMapPreviewRender/tip=맵 생성마다 RR이 위에서 내려다본 미리보기 PNG를 UserData/RiversRestored/Previews/에 저장합니다. 정착지에 진입하지 않고도 RR의 생성 결과를 확인하는 데 유용합니다.
+RiversRestored/opt/ShowPreviewOverlay/label=[베타] 게임 내 미리보기 오버레이 표시
+RiversRestored/opt/ShowPreviewOverlay/tip=가장 최근에 렌더링된 미리보기를 플레이 중 화면 오른쪽 패널에 표시합니다. 게임 내에서 F8로 표시 여부를 전환합니다. 맵 미리보기 렌더링이 ON이어야 합니다.
+RiversRestored/cat/Flow Direction=흐름 방향
+RiversRestored/opt/RiverFlowBias/label=강 흐름 방향 편향
+RiversRestored/opt/RiverFlowBias/tip=강 경로 생성 전에 높이맵을 기울여, 선택한 높은 모서리/가장자리에서 낮은 쪽으로 강이 통계적으로 흐르게 합니다. None = 순수하게 시드에 의해 결정(바닐라 동작).
+RiversRestored/opt/RiverFlowBiasStrength/label=흐름 편향 강도
+RiversRestored/opt/RiverFlowBiasStrength/tip=높이맵을 얼마나 강하게 기울일지. 0.3 = 미묘함, 0.4 = 균형 잡힌 기본값, 0.5 = 강함, 0.7+ = 눈에 띄게 기울어짐. 방향 편향이 None이면 효과가 없습니다.
+RiversRestored/cat/Density=밀도
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/cat/Shape — Width / Depth=형태 — 너비 / 깊이
+RiversRestored/opt/MinWidth/label=최소 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MinDepth/label=최소 깊이 (m)
+RiversRestored/opt/MinDepth/tip=-1 = 바닐라 그대로 둠
+RiversRestored/opt/MaxDepth/label=최대 깊이 (m)
+RiversRestored/opt/MaxDepth/tip=-1 = 바닐라 그대로 둠
+RiversRestored/cat/Carve Shape=굴착 형태
+RiversRestored/opt/RiverInnerRadius/label=수로 안쪽 반경 (셀)
+RiversRestored/opt/RiverInnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/RiverOuterRadius/label=둑 바깥 반경 (셀)
+RiversRestored/opt/RiverOuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/RiverTrenchDepth/label=수로 깊이 (m)
+RiversRestored/opt/RiverTrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/RiverSmoothPasses/label=둑 매끄럽게 처리 횟수
+RiversRestored/opt/RiverSmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/RiverJitterAmplitude/label=굽이침 진폭 (m)
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/RiverJitterFrequency/label=굽이침 빈도
+RiversRestored/opt/RiverJitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/cat/Water Plane / Fishing=수면 / 낚시
+RiversRestored/opt/RiverRegisterAsWaterArea/label=수역으로 등록
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=강을 (호수처럼) 수역으로 취급합니다 — 낚시와 안정적인 저장을 가능하게 합니다
+RiversRestored/opt/RiverBlobRadius/label=원판 스탬프 반경 (셀)
+RiversRestored/opt/RiverBlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/RiverBlobStride/label=원판 스탬프 간격 (셀)
+RiversRestored/opt/RiverBlobStride/tip=경로를 따라 찍히는 원판 스탬프 사이 간격
+RiversRestored/opt/RiverFishingAreaMultiplier/label=낚시 구역 배율
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = 바닐라 밀도(희박), 4 = 플레이하기 좋은 밀도
+RiversRestored/cat/Generator Gating=생성 조건
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=물을 강 종점으로 표시
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=핵심 조건 — 이것이 없으면 개수와 상관없이 어떤 강도 유효하게 생성되지 않습니다
+RiversRestored/opt/ForceCoastlineTerrain/label=해안 지형 강제 적용
+RiversRestored/opt/ForceCoastlineTerrain/tip=진단용: Coastline 생물군계를 강제 적용합니다(바다를 강의 확실한 종점으로 제공)
+RiversRestored/cat/Diagnostics=진단
+RiversRestored/opt/VerboseDiagnostics/label=상세 진단
+RiversRestored/opt/VerboseDiagnostics/tip=저장 시 수역별 상태, 생성 단계별 수역 개수를 기록합니다. 일반 플레이에서는 로그가 많아집니다.
+RiversRestored/cat/Preset · IdyllicValley=프리셋 · IdyllicValley
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/opt/MinWidth/label=최소 리본 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 리본 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/InnerRadius/label=수로 너비 (완전 깊이, 셀)
+RiversRestored/opt/InnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/OuterRadius/label=둑 너비 (지면까지 경사, 셀)
+RiversRestored/opt/OuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/BlobRadius/label=보이는 수면 너비 (셀)
+RiversRestored/opt/BlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/BlobStride/label=수면 밀도 (고급)
+RiversRestored/opt/BlobStride/tip=경로를 따라 원판 스탬프 사이 간격; 3 = 기본값, 높을수록 생성이 빠름
+RiversRestored/opt/TrenchDepth/label=강 깊이 (수면 아래 m)
+RiversRestored/opt/TrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/SmoothPasses/label=둑 매끄러움
+RiversRestored/opt/SmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/JitterAmplitude/label=강 굽이침 강도 (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/JitterFrequency/label=강 굽이침 빈도
+RiversRestored/opt/JitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/opt/WaterMultiplier/label=물의 양 배율
+RiversRestored/opt/WaterMultiplier/tip=시드의 물 값을 조정합니다. 1.0 = 바닐라. 1보다 작으면 더 건조하고 호수가 작아짐. 1보다 크면 더 습함. 미리보기와 실제 플레이 모두에 영향을 줍니다. 기본값: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, 나머지 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=강 낚시 생산성 증가
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 바닐라(희박), 4 = 플레이하기 좋은 밀도, 8 이상 = 풍성함
+RiversRestored/cat/Preset · LowlandLakes=프리셋 · LowlandLakes
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/opt/MinWidth/label=최소 리본 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 리본 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/InnerRadius/label=수로 너비 (완전 깊이, 셀)
+RiversRestored/opt/InnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/OuterRadius/label=둑 너비 (지면까지 경사, 셀)
+RiversRestored/opt/OuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/BlobRadius/label=보이는 수면 너비 (셀)
+RiversRestored/opt/BlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/BlobStride/label=수면 밀도 (고급)
+RiversRestored/opt/BlobStride/tip=경로를 따라 원판 스탬프 사이 간격; 3 = 기본값, 높을수록 생성이 빠름
+RiversRestored/opt/TrenchDepth/label=강 깊이 (수면 아래 m)
+RiversRestored/opt/TrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/SmoothPasses/label=둑 매끄러움
+RiversRestored/opt/SmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/JitterAmplitude/label=강 굽이침 강도 (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/JitterFrequency/label=강 굽이침 빈도
+RiversRestored/opt/JitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/opt/WaterMultiplier/label=물의 양 배율
+RiversRestored/opt/WaterMultiplier/tip=시드의 물 값을 조정합니다. 1.0 = 바닐라. 1보다 작으면 더 건조하고 호수가 작아짐. 1보다 크면 더 습함. 미리보기와 실제 플레이 모두에 영향을 줍니다. 기본값: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, 나머지 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=강 낚시 생산성 증가
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 바닐라(희박), 4 = 플레이하기 좋은 밀도, 8 이상 = 풍성함
+RiversRestored/cat/Preset · AridHighlands=프리셋 · AridHighlands
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/opt/MinWidth/label=최소 리본 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 리본 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/InnerRadius/label=수로 너비 (완전 깊이, 셀)
+RiversRestored/opt/InnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/OuterRadius/label=둑 너비 (지면까지 경사, 셀)
+RiversRestored/opt/OuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/BlobRadius/label=보이는 수면 너비 (셀)
+RiversRestored/opt/BlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/BlobStride/label=수면 밀도 (고급)
+RiversRestored/opt/BlobStride/tip=경로를 따라 원판 스탬프 사이 간격; 3 = 기본값, 높을수록 생성이 빠름
+RiversRestored/opt/TrenchDepth/label=강 깊이 (수면 아래 m)
+RiversRestored/opt/TrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/SmoothPasses/label=둑 매끄러움
+RiversRestored/opt/SmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/JitterAmplitude/label=강 굽이침 강도 (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/JitterFrequency/label=강 굽이침 빈도
+RiversRestored/opt/JitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/opt/WaterMultiplier/label=물의 양 배율
+RiversRestored/opt/WaterMultiplier/tip=시드의 물 값을 조정합니다. 1.0 = 바닐라. 1보다 작으면 더 건조하고 호수가 작아짐. 1보다 크면 더 습함. 미리보기와 실제 플레이 모두에 영향을 줍니다. 기본값: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, 나머지 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=강 낚시 생산성 증가
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 바닐라(희박), 4 = 플레이하기 좋은 밀도, 8 이상 = 풍성함
+RiversRestored/cat/Preset · Plains=프리셋 · Plains
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/opt/MinWidth/label=최소 리본 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 리본 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/InnerRadius/label=수로 너비 (완전 깊이, 셀)
+RiversRestored/opt/InnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/OuterRadius/label=둑 너비 (지면까지 경사, 셀)
+RiversRestored/opt/OuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/BlobRadius/label=보이는 수면 너비 (셀)
+RiversRestored/opt/BlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/BlobStride/label=수면 밀도 (고급)
+RiversRestored/opt/BlobStride/tip=경로를 따라 원판 스탬프 사이 간격; 3 = 기본값, 높을수록 생성이 빠름
+RiversRestored/opt/TrenchDepth/label=강 깊이 (수면 아래 m)
+RiversRestored/opt/TrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/SmoothPasses/label=둑 매끄러움
+RiversRestored/opt/SmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/JitterAmplitude/label=강 굽이침 강도 (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/JitterFrequency/label=강 굽이침 빈도
+RiversRestored/opt/JitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/opt/WaterMultiplier/label=물의 양 배율
+RiversRestored/opt/WaterMultiplier/tip=시드의 물 값을 조정합니다. 1.0 = 바닐라. 1보다 작으면 더 건조하고 호수가 작아짐. 1보다 크면 더 습함. 미리보기와 실제 플레이 모두에 영향을 줍니다. 기본값: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, 나머지 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=강 낚시 생산성 증가
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 바닐라(희박), 4 = 플레이하기 좋은 밀도, 8 이상 = 풍성함
+RiversRestored/cat/Preset · AlpineValleys=프리셋 · AlpineValleys
+RiversRestored/opt/NumRivers/label=강의 수
+RiversRestored/opt/NumRivers/tip=생성기가 목표로 하는 개수; 실제 개수는 시드 상 가능 여부에 따라 달라집니다
+RiversRestored/opt/MinPoints/label=최소 강 길이
+RiversRestored/opt/MinPoints/tip=강으로 인정되기 위한 최소 제어점 수
+RiversRestored/opt/MinWidth/label=최소 리본 너비 (셀)
+RiversRestored/opt/MinWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/MaxWidth/label=최대 리본 너비 (셀)
+RiversRestored/opt/MaxWidth/tip=0 = 바닐라 그대로 둠
+RiversRestored/opt/InnerRadius/label=수로 너비 (완전 깊이, 셀)
+RiversRestored/opt/InnerRadius/tip=중심선에서 이 거리 이내의 셀은 수로 깊이까지 깎입니다
+RiversRestored/opt/OuterRadius/label=둑 너비 (지면까지 경사, 셀)
+RiversRestored/opt/OuterRadius/tip=둑이 원래 지형으로 다시 섞여 들어가는 지점
+RiversRestored/opt/BlobRadius/label=보이는 수면 너비 (셀)
+RiversRestored/opt/BlobRadius/tip=수역 폴리곤 병합용 원판 스탬프 반경
+RiversRestored/opt/BlobStride/label=수면 밀도 (고급)
+RiversRestored/opt/BlobStride/tip=경로를 따라 원판 스탬프 사이 간격; 3 = 기본값, 높을수록 생성이 빠름
+RiversRestored/opt/TrenchDepth/label=강 깊이 (수면 아래 m)
+RiversRestored/opt/TrenchDepth/tip=수면 아래로 수로가 파이는 깊이
+RiversRestored/opt/SmoothPasses/label=둑 매끄러움
+RiversRestored/opt/SmoothPasses/tip=0 = 거친 굴착, 4 = 적당한 기본값, 8 = 매우 완만함
+RiversRestored/opt/JitterAmplitude/label=강 굽이침 강도 (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = 직선, 클수록 더 구불구불함
+RiversRestored/opt/JitterFrequency/label=강 굽이침 빈도
+RiversRestored/opt/JitterFrequency/tip=보로노이 구간당 파동 진동 수
+RiversRestored/opt/WaterMultiplier/label=물의 양 배율
+RiversRestored/opt/WaterMultiplier/tip=시드의 물 값을 조정합니다. 1.0 = 바닐라. 1보다 작으면 더 건조하고 호수가 작아짐. 1보다 크면 더 습함. 미리보기와 실제 플레이 모두에 영향을 줍니다. 기본값: IdyllicValley 0.75, LowlandLakes 0.7, AlpineValleys 0.85, 나머지 1.0.
+RiversRestored/opt/FishingAreaMultiplier/label=강 낚시 생산성 증가
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 바닐라(희박), 4 = 플레이하기 좋은 밀도, 8 이상 = 풍성함
+RiversRestored/cat/Other settings=기타 설정
+RiversRestored/opt/RiversDontBlockWildlife/label=강이 야생동물 스폰을 막지 않음
+RiversRestored/opt/RiversDontBlockWildlife/tip=ON이면 마을까지 육로가 없다는 이유로 막히지 않고, 사슴 등 야생동물이 강 건너편에도 스폰될 수 있습니다. 새 맵에서 '강 건너에 사슴이 없는' 문제를 해결하며, 기존 세이브에서도 로드 시 고립된 지역을 다시 채워줍니다. 야생동물 스폰에만 영향을 주며 사냥꾼 덫 설치나 주민 경로는 그대로입니다. OFF = 바닐라 동작(강이 건너편 야생동물을 막음).
+RiversRestored/opt/RiverFishPerCell/label=수역 셀당 강 물고기 수
+RiversRestored/opt/RiverFishPerCell/tip=강의 기본 물고기 개체수를, 상한이 있는 FF의 면적 곡선 대신 실제 강 크기(채워진 수역 셀 수)에 비례해 정합니다 — 그래서 맵을 가로지르는 거대한 강은 별도 조정 없이도 작은 개울보다 비례해서 더 많은 물고기를 갖게 됩니다. 1.0 = 맵을 양분하는 큰 강 기준 약 1만~1만4천 마리(권장). 강을 더 풍성하게 하려면 높이고, 적게 하려면 낮추세요. 0 = 비활성화(바닐라 곡선 사용). 강 낚시 생산성 증가 배율은 이 기본값 위에 추가로 적용됩니다.
+RiversRestored/opt/ScaleLakeFish/label=호수/연못 물고기 수도 면적에 비례
+RiversRestored/opt/ScaleLakeFish/tip=강뿐 아니라 호수와 연못에도 위와 같은 '수역 셀당 물고기 수' 방식을 적용합니다 — 큰 수역을 제한하는 FF 곡선 대신, 큰 호수가 작은 연못보다 비례해서 더 많은 물고기를 갖게 됩니다. 증가만 적용: 어떤 수역도 바닐라보다 물고기가 줄어들지 않습니다(강 생산성 배율은 호수에는 적용되지 않음). 기본값: ON. 바닐라 호수/연못 물고기 수를 유지하려면 OFF로 설정하세요.
+
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=Sovereign Boons
+SovereignBoons/meta/desc=역량 강화 팩: 정착지를 더 강하게 만드는 커뮤니티 모드 기능을 엄선해 모았습니다. 모든 축복은 기본적으로 꺼져 있습니다. 원작 커뮤니티 모더들의 공로를 밝히며 통합했습니다 — 출처 표는 README를 참고하세요.
+SovereignBoons/cat/Economy=경제
+SovereignBoons/opt/EnableCrownsBounty/label=왕실의 하사금
+SovereignBoons/opt/EnableCrownsBounty/tip=세금 징수 이벤트에서 얻는 금을 배가합니다. 이름 그대로 세금에만 적용 — 판매/환불/이벤트 보상은 건드리지 않습니다. 기본값: OFF.
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=세금 배율
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=각 세금 이벤트로 얻는 금에 적용되는 배율. 바닐라 = 1.0. 기본값: 2.0.
+SovereignBoons/opt/EnableWealthyCaravans/label=부유한 대상
+SovereignBoons/opt/EnableWealthyCaravans/tip=더 부유한 떠돌이 상인 + 더 높은 교역소 재고 상한. 기본값: OFF.
+SovereignBoons/opt/WealthyCaravansGoldMul/label=금 배율
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=상인의 보유 금에 적용되는 배율. 바닐라 = 1.0. 기본값: 2.0.
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=상품 배율
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=상인의 상품 수량에 적용되는 배율. 바닐라 = 1.0. 기본값: 2.0.
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=무엇이든 매입
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=상인이 자신의 상품 목록에 있거나 이미 창고에 있는 물품이라면 무엇이든 매입합니다. 기본값: ON.
+SovereignBoons/opt/WealthyCaravansMaxStock/label=교역소 최대 재고
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=TradeManager.maxTradingPostStockCount 값을 재정의합니다. 바닐라 = 100. 기본값: 1000.
+SovereignBoons/opt/EnableMerchantsGambit/label=상인의 도박수
+SovereignBoons/opt/EnableMerchantsGambit/tip=단축키를 누르면 방문 중인 상인들 사이에서 저가 매수/고가 매도로 이익을 낼 수 있는 차익거래를 찾아 전체 단계를 한 번에 실행합니다. 처음에는 예행 실행(보고만)으로 시작합니다. 기본값: OFF.
+SovereignBoons/opt/MerchantsGambitDryRun/label=예행 실행 (보고만)
+SovereignBoons/opt/MerchantsGambitDryRun/tip=물품/금을 실제로 옮기지 않고 예상 이익을 토스트와 로그로 보고합니다. 수치를 확인한 뒤 이 옵션을 꺼야 원클릭 실행이 활성화됩니다. 기본값: ON.
+SovereignBoons/opt/MerchantsGambitScanKey/label=단축키
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCode 또는 조합키 — Ctrl+B, F6, Alt+Shift+M(보조키: Ctrl/Alt/Shift). 기본값: Ctrl+B.
+SovereignBoons/opt/MerchantsGambitMinProfit/label=단위당 최소 이익
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=단위당 금 이익이 이 값 미만인 차익거래는 건너뜁니다. 기본값: 1.
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=최대 순환 수
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=1회 실행당 매수/매도 단계 수의 안전 상한. 기본값: 500.
+SovereignBoons/cat/Workforce=노동력
+SovereignBoons/opt/EnableSwiftFeet/label=날렵한 발
+SovereignBoons/opt/EnableSwiftFeet/tip=더 빠른 주민 + 더 강한 운송 마차. 활성화 이후 생성된 캐릭터/마차에 적용됩니다; 기존 개체에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/SwiftFeetShoeBonus/label=주민 신발 보너스
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=Character._shoeBonusBase 값을 대체합니다. 습격자에게도 적용됩니다. 바닐라 = 0.15. 기본값: 0.30.
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=마차 이동 속도
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=TransportWagon._movementSpeed 값을 재정의합니다. 바닐라 ≈ 4.5. 기본값: 8.0.
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=마차 적재량
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=TransportWagon.carryCapacity 값을 재정의합니다. 바닐라 = 150. 기본값: 300.
+SovereignBoons/opt/EnableEagerHands/label=성급한 일손
+SovereignBoons/opt/EnableEagerHands/tip=노동 가능 연령과 학교 입학 연령 범위를 낮춥니다. 기본값: OFF.
+SovereignBoons/opt/EagerHandsChildAge/label=아동 기준 연령
+SovereignBoons/opt/EagerHandsChildAge/tip=주민이 아동 노동자가 되는 최소 연령. 바닐라 = 15. 기본값: 12.
+SovereignBoons/opt/EagerHandsAdolescentAge/label=청소년 기준 연령
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=주민이 성인 노동으로 승격되는 연령. 바닐라 = 25. 기본값: 18.
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=학교 최소 입학 연령
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=바닐라 = 5. 기본값: 5.
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=학교 최대 입학 연령
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=매우 낮게 설정하면 사실상 학교 교육을 비활성화합니다. 바닐라 = 10. 기본값: 10.
+SovereignBoons/opt/EnableKingsHighway/label=왕의 대로
+SovereignBoons/opt/EnableKingsHighway/tip=도로 이동 속도 증가 + 공격적인 동물 속도 감소. 도로 보너스는 도로 변경/재로드 시 다시 계산되며, 동물 감속은 실시간 적용됩니다. 기본값: OFF.
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=도로 속도 증가
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=도로 위 속도 보너스를 배가합니다. 기본값: ON (축복이 활성화된 경우).
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=도로 속도 배율
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=AIGridNode.nodeSpeedBonus에 적용되는 배율. 바닐라 = 1.0. 기본값: 1.5.
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=공격적인 동물 감속
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=늑대/곰 등이 더 느리게 움직여 따돌리기도, 사냥하기도 쉬워집니다. 기본값: ON.
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=공격적인 동물 속도 배율
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=바닐라 = 1.0. 낮을수록 포식자가 느려집니다. 기본값: 0.85.
+SovereignBoons/cat/Buildings=건물
+SovereignBoons/opt/EnableSpringsVigor/label=더 풍부한 우물
+SovereignBoons/opt/EnableSpringsVigor/tip=우물 재충전 속도 증가 + 우물 용량 증가. 활성화 이후 배치된 우물에 적용됩니다; 기존 우물에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/SpringsVigorRechargeMult/label=재충전 배율
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=Well.waterGainPerSecond에 적용되는 배율(바닐라 = 초당 0.01). 기본값: 2.0(×2 → 초당 0.02).
+SovereignBoons/opt/SpringsVigorCapacityMult/label=용량 배율
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=Well.maxWater에 적용되는 배율(바닐라 = 50). 기본값: 2.0(×2 → 최대 100).
+SovereignBoons/cat/Combat=전투
+SovereignBoons/opt/EnableLevysArms/label=비상 민병대
+SovereignBoons/opt/EnableLevysArms/tip=단축키로 소집하는 민병대. 자격이 되는 모든 주민에게 전투 설정과 능력치 강화를 부여해 무장시킵니다. 기본값: OFF.
+SovereignBoons/opt/LevysArmsArmKey/label=동원 단축키
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCode 또는 조합키 — Ctrl+A, F4, Alt+Shift+M(보조키: Ctrl/Alt/Shift). 기본값: Ctrl+A.
+SovereignBoons/opt/LevysArmsUnarmKey/label=해산 단축키
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCode 또는 조합키(예: Alt+A; 보조키 Ctrl/Alt/Shift). 기본값: Alt+A.
+SovereignBoons/opt/LevysArmsStatMagnitude/label=능력치 증가량
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=모든 Perc 능력치 필드(최대 생명력, 방어력, 근접/원거리 피해 등)에 적용됩니다. 바닐라 = 0. 원본 모드의 'powerful' 프리셋 = 1000. 기본값: 100.
+SovereignBoons/cat/Misc=기타
+SovereignBoons/opt/EnableSteadfastResolve/label=업적 편법 허용
+SovereignBoons/opt/EnableSteadfastResolve/tip=기본값이 아닌 설정이나 모드를 사용해도 업적이 해금됩니다. 기본값: OFF.
+SovereignBoons/opt/EnableLongReach/label=영역 확장
+SovereignBoons/opt/EnableLongReach/tip=건물별 작업 반경 배율. 활성화 이후 배치된 건물에 적용됩니다; 기존 건물에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/LongReachWorkCampMul/label=작업 캠프 반경 ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=작업 캠프 작업 반경에 적용되는 배율(바닐라 60). 1.0 = 변경 없음, 1.5 = 1.5배, 2.0 = 2배. 기본값: 1.0.
+SovereignBoons/opt/LongReachHunterMul/label=사냥꾼 반경 ×
+SovereignBoons/opt/LongReachHunterMul/tip=사냥꾼 건물 반경에 적용되는 배율(바닐라 60). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachFishingMul/label=낚시 반경 ×
+SovereignBoons/opt/LongReachFishingMul/tip=낚시 오두막 반경에 적용되는 배율(바닐라 30). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachArboristMul/label=원예사 반경 ×
+SovereignBoons/opt/LongReachArboristMul/tip=원예사 건물 반경에 적용되는 배율(바닐라 100). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachMarketMul/label=시장 반경 ×
+SovereignBoons/opt/LongReachMarketMul/tip=시장의 전략 계획 반경에 적용되는 배율(바닐라 50). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachForagerMul/label=채집꾼 오두막 반경 ×
+SovereignBoons/opt/LongReachForagerMul/tip=채집꾼 오두막 채집 반경에 적용되는 배율(바닐라 60). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachRatCatcherMul/label=쥐잡이꾼 반경 ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=쥐잡이꾼 건물 작업 반경에 적용되는 배율(바닐라 60). 1.0 = 변경 없음. 기본값: 1.0.
+SovereignBoons/opt/LongReachDoghouseMul/label=개집 경비 반경 ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=개집 경비 반경(개의 방어 구역)에 적용되는 배율(바닐라 60). 1.0 = 변경 없음. 기본값: 1.0. [개/고양이 DLC]
+SovereignBoons/opt/EnableCivicPride/label=시민 자긍심
+SovereignBoons/opt/EnableCivicPride/tip=장식 건물의 매력도 반경/보너스를 배가합니다. 활성화 이후 배치된 장식물에 적용됩니다; 기존 장식물에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/CivicPrideRadiusMul/label=반경 배율
+SovereignBoons/opt/CivicPrideRadiusMul/tip=Building._strategicPlanningRadius에 적용되는 배율(바닐라 = 50). 기본값: 1.5.
+SovereignBoons/opt/CivicPrideBonusMul/label=보너스 배율
+SovereignBoons/opt/CivicPrideBonusMul/tip=Building._strategicPlanningBonus 수치에 적용되는 배율. 바닐라 = 1.0. 기본값: 1.5.
+SovereignBoons/opt/EnableHallowedReliquary/label=성유물함
+SovereignBoons/opt/EnableHallowedReliquary/tip=신앙심 보너스 배율 + 유물 활성화를 사제 수에서 분리. 기본값: OFF.
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=신앙심 보너스 배율
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=ReligionManager._spiritualityBonusPerRelic에 적용되는 배율(바닐라 = 50). 기본값: 1.5.
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=유물을 사제 수에서 분리
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=사제 1명만 있어도 배정된 모든 유물이 활성화됩니다. Off = 바닐라(사제 수가 활성 유물 수를 제한). 기본값: ON.
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=모든 유물 잠금 해제
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=역량 강화 기능: 맵 로드 시 게임의 모든 유물을 잠금 해제합니다. 한 번 받은 유물은 세이브에 계속 남습니다(다시 실행되지 않게 하려면 이후 꺼도 되지만, 받은 유물은 유지됩니다). 기본값: OFF.
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=추가 유물 슬롯
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=모든 사원에 추가되는 유물 슬롯 수(바닐라 = 2). 0..13 → 총 2..15개(VC_ModifyTemple과 일치). 슬롯 위젯은 기존 UI 템플릿을 복제해 최대 5개씩 줄로 배치됩니다. 기본값: 4(총 6개). FF 바닐라 유물 풀은 약 8개이므로 약 10개를 넘으면 빈 슬롯이 생깁니다. 다음 세이브 로드 시 적용됩니다.
+SovereignBoons/opt/EnableHoardedStores/label=비축 창고
+SovereignBoons/opt/EnableHoardedStores/tip=저장소 종류별 용량 배율. 활성화 이후 배치된 저장 건물에 적용됩니다; 기존 건물에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=뿌리채소 저장고 — 적용
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=뿌리채소 저장고에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=뿌리채소 저장고 — 배율
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=뿌리채소 저장고 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=곡물창고 — 적용
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=곡물창고에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresGranaryMul/label=곡물창고 — 배율
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=곡물창고 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=창고 — 적용
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=창고에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=창고 — 배율
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=창고 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=보관소 — 적용
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=보관소에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=보관소 — 배율
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=보관소 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=야적장 — 적용
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=야적장에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresStockyardMul/label=야적장 — 배율
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=야적장 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=국고 — 적용
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=국고에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=국고 — 배율
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=국고 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/HoardedStoresMarketEnable/label=시장 — 적용
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=시장에 용량 배율을 적용합니다. 기본값: OFF.
+SovereignBoons/opt/HoardedStoresMarketMul/label=시장 — 배율
+SovereignBoons/opt/HoardedStoresMarketMul/tip=시장 용량 배율. 기본값: 2.0.
+SovereignBoons/opt/EnableGreaterHalls/label=확장된 회관
+SovereignBoons/opt/EnableGreaterHalls/tip=약 52종의 건물에 +일꾼/+거주자를 추가하는 확장 기능. 가축/생산/자원지/현장 작업/시민시설/주거로 분류됩니다. 활성화 이후 배치된 건물에 적용됩니다; 기존 건물에 적용하려면 세이브를 다시 불러오세요. 기본값: OFF.
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=Barn +일꾼
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..6. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=CatKennel +일꾼
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=ChickenCoop +일꾼
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=DogKennel +일꾼
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=GoatBarn +일꾼
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=Stable +일꾼
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 가축. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=ApothecaryShop +일꾼
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=Armory +일꾼
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=Bakery +일꾼
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=BasketShop +일꾼
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=BlacksmithForge +일꾼
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=BookBinder +일꾼
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=Brewery +일꾼
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=Brickyard +일꾼
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=CandleShop +일꾼
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=CharcoalKiln +일꾼
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=Cheesemaker +일꾼
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=CobblerShop +일꾼
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=CooperBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=FletcherBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=Foundry +일꾼
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=FurnitureWorkshop +일꾼
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..5. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=Glassmaker +일꾼
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..6. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=PaperMill +일꾼
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..5. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=PotterBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=PreservistBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=SmokeHouse +일꾼
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=WeaverBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=Windmill +일꾼
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=WoodCutterBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 생산. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=ClayPitBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..4. 기본값: 0 (변경 없음). 지표 점토 채취장과 그 심층(무한) 버전을 모두 포함합니다.
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=MineralSiteMine +일꾼
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..4. 기본값: 0 (변경 없음). 모든 심층 광산(철, 금, 석탄, 지표 및 심층 모두)에 적용되는 단일 클래스입니다. 광물 종류는 데이터일 뿐 별도 건물이 아니므로 특정 광물 하나만 지정할 수 없습니다.
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=SandPitBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..4. 기본값: 0 (변경 없음). 지표 모래 채취장과 그 심층(무한) 버전을 모두 포함합니다.
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=SawPitBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=StonePitBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..8. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=WorkCamp +일꾼
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 자원지. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=ArboristBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 현장 작업. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=FishingShack +일꾼
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 현장 작업. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=ForagerShack +일꾼
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 현장 작업. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=HunterBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 현장 작업. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=CompostYard +일꾼
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=GuardTower +일꾼
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=GuildHall +일꾼
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=HealersHouse +일꾼
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=Library +일꾼
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..1. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=MarketBuilding +일꾼
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=Pub +일꾼
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_School_Addon/label=School +일꾼
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=Temple +일꾼
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..3. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=WagonShop +일꾼
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 시민시설. 범위: 0..2. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=Shelter +일꾼
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 주거. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=TemporaryShelter +일꾼
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=바닐라 maxWorkers에 추가되는 일꾼/거주자 슬롯. 분류: 주거. 범위: 0..4. 기본값: 0 (변경 없음).
+SovereignBoons/opt/EnableBountifulFields/label=풍요로운 농경지
+SovereignBoons/opt/EnableBountifulFields/tip=작물별 조정 + 농업 전역 설정. 작물 데이터 레코드는 맵 로드 시 변경됩니다 — 값을 바꾼 뒤 적용하려면 세이브를 다시 불러오세요.
+SovereignBoons/opt/EnableBountifulCrops/label=풍요로운 작물 — 신규 작물 8종
+SovereignBoons/opt/EnableBountifulCrops/tip=파종 선택창에 후추(→향신료), 수도승의 위안(→약초 뿌리), 삼(→섬유), 대두(→견과), 옥수수(→곡물), 자주버들(→버들), 양송이(→버섯), 허브 정원(→허브, 비옥도 회복)을 추가합니다. 아래 슬라이더로 바닐라 작물과 동일하게 작물별로 조정할 수 있습니다. 세이브 안전: OFF로 꺼도 선택창 아이콘만 사라지며, 이미 심어진 작물은 계속 작동합니다. 기본값: false.
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=바닐라 값 로그
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=맵 로드 시 모든 작물의 바닐라 VegetableFieldsRecord 값을 MelonLoader.log에 출력합니다. 작물별 기본값을 확인할 때 잠시 켜고, 확인 후에는 끄세요. 기본값: false.
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=작물 질병 로그
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=맵 로드 시 모든 작물 질병(이름, 대상 작물, 감염/확산 조정값)을 MelonLoader.log에 출력합니다 — 약 80줄. 진단 전용이며, 질병 대상 작물 목록을 확인하는 유일한 방법입니다(에셋 번들 안에만 존재). 기본값: false.
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=농부당 격자 수 배율
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=AgricultureManager._gridsPerFarmer에 적용되는 배율. 기본값: 1.0(바닐라).
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=관리 기간 (일)
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=AgricultureManager._maintenanceLengthInDays 값을 재정의합니다. 적용 범위는 45..90이며, 그 밖의 값은 변경 없음으로 처리됩니다. 기본값: -1(변경 없음).
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=Turnip — 적용
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=Turnip 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=Turnip — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Turnip): 3.
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=Turnip — 파종 일수
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Turnip): 10.
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=Turnip — 성숙 일수
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Turnip): 41.
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=Turnip — 잡초 주입
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Turnip): -5.0.
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=Turnip — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Turnip): 0.
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=Turnip — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Turnip): 35.
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=Carrot — 적용
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=Carrot 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=Carrot — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Carrot): 3.
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=Carrot — 파종 일수
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Carrot): 10.
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=Carrot — 성숙 일수
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Carrot): 58.
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=Carrot — 잡초 주입
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Carrot): 0.0.
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=Carrot — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Carrot): 0.
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=Carrot — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Carrot): 50.
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=Wheat — 적용
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=Wheat 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=Wheat — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Wheat): 8.
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=Wheat — 파종 일수
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Wheat): 10.
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=Wheat — 성숙 일수
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Wheat): 118.
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=Wheat — 잡초 주입
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Wheat): -4.0.
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=Wheat — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Wheat): 20.
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=Wheat — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Wheat): 0.
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=Buckwheat — 적용
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=Buckwheat 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=Buckwheat — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Buckwheat): 1.
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=Buckwheat — 파종 일수
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Buckwheat): 10.
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=Buckwheat — 성숙 일수
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Buckwheat): 60.
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=Buckwheat — 잡초 주입
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Buckwheat): -10.0.
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=Buckwheat — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Buckwheat): 80.
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=Buckwheat — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Buckwheat): 0.
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=Rye — 적용
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=Rye 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=Rye — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Rye): 6.
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=Rye — 파종 일수
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Rye): 10.
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=Rye — 성숙 일수
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Rye): 118.
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=Rye — 잡초 주입
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Rye): -6.0.
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=Rye — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Rye): 0.
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=Rye — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Rye): 0.
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=Bean — 적용
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=Bean 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=Bean — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Bean): -1.
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=Bean — 파종 일수
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Bean): 10.
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=Bean — 성숙 일수
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Bean): 85.
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=Bean — 잡초 주입
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Bean): -2.0.
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=Bean — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Bean): 80.
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=Bean — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Bean): 0.
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=Pea — 적용
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=Pea 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=Pea — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Pea): -1.
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=Pea — 파종 일수
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Pea): 10.
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=Pea — 성숙 일수
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Pea): 51.
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=Pea — 잡초 주입
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Pea): 0.0.
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=Pea — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Pea): 0.
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=Pea — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Pea): 75.
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=Cabbage — 적용
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=Cabbage 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=Cabbage — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Cabbage): 4.
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=Cabbage — 파종 일수
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Cabbage): 10.
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=Cabbage — 성숙 일수
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Cabbage): 85.
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=Cabbage — 잡초 주입
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Cabbage): -3.0.
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=Cabbage — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Cabbage): 0.
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=Cabbage — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Cabbage): 0.
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=Leek — 적용
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=Leek 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=Leek — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Leek): 6.
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=Leek — 파종 일수
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Leek): 10.
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=Leek — 성숙 일수
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Leek): 118.
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=Leek — 잡초 주입
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Leek): 0.0.
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=Leek — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Leek): 0.
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=Leek — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Leek): 0.
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=Flax — 적용
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=Flax 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=Flax — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Flax): 5.
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=Flax — 파종 일수
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Flax): 10.
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=Flax — 성숙 일수
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Flax): 95.
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=Flax — 잡초 주입
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Flax): 0.0.
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=Flax — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Flax): 0.
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=Flax — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Flax): 0.
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=Clover — 적용
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=Clover 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=Clover — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Clover): -3.
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=Clover — 파종 일수
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Clover): 10.
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=Clover — 성숙 일수
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Clover): 64.
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=Clover — 잡초 주입
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Clover): -8.0.
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=Clover — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Clover): 0.
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=Clover — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Clover): 0.
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=Hay — 적용
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=Hay 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=Hay — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Hay): 1.
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=Hay — 파종 일수
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Hay): 10.
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=Hay — 성숙 일수
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Hay): 128.
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=Hay — 잡초 주입
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Hay): -5.0.
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=Hay — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Hay): 0.
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=Hay — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Hay): 0.
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=Pepper — 적용
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=Pepper 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=Pepper — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Pepper): 10.
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=Pepper — 파종 일수
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Pepper): 10.
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=Pepper — 성숙 일수
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Pepper): 70.
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=Pepper — 잡초 주입
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Pepper): 1.0.
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=Pepper — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Pepper): 80.
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=Pepper — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Pepper): 5.
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=MonksComfort — 적용
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=MonksComfort 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=MonksComfort — 비옥도 소모
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 MonksComfort): 8.
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=MonksComfort — 파종 일수
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 MonksComfort): 10.
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=MonksComfort — 성숙 일수
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 MonksComfort): 65.
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=MonksComfort — 잡초 주입
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 MonksComfort): 1.0.
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=MonksComfort — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 MonksComfort): 30.
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=MonksComfort — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 MonksComfort): 10.
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=Hemp — 적용
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=Hemp 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=Hemp — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Hemp): 12.
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=Hemp — 파종 일수
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Hemp): 10.
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=Hemp — 성숙 일수
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Hemp): 60.
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=Hemp — 잡초 주입
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Hemp): 1.0.
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=Hemp — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Hemp): 25.
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=Hemp — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Hemp): 10.
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=Soybean — 적용
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=Soybean 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=Soybean — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Soybean): 5.
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=Soybean — 파종 일수
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Soybean): 10.
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=Soybean — 성숙 일수
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Soybean): 70.
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=Soybean — 잡초 주입
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Soybean): 1.0.
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=Soybean — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Soybean): 45.
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=Soybean — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Soybean): 10.
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=Corn — 적용
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=Corn 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=Corn — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Corn): 12.
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=Corn — 파종 일수
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Corn): 10.
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=Corn — 성숙 일수
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Corn): 75.
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=Corn — 잡초 주입
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Corn): 1.0.
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=Corn — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Corn): 70.
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=Corn — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Corn): 5.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=PurpleWillow — 적용
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=PurpleWillow 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=PurpleWillow — 비옥도 소모
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 PurpleWillow): 4.
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=PurpleWillow — 파종 일수
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 PurpleWillow): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=PurpleWillow — 성숙 일수
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 PurpleWillow): 80.
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=PurpleWillow — 잡초 주입
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 PurpleWillow): 1.0.
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=PurpleWillow — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 PurpleWillow): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=PurpleWillow — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 PurpleWillow): 30.
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=Cremini — 적용
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=Cremini 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=Cremini — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Cremini): 2.
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=Cremini — 파종 일수
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Cremini): 10.
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=Cremini — 성숙 일수
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Cremini): 45.
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=Cremini — 잡초 주입
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Cremini): 1.0.
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=Cremini — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Cremini): 20.
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=Cremini — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Cremini): 40.
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=Herbs — 적용
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=Herbs 재정의 마스터 스위치. OFF → 바닐라 값 사용(아래 항목 무시). ON → 맵 로드 시 아래 값이 작물 데이터 레코드에 기록됩니다. 기본값: false.
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=Herbs — 비옥도 소모
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=재배 주기당 소모되는 비옥도. 음수 = 비옥도 회복. 범위: -10..10. 기본값(바닐라 Herbs): -3.
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=Herbs — 파종 일수
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=성장이 시작되기 전 파종에 걸리는 일수. 낮을수록 회전이 빠름. 범위: 1..30. 기본값(바닐라 Herbs): 10.
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=Herbs — 성숙 일수
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=파종부터 수확 가능까지 걸리는 일수. 낮을수록 빠른 작물. 범위: 10..300. 기본값(바닐라 Herbs): 60.
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=Herbs — 잡초 주입
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=파종/수확 주기마다 추가되는 잡초 수준 퍼센트(`weedLevel += value / 100`). 음수 = 잡초 제거(대부분의 바닐라 작물). 낮을수록 잡초가 적음. 범위: -20..10. 기본값(바닐라 Herbs): -4.0.
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=Herbs — 서리 고사율 %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=서리 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Herbs): 15.
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=Herbs — 폭염 고사율 %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=폭염 이벤트에서 고사하는 작물 비율. 0 = 면역. 낮을수록 강화. 범위: 0..100. 기본값(바닐라 Herbs): 15.
+SovereignBoons/cat/Weather=날씨
+SovereignBoons/opt/EnableTemperateSkies/label=온화한 하늘
+SovereignBoons/opt/EnableTemperateSkies/tip=극단적인 기상 이벤트를 억제합니다. 눈보라/폭염 제거는 날씨 초기화 시(재로드) 적용되며, 가뭄/극단적 기상 확률은 실시간 적용됩니다. 기본값: OFF.
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=눈보라 비활성화
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=극단적 기상 판정에서 눈보라를 제외합니다. 기본값: OFF.
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=폭염 비활성화
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=극단적 기상 판정에서 폭염을 제외합니다. 기본값: OFF.
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=모든 극단 기상 비활성화
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=chanceOfExtremeWeather 값을 0으로 강제 설정합니다. 개별 이벤트 스위치와 중첩 적용됩니다. 기본값: OFF.
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=가뭄 비활성화
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=WeatherProfile.chanceOfDrought 곡선을 0으로 고정합니다. 기본값: OFF.
+
+# ── Tended Wilds ──
+TendedWilds/meta/name=Tended Wilds
+TendedWilds/meta/desc=채집꾼 오두막 전면 개편: 연중 재배, 야생 파종, 1-9단계 우선순위, 채집물 이전
+TendedWilds/cat/Master=마스터
+TendedWilds/opt/ModEnabled/label=모드 활성화
+TendedWilds/opt/ModEnabled/tip=끄면 바닐라 채집꾼 오두막 동작으로 돌아갑니다
+TendedWilds/opt/RelocationEnabled/label=이전 활성화
+TendedWilds/opt/RelocationEnabled/tip=채집물 이전 마스터 스위치
+TendedWilds/cat/Relocate by Type=종류별 이전
+TendedWilds/opt/RelocateHerbs/label=허브
+TendedWilds/opt/RelocateHerbs/tip=허브 군락 이전을 허용합니다.
+TendedWilds/opt/RelocateMushrooms/label=버섯
+TendedWilds/opt/RelocateMushrooms/tip=버섯 군집 이전을 허용합니다.
+TendedWilds/opt/RelocateGreens/label=채소
+TendedWilds/opt/RelocateGreens/tip=채소 군락 이전을 허용합니다.
+TendedWilds/opt/RelocateRoots/label=뿌리채소
+TendedWilds/opt/RelocateRoots/tip=뿌리채소 밀집지 이전을 허용합니다.
+TendedWilds/opt/RelocateNuts/label=헤이즐넛
+TendedWilds/opt/RelocateNuts/tip=헤이즐넛 덤불 이전을 허용합니다.
+TendedWilds/opt/RelocateWillow/label=버들
+TendedWilds/opt/RelocateWillow/tip=버들 덤불 이전을 허용합니다.
+TendedWilds/opt/RelocateBerries/label=베리 덤불
+TendedWilds/opt/RelocateBerries/tip=산사나무, 옻나무
+TendedWilds/cat/Cost=비용
+TendedWilds/opt/GoldCostToRelocate/label=이전 1회당 금 비용
+TendedWilds/opt/GoldCostToRelocate/tip=0 = 무료, 노동력만 소요
+TendedWilds/cat/Foraging=채집
+TendedWilds/opt/ExemptForagingBuildings/label=우물/사냥꾼 오두막을 채집 페널티에서 제외
+TendedWilds/opt/ExemptForagingBuildings/tip=우물과 사냥꾼 오두막이 인근 채집물 산출량을 줄이지 않습니다(채집꾼 오두막은 바닐라에서 이미 제외됨)
+
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=The Dockmaster's Dingy Boathouse
+TheDockmastersDingyBoathouse/meta/desc=Farthest Frontier의 보트 낚시 기능을 되살립니다 — 딩기 보트와 부두지기의 보트하우스.
+TheDockmastersDingyBoathouse/cat/Master=마스터
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=모드 활성화
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=끄면 바닐라 동작으로 돌아갑니다.
+TheDockmastersDingyBoathouse/cat/Boat=보트
+TheDockmastersDingyBoathouse/opt/BoatScale/label=딩기 크기
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=보트의 시각적 크기. 1 = 원본 모델 크기.
+TheDockmastersDingyBoathouse/cat/Boathouse=보트하우스
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=부지 너비 (셀)
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=부지는 건물 본체만 포함하며 잔교는 물 위로 튀어나옵니다. 변경 후 다시 배치하세요.
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=부지 깊이 (셀)
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=모델의 육지 쪽에 고정됩니다. 변경 후 다시 배치하세요.
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=등불 깜빡임
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=등불 불꽃이 촛불처럼 깜빡입니다. Off = 일정한 빛.
+TheDockmastersDingyBoathouse/opt/PostDepth/label=물속 기둥 깊이
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=구조물이 물속으로 잠기는 깊이. 0 = 제작 당시 수위선. 실시간 적용.
+TheDockmastersDingyBoathouse/cat/Hotkeys=단축키
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=보트하우스 배치
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=보트하우스를 등록하고 배치 모드로 진입합니다.
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=딩기 소환 / 항해
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=물을 조준: 처음 누르면 딩기가 배치되고, 이후에는 그곳으로 항해합니다.
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=딩기 보관
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=딩기를 회수해 다른 곳에 다시 배치할 수 있게 합니다.
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=딩기 크게
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=딩기 크기를 키웁니다.
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=딩기 작게
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=딩기 크기를 줄입니다.
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=진단 덤프
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=건물/프리팹 진단 정보를 로그에 출력합니다.
+
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=Warden of the Wilds
+WardenOfTheWilds/meta/desc=사냥꾼 전면 개편: T2 분기 경로, 견제(카이팅) AI, 낚시/훈제소 조정, 대형 사냥감 스폰 배율.
+WardenOfTheWilds/cat/Master Toggles=마스터 스위치
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=사냥꾼 전면 개편
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=T2 분기 경로, 견제 AI, 은신처 사거리 보너스
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=낚시 전면 개편
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=낚시꾼/통발 모드, 낚시 부두, 지속 가능한 낚시 기술 강화
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=훈제소 전면 개편
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=훈제소 반경/일꾼/저장량 조정
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=진단 로깅
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=개발용 상세 로깅 — 일반 플레이에서는 꺼두세요
+WardenOfTheWilds/cat/Sub-systems=하위 시스템
+WardenOfTheWilds/opt/HunterCombatEnabled/label=사냥꾼 전투 AI
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=견제, 후퇴, 다중 포식자 회피 — 전투 관련 핵심 로직
+WardenOfTheWilds/opt/HunterRallyEnabled/label=사냥꾼 집결 단축키
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=집결/귀환/전체 선택을 위한 매 프레임 키 입력 감지
+WardenOfTheWilds/opt/HunterUIEnabled/label=사냥꾼 UI 주입
+WardenOfTheWilds/opt/HunterUIEnabled/tip=대형 사냥꾼 / 덫 명인 버튼 + 슬라이더 주입
+WardenOfTheWilds/opt/FishingUIEnabled/label=낚시 UI 주입
+WardenOfTheWilds/opt/FishingUIEnabled/tip=낚시꾼 / 통발 모드 UI
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=기술 트리 패치
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=지속 가능한 낚시 수치 재정의
+WardenOfTheWilds/cat/Smokehouse=훈제소
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=사용자 지정 작업 반경
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=ON이면 훈제소가 설정된 반경으로 작업 구역 원을 표시합니다(건물 선택 시에만 보임). OFF로 설정하면 저장량/일꾼 강화는 유지한 채 시각 표시만 끕니다.
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=반경 강제
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=설정된 반경 밖의 작업을 거부합니다
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=작업 반경
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=훈제소 작업 구역 원의 반경. 바닐라 훈제소에는 작업 구역이 없으며, 이 표시는 사냥꾼 오두막/낚시 오두막을 범위 내에 배치하기 위한 안내용일 뿐입니다. 60유닛 ≈ 적당한 공급 구역. 촘촘한 배치는 낮게, 넓게 퍼진 배치는 높게 설정하세요.
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=최대 일꾼 수
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=훈제소별 일꾼 슬롯 수. 바닐라 = 1. 2로 설정하면 훈제공 한 명이 더 붙어 고기/생선을 병렬 처리해 처리량이 두 배가 됩니다. 바닐라와 동일하게 유지하려면 1로 설정하세요.
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=생고기 저장 상한
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=훈제를 기다리는 생고기/생선(입고분)의 저장 용량. 바닐라 상한은 작아서 사냥꾼이 많이 잡아올 때 생산이 정체됩니다. 200유닛이면 넉넉한 여유가 생깁니다. 이 필드는 연결 시 자동 탐지됩니다 — 로그 참고.
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=훈제 고기 저장 상한
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=짐마차 수거를 기다리는 훈제 고기/생선(출고분)의 저장 용량. 출고 여유가 클수록 짐마차 왕복이 줄고 창고가 가득 차도 생산이 멈추지 않습니다. 200유닛 = 짐마차 한 대분에 넉넉한 여유.
+WardenOfTheWilds/cat/Hunter Cabin=사냥꾼 오두막
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=산출 버퍼 상한
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=오두막 생산 저장소의 품목별 용량. 높을수록 정체되기까지 여유가 커집니다.
+WardenOfTheWilds/cat/Hunting Lodge=사냥막
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=반경 배율
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=사냥막 건물에 적용되는 작업 반경 배율. 1.35 = 바닐라보다 35% 넓은 반경.
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=고기 배율
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=사냥막 사냥꾼의 소소한 고기 산출 배율. 사냥막의 주된 이점은 넓은 반경과 일꾼 슬롯 2개(물량)이며, 이 배율은 그 위에 붙는 작은 품질 보너스입니다. 1.15 = 사체당 고기 15% 증가.
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=야지 이동 속도 배율
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=사냥막(BGH) 사냥꾼의 이동 속도 배율. T2 기본 경로 특화 보너스로 적용되며, 기술 트리의 야지 속도 업그레이드(Trailblazing)와 중첩됩니다. 1.35 = 바닐라 사냥꾼보다 35% 빨라 BGH가 늑대와 멧돼지를 꾸준히 견제할 수 있습니다. 이 강화가 없는 T1 사냥꾼은 은신처와 초기 교전 거리에 생존을 의존합니다. 후퇴가 빠를수록 재장전 주기당 더 멀리 벌릴 수 있어 견제가 안전해집니다. 전투 덤프에서 속도 필드명 확인이 필요합니다.
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=대형 사냥감 발사 간격 배율
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=낮을수록 멧돼지/늑대/곰 상대 발사 속도가 빨라집니다
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=견제 AI
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=위험한 사냥감 상대로 사격 사이사이 은신처/오두막으로 후퇴합니다
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=도축 속도 배율
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=일꾼 1인당 — 일꾼 2명과 함께 적용됨
+WardenOfTheWilds/cat/Trapper Lodge=덫사냥꾼 막사
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=모피 배율
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=덫사냥꾼 막사의 모피/가죽 산출 배율. 1.6 = 바닐라 막사보다 모피 60% 증가.
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=최대 설치 덫 수
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=덫사냥꾼 막사가 동시에 설치할 수 있는 최대 덫 수. 바닐라 T2 = 덫 1개(T1은 덫사냥 불가). 3 = 26일 주기에 맞춘 활성 덫줄 3개: 모피 배율 ×1.6이면 주기가 약 16일로 줄어들어, 덫 3개면 덫사냥꾼이 쉬지 않고 계속 바쁘게 됩니다. 값을 높이면 범위는 늘지만 덫사냥꾼 한 명이 관리할 수 있는 덫줄에는 한계가 있습니다.
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=덫 처리 속도 배율
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1.25 = 덫 주기 25% 단축
+WardenOfTheWilds/opt/TrapperWaterBonus/label=수변 인접 보너스
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=덫사냥꾼 막사가 수역 근처에 있을 때 모피 산출 보너스. 덫사냥꾼은 강과 개울을 따라 덫줄을 놓았으며, 역사적으로 가장 풍요로운 사냥터였습니다. 1.25 = 수변에서 모피 산출 25% 증가.
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=수변 보너스 반경
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=수역이 덫사냥꾼 막사의 수변 인접 보너스를 발동시키는 반경, 월드 유닛 단위.
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=수변 타일 임계값
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=보너스가 적용되기 위한 최소 샘플링 수변 타일 수
+WardenOfTheWilds/opt/TrapMasterBearChance/label=곰 포획 확률
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=덫 발동 시 곰을 잡을 확률
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=도축 속도 배율
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=덫사냥꾼 막사에도 동일한 메커니즘이 적용됩니다. 덫에서 나온 소형 사체도 동일한 도축 처리 과정을 거치므로 보너스가 적용됩니다.
+WardenOfTheWilds/cat/Big Game Yields=대형 사냥감 산출
+WardenOfTheWilds/opt/BearMegaYieldMult/label=곰 산출 배율
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=곰 사체에 적용되는 다른 보너스와 중첩됩니다
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=BGH 곰 보너스 고기
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=곰을 처치한 BGH 사냥꾼의 오두막에 직접 지급되는 보너스 고기(ItemMeat). 사체 도축 산출량(바닐라 일반 사체 ≈ 고기 30) 위에 추가됩니다. 기본값 220 + 30 ≈ 곰 1마리당 고기 250. 사냥막(BGH) 사냥꾼에게만 적용되며, T1과 덫사냥꾼 경로는 바닐라 사체 산출만 사용합니다.
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=BGH 곰 보너스 모피
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=곰을 처치한 BGH 사냥꾼의 오두막에 지급되는 보너스 모피(ItemHide — FF 내부에서는 'hides'로 불림). 도축 산출량(≈ 가죽 2) 위에 추가됩니다. 기본값 3 + 2 ≈ 곰 1마리당 모피 5. BGH 전용.
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=BGH 곰 보너스 수지
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=곰을 처치한 BGH 사냥꾼의 오두막에 지급되는 보너스 수지(ItemTallow). 도축 산출량(≈ 수지 3) 위에 추가됩니다. 기본값 5 + 3 ≈ 곰 1마리당 수지 8. BGH 전용.
+WardenOfTheWilds/cat/Spawn Multipliers=스폰 배율
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=곰 개체수
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=맵당 곰 개체수 상한 배율. 1.5 = 곰 50% 증가로 BGH 사냥꾼에게 의미 있는 대형 사냥감을 제공합니다. 1.0 = 바닐라. 곰 그룹의 initialSpawnCount + maxAnimalCount를 조정합니다.
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=늑대 개체수
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=늑대 개체수 상한 배율. 1.25 = 늑대 25% 증가. 늑대가 잦아지면 사냥꾼과의 교전도 늘어납니다 — 초반이 너무 위험하다면 낮추세요.
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=멧돼지 개체수
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=멧돼지 개체수 상한 배율. 바닐라 기본값이 이미 넉넉하므로 1.0이면 균형이 유지됩니다.
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=사슴 개체수
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=사슴 개체수 상한 배율. T1 사냥꾼의 고기 산출에 영향을 줍니다.
+WardenOfTheWilds/cat/Hunter AI=사냥꾼 AI
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=후퇴 체력 %
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=최대 체력의 이 비율 미만이면 교전을 중단합니다
+WardenOfTheWilds/opt/HunterMinArrows/label=사냥 전 최소 화살 수
+WardenOfTheWilds/opt/HunterMinArrows/tip=휴대 화살이 이 수보다 적은 사냥꾼은 사냥/사체 수거/도축이 막혀 재보급 후에야 작업을 재개할 수 있습니다. 또한 바닐라의 화살 보급 물류 임계값(바닐라 = 2)도 함께 올려, 휴대량이 이 수 아래로 떨어지는 즉시 노동자가 보충해 줍니다. 0 = 작업 차단 비활성화(물류 임계값 상향은 유지).
+WardenOfTheWilds/opt/HunterDangerRadius/label=위험 인지 반경
+WardenOfTheWilds/opt/HunterDangerRadius/tip=늑대, 멧돼지, 곰이 공격하기도 전에 선제적 후퇴를 유발하는 반경, 월드 유닛 단위. 늑대 굴 근처에서 사슴을 쫓던 사냥꾼도 포식자가 이 반경에 들어오면 물러납니다. 40 = 대략 활 사거리의 2배. 근접 후퇴를 비활성화하려면 0으로 설정하세요.
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=쉼터 위협 감지 반경
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=사냥꾼은 위협이 이 반경을 벗어날 때까지 쉼터에서 대기합니다
+WardenOfTheWilds/opt/T1MeleeThreshold/label=T1 근접 체력 임계값
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=T1 사냥꾼은 목표물의 체력이 이 % 미만이면 근접전을 감행합니다
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=추격 한계 배율
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=(오두막 반경 × 이 값)을 넘어서면 추격을 중단합니다
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=매복 감지 반경
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=교전 중인 사냥꾼 주변에서 매복 위협을 감지하는 거리. 추격 중 이 범위 안에 (현재 목표 외의) 추가 공격적 동물이 나타나면 사냥꾼이 후퇴합니다. '멧돼지에게 끌려가다 늑대 무리를 만나 죽는' 상황을 방지합니다.
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=매복 임계값
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=후퇴를 유발하는 사냥꾼 근처 적대 개체 수
+WardenOfTheWilds/opt/BowReloadSeconds/label=활 재장전 (초)
+WardenOfTheWilds/opt/BowReloadSeconds/tip=사냥꾼 활의 재장전/공격 간격, 초 단위. 최적 견제 거리 계산에 사용됩니다: 후퇴 거리 = 재장전 시간 × 사냥꾼 속도. 기본값 3.0은 추정치입니다 — 덤프나 게임 내 측정으로 확인되면 갱신하세요.
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=석궁 재장전 (초)
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=사냥꾼 석궁의 재장전/공격 간격, 초 단위. 석궁은 활보다 느리지만 피해가 더 큽니다 — 재장전이 길수록 안전 거리를 유지하려면 사격 주기마다 더 멀리 물러나야 합니다. 기본값 4.5는 추정치입니다 — 덤프로 확인되면 갱신하세요.
+WardenOfTheWilds/cat/Hunting Blind=사냥 은신처
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=사거리 보너스 (타일)
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=사냥 은신처에 배치된 사냥꾼의 사격 사거리에 더해지는 보너스, 월드 유닛 단위. 고정된 높은 발판의 고도 이점을 나타냅니다. 기술 트리 사거리 업그레이드와 중첩됩니다.
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=금 유지비
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=게임 내 유지 기간마다 사용 중인 사냥 은신처 1개당 금 유지비. 경비탑의 민간 일꾼 모델과 동일한 방식입니다. 유지비를 완전히 없애려면 0으로 설정하세요. 덤프에서 경비탑 유지비 필드 확인이 필요합니다.
+WardenOfTheWilds/cat/Fishing — Angler=낚시 — 낚시꾼
+WardenOfTheWilds/opt/AnglerCatchMult/label=어획량 배율
+WardenOfTheWilds/opt/AnglerCatchMult/tip=낚시꾼 모드 일꾼의 어획량 배율. GetNumFishCaught를 통해 낚시 주기마다 적용됩니다. 1.5 = 회당 어획량 50% 증가.
+WardenOfTheWilds/opt/AnglerTimerReduction/label=어획 시간 배율
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=낮을수록 더 빨리 잡습니다
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=휴대량 보너스
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=낚시꾼 일꾼의 추가 물고기 휴대량. 바닐라 = 25. 보너스 15 = 총 40. 왕복이 줄어드는 만큼 낚시 시간이 늘어납니다.
+WardenOfTheWilds/cat/Fishing — Creeler=낚시 — 통발
+WardenOfTheWilds/opt/CreelerRodMult/label=낚싯대 산출 배율
+WardenOfTheWilds/opt/CreelerRodMult/tip=통발 일꾼의 낚싯대 낚시 산출 배율. 통발 일꾼은 덫 관리에 시간을 써서 낚싯대 산출이 줄어듭니다. 실제 수입은 매일 틱되는 덫 시스템에서 나옵니다. 0.5 = 낚싯대 낚시 50% 감소.
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=덫 산출 주기 (일)
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=통발 생산 틱 사이의 일수. 통발 일꾼 슬롯마다 이 주기로 CrabTrapFishPerSpawn만큼 물고기를 생산해 오두막 창고에 자동 입고합니다(어부의 수거 시간을 추상화). 물이 많은 맵에서는 수변 타일 보너스가 이 주기를 더 줄여줍니다. 기본값 8일은 수거 시간을 반영한 것; 낮을수록 수입이 빨라집니다.
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=덫 산출당 물고기 수
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=통발 슬롯 1개가 산출 이벤트당 생산하는 물고기 수. 통발 슬롯 2개가 5일마다 물고기 4마리를 생산하면 연간 약 584마리의 수동 수입이 됩니다. 너무 강하면 낮추세요.
+WardenOfTheWilds/opt/CreelerTrapCount/label=설치된 덫 수
+WardenOfTheWilds/opt/CreelerTrapCount/tip=통발 모드 낚시 오두막이 낚시 반경 안 물에 설치하는 실제 통발 수. 권장 범위 4-6. 각 통발은 독립적으로 5일 주기로 물고기를 모으며 오두막의 어부가 수거합니다.
+WardenOfTheWilds/opt/CreelerRadiusMult/label=낚시 반경 배율
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=통발 슬롯이 하나라도 활성화되면 적용되는 낚시 반경 배율. 2.0 = 60유닛(바닐라 30유닛). 통발은 더 넓은 수역에 퍼집니다. 범위 내 수변 타일이 많을수록 수변 보너스가 좋아집니다.
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=수변 타일 임계값
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=통발 수변 보너스가 활성화되기 위한 확장 반경 내 최소 수변 타일 수. 8유닛 격자 기준 15는 적당한 호숫가 수준. 크고 깊은 호수는 이 값을 쉽게 넘습니다 — 통발이 활약하는 무대입니다.
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=수변 보너스 배율
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=수변 보너스가 활성화됐을 때 덫 산출 주기를 나누는 값. 1.25 = 덫 틱 25% 단축. 기본값 기준: 5일 / 1.25 = 4일 주기.
+WardenOfTheWilds/cat/Fishing — Shared=낚시 — 공통
+WardenOfTheWilds/opt/FishingDockOutputMult/label=낚시 부두 산출
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=2단계 낚시 부두(별도 건물)의 물고기 산출 배율. 1.5 = 물고기 50% 증가. FishingDock 건물용 구버전 설정.
+WardenOfTheWilds/opt/FishReplenishOverride/label=지속 가능한 낚시 %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=기술 노드의 재생률(바닐라 0.30)
+WardenOfTheWilds/opt/FishingShackStorageCap/label=오두막 저장 상한
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=오두막당 물고기 저장 용량. 바닐라 = 100. 바닐라 짐마차 적재량(무게 2 기준 물고기 약 200)에 맞추려면 200으로 설정.
+WardenOfTheWilds/cat/Hotkeys=단축키
+WardenOfTheWilds/opt/HunterRallyKey/label=사냥꾼 집결
+WardenOfTheWilds/opt/HunterRallyKey/tip=Unity KeyCode 이름(G, H, R 등)
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=사냥꾼 귀환
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=모든 사냥꾼을 배정된 오두막으로 돌려보냅니다. 습격이 격화될 때 전투에서 빼내기 유용합니다. 집결 키와 동일한 형식입니다.
+WardenOfTheWilds/opt/HunterSelectAllKey/label=모든 사냥꾼 선택
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=바닐라의 다중 선택으로 모든 사냥꾼을 선택합니다. 이후 지형을 우클릭하면 평소처럼 이동합니다(선택된 민간인은 바닐라의 클릭 이동이 작동함). 다른 선택 항목과 섞고 싶다면 기존 비사냥꾼 선택도 유지됩니다.
+WardenOfTheWilds/opt/HunterPathKey/label=T2 경로 전환
+WardenOfTheWilds/opt/HunterPathKey/tip=T2 오두막이 선택된 상태에서 바닐라/덫사냥꾼/사냥막 경로를 순환합니다
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=반려동물 DLC — 사냥개
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=개 도발 (포식자 탱킹)
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=개가 포식자 하나를 사냥꾼에게서 강제로 떼어내 대신 맞습니다
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=도발 재발동 주기 (초)
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=탱킹 중 도발을 다시 발동하는 간격, 초 단위
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=도주 후 도발 소멸 (초)
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=포식자가 도망치는 개를 이만큼 쫓다가 포기합니다
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=도발 사거리
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=도발이 발동하기 위한 사냥꾼↔개 최대 거리. 값이 클수록 뒤처진 개도 사냥꾼이 멀리서 교전할 때 반응합니다(사냥꾼을 수동으로 이동시키면 개가 뒤처짐). 기본값 100유닛(사냥꾼 작업 반경 정도).
+WardenOfTheWilds/opt/DogFleeHealthPct/label=개 도주 체력 %
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=사냥개가 도주하는 체력 비율(바닐라 0.5)
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=사냥꾼과 함께 개도 도주
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=사냥꾼이 후퇴하면 개도 교전을 멈추고 함께 도주합니다
+WardenOfTheWilds/opt/DogHealthMult/label=개 체력 배율 (모든 개)
+WardenOfTheWilds/opt/DogHealthMult/tip=모든 개(사냥개 + 개집 경비견)의 최대 체력에 적용됩니다. 1.0 = 바닐라, 1.5 = 체력 +50%. 소환 시와 맵 로드 시 적용됩니다.
+WardenOfTheWilds/opt/DogArmorBonus/label=개 방어력 보너스 (모든 개)
+WardenOfTheWilds/opt/DogArmorBonus/tip=모든 개의 기본 방어력에 고정값으로 더해집니다. 0 = 바닐라. 포식자를 탱킹할 때 개의 생존력을 높여줍니다.
+WardenOfTheWilds/opt/DogSpeedMult/label=개 속도 배율 (모든 개)
+WardenOfTheWilds/opt/DogSpeedMult/tip=개가 빨라지면 수동으로 이동시키는 사냥꾼을 잘 따라갑니다
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=반려동물 DLC — 반려동물 묘지
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=반려동물 묘지 전환
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=묘지에 [사람]/[반려동물] 전환 옵션을 추가합니다; 반려동물로 설정하면 반려동물 묘지가 됩니다
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=묘지 초기 폐쇄
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=새 묘지는 사람 또는 반려동물로 지정하기 전까지 아무도 묻지 않습니다(깨끗한 반려동물 묘지를 미리 확보할 수 있음)
+WardenOfTheWilds/cat/Other settings=기타 설정
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=사냥꾼 오두막 방어 사격
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=ON이면 오두막에 대피 중인 사냥꾼이 근거리의 공격적인 동물(늑대/멧돼지/곰)을 향해 사격합니다. 밖에서 노동자가 근접전을 벌이는 동안 가만히 있지 않습니다. 사냥꾼이 잠시 나와 화살 한 발을 쏘고 다시 대피합니다 — 경비탑식 방어. 부상 시에는 건너뜁니다(HunterCabinDefenseMinHp 참고).
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=사냥꾼 오두막 방어 반경 (월드 유닛)
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=오두막 방어 사격의 최대 교전 거리. 바닐라 활 사거리는 약 40유닛; 기본값 30유닛은 오두막에 대피 중인 사냥꾼이 전체 사냥 반경까지 사격하지 못하도록 '근거리 자택 방어'로 제한합니다. 근접 하한은 HunterCabinDefenseMinDist와 짝을 이룹니다.
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=사냥꾼 오두막 방어 최소 위협 거리
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=위협이 오두막에서 이 거리보다 가까우면 방어 사격을 하지 않습니다. 초근접 거리에서 나가면 사냥꾼이 바로 근접전에 휘말리므로, 벽이 대신 맞게 두는 편이 낫습니다. 기본값 20유닛: 사냥꾼은 20-30유닛 구간(안전한 활 사거리)의 위협에만 대응하고 그보다 가까우면 계속 대피합니다.
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=사냥꾼 오두막 방어 최소 체력 (0–1)
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=오두막 방어 사격에 나서려면 사냥꾼의 체력이 이 비율 이상이어야 합니다. 0.5 = 절반 체력. 부상당한 사냥꾼은 근처에 위협이 있어도 계속 대피합니다. 부상 상태에서도 교전하게 하려면 0으로 설정하세요.
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=반려동물 DLC: WotW DLC 기능 활성화
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=Farthest Frontier 반려동물 DLC에 의존하는 모든 WotW 기능(여우/마멋 포획, 사냥꾼+개 탱킹 행동 등)의 마스터 스위치입니다. DLC를 보유하지 않으면 자동으로 비활성화됩니다. WotW 추가 기능 없이 DLC 콘텐츠 원본대로 플레이하려면 false로 설정하세요.
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=덫 명인 여우 포획 확률
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=덫 명인이 마을 닭을 습격하는 여우를 잡을 덫 발동당 확률. 성공하면 보너스 가죽을 드롭합니다(사체 없음 — 이 설계에서는 여우 고기를 사용하지 않음). 0.10 = 10%. 반려동물 DLC 필요.
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=덫 명인 마멋 포획 확률
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=덫 명인이 농경지를 습격하는 마멋을 잡을 덫 발동당 확률. 성공하면 작은 사체 + 소량의 가죽 보너스를 드롭합니다. 0.15 = 15%. 반려동물 DLC 필요.
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=덫 명인 여우 보너스 가죽
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=여우를 성공적으로 잡을 때마다 지급되는 가죽 수량. 여우 모피는 가치가 높아 개체당 수량은 적지만 모피상 산출은 높습니다.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=덫 명인 마멋 보너스 사체
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=마멋을 성공적으로 잡을 때마다 지급되는 소형 사체 수량. 다른 소형 사냥감 사체와 마찬가지로 훈제소로 이동합니다.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=덫 명인 마멋 보너스 가죽
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=마멋을 성공적으로 잡을 때마다 지급되는 가죽 수량.
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=반려동물 DLC: 여우 출현 지연 (일)
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=첫 닭장을 지은 후 여우가 출현을 시도하기까지의 일수. -1 = 바닐라 값 그대로 둠. 값이 클수록 첫 습격이 늦어져 덫 방어를 준비할 시간이 생깁니다.
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=반려동물 DLC: 마멋 출현 지연 (일)
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=첫 농경지를 배치한 후 마멋이 출현을 시도하기까지의 일수. -1 = 바닐라 값 그대로 둠.
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=반려동물 DLC: 여우 출현 배율
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=닭 수 대비 여우 습격 물결 수 배율. '보유한 닭 수'를 '스폰 가능한 여우 무리 수'로 매핑하는 AnimationCurve를 조정합니다. 1.0 = 바닐라. 2.0 = 두 배. 0.5 = 절반. 난이도 조정이나 마을 방어전을 더 즐기고 싶은 BGH 플레이에 유용합니다.
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=반려동물 DLC: 마멋 출현 배율
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=농경지 수 대비 마멋 습격 물결 수 배율. 1.0 = 바닐라, 2.0 = 두 배, 0.5 = 절반.
+WardenOfTheWilds/opt/WildFoxEnabled/label=반려동물 DLC: 야생 여우 개체수 (배회)
+WardenOfTheWilds/opt/WildFoxEnabled/tip=기본값은 OFF. 활성화하면(반려동물 DLC 보유 시) WotW가 닭장 습격자로만 나타나는 대신 늑대처럼 맵을 배회하는 야생 여우 개체군을 스폰합니다. 이는 바닐라 DLC의 습격 여우(닭 수에 따라 어차피 스폰됨)에 추가되는 것이라, 켜면 눈에 띄게 여우가 많아질 수 있습니다. Keep Clarity 설정 패널의 Warden of the Wilds 항목에서 전환하세요.
+WardenOfTheWilds/opt/WildFoxMaxCount/label=반려동물 DLC: 야생 여우 최대 수
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=맵에 유지할 목표 야생 여우 개체수. 보충 루프가 죽은 여우를 이 상한까지 다시 채웁니다(바닐라 습격 여우는 포함되지 않음). 0이면 비활성화; 값이 클수록 BGH가 사냥할 소형 포식자가 늘어납니다.
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=반려동물 DLC: 야생 여우 보충 주기 (초)
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=야생 여우 개체수 확인 사이의 실제 초 단위 간격. 낮을수록 처치 후 재보충이 빠르지만 로그가 잦아집니다. 권장: 60–300.
+WardenOfTheWilds/opt/CatRatHuntRadius/label=반려동물 DLC: 고양이 쥐잡이 활동 반경
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=고양이가 쥐잡이 작업을 수락하는, 집(거주지/고양이 사육장/가장 가까운 쉼터)으로부터의 최대 거리(유닛). 자유롭게 돌아다니는 고양이가 쥐를 쫓아 숲속 40유닛까지 나가지 않고 마을 안에 머물게 합니다. 쥐잡이꾼 건물에 고용된 고양이는 그 건물의 바닐라 반경을 사용하며 영향받지 않습니다. 기본값 25 ≈ 좁은 마을 중심부.
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=반려동물 DLC: 고양이 위협 감지 범위 배율
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=고양이의 적 감지 반경 배율. 2.0 = 고양이가 늑대와 곰을 두 배 먼 거리에서 발견해 후퇴할 시간이 늘어납니다. 높을수록 고양이는 안전해지지만 더 자주 후퇴합니다(쥐잡이가 중단될 수 있음).
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=반려동물 DLC: 고양이 위협 스캔 주기 (초)
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=고양이가 근처 위협을 다시 스캔하는 주기. 바닐라는 5초 — 다음 스캔 전에 늑대가 달려들어 물 수 있습니다. 1.0 = 고양이가 다가오는 늑대를 거의 즉시 알아챕니다.
+WardenOfTheWilds/opt/DogLeashKeyName/label=반려동물 DLC: 개 목줄 전환 키
+WardenOfTheWilds/opt/DogLeashKeyName/tip=사냥꾼 오두막이 선택된 상태에서 이 키를 누르면 '개가 작업 구역 안에 머무는' 목줄을 전환합니다. 기본값 L. Unity KeyCode 이름을 사용하세요.
+WardenOfTheWilds/opt/DogRallyKeyName/label=반려동물 DLC: 개 집결 단축키
+WardenOfTheWilds/opt/DogRallyKeyName/tip=맵에서 사냥꾼에게 배정된 모든 개를 선택합니다. 누른 뒤 우클릭하면 무리 전체를 이동시킵니다. 기본값 Ctrl+D. 형식: 'Ctrl+D', 'Alt+R', 또는 단일 키 'D'.
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=반려동물 DLC: 사냥꾼이 여우와 교전
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=여우 팀을 사냥꾼의 사냥 가능 동물 목록에 추가해, 늑대/곰/멧돼지와 마찬가지로 HuntSubTask 중 여우도 적극적으로 쏘게 합니다. 이 기능이 없으면 바닐라 사냥꾼은 여우를 무시합니다(여우는 Team.Pests에 속하며 바닐라 사냥꾼의 목표 목록에는 없음).
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=반려동물 DLC: 동물별 포식자 경고
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=일반적인 빨간색 '포식자가 공격 중!' 경고 대신 동물별 경고로 교체합니다: 실제 동물 스프라이트와 함께 호박색(낮은 위협: 여우 발견/멧돼지 도주)과 빨간색(늑대/곰/공격 중인 멧돼지)으로 구분됩니다. 시각 효과일 뿐 전투 행동은 바뀌지 않습니다.
+WardenOfTheWilds/opt/AutoNamePets/label=반려동물 DLC: 개·고양이 자동 이름 짓기
+WardenOfTheWilds/opt/AutoNamePets/tip=새로 태어난 개와 고양이에게 일반적인 '개'/'고양이' 대신 엄선된 목록에서 무작위 이름을 지어줍니다. 기존 반려동물과 플레이어가 이름을 바꾼 반려동물은 그대로 유지됩니다. 시각 효과입니다.
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=반려동물 DLC: 마멋 처치 모피
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=전투 중 마멋을 처치하면 가장 가까운 사냥꾼 오두막(300유닛 이내)에 자동으로 지급되는 가죽 수량. 소형 사냥감이므로 보상도 작습니다: 기본값 모피 1, 사체 없음. 0으로 설정하면 마멋 전리품이 완전히 사라집니다.
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=사냥꾼 작업에 활 필요
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=ON이면 활/석궁이 없는 사냥꾼은 바닐라 물류가 대체품을 배달할 때까지 사냥/사체 수거/도축이 막힙니다. 무기 없는 사냥꾼이 사체를 모으다가 잡아먹히는 것을 방지합니다. OFF = 바닐라 동작(무기 없는 사냥꾼도 작업하러 나가 사망할 가능성이 높음).
+
+# ── Keep Clarity ──
+KeepClarity/meta/name=Keep Clarity
+KeepClarity/meta/desc=UI 편의 기능: 강화된 툴팁, 고정 가능한 자원 오버레이, 건물 단축키, 설정 패널.
+KeepClarity/cat/Hotkeys — Reports & Panels=단축키 — 보고서 & 패널
+KeepClarity/opt/ReportsHotkey/label=보고서 전환
+KeepClarity/opt/ReportsHotkey/tip=12개월 보고서 창을 열고 닫습니다
+KeepClarity/opt/ToggleOverlayHotkey/label=오버레이 전환
+KeepClarity/opt/ToggleOverlayHotkey/tip=고정 자원, 기술 대기열, 건설 대기열, 군대 오버레이를 표시/숨김합니다
+KeepClarity/opt/SettingsPanelHotkey/label=설정 패널 열기
+KeepClarity/opt/SettingsPanelHotkey/tip=바로 이 창을 엽니다
+KeepClarity/cat/Overlay Settings=오버레이 설정
+KeepClarity/opt/PinnedCollapsed/label=고정 오버레이 접힌 상태로 시작
+KeepClarity/opt/PinnedCollapsed/tip=고정 오버레이가 탭 형태로 접힌 채 열립니다
+KeepClarity/opt/EnableCompanyOverlay/label=부대 명부 오버레이
+KeepClarity/opt/EnableCompanyOverlay/tip=부대 깃발(화면 하단)을 Shift+좌클릭하면 드래그 가능한 명부 패널이 열립니다; Ctrl+좌클릭하면 해당 부대의 막사가 열립니다.
+KeepClarity/opt/EnableInfoWindowDock/label=건설 메뉴에서 건물 정보 창 밀어내기 (실험적)
+KeepClarity/opt/EnableInfoWindowDock/tip=건설 메뉴가 열려 있을 때 건물 정보 창을 왼쪽으로 밀어 메뉴에 가려지지 않게 합니다. 메뉴를 닫으면 원래대로 돌아갑니다.
+KeepClarity/opt/PinnedOverlayOpacity/label=고정 오버레이 불투명도
+KeepClarity/opt/PinnedOverlayOpacity/tip=고정 자원 창의 불투명도. 텍스트/버튼은 계속 읽기 쉽게 유지됩니다. 실시간 적용.
+KeepClarity/opt/TechQueueOverlayOpacity/label=기술 대기열 오버레이 불투명도
+KeepClarity/opt/TechQueueOverlayOpacity/tip=기술 대기열 창의 불투명도. 텍스트/버튼은 계속 읽기 쉽게 유지됩니다. 실시간 적용.
+KeepClarity/opt/CompanyOverlayOpacity/label=부대 오버레이 불투명도
+KeepClarity/opt/CompanyOverlayOpacity/tip=부대 명부 본문의 불투명도. 헤더/텍스트는 그대로 선명하게 유지됩니다. 실시간 적용.
+KeepClarity/opt/PinnedOverlayScale/label=고정 오버레이 크기
+KeepClarity/opt/PinnedOverlayScale/tip=고정 자원 패널의 크기 배율. FF의 UI 배율과는 별개입니다. 실시간 적용.
+KeepClarity/opt/TechQueueOverlayScale/label=기술 대기열 오버레이 크기
+KeepClarity/opt/TechQueueOverlayScale/tip=기술 대기열 패널의 크기 배율. FF의 UI 배율과는 별개입니다. 실시간 적용.
+KeepClarity/opt/CompanyOverlayScale/label=부대 오버레이 크기
+KeepClarity/opt/CompanyOverlayScale/tip=부대 명부 패널의 크기 배율. FF의 UI 배율과는 별개입니다. 실시간 적용.
+KeepClarity/opt/PinnedGrowDirection/label=고정 자원 확장 방향
+KeepClarity/opt/PinnedGrowDirection/tip=고정 자원: 목록이 헤더에서 아래로(기본값) 또는 위로 확장됩니다.
+KeepClarity/opt/TechQueueGrowDirection/label=기술 대기열 확장 방향
+KeepClarity/opt/TechQueueGrowDirection/tip=기술 대기열: 목록이 헤더에서 아래로(기본값) 또는 위로 확장됩니다.
+KeepClarity/opt/CompanyGrowDirection/label=부대 확장 방향
+KeepClarity/opt/CompanyGrowDirection/tip=부대 명부: 헤더에서 아래로(기본값) 또는 위로 확장됩니다.
+KeepClarity/cat/Build Priority=건설 우선순위
+KeepClarity/opt/EnableBuildPriority/label=건설 우선순위
+KeepClarity/opt/EnableBuildPriority/tip=건설 부지의 건축가 화살표를 1-9단계 우선순위로 용도 변경합니다. 건축가는 우선순위가 높은 부지부터 처리하며, 각 부지는 정원까지 건축가를 배정받을 수 있습니다.
+KeepClarity/opt/BuildPriorityWeight/label=우선순위 강도
+KeepClarity/opt/BuildPriorityWeight/tip=우선순위가 거리를 얼마나 강하게 압도하는지. 1000 = 우선순위가 순서를 결정합니다. 실시간 적용.
+KeepClarity/opt/EnableBuildQueueOverlay/label=건설 대기열 오버레이
+KeepClarity/opt/EnableBuildQueueOverlay/tip=우선순위 상위 10개 건설 부지를 나열하는, 화면에서 이동 가능한 패널(우선순위 높은 순).
+KeepClarity/opt/BuildQueueShowSalvage/label=건설 대기열: 철거 포함
+KeepClarity/opt/BuildQueueShowSalvage/tip=해체 중인 건물과 회수 중인 폐기 진지도 [SALV] 태그로 함께 표시합니다.
+KeepClarity/opt/BuildQueueShowExcavation/label=건설 대기열: 발굴 포함
+KeepClarity/opt/BuildQueueShowExcavation/tip=유물 발굴 중인 유적도 [EXC] 태그로 함께 표시합니다.
+KeepClarity/opt/BuildQueueOverlayScale/label=건설 대기열 크기
+KeepClarity/opt/BuildQueueOverlayScale/tip=건설 대기열 패널 크기. 실시간 적용.
+KeepClarity/opt/BuildQueueOverlayOpacity/label=건설 대기열 불투명도
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=건설 대기열 패널 불투명도. 실시간 적용.
+KeepClarity/opt/BuildQueueGrowDirection/label=건설 대기열 확장 방향
+KeepClarity/opt/BuildQueueGrowDirection/tip=목록이 헤더에서 아래로(기본값) 또는 위로(헤더가 아래에 위치) 확장됩니다.
+KeepClarity/cat/Snapping=정렬 스냅
+KeepClarity/opt/SnapOverlaysEnabled/label=오버레이 스냅
+KeepClarity/opt/SnapOverlaysEnabled/tip=Keep Clarity 오버레이를 드래그하면 다른 오버레이, 미니맵, 화면 가장자리에 맞춰 자동 정렬됩니다.
+KeepClarity/opt/SnapThresholdPx/label=스냅 거리
+KeepClarity/opt/SnapThresholdPx/tip=가장자리가 얼마나 가까워져야(픽셀) 스냅될지. 0이면 스냅이 꺼집니다. 실시간 적용.
+KeepClarity/cat/Building Variety=건물 다양성
+KeepClarity/opt/EnableBuildingVariety/label=건물 색상 다양성
+KeepClarity/opt/EnableBuildingVariety/tip=각 건물마다 은은하고 고유한 낡은 색조를 입혀, 같은 종류의 건물이 똑같이 찍어낸 것처럼 보이지 않게 합니다. 건물별로 결정적으로 계산되어 재로드해도 동일하게 유지됩니다.
+KeepClarity/opt/BuildingVarietyIntensity/label=다양성 강도
+KeepClarity/opt/BuildingVarietyIntensity/tip=건물 간 변화 범위. 0 = 동일함, 1 = 가장 넓음(그래도 자연스러움 유지). 실시간 적용.
+KeepClarity/cat/Crisp Mode=선명 모드
+KeepClarity/opt/EnableCrispMode/label=선명 모드
+KeepClarity/opt/EnableCrispMode/tip=자체 선명화 + 채도 강화 후처리 — ReShade CAS 프리셋을 대신하는 가벼운 내장 대안입니다. 월드에만 적용되며 HUD는 그대로입니다.
+KeepClarity/opt/CrispSharpness/label=선명도
+KeepClarity/opt/CrispSharpness/tip=대비 적응형 선명화 강도. 0 = 부드러움, 1 = 선명함. 실시간 적용.
+KeepClarity/opt/CrispVibrance/label=채도 강화
+KeepClarity/opt/CrispVibrance/tip=채도가 낮은 픽셀 위주로 색감을 살리는 채도 강화. 실시간 적용.
+KeepClarity/cat/Forage Calendar=채집 달력
+KeepClarity/opt/EnableForageCalendar/label=채집 계절 바
+KeepClarity/opt/EnableForageCalendar/tip=상단 계절 표시줄 아래에 맵의 각 채집물이 제철인 시기를 보여주는 바. 마우스를 올리면 살짝 보이고, 게임 자체의 정보 고정 기능으로 고정할 수 있습니다. 실시간 적용.
+KeepClarity/opt/ForageCalendarAlwaysShow/label=항상 바 표시
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=계절 팝업이 뜰 때만이 아니라 항상 계절 바를 표시합니다. 실시간 적용.
+KeepClarity/opt/EnableInSeasonReadout/label=제철 정보 표시
+KeepClarity/opt/EnableInSeasonReadout/tip=날짜/날씨 팝업에 실시간 '제철: ...' 줄을 추가합니다. 실시간 적용.
+KeepClarity/cat/Hotkeys — Building=단축키 — 건물
+KeepClarity/opt/UpgradeHotkey/label=업그레이드
+KeepClarity/opt/UpgradeHotkey/tip=선택한 건물을 업그레이드하는 단축키
+KeepClarity/opt/RelocateHotkey/label=이전
+KeepClarity/opt/RelocateHotkey/tip=선택한 건물을 이전하는 단축키. Tended Wilds가 설치되어 있으면 채집물도 이전합니다.
+KeepClarity/opt/ToggleEmployHotkey/label=건물 생산 전환
+KeepClarity/opt/ToggleEmployHotkey/tip=선택한 건물의 생산을 시작/중지하는 단축키(고용 체크박스를 전환)
+KeepClarity/opt/DemolishHotkey/label=건물 철거
+KeepClarity/opt/DemolishHotkey/tip=기본값 T. 재설정과 무관하게 Delete 키도 고정 대체 키로 항상 작동합니다.
+KeepClarity/opt/CycleBuildingLeftHotkey/label=건물 왼쪽으로 전환
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=같은 종류의 이전 건물로 전환합니다(정보 패널 상단의 < 버튼과 동일)
+KeepClarity/opt/CycleBuildingRightHotkey/label=건물 오른쪽으로 전환
+KeepClarity/opt/CycleBuildingRightHotkey/tip=같은 종류의 다음 건물로 전환합니다(정보 패널 상단의 > 버튼과 동일)
+KeepClarity/opt/MoveWorkAreaHotkey/label=작업 구역 이동
+KeepClarity/opt/MoveWorkAreaHotkey/tip=작업 구역이 있는 건물(사냥꾼, 임업가, 약초 채집가 등)의 구역 이동을 시작합니다. 패널의 재지정 버튼과 동일합니다.
+KeepClarity/cat/Hotkeys — Build Site=단축키 — 건설 부지
+KeepClarity/opt/DeleteBuildSiteHotkey/label=건설 부지 삭제
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=기본값 T. 재설정과 무관하게 Delete 키도 고정 대체 키로 항상 작동합니다.
+KeepClarity/opt/ConstructionEnabledHotkey/label=건설 전환
+KeepClarity/opt/ConstructionEnabledHotkey/tip=건설/해체 부지의 건설 활성화 체크박스를 전환하는 단축키
+KeepClarity/opt/PrioritizeHotkey/label=우선 지정
+KeepClarity/opt/PrioritizeHotkey/tip=건설/해체 부지의 우선 지정 체크박스를 전환하는 단축키
+KeepClarity/opt/DecrementBuildersHotkey/label=건축가 감소 (-)
+KeepClarity/opt/DecrementBuildersHotkey/tip=건설/해체 부지에서 건축가를 한 명 빼는 단축키
+KeepClarity/opt/IncrementBuildersHotkey/label=건축가 증가 (+)
+KeepClarity/opt/IncrementBuildersHotkey/tip=건설/해체 부지에 건축가를 한 명 추가하는 단축키
+KeepClarity/cat/Hotkeys — Forageables=단축키 — 채집물
+KeepClarity/opt/RelocateHotkey/label=이전
+KeepClarity/opt/RelocateHotkey/tip=채집물 전용 — 건물 이전과 동일한 키를 공유합니다(여기서 재설정하면 그쪽도 함께 바뀜). 나무, 돌 매장지, 유적은 이전할 수 없습니다.
+KeepClarity/opt/ForageableHarvestHotkey/label=수확
+KeepClarity/opt/ForageableHarvestHotkey/tip=게임 자체 수확 버튼을 실행합니다. 채집물, 나무, 돌 매장지, 발굴된 유적에서 작동합니다.
+KeepClarity/opt/ForageableDeleteHotkey/label=삭제
+KeepClarity/opt/ForageableDeleteHotkey/tip=게임 자체 삭제/제거 버튼을 실행합니다. 채집물, 나무, 돌 매장지, 발굴된 유적에서 작동합니다.
+KeepClarity/opt/ForageablePrioritizeHotkey/label=우선 지정
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=게임 자체 우선 지정 전환을 실행합니다. 채집물, 나무, 돌 매장지, 발굴된 유적, 과일나무에서 작동합니다.
+KeepClarity/opt/CullForWoodHotkey/label=과일나무 목재용 벌목 지정
+KeepClarity/opt/CullForWoodHotkey/tip=과일나무 전용 — 나무를 목재용으로 베도록 지정합니다(게임 자체 '목재용 벌목').
+KeepClarity/cat/Hotkeys — Crop Field=단축키 — 농경지
+KeepClarity/opt/CropCopyHotkey/label=설정 복사
+KeepClarity/opt/CropCopyHotkey/tip=이 농경지의 설정을 복사합니다(게임 자체 버튼).
+KeepClarity/opt/CropPasteHotkey/label=설정 붙여넣기
+KeepClarity/opt/CropPasteHotkey/tip=복사한 농경지 설정을 붙여넣습니다(게임 자체 버튼).
+KeepClarity/opt/CropExpandHotkey/label=밭 확장
+KeepClarity/opt/CropExpandHotkey/tip=농경지를 확장합니다(게임 자체 버튼).
+KeepClarity/opt/CropClearHotkey/label=선택 작물 제거
+KeepClarity/opt/CropClearHotkey/tip=선택한 작물을 제거합니다(게임 자체 버튼).
+KeepClarity/opt/CropSalvageHotkey/label=철거
+KeepClarity/opt/CropSalvageHotkey/tip=농경지를 철거합니다(게임 자체 버튼).
+KeepClarity/cat/Hotkeys — Confirmation Dialog=단축키 — 확인 대화상자
+KeepClarity/opt/ConfirmHotkey/label=확인
+KeepClarity/opt/ConfirmHotkey/tip=기본값 Y. Enter 키도 고정 대체 키로 항상 작동합니다.
+KeepClarity/opt/CancelHotkey/label=취소
+KeepClarity/opt/CancelHotkey/tip=기본값 N. Esc 키도 고정 대체 키로 항상 작동합니다.
+KeepClarity/cat/Notifications=알림
+KeepClarity/opt/TraderWarningDays/label=상인 출발 경고 일수
+KeepClarity/opt/TraderWarningDays/tip=상인이 떠나기 며칠 전에 '상인 출발' 알림을 표시할지(0이면 비활성화)
+KeepClarity/opt/DismissibleResourceAlerts/label=닫을 수 있는 자원 경고
+KeepClarity/opt/DismissibleResourceAlerts/tip=상단 바의 '!' 경고를 클릭하면 다음 달이 될 때까지 조용해집니다.
+KeepClarity/cat/Game and Map Settings=게임 및 맵 설정
+KeepClarity/opt/KeepMapTypeOnReroll/label=재굴림 시 맵 유형 유지
+KeepClarity/opt/KeepMapTypeOnReroll/tip=주사위 버튼이 무작위 강제 대신 선택한 생물군계 안에서 시드를 다시 굴립니다.
+KeepClarity/opt/RememberCustomSettings/label=사용자 설정 기억
+KeepClarity/opt/RememberCustomSettings/tip=확인 시 사용자 설정 패널의 선택 상태를 저장하고 다음에 열 때 복원합니다.
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=맵 유형을 Rivers Restored와 동기화
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=FF의 지형 선택기와 RR의 강 프리셋을 양방향으로 동기화합니다. RR이 비활성화되었거나 Custom으로 설정된 경우 비활성화됩니다.
+KeepClarity/opt/BridgeAnywhere/label=어디든 다리 (물 없이 / 모든 높이)
+KeepClarity/opt/BridgeAnywhere/tip='물 위여야 함'과 '수면 높이에 맞춰 정렬' 규칙을 없애 지형을 손대지 않고도 마른 협곡과 높은 둑을 가진 강 위에 다리를 놓을 수 있습니다. 다리는 시작/끝 셀의 지형 높이에 맞춰 놓입니다.
+KeepClarity/cat/Game Flow=게임 진행
+KeepClarity/opt/DoubleClickLoad/label=더블클릭으로 불러오기
+KeepClarity/opt/DoubleClickLoad/tip=세이브(시작 화면 또는 게임 내 불러오기 메뉴)를 더블클릭하면 확인창 없이 바로 불러옵니다. 한 번 클릭은 여전히 확인 과정을 거칩니다.
+KeepClarity/opt/DoubleClickLoadWindow/label=더블클릭 속도 (초)
+KeepClarity/opt/DoubleClickLoadWindow/tip=두 번의 클릭 사이 최대 간격(및 한 번 클릭 시 확인창이 뜨기 전 짧은 대기 시간).
+KeepClarity/opt/PauseOnLoad/label=불러오기 시 일시정지
+KeepClarity/opt/PauseOnLoad/tip=세이브를 다 불러오면 자동으로 일시정지합니다
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=불러오기 일시정지 지연 (초)
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=일시정지 전 대기하는 초 — 첫 프레임이 검게 나오지 않도록 장면이 렌더링될 시간을 줍니다. 모드가 많은 환경이라면 늘리세요.
+KeepClarity/opt/SkipNewMapIntro/label=게임 시작 영상 건너뛰기
+KeepClarity/opt/SkipNewMapIntro/tip=인트로 영상을 건너뛰고 바로 맵 로드로 넘어갑니다.
+KeepClarity/opt/CustomPopulationCap/label=사용자 지정 인구 상한
+KeepClarity/opt/CustomPopulationCap/tip=슬라이더의 4단계(200/500/1000/2000)를 원하는 값으로 재정의합니다. 0 = 바닐라 동작 그대로.
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=업그레이드 인구 요구치 무시
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=타운 센터 등급업의 인구 조건을 우회해 인구가 적은 세이브도 계속 진행할 수 있게 합니다.
+KeepClarity/cat/Other Settings=기타 설정
+KeepClarity/opt/SettingsVerboseLog/label=상세 설정 로그
+KeepClarity/opt/SettingsVerboseLog/tip=모든 항목 인식/탐지 결정을 MelonLoader/Latest.log에 기록합니다. 기본값은 OFF; 패널 디버깅 시에만 켜세요.
+KeepClarity/cat/Other settings=기타 설정
+KeepClarity/opt/ShowPlannerButton/label=플래너 버튼 표시
+KeepClarity/opt/ShowPlannerButton/tip=브라우저에서 SageDragoon의 Farthest Frontier 플래너를 여는 PLAN 아이콘을 상단 바에 표시합니다. 적용하려면 재시작이 필요합니다.
+KeepClarity/opt/UseLegacyImguiPanel/label=레거시 IMGUI 패널 사용
+KeepClarity/opt/UseLegacyImguiPanel/tip=1단계 대체 옵션. false(기본값)이면 F10이 다듬어진 UGUI 캔버스를 엽니다. true이면 F10이 원조 IMGUI 프로토타입을 엽니다. UGUI 패널이 오작동하면 true로 전환하세요.
+
+# ── LootScaling ──
+LootScaling/meta/name=LootScaling
+LootScaling/cat/LootScaling=LootScaling
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=Setup
+Setup/opt/verboseLogging/label=verboseLogging
+

@@ -1,0 +1,1648 @@
+# Chinese (Traditional) pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Chinese (Traditional)
+
+# ── Divine Hands ──
+DivineHands/meta/name=神之手
+DivineHands/meta/desc=神力與創世工具:地形雕塑、游標生成器,以及整合於單一面板中的地圖神力工具(預設熱鍵 Ctrl+G)。改變世界的能力預設為關閉。
+DivineHands/cat/General=一般
+DivineHands/opt/MasterEnable/label=啟用
+DivineHands/opt/MasterEnable/tip=神之手的總開關。關閉時,面板熱鍵失效,任何神力都不會套用。預設:開啟。
+DivineHands/opt/PanelHotkey/label=面板熱鍵
+DivineHands/opt/PanelHotkey/tip=切換遊戲內神之手面板的按鍵或組合鍵。可使用 Unity KeyCode 名稱,或搭配 Ctrl/Alt/Shift 的組合鍵,例如 Ctrl+G、F6、Alt+Shift+D。預設:Ctrl+G。
+DivineHands/opt/ShowPanelOnMap/label=載入地圖時開啟面板
+DivineHands/opt/ShowPanelOnMap/tip=地圖載入時自動開啟面板。預設:關閉。
+DivineHands/opt/DebugLog/label=除錯記錄
+DivineHands/opt/DebugLog/tip=將詳細診斷資訊輸出至 MelonLoader.log。預設:關閉。
+DivineHands/opt/DiagBuildingScare/label=記錄:動物驚嚇對照表
+DivineHands/opt/DiagBuildingScare/tip=將建築驚嚇野生動物的對照表寫入 MelonLoader.log。FF 將地圖切成 64 公尺的生成格,同一格內有 3 座以上會驚嚇動物的建築就會把該群動物趕往別處(農田一律驅離,規則另計)。唯讀,不會改變遊戲任何內容。開啟時執行一次;若要再次執行請先關閉再開啟。預設:關閉。
+DivineHands/opt/ClassicPanel/label=經典面板
+DivineHands/opt/ClassicPanel/tip=使用原始的輕量 IMGUI 面板,而非新版風格化面板。當風格化面板出現異常時可作為備援。預設:關閉。
+DivineHands/cat/God Tools=神力工具
+DivineHands/opt/EnableRevealMap/label=顯現地圖
+DivineHands/opt/EnableRevealMap/tip=讓「顯現地圖」出現在遊戲內神之手面板中——需在該處啟用,而非此處。啟用後會清除整張地圖的戰爭迷霧;關閉時會盡力還原你原本探索過的迷霧範圍。注意:FF 會將探索狀態寫入存檔——若在顯現狀態下存檔,整張地圖將永久保持已探索。預設:關閉。
+DivineHands/opt/EnableBuildAnywhere/label=任意建造
+DivineHands/opt/EnableBuildAnywhere/tip=讓「任意建造」出現在遊戲內面板中——需在該處啟用,而非此處。啟用後可在原版拒絕的地形上放置一般建築(陡坡、無路通往城鎮、與水/道路重疊),並解除 150 公尺的道路長度上限(可拖曳任意長度的道路,花費仍依實際長度計算)。橋樑不受影響,仍遵循原版與 Keep Clarity 的「橋樑任意建」規則。預設:關閉。
+DivineHands/opt/PreserveOverlapTrees/label=保留重疊樹木
+DivineHands/opt/PreserveOverlapTrees/tip=讓透過「任意建造」放置在建築物上的樹木(例如廣場地磚上的樹)在存檔/重新載入後保留。原版在「載入」時會重新清除每個建築佔地內的樹木——對一般存檔而言是多餘的,因此略過此步驟是安全的;實際施工仍會照常清除樹木。道路上的樹木在重新載入時仍會消失(另有獨立的道路清理機制)。預設:開啟。
+DivineHands/opt/EnableGodView/label=神之視野
+DivineHands/opt/EnableGodView/tip=讓「神之視野」出現在遊戲內面板中——需在該處啟用,而非此處。啟用後會放寬 RTS 鏡頭限制——可拉遠鏡頭、傾斜至平視/俯視角度、綜觀整張地圖——關閉時精確還原。預設:關閉。
+DivineHands/opt/ProportionalZoom/label=等比例縮放
+DivineHands/opt/ProportionalZoom/tip=神之視野啟用時,近距離滾輪縮放的步進更細膩(不再從正常直接跳到過近)。遠距離縮放維持原版行為。關閉 = 固定原版步進。預設:開啟。
+DivineHands/opt/ZoomCellsPerNotch/label=縮放步進(神之視野)
+DivineHands/opt/ZoomCellsPerNotch/tip=滾輪每格移動神視角鏡頭的格數(2–50;1 格約 5 公尺,故 2≈10 公尺,50≈250 公尺)。數值越高跳動越大;越低越細膩。近距離時步進約再細膩 2 倍。預設:10(約每格 50 公尺)。
+DivineHands/opt/GodViewMaxZoom/label=最大拉遠距離(公尺)
+DivineHands/opt/GodViewMaxZoom/tip=神之視野最遠可拉遠的距離,單位公尺(200–900)。這是影響效能的主要開關——設為 900 時鏡頭幾乎能看見整張地圖,可能造成卡頓/凍結。預設 450;Pangu 上限為 600。若神之視野負擔過重可調低,若想綜觀全局可調高。
+DivineHands/opt/GodViewDisableFog/label=關閉霧氣(神之視野)
+DivineHands/opt/GodViewDisableFog/tip=神之視野啟用期間關閉環境距離霧(呈現清晰的 Pangu 風格)。退出時自動還原。與戰爭迷霧/顯現地圖無關。預設:關閉(保留霧氣,較省效能)。
+DivineHands/opt/GodViewMinZoom/label=最近拉近距離(公尺)
+DivineHands/opt/GodViewMinZoom/tip=神之視野最近可拉近的距離,單位公尺(1–6)。原版下限約 6;2 大約是村民頭部高度。可搭配「最小鏡頭角度」設為 0 及原版的「跟隨」按鈕,做出過肩式村民視角。即時生效——跟隨時可隨時調整。預設:6。
+DivineHands/opt/GodViewMinAngle/label=最小鏡頭角度(°)
+DivineHands/opt/GodViewMinAngle/tip=神之視野開啟時最平緩的鏡頭俯角(0–35)。原版最多約 35(永遠俯視);0 為與地平線齊平。即時生效——跟隨時可隨時調整。預設:10。
+DivineHands/opt/HideFowHaze/label=隱藏戰爭迷霧霧靄(視覺)
+DivineHands/opt/HideFowHaze/tip=關閉戰爭迷霧的後製特效——低角度/自由鏡頭下籠罩天空的灰色未探索霧靄。純視覺效果:探索進度不受影響,不會寫入存檔,關閉此選項會立即還原。預設:關閉。
+DivineHands/opt/FreeCamClearsHaze/label=自由鏡頭:清除天空霧靄
+DivineHands/opt/FreeCamClearsHaze/tip=僅在自由鏡頭啟用期間自動隱藏戰爭迷霧霧靄——一般遊玩時維持戰爭迷霧,飛行時天空乾淨,退出瞬間霧靄恢復。純視覺效果。預設:關閉。
+DivineHands/opt/EnableFreeCam/label=自由鏡頭
+DivineHands/opt/EnableFreeCam/tip=讓「自由鏡頭」出現在遊戲內面板中——需在該處啟用,而非此處。按 Ctrl+F(可自訂)進入/退出,或使用面板切換。WASD 移動、Space/Ctrl 上下、Shift 加速、滑鼠環視。退出後精確還原正常鏡頭。預設:關閉。
+DivineHands/opt/FreeCamHotkey/label=自由鏡頭熱鍵
+DivineHands/opt/FreeCamHotkey/tip=遊戲內切換自由鏡頭開關的按鍵/組合鍵。可使用 Unity KeyCode 名稱,或搭配 Ctrl/Alt/Shift 的組合鍵,例如 Ctrl+F、F8、Alt+C。預設:Ctrl+F。
+DivineHands/opt/FreeCamMoveSpeed/label=自由鏡頭移動速度
+DivineHands/opt/FreeCamMoveSpeed/tip=自由鏡頭飛行速度,單位為每秒世界公尺。預設:40。
+DivineHands/opt/FreeCamFastMultiplier/label=自由鏡頭加速倍率
+DivineHands/opt/FreeCamFastMultiplier/tip=在自由鏡頭中按住 Shift 時的速度倍率。預設:3。
+DivineHands/opt/FreeCamSensitivity/label=自由鏡頭滑鼠靈敏度
+DivineHands/opt/FreeCamSensitivity/tip=自由鏡頭滑鼠環視靈敏度。預設:2。
+DivineHands/opt/FreeCamGroundFloor/label=自由鏡頭地面下限
+DivineHands/opt/FreeCamGroundFloor/tip=讓自由鏡頭保持在地形之上,避免穿透世界進入背面/虛空。若要拍攝地圖底下的畫面請關閉。預設:開啟。
+DivineHands/opt/FreeCamFloorClearance/label=自由鏡頭離地高度
+DivineHands/opt/FreeCamFloorClearance/tip=地面下限高於地表的公尺數。數值小 = 貼地掠影鏡頭;0 貼齊地表(可能穿透近裁切面)。預設:1.0 公尺。
+DivineHands/opt/InstantBuildEnable/label=瞬間建造
+DivineHands/opt/InstantBuildEnable/tip=讓「瞬間建造」出現在遊戲內面板中——需在該處啟用,而非此處。啟用期間,每個建築工地(新放置與已在進行中的)都會在下一影格透過遊戲自身的完工流程直接完成。每次載入地圖都會重設為關閉。預設:關閉。
+DivineHands/opt/InstantBuildUseMaterials/label=瞬間建造消耗材料
+DivineHands/opt/InstantBuildUseMaterials/tip=瞬間完成建築時,預先從城鎮倉儲扣除所需的建材(人力永遠免費)。城鎮負擔不起的工地會維持正常施工。關閉 = 神力免材料建造。預設:開啟。
+DivineHands/opt/PersistRevealActive/label=顯現地圖(持續狀態)
+DivineHands/opt/PersistBuildAnywhereActive/label=任意建造(持續狀態)
+DivineHands/opt/PersistGodViewActive/label=神之視野(持續狀態)
+DivineHands/cat/Terrain Sculpting=地形雕塑
+DivineHands/opt/TerrainEnable/label=地形雕塑
+DivineHands/opt/TerrainEnable/tip=啟用地形高度神力。開啟後於面板選擇「地形」,再用套用鍵將筆刷套用至世界地形。預設:關閉。
+DivineHands/opt/TerrainMode/label=筆刷模式
+DivineHands/opt/TerrainMode/tip=0 = 抬升,1 = 降低,2 = 平滑,3 = 拉平,4 = 平均。按住 Shift 可反轉抬升/降低。平均會讓整個筆刷範圍趨向同一平面高度(類似 TerrainHelper);平滑只消除凹凸,保留坡度。
+DivineHands/opt/TerrainStrength/label=筆刷強度
+DivineHands/opt/TerrainStrength/tip=每次套用時抬升/降低的世界公尺高度變化(同時也是平滑與平均的步進值)。拉平模式不受此影響。預設:1.0。
+DivineHands/opt/TerrainGridWidth/label=筆刷格寬
+DivineHands/opt/TerrainGridWidth/tip=筆刷範圍寬度(X 軸),以高度圖格數計(1–20)。武裝狀態下可用左右方向鍵即時調整。每格約等於「解析度」公尺(約 5 公尺)。預設:3。
+DivineHands/opt/TerrainGridHeight/label=筆刷格深
+DivineHands/opt/TerrainGridHeight/tip=筆刷範圍深度(Z 軸),以高度圖格數計(1–20)。武裝狀態下可用上下方向鍵即時調整;Tab 可切換寬/深。例如用 1×20 可雕出一條路徑。預設:3。
+DivineHands/opt/TerrainGridFineSnap/label=精細格線定位
+DivineHands/opt/TerrainGridFineSnap/tip=用於自由建造式放置(TerrainHelper 手感):格線會停靠在半格晶格上並在步進之間保持靜止,讓未吸附的建築幽靈影像可在半格範圍內自由放置,不會被格線牽動。僅為放置輔助——套用時雕塑仍會對齊整格,若需要俐落的平整地基請保持關閉。預設:關閉。
+DivineHands/opt/TerrainApplyKey/label=套用鍵
+DivineHands/opt/TerrainApplyKey/tip=在游標處套用筆刷的按鍵/按鈕。可使用 Unity KeyCode 名稱或組合鍵。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse0。
+DivineHands/opt/TerrainUndoKey/label=復原鍵
+DivineHands/opt/TerrainUndoKey/tip=復原上一次地形筆觸的按鍵/組合鍵。預設:Ctrl+Z。
+DivineHands/opt/TerrainArmHotkey/label=地形武裝熱鍵
+DivineHands/opt/TerrainArmHotkey/tip=無需點擊分頁即可武裝(再按一次解除)地形筆刷的鍵盤按鍵/組合鍵;武裝時會開啟面板。預設:End(遵循 TerrainHelper 慣例)。
+DivineHands/cat/Cursor Spawners=游標生成器
+DivineHands/opt/SpawnEnable/label=游標生成器
+DivineHands/opt/SpawnEnable/tip=啟用游標生成神力。選擇類別、於面板中武裝生成器,再於世界中按套用鍵於游標處生成物件。預設:關閉。
+DivineHands/opt/SpawnFamily/label=生成類別
+DivineHands/opt/SpawnFamily/tip=0 = 動物,1 = 礦物,2 = 村民,3 = 資源。
+DivineHands/opt/SpawnSubtype/label=生成子類型
+DivineHands/opt/SpawnSubtype/tip=類別內的索引。動物:0 鹿/1 熊/2 野豬/3 狼/4 狐狸/5 土撥鼠/6 狗/7 貓(4-7 需要「貓與狗」DLC)。礦物:0 金/1 鐵/2 煤/3 石/4 黏土/5 沙。資源:0 採集物/1 樹木/2 岩石/3 巨石。村民不受此設定影響。
+DivineHands/opt/SpawnCount/label=生成數量
+DivineHands/opt/SpawnCount/tip=每次套用生成的數量(1–50),散佈於游標周圍的小範圍環形區域。
+DivineHands/opt/SpawnIsDeep/label=深層礦床
+DivineHands/opt/SpawnIsDeep/tip=僅限礦物。開啟時,生成的礦床(全部六種)為深層/無限礦床——僅能供深礦坑/深礦場建築使用。關閉時則為有限的地表礦床,供一般礦坑/礦場建築使用。預設:關閉。
+DivineHands/opt/SpawnAnnounceVillagers/label=公告新村民
+DivineHands/opt/SpawnAnnounceVillagers/tip=生成村民時觸發移民「抵達」通知。預設:關閉。
+DivineHands/opt/SpawnPersistent/label=持續存在(節點/巢穴)
+DivineHands/opt/SpawnPersistent/tip=僅限動物。開啟時(預設):鹿會在游標處留下自行重生的生成區域節點(圓形標記);狼/野豬會留下巢穴。關閉時則直接生成單體動物。熊一律為單體生成。巢穴會在存檔/讀取後保留;鹿的節點僅於本次遊玩期間重生、不會寫入存檔(重新載入後需重新放置)。預設:開啟。
+DivineHands/opt/SpawnWolfDenGuid/label=狼巢 GUID
+DivineHands/opt/SpawnWolfDenGuid/tip=備用的狼巢預製件 GUID,僅在該動物群組的加權巢穴預製件無法解析時使用。除非巢穴生成失敗,否則請保留預設值。
+DivineHands/opt/SpawnForageableGuids/label=採集物 GUID
+DivineHands/opt/SpawnForageableGuids/tip=以逗號/空白/換行分隔的預製件 GUID 清單,供「採集物」類型生成使用。每次套用會依序循環清單。未知/DLC 的 GUID 會安全跳過。
+DivineHands/opt/SpawnTreeGuids/label=樹木 GUID
+DivineHands/opt/SpawnTreeGuids/tip=供「樹木」類型使用的預製件 GUID 清單(透過地形長樹系統放置)。留空(預設)可自動使用當前地圖本身的樹種(Terrain2 TreePrototypes)——無需額外設定。僅在想要覆寫種植樹種時才填入 GUID。
+DivineHands/opt/SpawnRockGuids/label=岩石 GUID
+DivineHands/opt/SpawnRockGuids/tip=供「岩石」類型使用的預製件 GUID 清單。每次套用會依序循環清單。
+DivineHands/opt/SpawnGiantRockGuids/label=巨石 GUID
+DivineHands/opt/SpawnGiantRockGuids/tip=供「巨石」類型使用的預製件 GUID 清單。
+DivineHands/opt/SpawnApplyKey/label=生成套用鍵
+DivineHands/opt/SpawnApplyKey/tip=在游標處生成物件的按鍵/按鈕。可使用 Unity KeyCode 名稱或組合鍵。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse0。
+DivineHands/opt/SpawnerArmHotkey/label=生成器武裝熱鍵
+DivineHands/opt/SpawnerArmHotkey/tip=無需點擊分頁即可武裝(再按一次解除)生成器的鍵盤按鍵/組合鍵;武裝時會開啟面板。預設:Home。
+DivineHands/cat/Lake Stamp=湖泊圖章
+DivineHands/opt/LakeEnable/label=湖泊/池塘圖章
+DivineHands/opt/LakeEnable/tip=在遊戲內面板新增「湖泊」分頁。於游標處印上一座雕鑿好、注滿水的湖泊(仿照 Pangu)——原生保存於存檔中。預設:關閉。
+DivineHands/opt/LakeShape/label=形狀
+DivineHands/opt/LakeShape/tip=0 = 矩形,1 = 圓形。
+DivineHands/opt/LakeGridWidth/label=寬度(格)
+DivineHands/opt/LakeGridWidth/tip=核心範圍的半寬,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/LakeGridHeight/label=深度(格)
+DivineHands/opt/LakeGridHeight/tip=核心範圍的半深,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/LakeCarveDepth/label=雕鑿深度
+DivineHands/opt/LakeCarveDepth/tip=湖底低於水面的深度,單位公尺(0.45–12)。預設:4.6。
+DivineHands/opt/LakeFillRatio/label=填充比例
+DivineHands/opt/LakeFillRatio/tip=放大湖泊——為寬度/深度的倍數(1.0–2.0)。預設:1.0(不放大)。
+DivineHands/opt/LakeShoreWidth/label=岸邊漸變寬度
+DivineHands/opt/LakeShoreWidth/tip=向陸地漸變回升的岸邊環帶寬度(2–40)。預設:16。
+DivineHands/opt/LakeNoGoWidth/label=額外尺寸
+DivineHands/opt/LakeNoGoWidth/tip=在湖泊範圍每一側額外增加的格數(0–24)。預設:0。
+DivineHands/opt/LakeArmHotkey/label=湖泊武裝熱鍵
+DivineHands/opt/LakeArmHotkey/tip=武裝(再按一次解除)湖泊圖章的按鍵/組合鍵。預設:Insert。
+DivineHands/opt/LakeApplyKey/label=湖泊套用鍵
+DivineHands/opt/LakeApplyKey/tip=在游標處印上湖泊的按鍵/按鈕。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse0。
+DivineHands/opt/LakeStockFish/label=投放魚群
+DivineHands/opt/LakeStockFish/tip=在新湖泊中投放魚群與可見魚影(依湖泊大小調整),使其可供捕魚。預設:開啟。
+DivineHands/opt/LakePersist/label=湖泊持久保存
+DivineHands/opt/LakePersist/tip=讓印製的湖泊能在存檔/重新載入後保留。FF 只在地圖生成時將水體寫入地圖檔,因此一般存檔會保留雕鑿好的湖床但失去水面——本功能會在每個存檔旁寫入一個小型附屬檔案,並在載入時重建水面(刪除存檔時一併移除)。預設:開啟。
+DivineHands/cat/Fertility Painter=肥力畫筆
+DivineHands/opt/FertilityEnable/label=肥力畫筆
+DivineHands/opt/FertilityEnable/tip=在遊戲內面板新增「肥力」分頁。在可調整的區域內繪製土壤肥力(隨存檔保留)。預設:關閉。
+DivineHands/opt/FertilityShape/label=形狀
+DivineHands/opt/FertilityShape/tip=0 = 矩形,1 = 圓形。
+DivineHands/opt/FertilityGridWidth/label=寬度(格)
+DivineHands/opt/FertilityGridWidth/tip=筆刷半寬,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/FertilityGridHeight/label=深度(格)
+DivineHands/opt/FertilityGridHeight/tip=筆刷半深,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/FertilityAmount/label=肥力 %
+DivineHands/opt/FertilityAmount/tip=筆刷繪製的目標土壤肥力(0–100%)。預設:80。
+DivineHands/opt/FertilityMult/label=肥料效果 %
+DivineHands/opt/FertilityMult/tip=筆刷設定的每格肥料/堆肥效果(0–100%)。預設:100。
+DivineHands/opt/FertilityConditionSoil/label=為果園調整土壤
+DivineHands/opt/FertilityConditionSoil/tip=同時設定土壤質地(沙/黏土)與水分至果樹的理想值(取自遊戲自身的懲罰曲線),使果園不會因土壤不佳而受拖累。非常適合果樹,但對一般作物可能不是最佳選擇。預設:關閉。
+DivineHands/opt/FertilityArmHotkey/label=肥力武裝熱鍵
+DivineHands/opt/FertilityArmHotkey/tip=武裝(再按一次解除)肥力畫筆的按鍵/組合鍵——或使用「肥力」分頁。預設:Alt+Insert。
+DivineHands/opt/FertilityApplyKey/label=肥力套用鍵
+DivineHands/opt/FertilityApplyKey/tip=在游標處繪製肥力的按鍵/按鈕。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse1。
+DivineHands/cat/Forest Brush=森林筆刷
+DivineHands/opt/ForestEnable/label=森林筆刷
+DivineHands/opt/ForestEnable/tip=在遊戲內面板新增「森林」分頁。在可調整的區域內以目標覆蓋率種植地圖自身的樹種(既有樹木計入覆蓋率,故重複套用可補足不足處),並可選擇同時設定土壤肥力。樹木與肥力皆隨存檔保留。預設:關閉。
+DivineHands/opt/ForestShape/label=形狀
+DivineHands/opt/ForestShape/tip=0 = 矩形,1 = 圓形。
+DivineHands/opt/ForestGridWidth/label=寬度(格)
+DivineHands/opt/ForestGridWidth/tip=筆刷半寬,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/ForestGridHeight/label=深度(格)
+DivineHands/opt/ForestGridHeight/tip=筆刷半深,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/ForestCoverage/label=覆蓋率 %
+DivineHands/opt/ForestCoverage/tip=範圍內的目標樹木覆蓋率(0–100%)。既有樹木會計入覆蓋率。預設:26。
+DivineHands/opt/ForestVariance/label=隨機偏移
+DivineHands/opt/ForestVariance/tip=每株種植樹木的隨機 xz 抖動(公尺),避免樹木呈網格排列。預設:1.1。
+DivineHands/opt/ForestSetFertility/label=同時設定肥力
+DivineHands/opt/ForestSetFertility/tip=在筆刷範圍內寫入作物/土壤肥力(仿照 Pangu)。不會加快所種植樹木的生長(其生長取決於生態群系/科技系統,而非土壤)——僅為日後在該處耕種作物/果園調整土壤。關閉 = 僅種植樹木。預設:關閉。
+DivineHands/opt/ForestFertility/label=肥力 %
+DivineHands/opt/ForestFertility/tip=啟用「同時設定肥力」時所設定的土壤肥力(0–100%)。預設:50。
+DivineHands/opt/ForestFertilityMult/label=肥料效果 %
+DivineHands/opt/ForestFertilityMult/tip=隨肥力一併設定的每格肥料效果(0–100%)。預設:100。
+DivineHands/opt/ForestArmHotkey/label=森林武裝熱鍵
+DivineHands/opt/ForestArmHotkey/tip=武裝(再按一次解除)森林筆刷的按鍵/組合鍵——或使用「森林」分頁。預設:Shift+Insert。
+DivineHands/opt/ForestApplyKey/label=森林套用鍵
+DivineHands/opt/ForestApplyKey/tip=在游標處種植森林的按鍵/按鈕。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse1。
+DivineHands/cat/Mountain Brush=山脈筆刷
+DivineHands/opt/MountainEnable/label=山脈筆刷
+DivineHands/opt/MountainEnable/tip=在遊戲內面板新增「山脈」分頁。抬升岩石地形(圓頂+脊狀雜訊)、將地表重繪為岩石、設定山地生態群系,並在數量滑桿高於 0 時散佈石材/礦石礦床與山地野生動物。地形變更為永久性(無法復原)。預設:關閉。
+DivineHands/opt/MountainShape/label=形狀
+DivineHands/opt/MountainShape/tip=0 = 矩形,1 = 圓形。
+DivineHands/opt/MountainGridWidth/label=寬度(格)
+DivineHands/opt/MountainGridWidth/tip=筆刷半寬,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/MountainGridHeight/label=深度(格)
+DivineHands/opt/MountainGridHeight/tip=筆刷半深,以格數計(1–10)。武裝狀態下可用方向鍵調整大小。
+DivineHands/opt/MountainHeight/label=高度
+DivineHands/opt/MountainHeight/tip=每 100 公尺筆刷範圍所抬升的公尺數。預設:20。
+DivineHands/opt/MountainMaxHeight/label=最大高度
+DivineHands/opt/MountainMaxHeight/tip=總抬升高度的硬上限,單位公尺。預設:60。
+DivineHands/opt/MountainEdgeSoftness/label=邊緣柔和度
+DivineHands/opt/MountainEdgeSoftness/tip=山脈與周圍地形融合的漸進程度(0 = 峭壁,1 = 寬廣裙帶)。預設:0.72。
+DivineHands/opt/MountainRuggedness/label=崎嶇度
+DivineHands/opt/MountainRuggedness/tip=山峰的崎嶇程度(0 = 平滑圓頂,100 = 嶙峋)。預設:55。
+DivineHands/opt/MountainTexture/label=岩石紋理 %
+DivineHands/opt/MountainTexture/tip=地表重繪為岩石的強度(0–100%)。預設:90。
+DivineHands/opt/MountainRockOre/label=岩石/礦石數量 %
+DivineHands/opt/MountainRockOre/tip=散佈石材與礦物礦床的密度(0–100%)。預設:0。
+DivineHands/opt/MountainWildlife/label=野生動物機率 %
+DivineHands/opt/MountainWildlife/tip=生成山地動物(鹿/野豬/狼/熊)的機率(0–100%)。預設:0。
+DivineHands/opt/MountainArmHotkey/label=山脈武裝熱鍵
+DivineHands/opt/MountainArmHotkey/tip=武裝(再按一次解除)山脈筆刷的按鍵/組合鍵——或使用「山脈」分頁。預設:Ctrl+Insert。
+DivineHands/opt/MountainApplyKey/label=山脈套用鍵
+DivineHands/opt/MountainApplyKey/tip=在游標處抬升山脈的按鍵/按鈕。滑鼠按鍵:Mouse0 = 左鍵,Mouse1 = 右鍵,Mouse2 = 中鍵。預設:Ctrl+Mouse1。
+DivineHands/cat/Delete Selected=刪除所選
+DivineHands/opt/DeleteEnable/label=刪除所選
+DivineHands/opt/DeleteEnable/tip=在遊戲內面板新增「刪除所選」區塊並啟用刪除熱鍵。選取礦坑/採石場/黏土沙坑/深礦坑/任何建築——或資源節點(礦石、黏土/沙/石礦坑、樹木、岩石、採集物)——即可瞬間刪除。其他一切(村民、動物、田地)一律安全無效。刪除礦石節點屬於永久性的地圖變更。預設:關閉。
+DivineHands/opt/DeleteHotkey/label=刪除熱鍵
+DivineHands/opt/DeleteHotkey/tip=刪除目前所選物件的按鍵/組合鍵。刻意使用組合鍵比單一按鍵更安全。預設:Ctrl+Delete。
+DivineHands/opt/DeleteRefund/label=刪除時退還
+DivineHands/opt/DeleteRefund/tip=刪除時退還建築的建材(也會將已儲存物品掉落在地上)。關閉 = 乾淨消失,不留退還堆。預設:關閉。
+DivineHands/cat/Kill Selected=擊殺所選
+DivineHands/opt/KillEnable/label=擊殺所選
+DivineHands/opt/KillEnable/tip=在遊戲內面板新增「擊殺所選」區塊並啟用擊殺熱鍵。選取村民、掠奪者或任何動物(野生/家畜/寵物)——單一或群體皆可——透過遊戲自身的死亡流程瞬間擊殺(正確移除+觸發死亡事件)。建築/節點不受影響(請使用「刪除所選」)。主要作為測試輔助,但終究是神力功能。預設:關閉。
+DivineHands/opt/KillHotkey/label=擊殺熱鍵
+DivineHands/opt/KillHotkey/tip=擊殺目前生物的按鍵/組合鍵。刻意使用組合鍵比單一按鍵更安全。預設:Ctrl+D。
+DivineHands/cat/Selected Building=所選建築
+DivineHands/opt/InjectEnable/label=物品注入
+DivineHands/opt/InjectEnable/tip=對「所選」建築啟用物品注入。於遊戲內選取一座建築,再透過面板的「所選建築」區塊新增物品、新增家畜,或切換無限倉儲。無限倉儲僅限本次遊玩期間有效——每次存檔(手動、自動、離開)前都會自動剝除,永遠不會寫入你的 .sav 存檔。預設:關閉。
+DivineHands/opt/InjectItemIndex/label=欲新增物品
+DivineHands/opt/InjectItemIndex/tip=「新增物品」按鈕要注入所選建築倉儲的物品(面板物品清單中的索引)。於面板中選擇物品。
+DivineHands/opt/InjectUnrestricted/label=無限制注入
+DivineHands/opt/InjectUnrestricted/tip=繞過依建築智慧篩選的機制——任何物品都能注入任何有倉儲的所選建築。關閉 = 使用預設篩選:倉儲建築使用其允許清單,生產建築使用其配方輸入,採集建築使用其貿易商品,庇護所使用柴火+食物,其餘建築則補足自身已持有的物品。預設:關閉。
+DivineHands/opt/InjectItemCount/label=物品數量
+DivineHands/opt/InjectItemCount/tip=每次點擊新增所選物品的數量(1–9999)。預設:100。
+DivineHands/opt/InjectLivestockKind/label=欲新增家畜
+DivineHands/opt/InjectLivestockKind/tip=0 = 牛(穀倉),1 = 雞(雞舍),2 = 山羊(羊舍),3 = 馬(馬廄)。所選建築必須與動物種類相符。預設:牛。
+DivineHands/opt/LivestockGuidCow/label=牛預製件 GUID
+DivineHands/opt/LivestockGuidCow/tip=將牛加入穀倉時實例化的預製件 GUID。可編輯,以因應 DLC 或遊戲更新可能造成的變動。未知的 GUID 會安全跳過。
+DivineHands/opt/LivestockGuidChicken/label=雞預製件 GUID
+DivineHands/opt/LivestockGuidChicken/tip=將雞加入雞舍時實例化的預製件 GUID。
+DivineHands/opt/LivestockGuidGoat/label=山羊預製件 GUID
+DivineHands/opt/LivestockGuidGoat/tip=將山羊加入羊舍時實例化的預製件 GUID。
+DivineHands/opt/LivestockGuidHorse/label=馬預製件 GUID
+DivineHands/opt/LivestockGuidHorse/tip=將馬加入馬廄時實例化的預製件 GUID。
+DivineHands/cat/Other settings=其他設定
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=必需供給
+EssentialProvisions/meta/desc=精選自選生活品質整合包。資訊圖層、警示、加快遊戲節奏的輔助功能。每項功能預設皆為關閉。整合自社群模組作者並致上感謝——完整來源列表請見 README。
+EssentialProvisions/cat/Misc=雜項
+EssentialProvisions/opt/EnableFastForward/label=快轉
+EssentialProvisions/opt/EnableFastForward/tip=解除原版 3 倍速上限,開放至最高 50 倍速。超過 20 倍速後,獵人與戰鬥 AI 可能出現異常——會記錄警告。切換立即生效。
+EssentialProvisions/opt/EnableServiceBounds/label=服務範圍
+EssentialProvisions/opt/EnableServiceBounds/tip=點擊任何已放置的建築即可查看其效果半徑——供水、宜居度、市場涵蓋範圍、學校範圍、工作範圍。與 FF 放置時顯示的圓圈相同。
+EssentialProvisions/opt/EnableClearcutting/label=清伐
+EssentialProvisions/opt/EnableClearcutting/tip=自動在城鎮中心周圍半徑內標記可採集資源。會跳過掠奪者、狼與熊周邊的危險區域。
+EssentialProvisions/opt/ClearcuttingTrees/label=    樹木
+EssentialProvisions/opt/ClearcuttingTrees/tip=將樹木納入自動標記。
+EssentialProvisions/opt/ClearcuttingStones/label=    石頭
+EssentialProvisions/opt/ClearcuttingStones/tip=將石頭納入自動標記。
+EssentialProvisions/opt/ClearcuttingForageables/label=    採集物
+EssentialProvisions/opt/ClearcuttingForageables/tip=將採集物(莓叢、藥草、菇類)納入自動標記。
+EssentialProvisions/opt/ClearcuttingRadius/label=    清伐半徑
+EssentialProvisions/opt/ClearcuttingRadius/tip=以城鎮中心為準,自動標記的範圍距離。
+EssentialProvisions/opt/ClearcuttingRescan/label=    立即重新掃描
+EssentialProvisions/opt/ClearcuttingRescan/tip=立即觸發一次全新掃描。觸發後會自動重設為關閉。
+EssentialProvisions/cat/Villager Improvements=村民改善
+EssentialProvisions/opt/EnableShortWalks/label=短程通勤
+EssentialProvisions/opt/EnableShortWalks/tip=每月重新最佳化一次村民的住所分配,讓他們住得更靠近工作地點。士兵、守衛與住宿於工作地點的職業不受影響。
+EssentialProvisions/opt/EnableLongTravels/label=長途跋涉
+EssentialProvisions/opt/EnableLongTravels/tip=標記出工人花費過多時間通勤而非生產的生產建築。
+EssentialProvisions/opt/LongTravelsThreshold/label=    長途跋涉門檻(%)
+EssentialProvisions/opt/LongTravelsThreshold/tip=通勤時間超過總工作時間此比例時觸發警示。
+EssentialProvisions/opt/EnableSelfPreservation/label=自我保護
+EssentialProvisions/opt/EnableSelfPreservation/tip=村民會在附近出現掠奪者時逃離,不會等到戰鬥開始才反應。獵人維持原版的近距離行為。防守營地的掠奪者不會觸發此行為。
+EssentialProvisions/opt/SelfPreservationRadius/label=    偵測半徑
+EssentialProvisions/opt/SelfPreservationRadius/tip=具攻擊性的掠奪者在此格數範圍內會觸發撤退。
+EssentialProvisions/opt/EnableLaborShortage/label=勞力短缺
+EssentialProvisions/opt/EnableLaborShortage/tip=當勞工與建築工人數低於建議數量時,在頂端狀態列顯示警示標記。
+EssentialProvisions/opt/EnableEfficientLabor/label=高效勞力
+EssentialProvisions/opt/EnableEfficientLabor/tip=手工藝與戶外職業的閒置村民,在自身職務無事可做時會協助擔任勞工。他們原本的工作仍為優先,一旦出現實際工作會立刻回歸。
+EssentialProvisions/opt/EfficientLaborPollDays/label=    每 N 天重新掃描
+EssentialProvisions/opt/EfficientLaborPollDays/tip=多久(遊戲內天數)掃描一次閒置村民以外借,並釋放已找到工作的村民。閒置狀態每天變化不大,5 天已相當充裕;調低更靈敏,調高在大地圖上更省效能。
+EssentialProvisions/opt/EnablePennyPincher/label=精打細算
+EssentialProvisions/opt/EnablePennyPincher/tip=無鼠患時自動停用捕鼠員,無突襲時自動停用守衛塔。威脅重現時自動重新啟用。不會影響你目前選取中的建築。
+EssentialProvisions/opt/PennyPincherGuardTowers/label=    和平時期停用守衛塔
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=承平時期也停用守衛塔(突襲逼近時重新派駐)。若想讓守衛塔完全由你自行掌控,同時仍自動管理捕鼠員,請關閉此項——關閉時會立即重新派駐所有被停用的守衛塔。若只想豁免個別守衛塔,可選取該塔後按 Ctrl+P(切換式;隨存檔保留)。
+EssentialProvisions/opt/EnableIdleHands/label=閒置人手
+EssentialProvisions/opt/EnableIdleHands/tip=標記出工人閒置時間過長的生產建築。
+EssentialProvisions/opt/IdleHandsThreshold/label=    閒置人手門檻(%)
+EssentialProvisions/opt/IdleHandsThreshold/tip=閒置時間超過總工作時間此比例時觸發警示。
+EssentialProvisions/opt/EnableLearnedHands/label=博學巧手
+EssentialProvisions/opt/EnableLearnedHands/tip=受過教育的村民工作更快——採集、田務與手工藝皆然。每一級教育 +10%。彌補官方指南提及卻遊戲從未實作的落差。可與職場精通疊加。僅有開/關,無滑桿。
+EssentialProvisions/opt/EnableWorkplaceMastery/label=職場精通
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=村民從事同一職務越久工作越快——採集、田務與手工藝皆然。每任職一年 +1%,上限 +25%(25 年)。可與博學巧手疊加。任期依職業分別計算,隨存檔保留;既有村民從零開始計算。會在村民選取面板新增精通度顯示。僅有開/關,無滑桿。
+EssentialProvisions/opt/EnableRabiesTreatable/label=狂犬病:可治療(渺茫機會)
+EssentialProvisions/opt/EnableRabiesTreatable/tip=將原版必死無疑的狂犬病改為極低機率、依賴醫者的治療可能。染病村民會臥床並於病床接受治療——治療者小屋約 9%,若有備妥的醫院則可達約 18%。代價:患病期間停止工作並佔用病床,若附近無醫療病床則會在家中死亡。刻意的平衡調整。預設關閉。
+EssentialProvisions/cat/Inventory Management=倉儲管理
+EssentialProvisions/opt/EnableBroadShelves/label=寬敞貨架
+EssentialProvisions/opt/EnableBroadShelves/tip=牲畜圍場可存放鐵。穀倉可存放乾草與亞麻。穀倉在所有介面中更名為「筒倉」。需重新載入存檔才能套用至既有倉儲建築。
+EssentialProvisions/opt/EnableSurplusSelling/label=盈餘出售
+EssentialProvisions/opt/EnableSurplusSelling/tip=依觀察到的每日消耗量 × 月數,自動將多餘庫存運往交易站。預設僅限非食品——食品另有獨立子選項並附飲食多樣性保障。需同時啟用「消耗品管理」:它負責蒐集盈餘出售所需的每日消耗率資料。
+EssentialProvisions/opt/SurplusSellingMonths/label=    城內保留月數(非食品)
+EssentialProvisions/opt/SurplusSellingMonths/tip=每項受追蹤的非食品項目,在城內保留的庫存月數。超出部分將流向交易站。
+EssentialProvisions/opt/EnableSurplusSellingFood/label=    包含食品
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=也自動運送盈餘食品。保障機制:食品總量須超過總門檻,且每種食品須維持至少 1 個月的自身消耗量。
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=    城內保留月數(食品)
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=城內保留的食品庫存月數。預設 10 與 FF 的移民門檻一致。
+EssentialProvisions/opt/SurplusSellingPollDays/label=    每 N 天重新計算
+EssentialProvisions/opt/SurplusSellingPollDays/tip=多久(遊戲內天數)重新計算一次交易站庫存目標。30 天滾動平均每天變化不大,故每日計算並不划算;5 天已相當靈敏。調低更靈敏,調高在大地圖上更省效能。
+EssentialProvisions/opt/EnableConsumableControl/label=消耗品管理
+EssentialProvisions/opt/EnableConsumableControl/tip=依觀察到的每日消耗量 × 月數,自動設定交易站進貨的最低庫存門檻。除非城內庫存高於保留量,否則交易站工人不會從倉儲取物來補貨(交易站內的物品一律不供村民使用)。會依人口自動調整規模。
+EssentialProvisions/opt/ConsumableReserveMonths/label=    保留月數
+EssentialProvisions/opt/ConsumableReserveMonths/tip=工人取物補貨交易站前,城內倉儲須維持的供應月數。
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=    成長餘裕(%)
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=在依消耗率計算的目標值上額外預留的緩衝,以因應人口成長(出生、移民)。消耗品管理與盈餘出售共用此設定。
+EssentialProvisions/opt/EnableProjectPrep/label=工程備料
+EssentialProvisions/opt/EnableProjectPrep/tip=保留建材不被生產建築消耗殆盡。下方滑桿設定各項建材的最低保留量。建設仍可動用保留量,生產則不可。0 = 不保留。
+EssentialProvisions/opt/ProjectPrepLogs/label=    原木保留量
+EssentialProvisions/opt/ProjectPrepLogs/tip=為建設保留的最低原木庫存。
+EssentialProvisions/opt/ProjectPrepPlanks/label=    木板保留量
+EssentialProvisions/opt/ProjectPrepPlanks/tip=為建設保留的最低木板庫存。
+EssentialProvisions/opt/ProjectPrepStone/label=    石材保留量
+EssentialProvisions/opt/ProjectPrepStone/tip=為建設保留的最低石材庫存。
+EssentialProvisions/opt/ProjectPrepClay/label=    黏土保留量
+EssentialProvisions/opt/ProjectPrepClay/tip=為建設保留的最低黏土庫存。
+EssentialProvisions/opt/ProjectPrepSand/label=    沙子保留量
+EssentialProvisions/opt/ProjectPrepSand/tip=為建設保留的最低沙子庫存。
+EssentialProvisions/opt/ProjectPrepIron/label=    鐵保留量
+EssentialProvisions/opt/ProjectPrepIron/tip=為建設保留的最低鐵庫存。
+EssentialProvisions/opt/ProjectPrepCoal/label=    煤保留量
+EssentialProvisions/opt/ProjectPrepCoal/tip=為建設保留的最低煤庫存。
+EssentialProvisions/cat/Agriculture Alerts=農業警示
+EssentialProvisions/opt/EnableSoilWisdom/label=土壤智慧
+EssentialProvisions/opt/EnableSoilWisdom/tip=在作物資訊視窗中標示出高風險的作物輪作順序——病害衝突與季節性霜凍/高溫風險。
+EssentialProvisions/opt/EnableBlightWatch/label=病害監視
+EssentialProvisions/opt/EnableBlightWatch/tip=在染病作物田地上釘選標記,直到病害獲得處理為止。
+EssentialProvisions/opt/EnableHarvestWatch/label=收穫監視
+EssentialProvisions/opt/EnableHarvestWatch/tip=年終報告顯示每座果園有多少果樹未被採收而腐爛,附帶趨勢與該建築的工人數——提醒你增加工人或縮小工作範圍。同時將即時未採收果樹數量回饋至樹藝師面板。
+EssentialProvisions/opt/HarvestWatchMinFruit/label=    標記所需最少果實數
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=一棵樹上未採收的果實達到此數量前不會被列為疏於照料(年終統計+即時計數皆適用)。
+EssentialProvisions/cat/Planting Almanac=播種曆
+EssentialProvisions/opt/EnablePlantingAlmanac/label=播種曆
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=在作物田視窗中新增一鍵套用的輪作預設方案。內建精選的防病輪作方案;套用時會透過遊戲自身的排程系統取代該田地的整個排程。下次開啟作物田視窗時生效。
+EssentialProvisions/cat/Other settings=其他設定
+EssentialProvisions/opt/PennyPincherExemptKey/label=    豁免守衛塔熱鍵(Ctrl + 此鍵)
+EssentialProvisions/opt/PennyPincherExemptKey/tip=選取守衛塔後,按住 Ctrl 並按下此鍵可切換該塔是否豁免於精打細算功能。豁免的塔永遠不會被自動停用或重新派駐——完全由你掌控。豁免狀態隨存檔保留。任何 Unity KeyCode 名稱皆有效(例如 P、F9、Slash);無效值會回退為 P。
+EssentialProvisions/opt/EfficientLaborOccupations/label=高效勞力:允許的職業
+EssentialProvisions/opt/EfficientLaborOccupations/tip=以逗號分隔的 FF Occupation 列舉名稱清單。屬於這些職業且真正閒置的村民會被導向勞工工作。請直接編輯此 cfg 欄位以新增/移除職業——未在 KC 面板中顯示以保持簡潔。需重新啟動遊戲才會生效。
+EssentialProvisions/opt/EfficientLaborVerbose/label=高效勞力:詳細記錄
+EssentialProvisions/opt/EfficientLaborVerbose/tip=開啟時,會記錄每位村民(及其職業)加入/移出勞工池的時刻。預設關閉僅記錄每日一行摘要,且僅在有變動的日子才記錄。僅限 cfg 設定;未在 KC 面板中顯示。
+EssentialProvisions/opt/InventoryDiagnostics/label=倉儲功能:診斷記錄
+EssentialProvisions/opt/InventoryDiagnostics/tip=開啟時,消耗品管理與盈餘出售每天會記錄各項物品的詳細資料——觀察到的每日速率、計算出的城內保留/保留量目標、目前城內庫存(倉儲與交易站分別列出),以及各項寫入了何處。僅限 cfg 設定;未在 KC 面板中顯示。用來驗證功能運作是否正常,確認後請關閉。
+EssentialProvisions/opt/LearnedHandsVerbose/label=博學巧手:詳細記錄
+EssentialProvisions/opt/LearnedHandsVerbose/tip=開啟時,每位村民首次套用加成時會記錄一行。僅限 cfg 設定;未在 KC 面板中顯示。預設一律會記錄一次性的「首次套用」訊息,方便你確認補丁已生效而不至於灌爆記錄。
+EssentialProvisions/opt/DiseaseRosterDump/label=疾病名冊傾印(診斷用)
+EssentialProvisions/opt/DiseaseRosterDump/tip=開啟時,首次載入地圖時 EP 會將每種疾病的治癒分類、最佳情況康復率,以及原始治癒資料(cureFactors、finalCureChance、curve、effMin/Max)記錄至 Latest.log——用於驗證 DiseaseInfoApi 的治癒推導是否符合疾病名冊。僅限 cfg 設定;未在 KC 面板中顯示。一般遊玩請保持關閉。
+EssentialProvisions/opt/ConsumableTrackedItems/label=消耗品管理:追蹤項目
+EssentialProvisions/opt/ConsumableTrackedItems/tip=以逗號分隔的 ItemID 名稱清單,供消耗品管理功能管理。請直接編輯 cfg 欄位以新增/移除項目——未在 KC 面板中顯示。需重新啟動才會生效。
+
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=貨運調度
+ManifestDelivery/meta/desc=貨車商店大改造:營地/樞紐模式、回程回運 AI、儲物車強化
+ManifestDelivery/cat/Master=總開關
+ManifestDelivery/opt/ModEnabled/label=啟用模組
+ManifestDelivery/opt/ModEnabled/tip=關閉以回退至原版貨車商店行為
+ManifestDelivery/cat/Wagon Caps=貨車數量上限
+ManifestDelivery/opt/MaxWagonsStandard/label=最大貨車數——標準
+ManifestDelivery/opt/MaxWagonsStandard/tip=標準貨車商店可產出的最大貨車數(1–4)。
+ManifestDelivery/opt/MaxWagonsCamp/label=最大貨車數——營地
+ManifestDelivery/opt/MaxWagonsCamp/tip=建議 2:一輛運出產出,一輛回運補給
+ManifestDelivery/opt/MaxWagonsHub/label=最大貨車數——樞紐
+ManifestDelivery/opt/MaxWagonsHub/tip=樞紐商店服務整個聚落
+ManifestDelivery/cat/Backhaul AI=回運 AI
+ManifestDelivery/opt/ReturnTripEnabled/label=回程取貨
+ManifestDelivery/opt/ReturnTripEnabled/tip=貨車在卸貨處尋找附近的物流需求,而非空車返回
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=回程搜尋半徑
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=標準模式商店的世界單位搜尋半徑。
+ManifestDelivery/opt/PreferWorkshopInput/label=回運時優先補給工坊
+ManifestDelivery/opt/PreferWorkshopInput/tip=優先供應生產建築(麵包坊、鐵匠鋪、製革廠等)而非倉儲間的搬運
+ManifestDelivery/cat/Camp & Hub=營地與樞紐
+ManifestDelivery/opt/CampHaulEnabled/label=營地主動搬運
+ManifestDelivery/opt/CampHaulEnabled/tip=營地貨車主動將附近產出搬運至樞紐倉儲
+ManifestDelivery/opt/HubHaulEnabled/label=樞紐主動配送
+ManifestDelivery/opt/HubHaulEnabled/tip=樞紐貨車主動服務半徑內的任何需求(市場、庇護所、生產者、倉儲)
+ManifestDelivery/opt/HubMultiSourcePickup/label=樞紐多來源取貨(實驗性)
+ManifestDelivery/opt/HubMultiSourcePickup/tip=樞紐貨車只認領「配送/補貨」需求(該筆需求本身,而非整座建築),讓一輛貨車能在多個來源倉儲間巡迴裝滿,而非只取一趟接近空的貨。僅限樞紐模式。預設關閉——實驗性功能。
+ManifestDelivery/opt/CampWorkRadius/label=營地工作半徑
+ManifestDelivery/opt/CampWorkRadius/tip=預設 120 單位涵蓋一般規模的偏遠營地
+ManifestDelivery/opt/HubWorkRadius/label=樞紐工作半徑
+ManifestDelivery/opt/HubWorkRadius/tip=預設 200 單位涵蓋整個城鎮中心
+ManifestDelivery/cat/Storage Cart=儲物車
+ManifestDelivery/opt/StorageCartCapacity/label=容量
+ManifestDelivery/opt/StorageCartCapacity/tip=原版為 750
+ManifestDelivery/opt/StorageCartSpeedMult/label=遷移速度倍率
+ManifestDelivery/opt/StorageCartSpeedMult/tip=儲物車「自行駛往」集合點的速度
+ManifestDelivery/cat/Hotkeys=熱鍵
+ManifestDelivery/opt/ModeCycleKey/label=切換貨車商店模式
+ManifestDelivery/opt/ModeCycleKey/tip=Unity KeyCode 名稱。選取貨車商店時循環切換標準/營地/樞紐模式。
+ManifestDelivery/cat/Diagnostics=診斷
+ManifestDelivery/opt/HaulDiagnostics/label=搬運診斷
+ManifestDelivery/opt/HaulDiagnostics/tip=將每次貨車搬運的完整結構(取貨/卸貨站點、物品、已服務需求的節流參數、載運容量)記錄至 MelonLoader 記錄檔。用於多點取貨調校的調查工具。預設關閉。
+ManifestDelivery/cat/Other settings=其他設定
+ManifestDelivery/opt/VerboseLogging/label=詳細記錄
+ManifestDelivery/opt/VerboseLogging/tip=開啟時,會將每次配送與每次掃描事件(DELIVER / ReturnTrip / CampHaul / HubHaul 的 CLAIM 與 EMPTY 訊息)記錄至 MelonLoader 記錄檔。有助於診斷貨車路線,但在繁忙地圖上會產生大量訊息。警告與錯誤一律照常記錄。預設關閉。
+ManifestDelivery/opt/StatsEnabled/label=搬運統計——啟用
+ManifestDelivery/opt/StatsEnabled/tip=開啟時,模組會將每筆貨車配送記錄進各商店的統計檔案(累計與本年至今總量、各物品明細、原料與成品比例)。按下報告鍵(預設 Ctrl+Shift+M)可將格式化報告傾印至 MelonLoader 記錄檔。
+ManifestDelivery/opt/StatsReportKey/label=搬運統計——報告鍵
+ManifestDelivery/opt/StatsReportKey/tip=按下 CTRL+SHIFT+<此鍵> 將各商店的搬運報告傾印至 MelonLoader 記錄檔。請使用 Unity KeyCode 名稱(例如 M、J、F8)。
+# ── Rivers Restored ──
+RiversRestored/meta/name=河川新生
+RiversRestored/meta/desc=恢復 FF 地圖的河川生成,並開放河川密度/形狀/捕魚相關調校
+RiversRestored/cat/Master=總開關
+RiversRestored/opt/RiversEnabled/label=啟用河川
+RiversRestored/opt/RiversEnabled/tip=總開關。關閉 = 原版行為(無河川)。
+RiversRestored/opt/RiverPreset/label=河川預設(對應地圖生態群系)
+RiversRestored/opt/RiverPreset/tip=依 FF 生態群系名稱預先調校好的河川設定組合。設為「自訂」以外的任何選項時,預設值會覆蓋各項細部滑桿。請選擇符合你地圖生態群系的選項以取得合理的預設值。
+RiversRestored/opt/GranularSettings/label=顯示細部設定(進階)
+RiversRestored/opt/GranularSettings/tip=開啟時,下方會顯示各項河川形狀的獨立滑桿控制。僅在河川預設設為「自訂」時才會生效。
+RiversRestored/opt/EnableRibbonAnimation/label=流水動畫
+RiversRestored/opt/EnableRibbonAnimation/tip=開啟 = 動態流水效果。關閉 = 僅靜態水面(較省效能,類似湖泊風格;可在河川密集的地圖上節省 CPU/GPU 資源)。
+RiversRestored/opt/RiverPreferLakeWaterType/label=河川優先使用湖泊(藍色)水體
+RiversRestored/opt/RiverPreferLakeWaterType/tip=開啟(預設)= 河川使用湖泊類型水體(清澈藍色)。關閉 = 河川使用地圖優先指派的任何水體類型(通常是池塘——綠色渾濁)。
+RiversRestored/opt/PondUseLakeMaterial/label=強制池塘水體以湖泊(藍色)材質呈現
+RiversRestored/opt/PondUseLakeMaterial/tip=開啟(預設)= 每張地圖上的每座池塘皆以藍色湖泊材質呈現,而非綠色池塘材質。池塘分類不變,只有材質互換。同時修復存檔/重新載入後的水體可見性問題——孤立的 WaterTypes 會回退為池塘(現為藍色)的材質。
+RiversRestored/opt/EnableMapPreviewRender/label=[測試版] 將地圖預覽輸出為 PNG
+RiversRestored/opt/EnableMapPreviewRender/tip=每次生成後,RR 會將俯視預覽圖寫入 UserData/RiversRestored/Previews/。有助於在進入聚落前驗證 RR 的生成結果。
+RiversRestored/opt/ShowPreviewOverlay/label=[測試版] 遊戲內顯示預覽疊層
+RiversRestored/opt/ShowPreviewOverlay/tip=遊玩期間在螢幕右側顯示最近一次渲染的預覽面板。F8 可在遊戲內切換顯示/隱藏。需開啟「輸出地圖預覽」。
+RiversRestored/cat/Flow Direction=流向
+RiversRestored/opt/RiverFlowBias/label=河川流向偏移
+RiversRestored/opt/RiverFlowBias/tip=在河川路徑生成前傾斜高度圖,使河川在統計上從所選的高處角落/邊緣流向所選的低處。無 = 純種子驅動(原版行為)。
+RiversRestored/opt/RiverFlowBiasStrength/label=流向偏移強度
+RiversRestored/opt/RiverFlowBiasStrength/tip=高度圖傾斜的強度。0.3 = 輕微,0.4 = 均衡預設,0.5 = 強烈,0.7 以上 = 明顯傾斜。當流向偏移設為「無」時不生效。
+RiversRestored/cat/Density=密度
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/cat/Shape — Width / Depth=形狀——寬度/深度
+RiversRestored/opt/MinWidth/label=最小寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/MinDepth/label=最小深度(公尺)
+RiversRestored/opt/MinDepth/tip=-1 = 維持原版
+RiversRestored/opt/MaxDepth/label=最大深度(公尺)
+RiversRestored/opt/MaxDepth/tip=-1 = 維持原版
+RiversRestored/cat/Carve Shape=雕鑿形狀
+RiversRestored/opt/RiverInnerRadius/label=河槽內半徑(格)
+RiversRestored/opt/RiverInnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/RiverOuterRadius/label=河岸外半徑(格)
+RiversRestored/opt/RiverOuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/RiverTrenchDepth/label=河槽深度(公尺)
+RiversRestored/opt/RiverTrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/RiverSmoothPasses/label=河岸平滑次數
+RiversRestored/opt/RiverSmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/RiverJitterAmplitude/label=蜿蜒幅度(公尺)
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/RiverJitterFrequency/label=蜿蜒頻率
+RiversRestored/opt/RiverJitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/cat/Water Plane / Fishing=水面/捕魚
+RiversRestored/opt/RiverRegisterAsWaterArea/label=登記為水域
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=將河川視為水域(類似湖泊)——開放捕魚並提供穩定的持久保存
+RiversRestored/opt/RiverBlobRadius/label=圓盤印記半徑(格)
+RiversRestored/opt/RiverBlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/RiverBlobStride/label=圓盤印記間距(格)
+RiversRestored/opt/RiverBlobStride/tip=沿路徑的圓盤印記間距
+RiversRestored/opt/RiverFishingAreaMultiplier/label=捕魚區域倍率
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = 原版密度(稀疏),4 = 可玩密度
+RiversRestored/cat/Generator Gating=生成器閘門
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=將水體標記為河川終點
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=關鍵閘門——沒有此設定,無論數量多少河川都不會通過驗證
+RiversRestored/opt/ForceCoastlineTerrain/label=強制海岸線地形
+RiversRestored/opt/ForceCoastlineTerrain/tip=診斷用:強制設為海岸線生態群系(提供海洋作為保證存在的河川終點)
+RiversRestored/cat/Diagnostics=診斷
+RiversRestored/opt/VerboseDiagnostics/label=詳細診斷
+RiversRestored/opt/VerboseDiagnostics/tip=存檔時的每個水域狀態,以及生成過程中各階段的水域數量。一般遊玩時會產生大量訊息。
+RiversRestored/cat/Preset · IdyllicValley=預設・田園谷地
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/opt/MinWidth/label=最小絲帶寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大絲帶寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/InnerRadius/label=河道寬度(全深,格)
+RiversRestored/opt/InnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/OuterRadius/label=河岸寬度(向地面漸緩,格)
+RiversRestored/opt/OuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/BlobRadius/label=可見水面寬度(格)
+RiversRestored/opt/BlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/BlobStride/label=水面密度(進階)
+RiversRestored/opt/BlobStride/tip=沿路徑的圓盤印記間距;3 = 預設,數值越高生成越快
+RiversRestored/opt/TrenchDepth/label=河川深度(低於水面,公尺)
+RiversRestored/opt/TrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/SmoothPasses/label=河岸平滑度
+RiversRestored/opt/SmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/JitterAmplitude/label=河川蜿蜒強度(公尺)
+RiversRestored/opt/JitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/JitterFrequency/label=河川蜿蜒頻率
+RiversRestored/opt/JitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=依此倍率縮放種子的水量值。1.0 = 原版。小於 1 = 較乾燥、湖泊較小。大於 1 = 較潮濕。同時影響預覽與實際遊戲。預設值:田園谷地 0.75、低地湖泊 0.7、高山谷地 0.85,其餘 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川捕魚產量提升
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 原版(稀疏),4 = 可玩密度,8 以上 = 豐饒
+RiversRestored/cat/Preset · LowlandLakes=預設・低地湖泊
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/opt/MinWidth/label=最小絲帶寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大絲帶寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/InnerRadius/label=河道寬度(全深,格)
+RiversRestored/opt/InnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/OuterRadius/label=河岸寬度(向地面漸緩,格)
+RiversRestored/opt/OuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/BlobRadius/label=可見水面寬度(格)
+RiversRestored/opt/BlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/BlobStride/label=水面密度(進階)
+RiversRestored/opt/BlobStride/tip=沿路徑的圓盤印記間距;3 = 預設,數值越高生成越快
+RiversRestored/opt/TrenchDepth/label=河川深度(低於水面,公尺)
+RiversRestored/opt/TrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/SmoothPasses/label=河岸平滑度
+RiversRestored/opt/SmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/JitterAmplitude/label=河川蜿蜒強度(公尺)
+RiversRestored/opt/JitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/JitterFrequency/label=河川蜿蜒頻率
+RiversRestored/opt/JitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=依此倍率縮放種子的水量值。1.0 = 原版。小於 1 = 較乾燥、湖泊較小。大於 1 = 較潮濕。同時影響預覽與實際遊戲。預設值:田園谷地 0.75、低地湖泊 0.7、高山谷地 0.85,其餘 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川捕魚產量提升
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 原版(稀疏),4 = 可玩密度,8 以上 = 豐饒
+RiversRestored/cat/Preset · AridHighlands=預設・乾旱高地
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/opt/MinWidth/label=最小絲帶寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大絲帶寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/InnerRadius/label=河道寬度(全深,格)
+RiversRestored/opt/InnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/OuterRadius/label=河岸寬度(向地面漸緩,格)
+RiversRestored/opt/OuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/BlobRadius/label=可見水面寬度(格)
+RiversRestored/opt/BlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/BlobStride/label=水面密度(進階)
+RiversRestored/opt/BlobStride/tip=沿路徑的圓盤印記間距;3 = 預設,數值越高生成越快
+RiversRestored/opt/TrenchDepth/label=河川深度(低於水面,公尺)
+RiversRestored/opt/TrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/SmoothPasses/label=河岸平滑度
+RiversRestored/opt/SmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/JitterAmplitude/label=河川蜿蜒強度(公尺)
+RiversRestored/opt/JitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/JitterFrequency/label=河川蜿蜒頻率
+RiversRestored/opt/JitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=依此倍率縮放種子的水量值。1.0 = 原版。小於 1 = 較乾燥、湖泊較小。大於 1 = 較潮濕。同時影響預覽與實際遊戲。預設值:田園谷地 0.75、低地湖泊 0.7、高山谷地 0.85,其餘 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川捕魚產量提升
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 原版(稀疏),4 = 可玩密度,8 以上 = 豐饒
+RiversRestored/cat/Preset · Plains=預設・平原
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/opt/MinWidth/label=最小絲帶寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大絲帶寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/InnerRadius/label=河道寬度(全深,格)
+RiversRestored/opt/InnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/OuterRadius/label=河岸寬度(向地面漸緩,格)
+RiversRestored/opt/OuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/BlobRadius/label=可見水面寬度(格)
+RiversRestored/opt/BlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/BlobStride/label=水面密度(進階)
+RiversRestored/opt/BlobStride/tip=沿路徑的圓盤印記間距;3 = 預設,數值越高生成越快
+RiversRestored/opt/TrenchDepth/label=河川深度(低於水面,公尺)
+RiversRestored/opt/TrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/SmoothPasses/label=河岸平滑度
+RiversRestored/opt/SmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/JitterAmplitude/label=河川蜿蜒強度(公尺)
+RiversRestored/opt/JitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/JitterFrequency/label=河川蜿蜒頻率
+RiversRestored/opt/JitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=依此倍率縮放種子的水量值。1.0 = 原版。小於 1 = 較乾燥、湖泊較小。大於 1 = 較潮濕。同時影響預覽與實際遊戲。預設值:田園谷地 0.75、低地湖泊 0.7、高山谷地 0.85,其餘 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川捕魚產量提升
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 原版(稀疏),4 = 可玩密度,8 以上 = 豐饒
+RiversRestored/cat/Preset · AlpineValleys=預設・高山谷地
+RiversRestored/opt/NumRivers/label=河川數量
+RiversRestored/opt/NumRivers/tip=生成器以此數量為目標;最終數量取決於種子的可行性
+RiversRestored/opt/MinPoints/label=最短河川長度
+RiversRestored/opt/MinPoints/tip=河川被採用所需的最少控制點數
+RiversRestored/opt/MinWidth/label=最小絲帶寬度(格)
+RiversRestored/opt/MinWidth/tip=0 = 維持原版
+RiversRestored/opt/MaxWidth/label=最大絲帶寬度(格)
+RiversRestored/opt/MaxWidth/tip=0 = 維持原版
+RiversRestored/opt/InnerRadius/label=河道寬度(全深,格)
+RiversRestored/opt/InnerRadius/tip=中心線此距離內的格子會雕鑿至河槽深度
+RiversRestored/opt/OuterRadius/label=河岸寬度(向地面漸緩,格)
+RiversRestored/opt/OuterRadius/tip=河岸漸變回原始地形的位置
+RiversRestored/opt/BlobRadius/label=可見水面寬度(格)
+RiversRestored/opt/BlobRadius/tip=用於水域多邊形合併的圓盤印記半徑
+RiversRestored/opt/BlobStride/label=水面密度(進階)
+RiversRestored/opt/BlobStride/tip=沿路徑的圓盤印記間距;3 = 預設,數值越高生成越快
+RiversRestored/opt/TrenchDepth/label=河川深度(低於水面,公尺)
+RiversRestored/opt/TrenchDepth/tip=河槽低於水面雕鑿的深度
+RiversRestored/opt/SmoothPasses/label=河岸平滑度
+RiversRestored/opt/SmoothPasses/tip=0 = 原始雕鑿,4 = 良好預設,8 = 非常柔和
+RiversRestored/opt/JitterAmplitude/label=河川蜿蜒強度(公尺)
+RiversRestored/opt/JitterAmplitude/tip=0 = 筆直,數值越大越蜿蜒
+RiversRestored/opt/JitterFrequency/label=河川蜿蜒頻率
+RiversRestored/opt/JitterFrequency/tip=每個 Voronoi 區段內的波動次數
+RiversRestored/opt/WaterMultiplier/label=水量倍率
+RiversRestored/opt/WaterMultiplier/tip=依此倍率縮放種子的水量值。1.0 = 原版。小於 1 = 較乾燥、湖泊較小。大於 1 = 較潮濕。同時影響預覽與實際遊戲。預設值:田園谷地 0.75、低地湖泊 0.7、高山谷地 0.85,其餘 1.0。
+RiversRestored/opt/FishingAreaMultiplier/label=河川捕魚產量提升
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = 原版(稀疏),4 = 可玩密度,8 以上 = 豐饒
+RiversRestored/cat/Other settings=其他設定
+RiversRestored/opt/RiversDontBlockWildlife/label=河川不阻擋野生動物生成
+RiversRestored/opt/RiversDontBlockWildlife/tip=開啟時,鹿與其他野生動物可在河對岸生成,而不會因該區域無陸路通往城鎮而被封鎖。修復新地圖上「河對岸沒有鹿」的問題;對既有存檔而言,載入時也會重新在被切斷的區域補充動物。僅影響野生動物生成——獵人捕獵與村民路徑不受影響。關閉 = 原版行為(河川阻擋跨河野生動物)。
+RiversRestored/opt/RiverFishPerCell/label=每水格魚量
+RiversRestored/opt/RiverFishPerCell/tip=依河川實際大小(其充滿水的格數)決定河川的基礎魚群數量,而非 FF 那條會封頂的面積曲線——因此橫貫地圖的巨大河川能擁有相應更多的魚,無需手動調校,而不像小溪那樣受限。1.0 = 一條橫貫大地圖的大河約有 1 萬至 1.4 萬條魚(建議值)。調高可獲得更豐富的河川,調低則較貧瘠。0 = 停用(使用原版曲線)。河川捕魚產量提升倍率仍會疊加在此基礎值之上。
+RiversRestored/opt/ScaleLakeFish/label=依面積同步調整湖泊/池塘魚量
+RiversRestored/opt/ScaleLakeFish/tip=將上方「每水格魚量」的比例套用至湖泊與池塘,不僅限於河川——使大湖的魚量比小池塘相應更多,而非受限於 FF 那條會封頂大型水域的曲線。僅會增加,不會減少:任何水域的魚量都不會少於原版(河川產量倍率不會套用至湖泊)。預設開啟。關閉可維持原版湖泊/池塘魚量。
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=至尊恩賜
+SovereignBoons/meta/desc=強化包:精選社群模組功能,讓聚落更強大。每項恩賜預設皆為關閉。整合自社群模組作者並致上感謝——完整來源列表請見 README。
+SovereignBoons/cat/Economy=經濟
+SovereignBoons/opt/EnableCrownsBounty/label=王室恩賞
+SovereignBoons/opt/EnableCrownsBounty/tip=倍增課稅事件所得金幣。名符其實——銷售/退款/事件獎勵不受影響。預設:關閉。
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=稅收倍率
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=套用於每次課稅事件金幣的倍率。原版 = 1.0。預設:2.0。
+SovereignBoons/opt/EnableWealthyCaravans/label=富裕商隊
+SovereignBoons/opt/EnableWealthyCaravans/tip=更闊綽的行商 + 更高的交易站庫存上限。預設:關閉。
+SovereignBoons/opt/WealthyCaravansGoldMul/label=金幣倍率
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=商人金幣總量的倍率。原版 = 1.0。預設:2.0。
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=貨物倍率
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=商人貨物數量的倍率。原版 = 1.0。預設:2.0。
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=照單全收
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=商人會收購其貨物清單中或城內倉儲已有的任何物品。預設:開啟。
+SovereignBoons/opt/WealthyCaravansMaxStock/label=交易站最大庫存
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=覆寫 TradeManager.maxTradingPostStockCount。原版 = 100。預設:1000。
+SovereignBoons/opt/EnableMerchantsGambit/label=商賈謀略
+SovereignBoons/opt/EnableMerchantsGambit/tip=按下熱鍵掃描到訪商人是否有低買高賣的套利機會,並一鍵執行整套流程。預設先以「試算模式」(僅顯示報告)啟動。預設:關閉。
+SovereignBoons/opt/MerchantsGambitDryRun/label=試算模式(僅顯示報告)
+SovereignBoons/opt/MerchantsGambitDryRun/tip=以提示訊息+記錄回報預估利潤,不移動任何貨物或金幣。確認數字無誤後關閉此項即可啟用一鍵執行。預設:開啟。
+SovereignBoons/opt/MerchantsGambitScanKey/label=熱鍵
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCode 或組合鍵——Ctrl+B、F6、Alt+Shift+M(修飾鍵:Ctrl/Alt/Shift)。預設:Ctrl+B。
+SovereignBoons/opt/MerchantsGambitMinProfit/label=每單位最低利潤
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=低於此每單位金幣利潤的套利機會將被略過。預設:1。
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=最大循環次數
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=每次執行的買賣步驟安全上限。預設:500。
+SovereignBoons/cat/Workforce=勞動力
+SovereignBoons/opt/EnableSwiftFeet/label=疾行之足
+SovereignBoons/opt/EnableSwiftFeet/tip=更快的村民 + 更強化的運輸貨車。套用於啟用後生成的角色/貨車;既有角色/貨車需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/SwiftFeetShoeBonus/label=村民鞋履加成
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=覆寫 Character._shoeBonusBase。掠奪者也會受影響。原版 = 0.15。預設:0.30。
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=貨車移動速度
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=覆寫 TransportWagon._movementSpeed。原版約 4.5。預設:8.0。
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=貨車載運容量
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=覆寫 TransportWagon.carryCapacity。原版 = 150。預設:300。
+SovereignBoons/opt/EnableEagerHands/label=急切之手
+SovereignBoons/opt/EnableEagerHands/tip=降低勞動人口與學校入學年齡的門檻。預設:關閉。
+SovereignBoons/opt/EagerHandsChildAge/label=童工門檻年齡
+SovereignBoons/opt/EagerHandsChildAge/tip=村民成為童工的最低年齡。原版 = 15。預設:12。
+SovereignBoons/opt/EagerHandsAdolescentAge/label=青年門檻年齡
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=村民晉升為成年勞動力的年齡。原版 = 25。預設:18。
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=學校最低入學年齡
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=原版 = 5。預設:5。
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=學校最高入學年齡
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=設得很低可實質停用就學。原版 = 10。預設:10。
+SovereignBoons/opt/EnableKingsHighway/label=王者大道
+SovereignBoons/opt/EnableKingsHighway/tip=道路移動更快 + 具攻擊性動物移動變慢。道路加成在道路變動/重新載入時重新計算;動物減速為即時生效。預設:關閉。
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=提升道路速度
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=倍增道路上的速度加成。預設:開啟(當恩賜啟用時)。
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=道路速度倍率
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=套用於 AIGridNode.nodeSpeedBonus 的倍率。原版 = 1.0。預設:1.5。
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=減緩具攻擊性動物
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=狼/熊等移動變慢——更容易逃脫,也更容易狩獵。預設:開啟。
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=攻擊性動物速度倍率
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=原版 = 1.0。數值越低,掠食者越慢。預設:0.85。
+SovereignBoons/cat/Buildings=建築
+SovereignBoons/opt/EnableSpringsVigor/label=豐沛水井
+SovereignBoons/opt/EnableSpringsVigor/tip=水井補充更快 + 水井容量更大。套用於啟用後放置的水井;既有水井需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/SpringsVigorRechargeMult/label=補充倍率
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=套用於 Well.waterGainPerSecond 的倍率(原版每秒 0.01)。預設:2.0(×2 → 每秒 0.02)。
+SovereignBoons/opt/SpringsVigorCapacityMult/label=容量倍率
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=套用於 Well.maxWater 的倍率(原版 = 50)。預設:2.0(×2 → 最大 100)。
+SovereignBoons/cat/Combat=戰鬥
+SovereignBoons/opt/EnableLevysArms/label=緊急民兵
+SovereignBoons/opt/EnableLevysArms/tip=以熱鍵驅動的民兵動員。為每位符合資格的村民配備戰鬥裝備並提供屬性加成。預設:關閉。
+SovereignBoons/opt/LevysArmsArmKey/label=動員熱鍵
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCode 或組合鍵——Ctrl+A、F4、Alt+Shift+M(修飾鍵:Ctrl/Alt/Shift)。預設:Ctrl+A。
+SovereignBoons/opt/LevysArmsUnarmKey/label=解散熱鍵
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCode 或組合鍵(例如 Alt+A;修飾鍵 Ctrl/Alt/Shift)。預設:Alt+A。
+SovereignBoons/opt/LevysArmsStatMagnitude/label=屬性強度
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=套用於每個 Perc 屬性欄位(最大生命、護甲、近戰/遠程傷害等)。原版 = 0。來源模組的「強力」預設值為 1000。預設:100。
+SovereignBoons/cat/Misc=雜項
+SovereignBoons/opt/EnableSteadfastResolve/label=成就無憂
+SovereignBoons/opt/EnableSteadfastResolve/tip=即使使用非預設設定或模組,成就仍可解鎖。預設:關閉。
+SovereignBoons/opt/EnableLongReach/label=領域擴展
+SovereignBoons/opt/EnableLongReach/tip=依建築類型設定工作半徑倍率。套用於啟用後放置的建築;既有建築需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/LongReachWorkCampMul/label=工作營半徑 ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=套用於工作營工作半徑的倍率(原版 60)。1.0 = 不變,1.5 = 1.5 倍,2.0 = 兩倍。預設:1.0。
+SovereignBoons/opt/LongReachHunterMul/label=獵人小屋半徑 ×
+SovereignBoons/opt/LongReachHunterMul/tip=套用於獵人建築半徑的倍率(原版 60)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachFishingMul/label=漁寮半徑 ×
+SovereignBoons/opt/LongReachFishingMul/tip=套用於漁寮半徑的倍率(原版 30)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachArboristMul/label=樹藝師半徑 ×
+SovereignBoons/opt/LongReachArboristMul/tip=套用於樹藝師建築半徑的倍率(原版 100)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachMarketMul/label=市場半徑 ×
+SovereignBoons/opt/LongReachMarketMul/tip=套用於市場策略規劃半徑的倍率(原版 50)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachForagerMul/label=採集小屋半徑 ×
+SovereignBoons/opt/LongReachForagerMul/tip=套用於採集小屋採集半徑的倍率(原版 60)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachRatCatcherMul/label=捕鼠員半徑 ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=套用於捕鼠員建築工作半徑的倍率(原版 60)。1.0 = 不變。預設:1.0。
+SovereignBoons/opt/LongReachDoghouseMul/label=犬舍守衛半徑 ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=套用於犬舍守衛半徑的倍率(原版 60)——狗的防禦範圍。1.0 = 不變。預設:1.0。[貓狗 DLC]
+SovereignBoons/opt/EnableCivicPride/label=市民榮耀
+SovereignBoons/opt/EnableCivicPride/tip=倍增裝飾建築的宜居度半徑/加成。套用於啟用後放置的裝飾建築;既有建築需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/CivicPrideRadiusMul/label=半徑倍率
+SovereignBoons/opt/CivicPrideRadiusMul/tip=套用於 Building._strategicPlanningRadius 的倍率(原版 = 50)。預設:1.5。
+SovereignBoons/opt/CivicPrideBonusMul/label=加成倍率
+SovereignBoons/opt/CivicPrideBonusMul/tip=套用於 Building._strategicPlanningBonus 幅度的倍率。原版 = 1.0。預設:1.5。
+SovereignBoons/opt/EnableHallowedReliquary/label=聖物寶匣
+SovereignBoons/opt/EnableHallowedReliquary/tip=靈性加成倍率 + 解除聖物數量與祭司人數的連動限制。預設:關閉。
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=靈性加成倍率
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=套用於 ReligionManager._spiritualityBonusPerRelic 的倍率(原版 = 50)。預設:1.5。
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=解除聖物與祭司人數的連動
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=只要有 1 位祭司,即可啟用所有已分配的聖物。關閉 = 原版行為(祭司人數決定啟用的聖物數量)。預設:開啟。
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=解鎖全部聖物
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=強力效果:地圖載入時解鎖遊戲中的所有聖物。取得後會保留在存檔中(之後可關閉此項以停止重複觸發,但已取得的聖物會保留)。預設:關閉。
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=額外聖物欄位
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=每座神殿新增的額外聖物欄位(原版 = 2)。0..13 → 共 2..15 個(與 VC_ModifyTemple 一致)。欄位元件複製自既有介面範本,以每列最多 5 個排列。預設:4(共 6 個)。FF 原版聖物池約 8 個,因此超過約 10 個時會出現空欄位。於下次載入存檔時生效。
+SovereignBoons/opt/EnableHoardedStores/label=囤積倉儲
+SovereignBoons/opt/EnableHoardedStores/tip=依倉儲類型設定容量倍率。套用於啟用後放置的倉儲建築;既有建築需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=地窖——套用
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=將容量倍率套用於地窖。預設:關閉。
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=地窖——倍率
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=地窖的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=穀倉——套用
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=將容量倍率套用於穀倉。預設:關閉。
+SovereignBoons/opt/HoardedStoresGranaryMul/label=穀倉——倍率
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=穀倉的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=倉庫——套用
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=將容量倍率套用於倉庫。預設:關閉。
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=倉庫——倍率
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=倉庫的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=儲運場——套用
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=將容量倍率套用於儲運場。預設:關閉。
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=儲運場——倍率
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=儲運場的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=牲畜圍場——套用
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=將容量倍率套用於牲畜圍場。預設:關閉。
+SovereignBoons/opt/HoardedStoresStockyardMul/label=牲畜圍場——倍率
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=牲畜圍場的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=國庫——套用
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=將容量倍率套用於國庫。預設:關閉。
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=國庫——倍率
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=國庫的容量倍率。預設:2.0。
+SovereignBoons/opt/HoardedStoresMarketEnable/label=市場——套用
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=將容量倍率套用於市場。預設:關閉。
+SovereignBoons/opt/HoardedStoresMarketMul/label=市場——倍率
+SovereignBoons/opt/HoardedStoresMarketMul/tip=市場的容量倍率。預設:2.0。
+SovereignBoons/opt/EnableGreaterHalls/label=恢弘廳堂
+SovereignBoons/opt/EnableGreaterHalls/tip=約 52 種建築類型的額外工人/居民擴充。依畜牧/生產/資源場地/田務/民生/住宅分類。套用於啟用後放置的建築;既有建築需重新載入存檔才會更新。預設:關閉。
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=穀倉 +工人
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..6。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=貓舍 +工人
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=雞舍 +工人
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=犬舍 +工人
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=羊舍 +工人
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=馬廄 +工人
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:畜牧。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=藥鋪 +工人
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=軍械坊 +工人
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=麵包坊 +工人
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=編籃坊 +工人
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=鐵匠鋪 +工人
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=裝訂坊 +工人
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=釀酒坊 +工人
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=磚窯 +工人
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=蠟燭坊 +工人
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=炭窯 +工人
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=乳酪坊 +工人
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=鞋匠鋪 +工人
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=製桶坊 +工人
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=箭匠坊 +工人
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=鑄造坊 +工人
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=傢俱工坊 +工人
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..5。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=玻璃坊 +工人
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..6。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=造紙坊 +工人
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..5。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=陶匠坊 +工人
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=醃漬坊 +工人
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=燻製坊 +工人
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=織布坊 +工人
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=風車 +工人
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=伐木場 +工人
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:生產。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=黏土坑 +工人
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..4。預設:0(不變)。涵蓋黏土坑——包括地表坑與其深層(無限)版本。
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=礦坑 +工人
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..4。預設:0(不變)。此類別涵蓋所有深層礦床礦坑:每座鐵、金、煤礦坑,無論地表或深層。礦石種類屬於資料而非獨立建築,因此無法單獨鎖定某一種礦石。
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=沙坑 +工人
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..4。預設:0(不變)。涵蓋沙坑——包括地表坑與其深層(無限)版本。
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=鋸木坑 +工人
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=採石場 +工人
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..8。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=工作營 +工人
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:資源場地。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=樹藝師 +工人
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:田務。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=漁寮 +工人
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:田務。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=採集小屋 +工人
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:田務。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=獵人小屋 +工人
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:田務。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=堆肥場 +工人
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=守衛塔 +工人
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=公會廳 +工人
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=治療者小屋 +工人
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=圖書館 +工人
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..1。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=市場 +工人
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=酒館 +工人
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_School_Addon/label=學校 +工人
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=神殿 +工人
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..3。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=貨車商店 +工人
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:民生。範圍:0..2。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=庇護所 +居民
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:住宅。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=臨時庇護所 +居民
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=在原版 maxWorkers 之上額外增加的工人/居民欄位。分類:住宅。範圍:0..4。預設:0(不變)。
+SovereignBoons/opt/EnableBountifulFields/label=豐饒田野
+SovereignBoons/opt/EnableBountifulFields/tip=逐作物調校 + 農業全域設定。作物資料紀錄會在地圖載入時被修改——變更數值後需重新載入存檔才會生效。
+SovereignBoons/opt/EnableBountifulCrops/label=豐饒作物——8 種新作物
+SovereignBoons/opt/EnableBountifulCrops/tip=為種植選單新增辣椒(→香料)、僧侶草(→藥用根莖)、大麻(→纖維)、大豆(→堅果)、玉米(→穀物)、紫柳(→柳條)、褐蘑菇(→菇類)、藥草花園(→藥草,恢復肥力)。可透過下方滑桿逐一調校,方式與原版作物相同。存檔安全:關閉此項僅會移除種植選單圖示——存檔中已種植的作物仍會正常運作。預設:false。
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=記錄原版數值
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=地圖載入時將每種作物的原版 VegetableFieldsRecord 數值傾印至 MelonLoader.log。可暫時開啟以查看各作物的預設值;完成後請關閉。預設:false。
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=記錄作物病害
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=地圖載入時將每種作物病害(名稱、目標作物、感染/擴散調校)傾印至 MelonLoader.log——約 80 行。僅供診斷;是唯一能查看病害目標作物清單的方式(這些資料存於資源包中)。預設:false。
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=每位農夫可耕格數倍率
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=套用於 AgricultureManager._gridsPerFarmer 的倍率。預設:1.0(原版)。
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=維護期長度(天)
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=覆寫 AgricultureManager._maintenanceLengthInDays。範圍 45..90 才會生效;超出此範圍視為不變更。預設:-1(不變更)。
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=蕪菁 — 套用
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=蕪菁覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=蕪菁 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版蕪菁):3。
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=蕪菁 — 種植天數
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版蕪菁):10。
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=蕪菁 — 成熟天數
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版蕪菁):41。
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=蕪菁 — 雜草增加
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版蕪菁):-5.0。
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=蕪菁 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版蕪菁):0。
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=蕪菁 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版蕪菁):35。
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=胡蘿蔔 — 套用
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=胡蘿蔔覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=胡蘿蔔 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版胡蘿蔔):3。
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=胡蘿蔔 — 種植天數
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版胡蘿蔔):10。
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=胡蘿蔔 — 成熟天數
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版胡蘿蔔):58。
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=胡蘿蔔 — 雜草增加
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版胡蘿蔔):0.0。
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=胡蘿蔔 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版胡蘿蔔):0。
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=胡蘿蔔 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版胡蘿蔔):50。
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=小麥 — 套用
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=小麥覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=小麥 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版小麥):8。
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=小麥 — 種植天數
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版小麥):10。
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=小麥 — 成熟天數
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版小麥):118。
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=小麥 — 雜草增加
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版小麥):-4.0。
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=小麥 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版小麥):20。
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=小麥 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版小麥):0。
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=蕎麥 — 套用
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=蕎麥覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=蕎麥 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版蕎麥):1。
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=蕎麥 — 種植天數
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版蕎麥):10。
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=蕎麥 — 成熟天數
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版蕎麥):60。
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=蕎麥 — 雜草增加
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版蕎麥):-10.0。
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=蕎麥 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版蕎麥):80。
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=蕎麥 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版蕎麥):0。
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=黑麥 — 套用
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=黑麥覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=黑麥 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版黑麥):6。
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=黑麥 — 種植天數
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版黑麥):10。
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=黑麥 — 成熟天數
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版黑麥):118。
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=黑麥 — 雜草增加
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版黑麥):-6.0。
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=黑麥 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版黑麥):0。
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=黑麥 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版黑麥):0。
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=豆類 — 套用
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=豆類覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=豆類 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版豆類):-1。
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=豆類 — 種植天數
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版豆類):10。
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=豆類 — 成熟天數
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版豆類):85。
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=豆類 — 雜草增加
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版豆類):-2.0。
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=豆類 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版豆類):80。
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=豆類 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版豆類):0。
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=豌豆 — 套用
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=豌豆覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=豌豆 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版豌豆):-1。
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=豌豆 — 種植天數
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版豌豆):10。
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=豌豆 — 成熟天數
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版豌豆):51。
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=豌豆 — 雜草增加
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版豌豆):0.0。
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=豌豆 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版豌豆):0。
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=豌豆 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版豌豆):75。
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=甘藍 — 套用
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=甘藍覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=甘藍 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版甘藍):4。
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=甘藍 — 種植天數
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版甘藍):10。
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=甘藍 — 成熟天數
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版甘藍):85。
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=甘藍 — 雜草增加
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版甘藍):-3.0。
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=甘藍 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版甘藍):0。
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=甘藍 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版甘藍):0。
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=韭蔥 — 套用
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=韭蔥覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=韭蔥 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版韭蔥):6。
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=韭蔥 — 種植天數
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版韭蔥):10。
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=韭蔥 — 成熟天數
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版韭蔥):118。
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=韭蔥 — 雜草增加
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版韭蔥):0.0。
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=韭蔥 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版韭蔥):0。
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=韭蔥 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版韭蔥):0。
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=亞麻 — 套用
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=亞麻覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=亞麻 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版亞麻):5。
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=亞麻 — 種植天數
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版亞麻):10。
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=亞麻 — 成熟天數
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版亞麻):95。
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=亞麻 — 雜草增加
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版亞麻):0.0。
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=亞麻 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版亞麻):0。
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=亞麻 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版亞麻):0。
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=三葉草 — 套用
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=三葉草覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=三葉草 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版三葉草):-3。
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=三葉草 — 種植天數
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版三葉草):10。
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=三葉草 — 成熟天數
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版三葉草):64。
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=三葉草 — 雜草增加
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版三葉草):-8.0。
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=三葉草 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版三葉草):0。
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=三葉草 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版三葉草):0。
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=乾草 — 套用
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=乾草覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=乾草 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版乾草):1。
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=乾草 — 種植天數
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版乾草):10。
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=乾草 — 成熟天數
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版乾草):128。
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=乾草 — 雜草增加
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版乾草):-5.0。
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=乾草 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版乾草):0。
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=乾草 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版乾草):0。
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=辣椒 — 套用
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=辣椒覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=辣椒 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版辣椒):10。
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=辣椒 — 種植天數
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版辣椒):10。
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=辣椒 — 成熟天數
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版辣椒):70。
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=辣椒 — 雜草增加
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版辣椒):1.0。
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=辣椒 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版辣椒):80。
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=辣椒 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版辣椒):5。
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=僧侶草 — 套用
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=僧侶草覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=僧侶草 — 肥力消耗
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版僧侶草):8。
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=僧侶草 — 種植天數
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版僧侶草):10。
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=僧侶草 — 成熟天數
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版僧侶草):65。
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=僧侶草 — 雜草增加
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版僧侶草):1.0。
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=僧侶草 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版僧侶草):30。
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=僧侶草 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版僧侶草):10。
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=大麻 — 套用
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=大麻覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=大麻 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版大麻):12。
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=大麻 — 種植天數
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版大麻):10。
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=大麻 — 成熟天數
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版大麻):60。
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=大麻 — 雜草增加
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版大麻):1.0。
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=大麻 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版大麻):25。
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=大麻 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版大麻):10。
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=大豆 — 套用
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=大豆覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=大豆 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版大豆):5。
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=大豆 — 種植天數
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版大豆):10。
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=大豆 — 成熟天數
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版大豆):70。
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=大豆 — 雜草增加
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版大豆):1.0。
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=大豆 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版大豆):45。
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=大豆 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版大豆):10。
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=玉米 — 套用
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=玉米覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=玉米 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版玉米):12。
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=玉米 — 種植天數
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版玉米):10。
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=玉米 — 成熟天數
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版玉米):75。
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=玉米 — 雜草增加
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版玉米):1.0。
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=玉米 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版玉米):70。
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=玉米 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版玉米):5。
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=紫柳 — 套用
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=紫柳覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=紫柳 — 肥力消耗
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版紫柳):4。
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=紫柳 — 種植天數
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版紫柳):10。
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=紫柳 — 成熟天數
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版紫柳):80。
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=紫柳 — 雜草增加
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版紫柳):1.0。
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=紫柳 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版紫柳):10。
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=紫柳 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版紫柳):30。
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=褐蘑菇 — 套用
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=褐蘑菇覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=褐蘑菇 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版褐蘑菇):2。
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=褐蘑菇 — 種植天數
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版褐蘑菇):10。
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=褐蘑菇 — 成熟天數
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版褐蘑菇):45。
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=褐蘑菇 — 雜草增加
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版褐蘑菇):1.0。
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=褐蘑菇 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版褐蘑菇):20。
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=褐蘑菇 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版褐蘑菇):40。
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=藥草 — 套用
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=藥草覆寫值的總開關。關閉 → 使用原版數值(以下欄位將被忽略)。開啟 → 地圖載入時,以下數值會寫入該作物的資料紀錄。預設:false。
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=藥草 — 肥力消耗
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=每次種植週期消耗的肥力。負值 = 恢復肥力。範圍:-10..10。預設(原版藥草):-3。
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=藥草 — 種植天數
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=開始生長前所需的種植天數。數值越低週轉越快。範圍:1..30。預設(原版藥草):10。
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=藥草 — 成熟天數
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=從種植到可採收所需天數。數值越低作物越快熟成。範圍:10..300。預設(原版藥草):60。
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=藥草 — 雜草增加
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=每次種植/收穫週期增加的雜草百分比(`weedLevel += value / 100`)。負值 = 減少雜草(多數原版作物如此)。數值越低雜草越少。範圍:-20..10。預設(原版藥草):-4.0。
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=藥草 — 霜凍死亡率 %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=霜凍事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版藥草):15。
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=藥草 — 高溫死亡率 %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=熱浪事件中死亡的作物百分比。0 = 免疫。數值越低越強力。範圍:0..100。預設(原版藥草):15。
+SovereignBoons/cat/Weather=天氣
+SovereignBoons/opt/EnableTemperateSkies/label=溫和天穹
+SovereignBoons/opt/EnableTemperateSkies/tip=抑制極端天氣事件。暴風雪/熱浪的移除於天氣初始化時生效(需重新載入);乾旱/極端機率為即時生效。預設:關閉。
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=停用暴風雪
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=將暴風雪自極端天氣抽選中移除。預設:關閉。
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=停用熱浪
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=將熱浪自極端天氣抽選中移除。預設:關閉。
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=停用所有極端天氣
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=強制將 chanceOfExtremeWeather 設為 0。可與各別事件開關疊加。預設:關閉。
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=停用乾旱
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=將 WeatherProfile.chanceOfDrought 曲線強制歸零。預設:關閉。
+# ── Tended Wilds ──
+TendedWilds/meta/name=馴野拾荒
+TendedWilds/meta/desc=採集小屋大改造:全年耕作、野生種植、1-9 優先度、採集物遷移
+TendedWilds/cat/Master=總開關
+TendedWilds/opt/ModEnabled/label=啟用模組
+TendedWilds/opt/ModEnabled/tip=關閉以回退至原版採集小屋行為
+TendedWilds/opt/RelocationEnabled/label=啟用遷移
+TendedWilds/opt/RelocationEnabled/tip=採集物遷移功能的總開關
+TendedWilds/cat/Relocate by Type=依類型遷移
+TendedWilds/opt/RelocateHerbs/label=藥草
+TendedWilds/opt/RelocateHerbs/tip=允許遷移藥草叢。
+TendedWilds/opt/RelocateMushrooms/label=菇類
+TendedWilds/opt/RelocateMushrooms/tip=允許遷移菇類群落。
+TendedWilds/opt/RelocateGreens/label=綠葉菜
+TendedWilds/opt/RelocateGreens/tip=允許遷移綠葉菜叢。
+TendedWilds/opt/RelocateRoots/label=根莖
+TendedWilds/opt/RelocateRoots/tip=允許遷移根莖聚集區。
+TendedWilds/opt/RelocateNuts/label=榛果
+TendedWilds/opt/RelocateNuts/tip=允許遷移榛果灌木。
+TendedWilds/opt/RelocateWillow/label=柳條
+TendedWilds/opt/RelocateWillow/tip=允許遷移柳叢。
+TendedWilds/opt/RelocateBerries/label=莓叢
+TendedWilds/opt/RelocateBerries/tip=山楂、鹽膚木
+TendedWilds/cat/Cost=花費
+TendedWilds/opt/GoldCostToRelocate/label=每次遷移金幣花費
+TendedWilds/opt/GoldCostToRelocate/tip=0 = 免費,僅需人力
+TendedWilds/cat/Foraging=採集
+TendedWilds/opt/ExemptForagingBuildings/label=水井/獵人小屋豁免採集懲罰
+TendedWilds/opt/ExemptForagingBuildings/tip=水井與獵人小屋不會降低附近採集物的產量(採集小屋在原版中已豁免)
+
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=船塢長的簡陋船屋
+TheDockmastersDingyBoathouse/meta/desc=重新啟用《最遠的邊境》的划船釣魚功能——一艘小艇與船塢長的船屋。
+TheDockmastersDingyBoathouse/cat/Master=總開關
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=啟用模組
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=關閉以回退至原版行為。
+TheDockmastersDingyBoathouse/cat/Boat=小艇
+TheDockmastersDingyBoathouse/opt/BoatScale/label=小艇縮放
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=船隻的視覺大小。1 = 原始模型大小。
+TheDockmastersDingyBoathouse/cat/Boathouse=船屋
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=佔地寬度(格)
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=佔地僅涵蓋屋體;棧橋會延伸至水面上方。變更後需重新放置。
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=佔地深度(格)
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=以模型的岸邊為錨定基準。變更後需重新放置。
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=燈籠閃爍
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=燈籠火焰呈現燭光般的閃爍效果。關閉 = 穩定光源。
+TheDockmastersDingyBoathouse/opt/PostDepth/label=樁柱入水深度
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=結構體沒入水中的深度。0 = 原始設計水位線。即時生效。
+TheDockmastersDingyBoathouse/cat/Hotkeys=熱鍵
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=放置船屋
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=登記並進入船屋的放置模式。
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=生成/航行小艇
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=瞄準水面:第一次按下會放下你的小艇,之後按下則會駛往該處。
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=收起小艇
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=移除你的小艇,以便在他處部署。
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=小艇放大
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=放大你的小艇。
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=小艇縮小
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=縮小你的小艇。
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=診斷傾印
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=將建築/預製件診斷資訊傾印至記錄檔。
+
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=荒野守護者
+WardenOfTheWilds/meta/desc=獵人大改造:T2 分支路線、風箏誘敵 AI、捕魚/燻製坊調校、大型獵物生成倍率。
+WardenOfTheWilds/cat/Master Toggles=總開關
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=獵人大改造
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=T2 分支路線、風箏誘敵 AI、瞭望台射程加成
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=捕魚大改造
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=釣客/蟹籠師模式、漁人碼頭、永續捕魚科技加成
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=燻製坊大改造
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=燻製坊半徑/工人/倉儲調校
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=診斷記錄
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=開發用詳細記錄——一般遊玩請保持關閉
+WardenOfTheWilds/cat/Sub-systems=子系統
+WardenOfTheWilds/opt/HunterCombatEnabled/label=獵人戰鬥 AI
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=風箏誘敵、撤退、多掠食者迴避——戰鬥系統的核心負荷模組
+WardenOfTheWilds/opt/HunterRallyEnabled/label=獵人集結熱鍵
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=逐影格輪詢集結/返回/全選的按鍵綁定
+WardenOfTheWilds/opt/HunterUIEnabled/label=獵人介面注入
+WardenOfTheWilds/opt/HunterUIEnabled/tip=大型獵物獵人/陷阱大師按鈕與滑桿注入
+WardenOfTheWilds/opt/FishingUIEnabled/label=捕魚介面注入
+WardenOfTheWilds/opt/FishingUIEnabled/tip=釣客/蟹籠師模式介面
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=科技樹補丁
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=永續捕魚數值覆寫
+WardenOfTheWilds/cat/Smokehouse=燻製坊
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=自訂工作半徑
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=開啟時,燻製坊會顯示可見的工作範圍圓圈(選取該建築時可見),半徑依設定值。關閉可完全停用此視覺效果,同時保留倉儲/工人加成。
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=強制執行半徑
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=拒絕範圍外的工作
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=工作半徑
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=燻製坊工作範圍圓圈的半徑。原版燻製坊沒有工作範圍——此視覺效果純粹是為了輔助將獵人小屋/漁寮放置在有效範圍內。60 單位約為舒適的供應範圍。想要更緊湊的聚落可調低,想要分散式佈局可調高。
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=最大工人數
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=每座燻製坊的工人欄位數。原版 = 1。2 = 可同時燻製肉/魚,產能翻倍。設為 1 可維持原版平衡。
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=生肉倉儲上限
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=傳入的生肉/生魚(等待燻製的緩衝庫存)容量。原版上限較小,獵人帶回大量獵物時容易停產。200 單位提供充裕的緩衝。此欄位於接上時自動偵測——詳見記錄檔。
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=燻肉倉儲上限
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=送出的燻肉/燻魚(等待貨車取貨)容量。更大的產出緩衝 = 較少貨車往返,且倉庫滿載時不會停產。200 單位 = 舒適的貨車滿載緩衝。
+WardenOfTheWilds/cat/Hunter Cabin=獵人小屋
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=產出緩衝上限
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=小屋製造倉儲中每項物品的容量。數值越高,停產前的緩衝空間越大。
+WardenOfTheWilds/cat/Hunting Lodge=狩獵小屋
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=半徑倍率
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=套用於狩獵小屋建築的工作半徑倍率。1.35 = 比原版大 35%。
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=肉量倍率
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=狩獵小屋獵人的小幅肉類產量倍率。狩獵小屋的主要優勢在於半徑與 2 個工人欄位(產量);此為額外的小幅品質加成。1.15 = 每具屍體多產 15% 肉量。
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=越野速度倍率
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=狩獵小屋(大型獵物獵人)獵人的移動速度倍率。於 T2 套用,作為路線專精的基礎加成——可與科技樹越野速度升級(開拓先鋒)疊加。1.35 = 比原版獵人快 35%,足以讓大型獵物獵人穩定風箏誘敵狼與野豬。未擁有此加成的 T1 獵人則依賴庇護所+初始交戰距離求生。撤退更快 = 每次裝填週期能拉開更多距離 = 風箏誘敵更安全。需從戰鬥傾印確認速度欄位名稱。
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=大型獵物射擊間隔倍率
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=數值越低,對野豬/狼/熊的射擊速率越快
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=風箏誘敵 AI
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=面對危險獵物時,獵人會在兩次射擊間退回狩獵瞭望台/小屋
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=屠宰速度倍率
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=以每位工人計算——與 2 名工人搭配使用
+WardenOfTheWilds/cat/Trapper Lodge=陷阱獵人小屋
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=毛皮倍率
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=陷阱獵人小屋的毛皮/皮草產量倍率。1.6 = 比原版小屋多 60% 毛皮。
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=最大部署陷阱數
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=陷阱獵人小屋可同時部署的最大陷阱數。原版 T2 = 1 個陷阱(T1 無法設陷阱)。3 = 三條同時運作的陷阱線,配合 26 天的週期:在 ×1.6 毛皮倍率下間隔縮短至約 16 天,因此 3 個陷阱可讓陷阱獵人持續忙碌不閒置。數值更高可擴大範圍,但一位陷阱獵人能照料的陷阱線終究有限。
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=陷阱處理速度倍率
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1.25 = 陷阱間隔快 25%
+WardenOfTheWilds/opt/TrapperWaterBonus/label=近水加成
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=陷阱獵人小屋鄰近水體時的毛皮產量加成。陷阱獵人沿著河流與溪流設陷阱線——歷史上最豐饒的獵場。1.25 = 近水時毛皮產量多 25%。
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=水域加成半徑
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=觸發陷阱獵人小屋近水加成的世界單位半徑範圍。
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=水域格數門檻
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=觸發加成所需的最少取樣水格數
+WardenOfTheWilds/opt/TrapMasterBearChance/label=陷阱捕熊機率
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=每次陷阱觸發時捕獲熊的機率
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=屠宰速度倍率
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=陷阱獵人小屋的相同機制。來自陷阱的小型獵物屍體會經過同一套屠宰流程——加成同樣適用。
+WardenOfTheWilds/cat/Big Game Yields=大型獵物產量
+WardenOfTheWilds/opt/BearMegaYieldMult/label=熊產量倍率
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=與熊屍體的其他加成疊加
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=大型獵物獵人熊肉獎勵
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=擊殺熊時直接存入擊殺者狩獵小屋的獎勵肉量(ItemMeat)。與屠宰屍體的產量疊加(原版一般屍體約 30 肉)。預設 220 + 30 ≈ 250 肉/熊。僅適用於狩獵小屋(大型獵物獵人)獵人——T1 與陷阱獵人路線僅獲得原版屍體產量。
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=大型獵物獵人熊毛皮獎勵
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=擊殺熊時存入擊殺者狩獵小屋的獎勵毛皮(ItemHide——FF 內部將毛皮稱為「hide」)。與屠宰產量疊加(約 2 張皮)。預設 3 + 2 ≈ 5 張毛皮/熊。僅限大型獵物獵人。
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=大型獵物獵人熊油脂獎勵
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=擊殺熊時存入擊殺者狩獵小屋的獎勵油脂(ItemTallow)。與屠宰產量疊加(約 3 油脂)。預設 5 + 3 ≈ 8 油脂/熊。僅限大型獵物獵人。
+WardenOfTheWilds/cat/Spawn Multipliers=生成倍率
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=熊族群數量
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=每張地圖熊族群上限的倍率。1.5 = 多 50% 的熊,為大型獵物獵人提供有意義的大型獵物目標。1.0 = 原版。同時縮放熊群組的 initialSpawnCount 與 maxAnimalCount。
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=狼族群數量
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=狼族群上限的倍率。1.25 = 多 25% 的狼。狼群更頻繁意味著獵人交戰更頻繁——若前期太過危險可調低。
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=野豬族群數量
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=野豬族群上限的倍率。原版預設已相當充裕;1.0 維持平衡。
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=鹿族群數量
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=鹿族群上限的倍率。影響 T1 獵人的肉量產出。
+WardenOfTheWilds/cat/Hunter AI=獵人 AI
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=撤退血量 %
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=低於此最大生命值比例時撤離戰鬥
+WardenOfTheWilds/opt/HunterMinArrows/label=出獵前最低箭矢數
+WardenOfTheWilds/opt/HunterMinArrows/tip=攜帶箭矢數低於此數值的獵人會被禁止狩獵/收集屍體/屠宰,強制先補貨才能繼續工作。同時也會提高原版的箭矢補給物流門檻(原版 = 2),使勞工在攜帶量低於此數值時立即送補。0 = 停用工作限制(原版物流門檻仍會提高)。
+WardenOfTheWilds/opt/HunterDangerRadius/label=危險察覺半徑
+WardenOfTheWilds/opt/HunterDangerRadius/tip=狼、野豬或熊進入此世界單位範圍時會主動觸發撤退——甚至在攻擊發生前。獵人在狼巢附近追鹿時,一旦掠食者進入此半徑就會後退。40 大約是弓箭射程的 2 倍。設為 0 可停用近距離撤退。
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=庇護所威脅掃描半徑
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=獵人會在庇護所中等待,直到威脅離開此半徑
+WardenOfTheWilds/opt/T1MeleeThreshold/label=T1 近戰血量門檻
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=T1 獵人在目標血量低於此百分比時投入近戰
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=追擊拉繩倍率
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=超過(小屋半徑 × 此倍率)即中止追擊
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=伏擊掃描半徑
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=交戰中的獵人周圍掃描伏擊威脅的距離。若追擊過程中(當前目標之外)出現額外的攻擊性動物進入此範圍,獵人會撤退。可避免「野豬把我引進狼群」的死亡情境。
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=伏擊門檻
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=觸發撤退所需的獵人附近敵對數量
+WardenOfTheWilds/opt/BowReloadSeconds/label=弓箭裝填時間(秒)
+WardenOfTheWilds/opt/BowReloadSeconds/tip=獵人弓箭裝填/攻擊間隔秒數。用於計算最佳風箏誘敵距離:撤退距離 = 裝填時間 × 獵人速度。預設 3.0 為估計值——待從傾印或遊戲內時間確認後更新。
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=十字弓裝填時間(秒)
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=獵人十字弓裝填/攻擊間隔秒數。十字弓射速較弓箭慢但傷害更高——裝填時間越長,獵人每輪射擊週期需要後退更遠以維持安全距離。預設 4.5 為估計值——待從傾印確認後更新。
+WardenOfTheWilds/cat/Hunting Blind=狩獵瞭望台
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=射程加成(格)
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=獵人駐守狩獵瞭望台時,射擊範圍增加的世界單位。代表固定高台的地利優勢。可與科技樹射程升級疊加。
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=金幣維護費
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=每個有人駐守的狩獵瞭望台每個遊戲內維護週期的金幣維護費。仿照守衛塔的平民工人模式。設為 0 可完全停用維護費。需從傾印確認守衛塔維護費欄位。
+WardenOfTheWilds/cat/Fishing — Angler=捕魚——釣客
+WardenOfTheWilds/opt/AnglerCatchMult/label=漁獲倍率
+WardenOfTheWilds/opt/AnglerCatchMult/tip=釣客模式工人的漁獲產出倍率。透過 GetNumFishCaught 於每次捕魚週期套用。1.5 = 每次捕魚多 50% 漁獲。
+WardenOfTheWilds/opt/AnglerTimerReduction/label=捕魚計時器倍率
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=數值越低捕魚越快
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=載運容量加成
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=釣客工人的額外魚類載運容量。原版 = 25。加成 15 = 共 40。往返次數越少,捕魚時間越多。
+WardenOfTheWilds/cat/Fishing — Creeler=捕魚——蟹籠師
+WardenOfTheWilds/opt/CreelerRodMult/label=釣竿產量倍率
+WardenOfTheWilds/opt/CreelerRodMult/tip=蟹籠師工人的釣竿捕魚產量倍率。蟹籠師花時間維護陷阱,因此釣竿產量降低。真正的收入來自每日陷阱結算系統。0.5 = 釣竿捕魚減少 50%。
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=陷阱結算間隔(天)
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=蟹籠師陷阱產出結算間隔的天數。每個蟹籠師工人欄位每隔此天數就會產出 CrabTrapFishPerSpawn 條魚,自動存入小屋倉儲(抽象化漁夫的收集時間)。水域格數加成會進一步縮短此間隔,適用於水域較多的地圖。預設 8 天已計入收集時間;調低可加快收入。
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=每次結算魚量
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=每個蟹籠師欄位每次結算產出的魚量。2 個蟹籠師欄位以每 5 天 4 條魚計算,約每年被動獲得 584 條魚。若過強請調低。
+WardenOfTheWilds/opt/CreelerTrapCount/label=部署陷阱數量
+WardenOfTheWilds/opt/CreelerTrapCount/tip=蟹籠師模式漁寮在其捕魚半徑內水域部署的實體蟹籠數量。建議範圍 4-6。每個陷阱獨立以 5 天週期累積魚量,並由小屋的漁夫負責收取。
+WardenOfTheWilds/opt/CreelerRadiusMult/label=捕魚半徑倍率
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=任何蟹籠師欄位啟用時的捕魚半徑倍率。2.0 = 60 單位(原版 30 單位)。蟹籠師的陷阱分散在更廣闊的水域。範圍內水格越多,水域加成越好。
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=水域格數門檻
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=在擴大後的半徑內啟用蟹籠師水域加成所需的最少水格數。8 單位格上 15 格約為中等湖岸規模。大型深湖輕鬆超過此門檻——正是蟹籠師的主場。
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=水域加成倍率
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=水域加成啟用時陷阱結算間隔的除數。1.25 = 陷阱結算快 25%。以預設值計算:5 天 / 1.25 = 4 天間隔。
+WardenOfTheWilds/cat/Fishing — Shared=捕魚——共用
+WardenOfTheWilds/opt/FishingDockOutputMult/label=漁人碼頭產出
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=T2 漁人碼頭(獨立建築)的漁獲產出倍率。1.5 = 多 50% 漁獲。適用於漁人碼頭建築的舊版設定。
+WardenOfTheWilds/opt/FishReplenishOverride/label=永續捕魚 %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=來自科技節點的補充速率(原版 0.30)
+WardenOfTheWilds/opt/FishingShackStorageCap/label=漁寮倉儲上限
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=每座漁寮的魚類倉儲容量。原版 = 100。設為 200 以符合原版一趟貨車載運量(重量 2 時約 200 條魚)。
+WardenOfTheWilds/cat/Hotkeys=熱鍵
+WardenOfTheWilds/opt/HunterRallyKey/label=集結獵人
+WardenOfTheWilds/opt/HunterRallyKey/tip=Unity KeyCode 名稱(G、H、R 等)
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=獵人返回小屋
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=令所有獵人返回各自的小屋。在掠奪者升溫時可用來將他們撤離戰鬥。按鍵格式與集結鍵相同。
+WardenOfTheWilds/opt/HunterSelectAllKey/label=全選獵人
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=將每位獵人選入原版的多重選取。之後右鍵點擊地形即可正常移動他們(原版的點擊移動在選取後對平民同樣有效)。若想混合選取,會保留原有的非獵人選取項目。
+WardenOfTheWilds/opt/HunterPathKey/label=切換 T2 路線
+WardenOfTheWilds/opt/HunterPathKey/tip=選取 T2 小屋時循環切換原版/陷阱獵人/狩獵小屋
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=寵物 DLC——獵犬
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=狗嘲諷(牽制掠食者)
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=狗會強行將一隻掠食者從獵人身上引開並牽制它
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=嘲諷脈衝(秒)
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=牽制期間重新宣告嘲諷的間隔秒數
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=逃跑後嘲諷消退(秒)
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=掠食者追逐逃跑中的狗此秒數後便會放棄
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=嘲諷範圍
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=嘲諷生效的最大獵人↔狗距離。數值越大,尾隨在後的狗在獵人於遠處交戰時仍能反應(手動移動獵人時狗會落後)。預設 100 單位(約一個獵人工作半徑)。
+WardenOfTheWilds/opt/DogFleeHealthPct/label=狗逃跑血量 %
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=獵犬逃跑的血量比例門檻(原版 0.5)
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=狗隨獵人一同逃跑
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=獵人撤退時,狗會脫離戰鬥並一同逃跑
+WardenOfTheWilds/opt/DogHealthMult/label=狗生命值倍率(全部狗隻)
+WardenOfTheWilds/opt/DogHealthMult/tip=縮放每隻狗(獵犬+犬舍守衛犬)的最大生命值。1.0 = 原版,1.5 = +50% 生命值。於生成時與地圖載入時套用。
+WardenOfTheWilds/opt/DogArmorBonus/label=狗護甲加成(全部狗隻)
+WardenOfTheWilds/opt/DogArmorBonus/tip=為每隻狗的基礎護甲增加的固定值。0 = 原版。有助於狗在牽制掠食者時存活更久。
+WardenOfTheWilds/opt/DogSpeedMult/label=狗速度倍率(全部狗隻)
+WardenOfTheWilds/opt/DogSpeedMult/tip=更快的狗能跟上手動移動的獵人
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=寵物 DLC——寵物墓園
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=寵物墓園切換
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=為墓地新增[人類]/[寵物]切換選項;設為寵物即可作為寵物墓地
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=墓地預設為關閉
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=新墓地在你指定為人類或寵物之前不會埋葬任何對象(可預留一座純淨的寵物墓地)
+WardenOfTheWilds/cat/Other settings=其他設定
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=獵人小屋防禦射擊
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=開啟時,躲避於小屋中的獵人會對近距離的攻擊性動物(狼/野豬/熊)開火,而非閒置等待勞工在外近戰對付威脅。獵人會步出、射出一箭,再退回庇護——如守衛塔般的防禦方式。受傷時會跳過(見 HunterCabinDefenseMinHp)。
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=獵人小屋防禦半徑(世界單位)
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=小屋防禦射擊的最大交戰距離。原版弓箭射程約 40 單位;預設 30 單位讓此行為維持在短距離的「居家防禦」性質,而非讓駐守小屋的獵人能觸及整個狩獵半徑。與 HunterCabinDefenseMinDist 搭配設定近距離下限。
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=獵人小屋防禦最低威脅距離
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=若威脅距小屋比此距離更近,則不派遣防禦射擊。近距離步出會讓獵人立即陷入近戰——不如讓城牆承受攻擊。預設 20 單位:獵人會交戰於 20-30 單位範圍內的威脅(安全弓箭射程),對更近的威脅則保持庇護。
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=獵人小屋防禦最低血量(0–1)
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=獵人須達到此滿血比例以上才會參與小屋防禦射擊。0.5 = 半血。受傷的獵人無論附近有何威脅都會保持庇護。設為 0 可允許受傷時仍交戰。
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=寵物 DLC:啟用 WotW DLC 功能
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=所有依賴《最遠的邊境》寵物 DLC 的 WotW 功能總開關(狐狸/土撥鼠捕獲、獵人+狗牽制行為等)。若未擁有該 DLC 會自動停用。設為 false 可在保留 DLC 內容原貌的同時不套用 WotW 的額外功能。
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=陷阱大師捕狐機率
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=陷阱大師每次觸發陷阱時,捕獲正在偷襲村莊雞隻的狐狸的機率。成功時掉落獎勵毛皮(不掉落屍體——本設計中狐狸肉不作為消耗品)。0.10 = 10%。需要寵物 DLC。
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=陷阱大師捕土撥鼠機率
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=陷阱大師每次觸發陷阱時,捕獲正在侵襲農田的土撥鼠的機率。成功時掉落小型屍體+少量毛皮獎勵。0.15 = 15%。需要寵物 DLC。
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=陷阱大師狐狸毛皮獎勵
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=每次成功捕狐時掉落的毛皮數量。狐狸皮草價值較高——每次捕獲數量較少但製革產值更高。
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=陷阱大師土撥鼠屍體獎勵
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=每次成功捕土撥鼠時掉落的小型屍體數量。與其他小型獵物屍體一樣送往燻製坊。
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=陷阱大師土撥鼠毛皮獎勵
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=每次成功捕土撥鼠時掉落的毛皮數量。
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=寵物 DLC:狐狸生成延遲(天)
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=首座雞舍建成後,狐狸開始嘗試生成前的等待天數。-1 = 不更動原版數值。數值越高,首次來襲越晚,讓你有時間建置陷阱防禦。
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=寵物 DLC:土撥鼠生成延遲(天)
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=首座作物田放置後,土撥鼠開始嘗試生成前的等待天數。-1 = 不更動原版數值。
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=寵物 DLC:狐狸生成倍率
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=依雞隻數量決定的狐狸來襲波數倍率。縮放將「雞隻數量」對應至「可生成狐狸群數」的動畫曲線。1.0 = 原版。2.0 = 兩倍。0.5 = 減半。適合用於難度調整,或想要更多村莊防禦互動的大型獵物獵人向玩法。
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=寵物 DLC:土撥鼠生成倍率
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=依作物田數量決定的土撥鼠來襲波數倍率。1.0 = 原版,2.0 = 兩倍,0.5 = 減半。
+WardenOfTheWilds/opt/WildFoxEnabled/label=寵物 DLC:野生狐狸族群(遊蕩)
+WardenOfTheWilds/opt/WildFoxEnabled/tip=預設關閉。啟用時(且擁有寵物 DLC),WotW 會生成一批如狼群般在地圖上遊蕩的野生狐狸族群,而非僅以雞舍偷襲者形式出現。此為原版 DLC 偷襲狐狸(依雞隻數量照常生成)之外的額外野生動物——開啟後你看到的狐狸數量可能明顯增加。可於 Keep Clarity 設定面板的荒野守護者分類中切換。
+WardenOfTheWilds/opt/WildFoxMaxCount/label=寵物 DLC:野生狐狸最大數量
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=地圖上維持的目標野生狐狸族群數量。補充循環會將死亡的狐狸重新補足至此上限(不計原版偷襲狐狸)。0 停用;數值越高,可供大型獵物獵人狩獵的小型掠食者越多。
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=寵物 DLC:野生狐狸補充間隔(秒)
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=野生狐狸族群檢查之間的實際時間秒數。數值越低,死亡後補充越快,但記錄訊息也越頻繁。建議:60–300。
+WardenOfTheWilds/opt/CatRatHuntRadius/label=寵物 DLC:貓咪捕鼠拉繩半徑
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=貓咪願意接受捕鼠任務的最大距離(單位),以其住所(住宅/貓舍/最近的庇護所)為基準。避免自由遊蕩的貓咪為了追一隻老鼠而跑進 40 單位外的樹林。受雇於捕鼠員建築的貓咪使用該建築的原版半徑,不受此設定影響。預設 25 約為緊湊的城鎮核心範圍。
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=寵物 DLC:貓咪威脅偵測範圍倍率
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=貓咪敵人偵測半徑的倍率。2.0 = 貓咪能在兩倍遠的距離發現狼與熊,爭取更多撤退時間。數值越高貓咪越安全,但也會更頻繁撤退(可能打斷捕鼠任務)。
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=寵物 DLC:貓咪威脅掃描間隔(秒)
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=貓咪重新掃描附近威脅的頻率。原版為 5 秒——狼可能在下次掃描前就已衝上前咬住貓咪。1.0 = 貓咪幾乎能立即察覺靠近的狼。
+WardenOfTheWilds/opt/DogLeashKeyName/label=寵物 DLC:狗拉繩切換鍵
+WardenOfTheWilds/opt/DogLeashKeyName/tip=選取獵人小屋時,按此鍵可切換「狗留在工作範圍內」的拉繩設定。預設 L。請使用 Unity KeyCode 名稱。
+WardenOfTheWilds/opt/DogRallyKeyName/label=寵物 DLC:狗群集結熱鍵
+WardenOfTheWilds/opt/DogRallyKeyName/tip=選取地圖上分配給獵人的每隻狗。按下後右鍵可移動整群狗。預設 Ctrl+D。格式:「Ctrl+D」、「Alt+R」,或單一按鍵「D」。
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=寵物 DLC:獵人主動攻擊狐狸
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=將狐狸陣營加入獵人的可獵殺動物遮罩,使獵人在 HuntSubTask 期間主動射擊狐狸,如同射擊狼/熊/野豬一樣。若無此設定,原版獵人會忽略狐狸(狐狸屬於 Team.Pests,不在原版獵人目標遮罩中)。
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=寵物 DLC:逐動物掠食者警示
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=將原本一般性的紅色「掠食者正在攻擊!」警示,替換為依動物顯示的版本:顯示該動物實際的圖示,並以琥珀色(低威脅:發現狐狸/野豬逃跑)或紅色(狼/熊/攻擊中的野豬)區分。純視覺效果——不改變戰鬥行為。
+WardenOfTheWilds/opt/AutoNamePets/label=寵物 DLC:自動為狗與貓命名
+WardenOfTheWilds/opt/AutoNamePets/tip=新出現的狗與貓會從精選清單中隨機取得名字,而非一律叫「Dog」/「Cat」。既有及玩家已重新命名的寵物會保留原名。純視覺效果。
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=寵物 DLC:土撥鼠擊殺毛皮
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=戰鬥中擊殺土撥鼠/旱獺時,自動拾入 300 單位內最近獵人小屋的毛皮數量。小型獵物 = 小額獎勵:預設 1 張毛皮,無屍體。0 可完全停用土撥鼠戰利品。
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=獵人工作需持有弓
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=開啟時,沒有弓/十字弓的獵人會被禁止狩獵/收集屍體/屠宰,直到原版物流送達替代裝備為止。避免無弓獵人在收集屍體時被吃掉。關閉 = 原版行為(無弓獵人仍會出勤,並可能因此喪命)。
+
+# ── Keep Clarity ──
+KeepClarity/meta/name=清晰守護
+KeepClarity/meta/desc=介面生活品質:強化提示框、可釘選的資源疊層、建築熱鍵、設定面板。
+KeepClarity/cat/Hotkeys — Reports & Panels=熱鍵——報告與面板
+KeepClarity/opt/ReportsHotkey/label=切換報告
+KeepClarity/opt/ReportsHotkey/tip=開啟/關閉 12 個月報告視窗
+KeepClarity/opt/ToggleOverlayHotkey/label=切換疊層
+KeepClarity/opt/ToggleOverlayHotkey/tip=顯示/隱藏釘選、科技佇列、建造佇列與軍團疊層
+KeepClarity/opt/SettingsPanelHotkey/label=開啟設定面板
+KeepClarity/opt/SettingsPanelHotkey/tip=開啟本視窗
+KeepClarity/cat/Overlay Settings=疊層設定
+KeepClarity/opt/PinnedCollapsed/label=釘選疊層預設收合
+KeepClarity/opt/PinnedCollapsed/tip=釘選疊層開啟時會收合為分頁標籤
+KeepClarity/opt/EnableCompanyOverlay/label=軍團名冊疊層
+KeepClarity/opt/EnableCompanyOverlay/tip=Shift+左鍵點擊軍團旗幟(螢幕底部)會開啟可拖曳的名冊面板;Ctrl+左鍵點擊則開啟該軍團的兵營。
+KeepClarity/opt/EnableInfoWindowDock/label=建造選單開啟時移開建築資訊(實驗性)
+KeepClarity/opt/EnableInfoWindowDock/tip=建造選單開啟時,將建築資訊視窗向左滑移,使選單不再遮擋它。選單關閉時還原。
+KeepClarity/opt/PinnedOverlayOpacity/label=釘選疊層不透明度
+KeepClarity/opt/PinnedOverlayOpacity/tip=釘選資源外框的不透明程度。文字/按鈕維持可讀。即時生效。
+KeepClarity/opt/TechQueueOverlayOpacity/label=科技佇列疊層不透明度
+KeepClarity/opt/TechQueueOverlayOpacity/tip=科技佇列外框的不透明程度。文字/按鈕維持可讀。即時生效。
+KeepClarity/opt/CompanyOverlayOpacity/label=軍團疊層不透明度
+KeepClarity/opt/CompanyOverlayOpacity/tip=軍團名冊本體的不透明程度。標題/文字維持不透明。即時生效。
+KeepClarity/opt/PinnedOverlayScale/label=釘選疊層縮放
+KeepClarity/opt/PinnedOverlayScale/tip=釘選資源面板的大小倍率。獨立於 FF 的介面縮放。即時生效。
+KeepClarity/opt/TechQueueOverlayScale/label=科技佇列疊層縮放
+KeepClarity/opt/TechQueueOverlayScale/tip=科技佇列面板的大小倍率。獨立於 FF 的介面縮放。即時生效。
+KeepClarity/opt/CompanyOverlayScale/label=軍團疊層縮放
+KeepClarity/opt/CompanyOverlayScale/tip=軍團名冊面板的大小倍率。獨立於 FF 的介面縮放。即時生效。
+KeepClarity/opt/PinnedGrowDirection/label=釘選展開方向
+KeepClarity/opt/PinnedGrowDirection/tip=釘選資源:清單自標題向下展開(預設)或向上。
+KeepClarity/opt/TechQueueGrowDirection/label=科技佇列展開方向
+KeepClarity/opt/TechQueueGrowDirection/tip=科技佇列:清單自標題向下展開(預設)或向上。
+KeepClarity/opt/CompanyGrowDirection/label=軍團展開方向
+KeepClarity/opt/CompanyGrowDirection/tip=軍團名冊:自標題向下展開(預設)或向上。
+KeepClarity/cat/Build Priority=建造優先度
+KeepClarity/opt/EnableBuildPriority/label=建造優先度
+KeepClarity/opt/EnableBuildPriority/tip=將建造工地的建築工箭頭改造為 1-9 優先度。建築工會優先服務高優先度工地;每個工地仍能配置滿額建築工。
+KeepClarity/opt/BuildPriorityWeight/label=優先度強度
+KeepClarity/opt/BuildPriorityWeight/tip=優先度勝過距離的強度。1000 = 完全由優先度決定順序。即時生效。
+KeepClarity/opt/EnableBuildQueueOverlay/label=建造佇列疊層
+KeepClarity/opt/EnableBuildQueueOverlay/tip=可移動的螢幕面板,列出優先度最高的前 10 個建造工地,由高到低排列。
+KeepClarity/opt/BuildQueueShowSalvage/label=建造佇列:包含拆除回收
+KeepClarity/opt/BuildQueueShowSalvage/tip=同時列出正在拆除的建築與正在回收的廢棄營地,標記為 [SALV]。
+KeepClarity/opt/BuildQueueShowExcavation/label=建造佇列:包含挖掘
+KeepClarity/opt/BuildQueueShowExcavation/tip=同時列出正在挖掘遺物的遺跡,標記為 [EXC]。
+KeepClarity/opt/BuildQueueOverlayScale/label=建造佇列縮放
+KeepClarity/opt/BuildQueueOverlayScale/tip=建造佇列面板大小。即時生效。
+KeepClarity/opt/BuildQueueOverlayOpacity/label=建造佇列不透明度
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=建造佇列面板不透明度。即時生效。
+KeepClarity/opt/BuildQueueGrowDirection/label=建造佇列展開方向
+KeepClarity/opt/BuildQueueGrowDirection/tip=清單自標題(預設)向下展開,或向上展開(標題在底部)。
+KeepClarity/cat/Snapping=吸附
+KeepClarity/opt/SnapOverlaysEnabled/label=疊層吸附
+KeepClarity/opt/SnapOverlaysEnabled/tip=拖曳 Keep Clarity 疊層時,自動與其他疊層、小地圖及螢幕邊緣對齊吸附。
+KeepClarity/opt/SnapThresholdPx/label=吸附距離
+KeepClarity/opt/SnapThresholdPx/tip=邊緣需靠近多少像素才會吸附。0 為關閉吸附。即時生效。
+KeepClarity/cat/Building Variety=建築多樣性
+KeepClarity/opt/EnableBuildingVariety/label=建築色彩多樣性
+KeepClarity/opt/EnableBuildingVariety/tip=每棟建築都會獲得細微獨特的風化色調,避免同型建築看起來像複製貼上。依建築決定性生成(重新載入後保持穩定)。
+KeepClarity/opt/BuildingVarietyIntensity/label=多樣性強度
+KeepClarity/opt/BuildingVarietyIntensity/tip=建築之間的變化幅度。0 = 完全一致,1 = 最大幅度(仍維持美觀)。即時生效。
+KeepClarity/cat/Crisp Mode=銳化模式
+KeepClarity/opt/EnableCrispMode/label=銳化模式
+KeepClarity/opt/EnableCrispMode/tip=原生銳化+飽和度後製效果——內建的輕量替代方案,取代 ReShade CAS 預設。僅影響世界畫面;介面不受影響。
+KeepClarity/opt/CrispSharpness/label=銳利度
+KeepClarity/opt/CrispSharpness/tip=對比自適應銳化強度。0 = 柔和,1 = 銳利。即時生效。
+KeepClarity/opt/CrispVibrance/label=鮮豔度
+KeepClarity/opt/CrispVibrance/tip=色彩鮮明度/飽和度提升,對飽和度較低的像素加權更多。即時生效。
+KeepClarity/cat/Forage Calendar=採集曆
+KeepClarity/opt/EnableForageCalendar/label=採集季節條
+KeepClarity/opt/EnableForageCalendar/tip=在頂端季節條下方顯示的橫條,標示地圖上每種採集物目前是否當季。將滑鼠停在橫條上可預覽;以遊戲原生的資訊釘選功能可固定顯示。即時生效。
+KeepClarity/opt/ForageCalendarAlwaysShow/label=一律顯示橫條
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=讓季節橫條隨時可見,而非僅在季節彈出視窗開啟時顯示。即時生效。
+KeepClarity/opt/EnableInSeasonReadout/label=當季讀數
+KeepClarity/opt/EnableInSeasonReadout/tip=在日期/天氣彈出視窗新增一行即時的「當季:...」資訊。即時生效。
+KeepClarity/cat/Hotkeys — Building=熱鍵——建築
+KeepClarity/opt/UpgradeHotkey/label=升級
+KeepClarity/opt/UpgradeHotkey/tip=升級所選建築的熱鍵
+KeepClarity/opt/RelocateHotkey/label=遷移
+KeepClarity/opt/RelocateHotkey/tip=遷移所選建築的熱鍵。安裝 Tended Wilds 時也可遷移採集物。
+KeepClarity/opt/ToggleEmployHotkey/label=切換建築生產
+KeepClarity/opt/ToggleEmployHotkey/tip=啟動/停止所選建築生產的熱鍵(切換雇用勾選框)。
+KeepClarity/opt/DemolishHotkey/label=回收建築
+KeepClarity/opt/DemolishHotkey/tip=預設 T。無論如何重新綁定,Delete 鍵仍會作為固定備援。
+KeepClarity/opt/CycleBuildingLeftHotkey/label=切換至上一棟建築
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=切換至同類型的上一棟建築(對應資訊面板頂端的 < 按鈕)
+KeepClarity/opt/CycleBuildingRightHotkey/label=切換至下一棟建築
+KeepClarity/opt/CycleBuildingRightHotkey/tip=切換至同類型的下一棟建築(對應資訊面板頂端的 > 按鈕)
+KeepClarity/opt/MoveWorkAreaHotkey/label=移動工作範圍
+KeepClarity/opt/MoveWorkAreaHotkey/tip=具有工作範圍的建築(獵人、伐林工、藥草師…)——開始移動其範圍。與面板的重新定位按鈕相同。
+KeepClarity/cat/Hotkeys — Build Site=熱鍵——建造工地
+KeepClarity/opt/DeleteBuildSiteHotkey/label=刪除建造工地
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=預設 T。無論如何重新綁定,Delete 鍵仍會作為固定備援。
+KeepClarity/opt/ConstructionEnabledHotkey/label=施工切換
+KeepClarity/opt/ConstructionEnabledHotkey/tip=切換建造/拆除工地「啟用施工」勾選框的熱鍵
+KeepClarity/opt/PrioritizeHotkey/label=優先處理
+KeepClarity/opt/PrioritizeHotkey/tip=切換建造/拆除工地「優先」勾選框的熱鍵
+KeepClarity/opt/DecrementBuildersHotkey/label=減少建築工(-)
+KeepClarity/opt/DecrementBuildersHotkey/tip=從建造/拆除工地移除一名建築工的熱鍵
+KeepClarity/opt/IncrementBuildersHotkey/label=增加建築工(+)
+KeepClarity/opt/IncrementBuildersHotkey/tip=為建造/拆除工地新增一名建築工的熱鍵
+KeepClarity/cat/Hotkeys — Forageables=熱鍵——採集物
+KeepClarity/opt/RelocateHotkey/label=遷移
+KeepClarity/opt/RelocateHotkey/tip=僅限採集物——與建築遷移共用同一熱鍵(在此重新綁定會同步更動)。樹木、石礦與遺跡無法遷移。
+KeepClarity/opt/ForageableHarvestHotkey/label=採收
+KeepClarity/opt/ForageableHarvestHotkey/tip=觸發原生的「採收」按鈕。適用於採集物、樹木、石礦與已挖掘的遺跡。
+KeepClarity/opt/ForageableDeleteHotkey/label=刪除
+KeepClarity/opt/ForageableDeleteHotkey/tip=觸發原生的「刪除/清除」按鈕。適用於採集物、樹木、石礦與已挖掘的遺跡。
+KeepClarity/opt/ForageablePrioritizeHotkey/label=優先處理
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=觸發原生的「優先」切換。適用於採集物、樹木、石礦、已挖掘的遺跡與果樹。
+KeepClarity/opt/CullForWoodHotkey/label=砍伐果樹取木
+KeepClarity/opt/CullForWoodHotkey/tip=僅限果樹——將該樹標記為砍伐取木(原生「砍伐取木」功能)。
+KeepClarity/cat/Hotkeys — Crop Field=熱鍵——作物田
+KeepClarity/opt/CropCopyHotkey/label=複製設定
+KeepClarity/opt/CropCopyHotkey/tip=複製此作物田的設定(原生按鈕)。
+KeepClarity/opt/CropPasteHotkey/label=貼上設定
+KeepClarity/opt/CropPasteHotkey/tip=貼上已複製的作物田設定(原生按鈕)。
+KeepClarity/opt/CropExpandHotkey/label=擴建田地
+KeepClarity/opt/CropExpandHotkey/tip=擴建作物田(原生按鈕)。
+KeepClarity/opt/CropClearHotkey/label=清除所選作物
+KeepClarity/opt/CropClearHotkey/tip=清除所選作物(原生按鈕)。
+KeepClarity/opt/CropSalvageHotkey/label=回收
+KeepClarity/opt/CropSalvageHotkey/tip=回收作物田(原生按鈕)。
+KeepClarity/cat/Hotkeys — Confirmation Dialog=熱鍵——確認對話框
+KeepClarity/opt/ConfirmHotkey/label=確認
+KeepClarity/opt/ConfirmHotkey/tip=預設 Y。Enter 鍵仍可作為固定備援。
+KeepClarity/opt/CancelHotkey/label=取消
+KeepClarity/opt/CancelHotkey/tip=預設 N。Esc 鍵仍可作為固定備援。
+KeepClarity/cat/Notifications=通知
+KeepClarity/opt/TraderWarningDays/label=商人離開警告天數
+KeepClarity/opt/TraderWarningDays/tip=商人離開前幾天顯示「商人即將離開」通知(0 為停用)
+KeepClarity/opt/DismissibleResourceAlerts/label=可關閉的資源警示
+KeepClarity/opt/DismissibleResourceAlerts/tip=點擊頂端狀態列的「!」警告可將其靜音,直到下個月份變更為止。
+KeepClarity/cat/Game and Map Settings=遊戲與地圖設定
+KeepClarity/opt/KeepMapTypeOnReroll/label=重擲時保留地圖類型
+KeepClarity/opt/KeepMapTypeOnReroll/tip=骰子按鈕會在你所選的生態群系內重擲種子,而非強制切換為隨機。
+KeepClarity/opt/RememberCustomSettings/label=記住自訂設定
+KeepClarity/opt/RememberCustomSettings/tip=按下確認時記錄自訂設定面板的選項,並於下次開啟時還原。
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=將地圖類型與河川新生同步
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=FF 的地形選擇器與 RR 的河川預設之間雙向同步。當 RR 停用或設為「自訂」時不生效。
+KeepClarity/opt/BridgeAnywhere/label=橋樑任意建(無需水面/任意高度)
+KeepClarity/opt/BridgeAnywhere/tip=解除「必須位於水面上方」與「須對齊水位高度」的規則,使你能跨越乾涸溝壑與高岸河流而無需先整地。橋樑會停靠於起訖兩端格子的地形高度。
+KeepClarity/cat/Game Flow=遊戲流程
+KeepClarity/opt/DoubleClickLoad/label=雙擊載入
+KeepClarity/opt/DoubleClickLoad/tip=在開始畫面或遊戲內載入選單雙擊存檔即可直接載入,無需確認提示。單擊仍會顯示確認。
+KeepClarity/opt/DoubleClickLoadWindow/label=雙擊速度(秒)
+KeepClarity/opt/DoubleClickLoadWindow/tip=兩次點擊之間的最大間隔(以及單擊顯示提示前的短暫延遲)。
+KeepClarity/opt/PauseOnLoad/label=載入後暫停
+KeepClarity/opt/PauseOnLoad/tip=存檔載入完成後自動暫停
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=載入後暫停延遲(秒)
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=暫停前等待的秒數——讓場景有時間渲染,避免第一個畫面是黑畫面。重度模組設定請提高此值。
+KeepClarity/opt/SkipNewMapIntro/label=跳過開局動畫
+KeepClarity/opt/SkipNewMapIntro/tip=略過開場影片,直接進入地圖載入。
+KeepClarity/opt/CustomPopulationCap/label=自訂人口上限
+KeepClarity/opt/CustomPopulationCap/tip=以任意數值覆寫四段滑桿定位(200/500/1000/2000)。0 = 維持原版行為。
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=忽略升級人口需求
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=繞過城鎮中心升級的人口門檻,使低人口存檔仍能繼續進展。
+KeepClarity/cat/Other Settings=其他設定
+KeepClarity/opt/SettingsVerboseLog/label=詳細設定記錄
+KeepClarity/opt/SettingsVerboseLog/tip=將每個宣告/探索決策記錄至 MelonLoader/Latest.log。預設關閉;僅在除錯面板時開啟。
+KeepClarity/cat/Other settings=其他設定
+KeepClarity/opt/ShowPlannerButton/label=顯示規劃工具按鈕
+KeepClarity/opt/ShowPlannerButton/tip=在頂端狀態列顯示 PLAN 圖示,於瀏覽器中開啟 SageDragoon 的《最遠的邊境》規劃工具。需重新啟動才會生效。
+KeepClarity/opt/UseLegacyImguiPanel/label=使用舊版 IMGUI 面板
+KeepClarity/opt/UseLegacyImguiPanel/tip=第一階段備援方案。預設為 false 時,F10 開啟精緻化的 UGUI 畫布。設為 true 時,F10 開啟原始的 IMGUI 原型。若 UGUI 面板出現異常請切換為 true。
+
+# ── LootScaling ──
+LootScaling/meta/name=戰利品調節
+LootScaling/cat/LootScaling=戰利品調節
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=設定
+Setup/opt/verboseLogging/label=verboseLogging

@@ -1,0 +1,1641 @@
+# Czech pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Czech
+# ── Divine Hands ──
+DivineHands/meta/name=Divine Hands
+DivineHands/meta/desc=Božské nástroje a schopnosti tvůrce: modelování terénu, spawnery pod kurzorem a mapové božské nástroje v jednom panelu ve hře (výchozí klávesa Ctrl+G). Schopnosti měnící svět jsou ve výchozím stavu VYPNUTÉ.
+DivineHands/cat/General=Obecné
+DivineHands/opt/MasterEnable/label=Povoleno
+DivineHands/opt/MasterEnable/tip=Hlavní přepínač pro Divine Hands. Když je vypnuto, klávesa panelu nereaguje a žádná božská schopnost se neuplatní. Výchozí: ZAPNUTO.
+DivineHands/opt/PanelHotkey/label=Klávesa panelu
+DivineHands/opt/PanelHotkey/tip=Klávesa nebo kombinace, která přepíná panel Divine Hands ve hře. Název klávesy Unity KeyCode nebo kombinace s Ctrl/Alt/Shift — např. Ctrl+G, F6, Alt+Shift+D. Výchozí: Ctrl+G.
+DivineHands/opt/ShowPanelOnMap/label=Otevřít panel při načtení mapy
+DivineHands/opt/ShowPanelOnMap/tip=Automaticky otevřít panel při načtení mapy. Výchozí: VYPNUTO.
+DivineHands/opt/DebugLog/label=Ladicí protokolování
+DivineHands/opt/DebugLog/tip=Podrobný diagnostický výstup do MelonLoader.log. Výchozí: VYPNUTO.
+DivineHands/opt/DiagBuildingScare/label=Log: tabulka plašení zvířat
+DivineHands/opt/DiagBuildingScare/tip=Zapíše do MelonLoader.log referenční tabulku budov, které plaší divokou zvěř, a těch, které ne. FF dělí mapu na 64m spawn buňky; 3+ plašící budovy v jedné buňce zaženou stádo jinam (polní plodiny vždy vyhánějí, samostatné pravidlo). Pouze pro čtení — nic ve hře nemění. Spustí se jednou po zapnutí; vypnutím a zapnutím spustíte znovu. Výchozí: VYPNUTO.
+DivineHands/opt/ClassicPanel/label=Klasický panel
+DivineHands/opt/ClassicPanel/tip=Použít původní odlehčený IMGUI panel místo panelu ve stylu FF. Záloha pro případ, že by se stylizovaný panel choval nesprávně. Výchozí: VYPNUTO.
+DivineHands/cat/God Tools=Božské nástroje
+DivineHands/opt/EnableRevealMap/label=Odhalit mapu
+DivineHands/opt/EnableRevealMap/tip=Zpřístupní Odhalit mapu v panelu Divine Hands ve hře — aktivujete to tam, ne zde. Po aktivaci odstraní celou mlhu války; opětovným vypnutím se snaží co nejlépe obnovit prozkoumanou mlhu. Pozor: FF ukládá prozkoumaný stav do uložené hry — pokud uložíte s odhalenou mapou, celá mapa zůstane prozkoumaná. Výchozí: VYPNUTO.
+DivineHands/opt/EnableBuildAnywhere/label=Stavět kdekoli
+DivineHands/opt/EnableBuildAnywhere/tip=Zpřístupní Stavět kdekoli v panelu ve hře — aktivujete to tam, ne zde. Po aktivaci umožňuje umístit BĚŽNÉ budovy na terén, který vanilla odmítá (příkré svahy, žádná cesta do města, přesah vody/silnice), a zruší limit 150 m délky silnice (táhněte silnice libovolné délky; náklady stále odpovídají skutečné délce). Mosty jsou ponechány stranou, aby se nadále řídily vanilla pravidly a Keep Clarity funkcí Mosty kdekoli. Výchozí: VYPNUTO.
+DivineHands/opt/PreserveOverlapTrees/label=Ponechat překrývající se stromy
+DivineHands/opt/PreserveOverlapTrees/tip=Ponechá stromy umístěné přes stavby (např. strom na dlažbě náměstí přes Stavět kdekoli) i po uložení/načtení. Vanilla znovu odstraňuje stromy z otisku každé budovy při NAČTENÍ — u běžných uložených her je to zbytečné, takže přeskočení je bezpečné; probíhající výstavba stromy normálně odstraňuje. Stromy na SILNICÍCH stále mizí při načtení (samostatné čištění silnic). Výchozí: ZAPNUTO.
+DivineHands/opt/EnableGodView/label=Boží pohled
+DivineHands/opt/EnableGodView/tip=Zpřístupní Boží pohled v panelu ve hře — aktivujete to tam, ne zde. Po aktivaci uvolní limity RTS kamery — přiblížení/oddálení, sklon do plochého/shora úhlu, přehled celé mapy — a po vypnutí se vše přesně obnoví. Výchozí: VYPNUTO.
+DivineHands/opt/ProportionalZoom/label=Proporcionální přiblížení
+DivineHands/opt/ProportionalZoom/tip=Když je aktivní Boží pohled, jemnější kroky přiblížení zblízka (žádné skoky z normálu rovnou na příliš blízko). Vzdálené oddálení zůstává vanilla. Vypnuto = plochý vanilla krok. Výchozí: ZAPNUTO.
+DivineHands/opt/ZoomCellsPerNotch/label=Krok přiblížení (Boží pohled)
+DivineHands/opt/ZoomCellsPerNotch/tip=Počet buněk, o které jeden krok kolečka myši posune kameru božího pohledu (2–50; 1 buňka ≈ 5 m, takže 2 ≈ 10 m, 50 ≈ 250 m). Vyšší = větší skoky; nižší = jemnější. Zblízka se krok zhruba 2× zjemňuje. Výchozí: 10 (~50 m/krok).
+DivineHands/opt/GodViewMaxZoom/label=Max. oddálení (m)
+DivineHands/opt/GodViewMaxZoom/tip=Nejvzdálenější oddálení božího pohledu v metrech (200–900). Hlavní páka VÝKONU — při 900 kamera vidí téměř celou mapu a může sekat/zamrzat. Výchozí 450; Pangu má strop 600. Snižte, pokud je boží pohled náročný, zvyšte pro širší přehled.
+DivineHands/opt/GodViewDisableFog/label=Vypnout mlhu (Boží pohled)
+DivineHands/opt/GodViewDisableFog/tip=Vypne atmosférický opar do dálky, dokud je aktivní Boží pohled (ostré, ve stylu Pangu). Obnoveno při ukončení. Nesouvisí s mlhou války / Odhalit mapu. Výchozí: VYPNUTO (opar zůstává, méně náročné na snímky).
+DivineHands/opt/GodViewMinZoom/label=Min. přiblížení (m)
+DivineHands/opt/GodViewMinZoom/tip=Nejbližší přiblížení božího pohledu v metrech (1–6). Vanilla limit je ~6; 2 je zhruba výška hlavy vesničana. Kombinujte s Min. úhlem kamery 0 a vanilla tlačítkem Sledovat pro pohled přes rameno vesničana. Živé — lze ladit za pohybu. Výchozí: 6.
+DivineHands/opt/GodViewMinAngle/label=Min. úhel kamery (°)
+DivineHands/opt/GodViewMinAngle/tip=Nejplošší sklon kamery, když je zapnutý Boží pohled (0–35). Vanilla se zastaví na ~35 (stále dolů); 0 je na úrovni horizontu. Živé — lze ladit za pohybu. Výchozí: 10.
+DivineHands/opt/HideFowHaze/label=Skrýt oparu mlhy války (vizuál)
+DivineHands/opt/HideFowHaze/tip=Vypne POST-EFEKT mlhy války — šedý neprozkoumaný opar klenoucí se nad oblohou při nízkých úhlech / Volné kameře. Čistě vizuální: průzkum se nemění, nic se neukládá do uložené hry, opětovné vypnutí ho okamžitě obnoví. Výchozí: VYPNUTO.
+DivineHands/opt/FreeCamClearsHaze/label=Volná kamera: vyčistit oparu oblohy
+DivineHands/opt/FreeCamClearsHaze/tip=Automaticky skryje opar mlhy války POUZE, dokud je aktivní Volná kamera — mlha války při běžné hře, čistá obloha za letu, opar se vrátí ihned po ukončení. Čistě vizuální. Výchozí: VYPNUTO.
+DivineHands/opt/EnableFreeCam/label=Volná kamera
+DivineHands/opt/EnableFreeCam/tip=Zpřístupní Volnou kameru v panelu ve hře — aktivujete to tam, ne zde. Stiskněte Ctrl+F (lze změnit) pro vstup/výstup, nebo použijte přepínač v panelu. WASD pohyb, Mezerník/Ctrl nahoru/dolů, Shift zrychlení, myš pro rozhlížení. Ukončení přesně obnoví normální kameru. Výchozí: VYPNUTO.
+DivineHands/opt/FreeCamHotkey/label=Klávesa Volné kamery
+DivineHands/opt/FreeCamHotkey/tip=Klávesa/kombinace, která přepíná Volnou kameru ve hře. Název klávesy Unity KeyCode nebo kombinace s Ctrl/Alt/Shift — např. Ctrl+F, F8, Alt+C. Výchozí: Ctrl+F.
+DivineHands/opt/FreeCamMoveSpeed/label=Rychlost pohybu Volné kamery
+DivineHands/opt/FreeCamMoveSpeed/tip=Rychlost letu Volné kamery ve světových metrech za sekundu. Výchozí: 40.
+DivineHands/opt/FreeCamFastMultiplier/label=Násobič rychlosti Volné kamery
+DivineHands/opt/FreeCamFastMultiplier/tip=Násobič rychlosti při podržení Shift ve Volné kameře. Výchozí: 3.
+DivineHands/opt/FreeCamSensitivity/label=Citlivost myši Volné kamery
+DivineHands/opt/FreeCamSensitivity/tip=Citlivost rozhlížení myší ve Volné kameře. Výchozí: 2.
+DivineHands/opt/FreeCamGroundFloor/label=Podlaha Volné kamery
+DivineHands/opt/FreeCamGroundFloor/tip=Udrží Volnou kameru nad terénem, aby neproletěla skrz svět do zadní strany/prázdné oblohy. Vypněte pro záběry zpod mapy. Výchozí: zapnuto.
+DivineHands/opt/FreeCamFloorClearance/label=Odstup podlahy Volné kamery
+DivineHands/opt/FreeCamFloorClearance/tip=Metry, o které je podlaha nad povrchem. Malá hodnota = záběry těsně nad zemí; 0 kopíruje povrch (může oříznout blízkou rovinu). Výchozí: 1,0 m.
+DivineHands/opt/InstantBuildEnable/label=Okamžitá stavba
+DivineHands/opt/InstantBuildEnable/tip=Zpřístupní Okamžitou stavbu v panelu ve hře — aktivujete to tam, ne zde. Dokud je aktivní, každé staveniště (nově umístěné i již rozpracované) se dokončí v následujícím snímku přes vlastní dokončovací mechanismus hry. Při každém načtení mapy se vypne. Výchozí: VYPNUTO.
+DivineHands/opt/InstantBuildUseMaterials/label=Okamžitá stavba spotřebuje materiál
+DivineHands/opt/InstantBuildUseMaterials/tip=Při okamžitém dokončení budovy strhne potřebný stavební materiál ze skladů města předem (práce je vždy zdarma). Staveniště, na která město nemá prostředky, se dokončí normální stavbou. Vypnuto = božská stavba bez materiálu. Výchozí: ZAPNUTO.
+DivineHands/opt/PersistRevealActive/label=Odhalit mapu (uložený stav)
+DivineHands/opt/PersistBuildAnywhereActive/label=Stavět kdekoli (uložený stav)
+DivineHands/opt/PersistGodViewActive/label=Boží pohled (uložený stav)
+DivineHands/cat/Terrain Sculpting=Modelování terénu
+DivineHands/opt/TerrainEnable/label=Modelování terénu
+DivineHands/opt/TerrainEnable/tip=Zapne božskou schopnost úpravy výšky terénu. Se zapnutou volbou vyberte v panelu Terén a naneste štětec po světě klávesou pro nanesení. Výchozí: VYPNUTO.
+DivineHands/opt/TerrainMode/label=Režim štětce
+DivineHands/opt/TerrainMode/tip=0 = zvýšit, 1 = snížit, 2 = vyhladit, 3 = zarovnat, 4 = zprůměrovat. Podržte Shift pro obrácení Zvýšit<->Snížit. Zprůměrovat táhne celý štětec k jedné ploché průměrné úrovni (ve stylu TerrainHelper); Vyhladit pouze odstraňuje nerovnosti a zachovává svahy.
+DivineHands/opt/TerrainStrength/label=Síla štětce
+DivineHands/opt/TerrainStrength/tip=Změna výšky při Zvýšit/Snížit ve světových metrech na jedno nanesení (platí i pro krok Vyhladit a Zprůměrovat). Zarovnat toto ignoruje. Výchozí: 1,0.
+DivineHands/opt/TerrainGridWidth/label=Šířka mřížky štětce
+DivineHands/opt/TerrainGridWidth/tip=Šířka otisku (X) ve výškových buňkách (1–20). Živé: šipky Vlevo/Vpravo, dokud je štětec připraven. Každá buňka ≈ Rozlišení metrů (~5 m). Výchozí: 3.
+DivineHands/opt/TerrainGridHeight/label=Hloubka mřížky štětce
+DivineHands/opt/TerrainGridHeight/tip=Hloubka otisku (Z) ve výškových buňkách (1–20). Živé: šipky Nahoru/Dolů, dokud je štětec připraven; Tab prohodí šířku/hloubku. Použijte např. 1×20 pro vyříznutí cesty. Výchozí: 3.
+DivineHands/opt/TerrainGridFineSnap/label=Jemné umístění mřížky
+DivineHands/opt/TerrainGridFineSnap/tip=Pro volné umísťování (dojem TerrainHelperu): mřížka postupuje po půl-buňkových krocích a mezi kroky drží polohu, takže nepřichycený obrys budovy lze umístit kamkoli v půl-buňkovém okně, aniž by se mřížka pod ním posouvala. Slouží jako vodítko — modelace se při nanesení stále zaokrouhlí na celé buňky, takže pro ostré ploché plošiny nechte vypnuto. Výchozí: vypnuto.
+DivineHands/opt/TerrainApplyKey/label=Klávesa nanesení
+DivineHands/opt/TerrainApplyKey/tip=Klávesa/tlačítko, které nanese štětec na pozici kurzoru. Název klávesy Unity KeyCode nebo kombinace. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse0.
+DivineHands/opt/TerrainUndoKey/label=Klávesa zpět
+DivineHands/opt/TerrainUndoKey/tip=Klávesa/kombinace, která vrátí zpět poslední tah terénem. Výchozí: Ctrl+Z.
+DivineHands/opt/TerrainArmHotkey/label=Klávesa aktivace terénního štětce
+DivineHands/opt/TerrainArmHotkey/tip=Klávesa/kombinace, která aktivuje (opětovným stiskem deaktivuje) terénní štětec bez kliknutí na jeho záložku; při aktivaci otevře panel. Výchozí: End (konvence TerrainHelperu).
+DivineHands/cat/Cursor Spawners=Spawnery pod kurzorem
+DivineHands/opt/SpawnEnable/label=Spawnery pod kurzorem
+DivineHands/opt/SpawnEnable/tip=Zapne božskou schopnost spawnování pod kurzorem. Vyberte skupinu, aktivujte spawner v panelu a stiskněte klávesu nanesení nad světem pro umístění věcí na pozici kurzoru. Výchozí: VYPNUTO.
+DivineHands/opt/SpawnFamily/label=Skupina spawnu
+DivineHands/opt/SpawnFamily/tip=0 = zvíře, 1 = nerost, 2 = vesničan, 3 = surovina.
+DivineHands/opt/SpawnSubtype/label=Podtyp spawnu
+DivineHands/opt/SpawnSubtype/tip=Index v rámci skupiny. Zvíře: 0 jelen/1 medvěd/2 kanec/3 vlk/4 liška/5 svišť/6 pes/7 kočka (4-7 vyžadují DLC Kočky a psi). Nerost: 0 zlato/1 železo/2 uhlí/3 kámen/4 hlína/5 písek. Surovina: 0 sběratelná rostlina/1 strom/2 kámen/3 balvan. U vesničana se ignoruje.
+DivineHands/opt/SpawnCount/label=Počet spawnů
+DivineHands/opt/SpawnCount/tip=Kolik se umístí na jedno nanesení (1–50), rozptýleno v malém kruhu kolem kurzoru.
+DivineHands/opt/SpawnIsDeep/label=Hlubinná ložisko
+DivineHands/opt/SpawnIsDeep/tip=Pouze nerosty. Když je zapnuto, spawnutá ložiska (všech šest druhů) jsou hlubinná/nekonečná — použitelná POUZE hlubinným dolem / hlubinnou jámou. Když je vypnuto, jsou to konečná povrchová ložiska pro běžné doly/jámy. Výchozí: VYPNUTO.
+DivineHands/opt/SpawnAnnounceVillagers/label=Oznámit vesničany
+DivineHands/opt/SpawnAnnounceVillagers/tip=Při spawnu vesničanů spustí oznámení 'přistěhoval se' jako při imigraci. Výchozí: VYPNUTO.
+DivineHands/opt/SpawnPersistent/label=Trvalé (hnízda/doupata)
+DivineHands/opt/SpawnPersistent/tip=Pouze zvířata. Když je ZAPNUTO (výchozí): jelen umístí na pozici kurzoru samoobnovující se hnízdní oblast (kruhový značka); vlk/kanec umístí doupě. Když je VYPNUTO, spawnují se volně. Medvěd je vždy volný. Doupata přetrvávají přes uložení/načtení; hnízdo jelena se obnovuje v rámci relace, ale neukládá se (po znovunačtení je nutné znovu umístit). Výchozí: ZAPNUTO.
+DivineHands/opt/SpawnWolfDenGuid/label=GUID vlčího doupěte
+DivineHands/opt/SpawnWolfDenGuid/tip=Volitelný záložní prefab GUID vlčího doupěte, použitý POUZE pokud se nepodaří vyřešit váženě přiřazený prefab doupěte skupiny zvířat. Ponechte výchozí, pokud doupata nespawnují.
+DivineHands/opt/SpawnForageableGuids/label=GUID sběratelných rostlin
+DivineHands/opt/SpawnForageableGuids/tip=Prefab GUID oddělené čárkou/mezerou/novým řádkem, spawnuté pro typ Sběratelná rostlina. Každé nanesení prochází seznamem. Neznámá/DLC GUID jsou bezpečně přeskočena.
+DivineHands/opt/SpawnTreeGuids/label=GUID stromů
+DivineHands/opt/SpawnTreeGuids/tip=Oddělené prefab GUID pro typ Strom (umístěné přes terénní systém růstu stromů). Ponechte PRÁZDNÉ (výchozí) pro automatické použití vlastních druhů stromů aktuální mapy (Terrain2 TreePrototypes) — bez nutnosti nastavení. GUID vyplňte pouze pro přepsání toho, jaké stromy se sázejí.
+DivineHands/opt/SpawnRockGuids/label=GUID kamenů
+DivineHands/opt/SpawnRockGuids/tip=Oddělené prefab GUID pro typ Kámen. Každé nanesení prochází seznamem.
+DivineHands/opt/SpawnGiantRockGuids/label=GUID balvanů
+DivineHands/opt/SpawnGiantRockGuids/tip=Oddělené prefab GUID pro typ Balvan.
+DivineHands/opt/SpawnApplyKey/label=Klávesa nanesení spawnu
+DivineHands/opt/SpawnApplyKey/tip=Klávesa/tlačítko, které spawnuje na pozici kurzoru. Název klávesy Unity KeyCode nebo kombinace. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse0.
+DivineHands/opt/SpawnerArmHotkey/label=Klávesa aktivace spawneru
+DivineHands/opt/SpawnerArmHotkey/tip=Klávesa/kombinace, která aktivuje (opětovným stiskem deaktivuje) spawner bez kliknutí na jeho záložku; při aktivaci otevře panel. Výchozí: Home.
+DivineHands/cat/Lake Stamp=Razítko jezera
+DivineHands/opt/LakeEnable/label=Razítko jezera / rybníka
+DivineHands/opt/LakeEnable/tip=Přidá záložku Jezero do panelu ve hře. Vyryje na pozici kurzoru vodou naplněné jezero (podle vzoru Pangu) — přirozeně přetrvává. Výchozí: VYPNUTO.
+DivineHands/opt/LakeShape/label=Tvar
+DivineHands/opt/LakeShape/tip=0 = obdélník, 1 = kruh.
+DivineHands/opt/LakeGridWidth/label=Šířka (buňky)
+DivineHands/opt/LakeGridWidth/tip=Poloviční šířka jádra otisku v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/LakeGridHeight/label=Hloubka (buňky)
+DivineHands/opt/LakeGridHeight/tip=Poloviční hloubka jádra otisku v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/LakeCarveDepth/label=Hloubka vyhloubení
+DivineHands/opt/LakeCarveDepth/tip=Hloubka dna jezera pod hladinou vody v metrech (0,45–12). Výchozí: 4,6.
+DivineHands/opt/LakeFillRatio/label=Poměr naplnění
+DivineHands/opt/LakeFillRatio/tip=Zvětšuje jezero — násobí šířku/hloubku (1,0–2,0). Výchozí: 1,0 (bez zvětšení).
+DivineHands/opt/LakeShoreWidth/label=Šířka pobřeží
+DivineHands/opt/LakeShoreWidth/tip=Šířka pásu břehu, který se svažuje zpět nahoru k pevnině (2–40). Výchozí: 16.
+DivineHands/opt/LakeNoGoWidth/label=Extra velikost
+DivineHands/opt/LakeNoGoWidth/tip=Extra buňky přidané k otisku jezera na každé straně (0–24). Výchozí: 0.
+DivineHands/opt/LakeArmHotkey/label=Klávesa aktivace jezera
+DivineHands/opt/LakeArmHotkey/tip=Klávesa/kombinace, která aktivuje (opětovným stiskem deaktivuje) razítko jezera. Výchozí: Insert.
+DivineHands/opt/LakeApplyKey/label=Klávesa nanesení jezera
+DivineHands/opt/LakeApplyKey/tip=Klávesa/tlačítko, které vyrazí jezero na pozici kurzoru. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse0.
+DivineHands/opt/LakeStockFish/label=Nasadit ryby
+DivineHands/opt/LakeStockFish/tip=Naplní nové jezero rybami + viditelnými hejny (podle velikosti jezera), aby se v něm dalo rybařit. Výchozí: zapnuto.
+DivineHands/opt/LakePersist/label=Trvalá jezera
+DivineHands/opt/LakePersist/tip=Zajistí, že vyražená jezera přetrvají uložení/načtení. FF zapéká vodu do souboru mapy pouze při generování, takže běžné uložení zachová vyhloubenou pánev, ale ztratí vodu — toto vytvoří malý doprovodný soubor vedle každé uložené hry a při načtení vodu obnoví (odstraněn při smazání uložené hry). Výchozí: ZAPNUTO.
+DivineHands/cat/Fertility Painter=Štětec úrodnosti
+DivineHands/opt/FertilityEnable/label=Štětec úrodnosti
+DivineHands/opt/FertilityEnable/tip=Přidá záložku Úrodnost do panelu ve hře. Nanáší úrodnost půdy na nastavitelnou oblast (přetrvává v uložené hře). Výchozí: VYPNUTO.
+DivineHands/opt/FertilityShape/label=Tvar
+DivineHands/opt/FertilityShape/tip=0 = obdélník, 1 = kruh.
+DivineHands/opt/FertilityGridWidth/label=Šířka (buňky)
+DivineHands/opt/FertilityGridWidth/tip=Poloviční šířka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/FertilityGridHeight/label=Hloubka (buňky)
+DivineHands/opt/FertilityGridHeight/tip=Poloviční hloubka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/FertilityAmount/label=Úrodnost %
+DivineHands/opt/FertilityAmount/tip=Cílová úrodnost půdy, kterou štětec nanáší (0–100 %). Výchozí: 80.
+DivineHands/opt/FertilityMult/label=Účinnost hnojiva %
+DivineHands/opt/FertilityMult/tip=Účinnost hnojiva/kompostu na buňku, kterou štětec nastaví (0–100 %). Výchozí: 100.
+DivineHands/opt/FertilityConditionSoil/label=Připravit půdu pro sady
+DivineHands/opt/FertilityConditionSoil/tip=Také nastaví texturu půdy (písek/hlína) + vodu na ideál pro ovocné stromy (načteno z vlastních penalizačních křivek hry), aby sady netrpěly špatnou půdou. Skvělé pro ovocné stromy, u plodin může být méně vhodné. Výchozí: vypnuto.
+DivineHands/opt/FertilityArmHotkey/label=Klávesa aktivace úrodnosti
+DivineHands/opt/FertilityArmHotkey/tip=Klávesa/kombinace pro aktivaci (opětovným stiskem deaktivaci) štětce úrodnosti — nebo použijte záložku Úrodnost. Výchozí: Alt+Insert.
+DivineHands/opt/FertilityApplyKey/label=Klávesa nanesení úrodnosti
+DivineHands/opt/FertilityApplyKey/tip=Klávesa/tlačítko, které nanese úrodnost na pozici kurzoru. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse1.
+DivineHands/cat/Forest Brush=Štětec lesa
+DivineHands/opt/ForestEnable/label=Štětec lesa
+DivineHands/opt/ForestEnable/tip=Přidá záložku Les do panelu ve hře. Vysází vlastní stromy mapy na nastavitelnou oblast na cílové pokrytí (existující stromy se počítají, takže opětovné nanesení jen doplní), volitelně nastaví i úrodnost půdy. Stromy + úrodnost přetrvávají v uložené hře. Výchozí: VYPNUTO.
+DivineHands/opt/ForestShape/label=Tvar
+DivineHands/opt/ForestShape/tip=0 = obdélník, 1 = kruh.
+DivineHands/opt/ForestGridWidth/label=Šířka (buňky)
+DivineHands/opt/ForestGridWidth/tip=Poloviční šířka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/ForestGridHeight/label=Hloubka (buňky)
+DivineHands/opt/ForestGridHeight/tip=Poloviční hloubka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/ForestCoverage/label=Pokrytí %
+DivineHands/opt/ForestCoverage/tip=Cílové pokrytí stromy v rámci otisku (0–100 %). Existující stromy se do toho počítají. Výchozí: 26.
+DivineHands/opt/ForestVariance/label=Odchylka
+DivineHands/opt/ForestVariance/tip=Náhodná odchylka polohy xz (metry) u každého vysazeného stromu, aby se neseřadily do mřížky. Výchozí: 1,1.
+DivineHands/opt/ForestSetFertility/label=Také nastavit úrodnost
+DivineHands/opt/ForestSetFertility/tip=Zapíše úrodnost půdy pro PLODINY (jako Pangu) v rámci štětce. NEZRYCHLUJE vysazené stromy (jejich růst řídí biomový/technologický systém, ne půda) — pouze připraví půdu pro plodiny/sady pěstované tam později. Vypnuto = pouze vysadí stromy. Výchozí: vypnuto.
+DivineHands/opt/ForestFertility/label=Úrodnost %
+DivineHands/opt/ForestFertility/tip=Úrodnost půdy nastavená, když je zapnuto 'Také nastavit úrodnost' (0–100 %). Výchozí: 50.
+DivineHands/opt/ForestFertilityMult/label=Účinnost hnojiva %
+DivineHands/opt/ForestFertilityMult/tip=Účinnost hnojiva na buňku nastavená společně s úrodností (0–100 %). Výchozí: 100.
+DivineHands/opt/ForestArmHotkey/label=Klávesa aktivace lesa
+DivineHands/opt/ForestArmHotkey/tip=Klávesa/kombinace pro aktivaci (opětovným stiskem deaktivaci) štětce lesa — nebo použijte záložku Les. Výchozí: Shift+Insert.
+DivineHands/opt/ForestApplyKey/label=Klávesa nanesení lesa
+DivineHands/opt/ForestApplyKey/tip=Klávesa/tlačítko, které vysadí les na pozici kurzoru. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse1.
+DivineHands/cat/Mountain Brush=Štětec hor
+DivineHands/opt/MountainEnable/label=Štětec hor
+DivineHands/opt/MountainEnable/tip=Přidá záložku Hory do panelu ve hře. Zvedne skalnatý terén (kupole + hřebenový šum), přemaluje zem na kámen, nastaví horský biom a — pokud jsou posuvníky množství nad 0 — rozmístí ložiska kamene/rudy a horskou zvěř. Úpravy terénu jsou trvalé (bez možnosti vrácení). Výchozí: VYPNUTO.
+DivineHands/opt/MountainShape/label=Tvar
+DivineHands/opt/MountainShape/tip=0 = obdélník, 1 = kruh.
+DivineHands/opt/MountainGridWidth/label=Šířka (buňky)
+DivineHands/opt/MountainGridWidth/tip=Poloviční šířka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/MountainGridHeight/label=Hloubka (buňky)
+DivineHands/opt/MountainGridHeight/tip=Poloviční hloubka štětce v buňkách (1–10). Šipky mění velikost, dokud je aktivní.
+DivineHands/opt/MountainHeight/label=Výška
+DivineHands/opt/MountainHeight/tip=Metry vzestupu na 100 m rozsahu štětce. Výchozí: 20.
+DivineHands/opt/MountainMaxHeight/label=Max. výška
+DivineHands/opt/MountainMaxHeight/tip=Tvrdý strop celkového vzestupu v metrech. Výchozí: 60.
+DivineHands/opt/MountainEdgeSoftness/label=Měkkost okraje
+DivineHands/opt/MountainEdgeSoftness/tip=Jak plynule hora přechází do okolní krajiny (0 = útes, 1 = široký lem). Výchozí: 0,72.
+DivineHands/opt/MountainRuggedness/label=Členitost
+DivineHands/opt/MountainRuggedness/tip=Zubatost vrcholů (0 = hladká kupole, 100 = drsná skála). Výchozí: 55.
+DivineHands/opt/MountainTexture/label=Skalnatá textura %
+DivineHands/opt/MountainTexture/tip=Jak silně se země přemaluje na kámen (0–100 %). Výchozí: 90.
+DivineHands/opt/MountainRockOre/label=Množství kamene/rudy %
+DivineHands/opt/MountainRockOre/tip=Hustota rozmístěných ložisek kamene a rudy (0–100 %). Výchozí: 0.
+DivineHands/opt/MountainWildlife/label=Šance na divokou zvěř %
+DivineHands/opt/MountainWildlife/tip=Šance na spawn horských zvířat (jelen/kanec/vlk/medvěd) (0–100 %). Výchozí: 0.
+DivineHands/opt/MountainArmHotkey/label=Klávesa aktivace hor
+DivineHands/opt/MountainArmHotkey/tip=Klávesa/kombinace pro aktivaci (opětovným stiskem deaktivaci) štětce hor — nebo použijte záložku Hory. Výchozí: Ctrl+Insert.
+DivineHands/opt/MountainApplyKey/label=Klávesa nanesení hor
+DivineHands/opt/MountainApplyKey/tip=Klávesa/tlačítko, které zvedne horu na pozici kurzoru. Tlačítka myši: Mouse0 = levé tlačítko, Mouse1 = pravé tlačítko, Mouse2 = prostřední tlačítko. Výchozí: Ctrl+Mouse1.
+DivineHands/cat/Delete Selected=Smazat vybrané
+DivineHands/opt/DeleteEnable/label=Smazat vybrané
+DivineHands/opt/DeleteEnable/tip=Přidá sekci Smazat vybrané do panelu ve hře a zapne klávesu mazání. Vyberte důl / lom / jámu na hlínu-písek / hlubinný důl / jakoukoli budovu — nebo surovinový uzel (ruda, jáma na hlínu/písek/kámen, strom, kámen, sběratelná rostlina) — a okamžitě jej smažte. Vše ostatní (vesničané, zvířata, pole) je bezpečně ignorováno. Smazání rudního uzlu je TRVALÁ úprava světa. Výchozí: VYPNUTO.
+DivineHands/opt/DeleteHotkey/label=Klávesa mazání
+DivineHands/opt/DeleteHotkey/tip=Klávesa/kombinace, která smaže aktuální výběr. Záměrná kombinace je bezpečnější než holá klávesa. Výchozí: Ctrl+Delete.
+DivineHands/opt/DeleteRefund/label=Vrátit materiál při smazání
+DivineHands/opt/DeleteRefund/tip=Při smazání vrátí stavební materiál budovy (také upustí uskladněné předměty na zem). Vypnuto = čisté zmizení bez vratky. Výchozí: VYPNUTO.
+DivineHands/cat/Kill Selected=Zabít vybrané
+DivineHands/opt/KillEnable/label=Zabít vybrané
+DivineHands/opt/KillEnable/tip=Přidá sekci Zabít vybrané do panelu ve hře a zapne klávesu zabití. Vyberte vesničana, nájezdníka nebo jakékoli zvíře (divoké / hospodářské / mazlíčka) — jedno nebo skupinu — a okamžitě jej zabijte přes vlastní mechanismus smrti hry (řádné odstranění + události úmrtí). Budov/uzlů se to netýká (použijte Smazat vybrané). Slouží hlavně k testování, ale jde o božský mod. Výchozí: VYPNUTO.
+DivineHands/opt/KillHotkey/label=Klávesa zabití
+DivineHands/opt/KillHotkey/tip=Klávesa/kombinace, která zabije aktuální tvora. Záměrná kombinace je bezpečnější než holá klávesa. Výchozí: Ctrl+D.
+DivineHands/cat/Selected Building=Vybraná budova
+DivineHands/opt/InjectEnable/label=Vkládání předmětů
+DivineHands/opt/InjectEnable/tip=Zapne vkládání předmětů do VYBRANÉ budovy. Vyberte budovu ve hře, poté v sekci Vybraná budova v panelu přidávejte předměty, přidávejte hospodářská zvířata nebo přepínejte nekonečné skladování. Nekonečné skladování je POUZE PRO TUTO RELACI — automaticky se odstraní před každým uložením (ruční, automatické i při ukončení), takže se nikdy nezapeče do vašeho souboru .sav. Výchozí: VYPNUTO.
+DivineHands/opt/InjectItemIndex/label=Předmět k přidání
+DivineHands/opt/InjectItemIndex/tip=Který předmět tlačítko Přidat předměty vloží do skladu vybrané budovy (index v seznamu předmětů panelu). Vyberte předmět v panelu.
+DivineHands/opt/InjectUnrestricted/label=Neomezené vkládání
+DivineHands/opt/InjectUnrestricted/tip=Obejde chytrý filtr podle typu budovy — KAŽDÝ předmět se stane vložitelným do jakékoli vybrané budovy se skladem. Vypnuto = výchozí filtr: skladovací budovy mají svůj povolený seznam, výrobci vstupy svých receptů, sběrači své obchodní zboží, přístřešky palivové dřevo+jídlo a každá budova doplní to, co už má. Výchozí: VYPNUTO.
+DivineHands/opt/InjectItemCount/label=Počet předmětů
+DivineHands/opt/InjectItemCount/tip=Kolik vybraného předmětu přidat na jedno kliknutí (1–9999). Výchozí: 100.
+DivineHands/opt/InjectLivestockKind/label=Hospodářské zvíře k přidání
+DivineHands/opt/InjectLivestockKind/tip=0 = kráva (stodola), 1 = slepice (kurník), 2 = koza (kozí chlév), 3 = kůň (stáj). Vybraná budova musí odpovídat zvířeti. Výchozí: kráva.
+DivineHands/opt/LivestockGuidCow/label=GUID prefabu krávy
+DivineHands/opt/LivestockGuidCow/tip=Prefab GUID vytvořený při přidání krávy do stodoly. Lze upravit, pokud DLC nebo aktualizace hry GUID změní. Neznámá GUID jsou bezpečně přeskočena.
+DivineHands/opt/LivestockGuidChicken/label=GUID prefabu slepice
+DivineHands/opt/LivestockGuidChicken/tip=Prefab GUID vytvořený při přidání slepice do kurníku.
+DivineHands/opt/LivestockGuidGoat/label=GUID prefabu kozy
+DivineHands/opt/LivestockGuidGoat/tip=Prefab GUID vytvořený při přidání kozy do kozího chlévu.
+DivineHands/opt/LivestockGuidHorse/label=GUID prefabu koně
+DivineHands/opt/LivestockGuidHorse/tip=Prefab GUID vytvořený při přidání koně do stáje.
+DivineHands/cat/Other settings=Ostatní nastavení
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=Essential Provisions
+EssentialProvisions/meta/desc=Kurátorský opt-in balíček vylepšení kvality života. Informační přehledy, upozornění, pomocníci pro tempo hry. Každá funkce je ve výchozím stavu VYPNUTÁ. Sestaveno s poděkováním původním komunitním tvůrcům modů — úplnou tabulku původu najdete v README.
+EssentialProvisions/cat/Misc=Různé
+EssentialProvisions/opt/EnableFastForward/label=Zrychlený běh
+EssentialProvisions/opt/EnableFastForward/tip=Odemkne rychlosti hry nad vanilla strop 3x. Zpřístupní se rychlosti až 50x. Nad 20x se AI lovců a boje může chovat nesprávně — do logu se zapíše varování. Přepnutí se projeví okamžitě.
+EssentialProvisions/opt/EnableServiceBounds/label=Hranice obsluhy
+EssentialProvisions/opt/EnableServiceBounds/tip=Kliknutím na jakoukoli postavenou budovu zobrazíte její dosahový okruh — voda, přitažlivost, dosah trhu, dosah školy, pracovní oblast. Stejný kruh, jaký FF zobrazuje při umisťování.
+EssentialProvisions/opt/EnableClearcutting/label=Vykácení
+EssentialProvisions/opt/EnableClearcutting/tip=Automaticky označí sklizitelné suroviny v okruhu kolem centra města. Vynechává nebezpečné oblasti kolem nájezdníků, vlků a medvědů.
+EssentialProvisions/opt/ClearcuttingTrees/label=    Stromy
+EssentialProvisions/opt/ClearcuttingTrees/tip=Zahrnout stromy do automatického označování.
+EssentialProvisions/opt/ClearcuttingStones/label=    Kameny
+EssentialProvisions/opt/ClearcuttingStones/tip=Zahrnout kameny do automatického označování.
+EssentialProvisions/opt/ClearcuttingForageables/label=    Sběratelné rostliny
+EssentialProvisions/opt/ClearcuttingForageables/tip=Zahrnout sběratelné rostliny (bobulové keře, byliny, houby) do automatického označování.
+EssentialProvisions/opt/ClearcuttingRadius/label=    Okruh vykácení
+EssentialProvisions/opt/ClearcuttingRadius/tip=Vzdálenost od centra města, v níž se automaticky označuje.
+EssentialProvisions/opt/ClearcuttingRescan/label=    Nové prohledání nyní
+EssentialProvisions/opt/ClearcuttingRescan/tip=Okamžitě spustí nové prohledání. Po spuštění se automaticky vrátí na VYPNUTO.
+EssentialProvisions/cat/Villager Improvements=Vylepšení vesničanů
+EssentialProvisions/opt/EnableShortWalks/label=Krátké procházky
+EssentialProvisions/opt/EnableShortWalks/tip=Jednou měsíčně přeoptimalizuje přiřazení domovů vesničanů, aby bydleli blíže svému pracovišti. Vojáci, strážní a povolání bydlící na pracovišti jsou vynecháni.
+EssentialProvisions/opt/EnableLongTravels/label=Dlouhé cesty
+EssentialProvisions/opt/EnableLongTravels/tip=Označí výrobní budovy, jejichž pracovníci tráví příliš mnoho času cestováním místo výroby.
+EssentialProvisions/opt/LongTravelsThreshold/label=    Práh dlouhých cest (%)
+EssentialProvisions/opt/LongTravelsThreshold/tip=Spustí upozornění, když čas cestování přesáhne tento podíl celkového pracovního času.
+EssentialProvisions/opt/EnableSelfPreservation/label=Sebezáchova
+EssentialProvisions/opt/EnableSelfPreservation/tip=Vesničané utíkají před blízkými nájezdníky, aniž by čekali na začátek boje. Lovci si zachovávají vanilla chování na krátkou vzdálenost. Nájezdníci bránící tábor jsou ignorováni.
+EssentialProvisions/opt/SelfPreservationRadius/label=    Detekční okruh
+EssentialProvisions/opt/SelfPreservationRadius/tip=Dlaždice, v jejichž rámci agresivní nájezdník spustí útěk.
+EssentialProvisions/opt/EnableLaborShortage/label=Nedostatek pracovní síly
+EssentialProvisions/opt/EnableLaborShortage/tip=Zobrazí odznak upozornění na horní liště, když počet dělníků a stavitelů klesne pod doporučenou hodnotu.
+EssentialProvisions/opt/EnableEfficientLabor/label=Efektivní pracovní síla
+EssentialProvisions/opt/EnableEfficientLabor/tip=Nečinní vesničané v řemeslných a venkovních rolích vypomáhají jako dělníci, když jejich vlastní práce nemá co dělat. Jejich skutečná práce zůstává prioritou — vrátí se k ní okamžitě, jakmile se objeví skutečná práce.
+EssentialProvisions/opt/EfficientLaborPollDays/label=    Znovu prohledat každých N dní
+EssentialProvisions/opt/EfficientLaborPollDays/tip=Jak často (v herních dnech) hledat nečinné vesničany k výpomoci a uvolňovat ty, kteří našli práci. Stav nečinnosti se den ze dne mění jen málo, takže 5 stačí; nižší = pružnější, vyšší = méně náročné na velkých mapách.
+EssentialProvisions/opt/EnablePennyPincher/label=Šetřílek
+EssentialProvisions/opt/EnablePennyPincher/tip=Automaticky odstaví krysaře, když nejsou aktivní žádné nákazy, a strážní věže, když nehrozí nájezd. Automaticky se znovu zapne, když se hrozby vrátí. Nedotkne se budovy, kterou máte aktuálně vybranou.
+EssentialProvisions/opt/PennyPincherGuardTowers/label=    Odstavit strážní věže
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=V mírových dobách odstaví i strážní věže (znovu obsazeny při blížícím se nájezdu). Vypněte, chcete-li mít strážní věže plně pod vlastní kontrolou a přitom nechat krysaře spravovat automaticky — vypnutím se okamžitě znovu obsadí všechny odstavené věže. Chcete-li vyjmout jednotlivé věže, vyberte věž a stiskněte Ctrl+P (přepíná; ukládá se na uloženou hru).
+EssentialProvisions/opt/EnableIdleHands/label=Nečinné ruce
+EssentialProvisions/opt/EnableIdleHands/tip=Označí výrobní budovy, jejichž pracovníci tráví příliš mnoho času nečinností.
+EssentialProvisions/opt/IdleHandsThreshold/label=    Práh nečinnosti (%)
+EssentialProvisions/opt/IdleHandsThreshold/tip=Spustí upozornění, když nečinný čas přesáhne tento podíl celkového pracovního času.
+EssentialProvisions/opt/EnableLearnedHands/label=Vzdělané ruce
+EssentialProvisions/opt/EnableLearnedHands/tip=Vzdělaní vesničané pracují rychleji — sběr, práce na poli i řemesla. +10 % za úroveň vzdělání. Uzavírá mezeru z vanilla hry, kterou popisuje oficiální průvodce, ale hra ji nikdy neimplementuje. Sčítá se s Osvojeným mistrovstvím. Zapnuto/vypnuto — bez posuvníku.
+EssentialProvisions/opt/EnableWorkplaceMastery/label=Osvojené mistrovství
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=Vesničané pracují rychleji, čím déle zastávají stejnou práci — sběr, práce na poli i řemesla. +1 %/rok praxe, strop +25 % (25 let). Sčítá se se Vzdělanými rukama. Praxe je vázaná na povolání, ukládá se na uloženou hru; stávající vesničané začínají od nuly. Přidává ukazatel Mistrovství do výběru vesničana. Zapnuto/vypnuto — bez posuvníku.
+EssentialProvisions/opt/EnableRabiesTreatable/label=Vzteklina: léčitelná (na poslední chvíli)
+EssentialProvisions/opt/EnableRabiesTreatable/tip=Ze zaručeně smrtelné vanilla vztekliny udělá slabou, na léčiteli závislou šanci. Nakažený vesničan ulehne a je léčen na lůžku nemocných — přibližně 9 % v Domě léčitele až 18 % s vybaveným Špitálem. Cena: nepracuje a zabírá lůžko nemocných, dokud je nemocný, a pokud není dosažitelné lůžko léčitele, zemře doma. Záměrná herní úprava vyvážení. Ve výchozím stavu VYPNUTO.
+EssentialProvisions/cat/Inventory Management=Správa zásob
+EssentialProvisions/opt/EnableBroadShelves/label=Široké regály
+EssentialProvisions/opt/EnableBroadShelves/tip=Skladiště přijímají železo. Sýpky přijímají seno a len. Sýpka je ve všech UI přejmenována na 'Silo'. Vyžaduje znovunačtení uložené hry, aby se projevilo na existujících skladovacích budovách.
+EssentialProvisions/opt/EnableSurplusSelling/label=Prodej přebytků
+EssentialProvisions/opt/EnableSurplusSelling/tip=Automaticky přesune přebytečné zásoby na váš obchodní post na základě pozorované denní spotřeby × měsíce. Ve výchozím stavu pouze pro nepotravinové zboží — jídlo má samostatný podpřepínač s pojistkami pro pestrost stravy. Vyžaduje také zapnutou Kontrolu spotřeby: shromažďuje data o denní míře, která Prodej přebytků používá k určení velikosti zásilek.
+EssentialProvisions/opt/SurplusSellingMonths/label=    Měsíce zásob ve městě (nepotraviny)
+EssentialProvisions/opt/SurplusSellingMonths/tip=Měsíce zásob, které se mají ponechat ve městě pro každou sledovanou nepotravinovou položku. Přebytek plyne na obchodní post.
+EssentialProvisions/opt/EnableSurplusSellingFood/label=    Zahrnout jídlo
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=Také automaticky odesílat přebytky jídla. Pojistky: celkové jídlo musí přesáhnout souhrnný práh a každý druh jídla zůstává na alespoň 1 měsíci vlastní spotřeby.
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=    Měsíce zásob ve městě (jídlo)
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=Měsíce zásob jídla, které se mají ponechat ve městě. Výchozí 10 odpovídá prahu imigrace FF.
+EssentialProvisions/opt/SurplusSellingPollDays/label=    Přepočítat každých N dní
+EssentialProvisions/opt/SurplusSellingPollDays/tip=Jak často (v herních dnech) přepočítat cílové zásoby na obchodním postu. 30denní klouzavý průměr se den ze dne mění jen málo, takže denní přepočet je zbytečný; 5 je dostatečně pružné. Nižší = pružnější, vyšší = méně náročné na velkých mapách.
+EssentialProvisions/opt/EnableConsumableControl/label=Kontrola spotřeby
+EssentialProvisions/opt/EnableConsumableControl/tip=Automaticky nastaví minimální zásoby pro doplňování obchodního postu na základě pozorované denní spotřeby × měsíce. Pracovníci obchodního postu nevyzvednou položku ze skladu k doplnění postu, pokud zásoby ve městě nejsou nad rezervou. (Položky již na obchodním postu nejsou vesničanům dostupné bez ohledu na toto.) Automaticky se škáluje s populací.
+EssentialProvisions/opt/ConsumableReserveMonths/label=    Měsíce rezervy
+EssentialProvisions/opt/ConsumableReserveMonths/tip=Měsíce zásob, které musí být ve skladu města, než pracovníci vyzvednou položku k doplnění obchodního postu.
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=    Rezerva na růst (%)
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=Přídavek k cíli založenému na míře spotřeby, který počítá s růstem populace (porody, imigrace). Sdíleno mezi Kontrolou spotřeby a Prodejem přebytků.
+EssentialProvisions/opt/EnableProjectPrep/label=Příprava projektu
+EssentialProvisions/opt/EnableProjectPrep/tip=Vyhradí stavební materiál před vyčerpáním výrobními budovami. Posuvníky níže nastavují minimum pro jednotlivé materiály. Stavba má stále přístup k rezervě; výroba ne. 0 = žádná rezerva.
+EssentialProvisions/opt/ProjectPrepLogs/label=    Rezerva klád
+EssentialProvisions/opt/ProjectPrepLogs/tip=Minimum klád, které se mají ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepPlanks/label=    Rezerva prken
+EssentialProvisions/opt/ProjectPrepPlanks/tip=Minimum prken, které se mají ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepStone/label=    Rezerva kamene
+EssentialProvisions/opt/ProjectPrepStone/tip=Minimum kamene, které se má ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepClay/label=    Rezerva hlíny
+EssentialProvisions/opt/ProjectPrepClay/tip=Minimum hlíny, které se má ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepSand/label=    Rezerva písku
+EssentialProvisions/opt/ProjectPrepSand/tip=Minimum písku, které se má ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepIron/label=    Rezerva železa
+EssentialProvisions/opt/ProjectPrepIron/tip=Minimum železa, které se má ponechat pro stavbu.
+EssentialProvisions/opt/ProjectPrepCoal/label=    Rezerva uhlí
+EssentialProvisions/opt/ProjectPrepCoal/tip=Minimum uhlí, které se má ponechat pro stavbu.
+EssentialProvisions/cat/Agriculture Alerts=Zemědělská upozornění
+EssentialProvisions/opt/EnableSoilWisdom/label=Moudrost půdy
+EssentialProvisions/opt/EnableSoilWisdom/tip=Zvýrazní rizikové sledy plodin v okně informací o poli — konflikty nemocí a sezónní rizika mrazu/vedra.
+EssentialProvisions/opt/EnableBlightWatch/label=Hlídka plísně
+EssentialProvisions/opt/EnableBlightWatch/tip=Připne nemocná pole na mapě, dokud se nemoc nevyřeší.
+EssentialProvisions/opt/EnableHarvestWatch/label=Hlídka sklizně
+EssentialProvisions/opt/EnableHarvestWatch/tip=Roční přehled, kolik ovocných stromů v každém sadu zůstalo nesklizeno a shnilo, s trendem a počtem pracovníků budovy — signál, kdy přidat pracovníky nebo zmenšit pracovní oblast. Také posílá živý počet nesklizených stromů do panelu Zahradníka.
+EssentialProvisions/opt/HarvestWatchMinFruit/label=    Min. ovoce k označení
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=Minimální množství nesklizeného ovoce na stromě, než se počítá jako zanedbaný (roční přehled + živý počet).
+EssentialProvisions/cat/Planting Almanac=Kalendář setí
+EssentialProvisions/opt/EnablePlantingAlmanac/label=Kalendář setí
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=Přidá jednoklikové předvolby rotace plodin do okna políčka. Nabízí kurátorské, nemocem odolné rotace; aplikací se celý plán políčka nahradí přes vlastní plánovač hry. Projeví se při příštím otevření okna políčka.
+EssentialProvisions/cat/Other settings=Ostatní nastavení
+EssentialProvisions/opt/PennyPincherExemptKey/label=    Klávesa výjimky věže (Ctrl + tato klávesa)
+EssentialProvisions/opt/PennyPincherExemptKey/tip=Se strážní věží vybranou podržte Ctrl a stiskněte tuto klávesu k přepnutí výjimky dané věže z Šetřílka. Vyňaté věže se nikdy automaticky neodstaví ani znovu neobsadí — zůstávají plně pod vaší kontrolou. Výjimky se ukládají na uloženou hru. Platný je jakýkoli název Unity KeyCode (např. P, F9, Slash); neplatné hodnoty se vrátí na P.
+EssentialProvisions/opt/EfficientLaborOccupations/label=Efektivní pracovní síla: povolená povolání
+EssentialProvisions/opt/EfficientLaborOccupations/tip=Seznam názvů enum FF Occupation oddělený čárkami. Vesničané v těchto povoláních budou přesměrováni na práci dělníka, když jsou opravdu nečinní. Toto pole cfg upravte přímo pro přidání/odebrání povolání — v panelu KC se nezobrazuje, aby zůstal přehledný. Pro projevení změn restartujte hru.
+EssentialProvisions/opt/EfficientLaborVerbose/label=Efektivní pracovní síla: podrobné protokolování
+EssentialProvisions/opt/EfficientLaborVerbose/tip=Když true, zaznamená každého vesničana (povolání) při zařazení do / vyřazení z fondu dělníků. Výchozí false zaznamenává pouze jeden souhrnný řádek denně, a jen ve dnech, kdy se něco změnilo. Pouze cfg; v panelu KC se nezobrazuje.
+EssentialProvisions/opt/InventoryDiagnostics/label=Funkce zásob: diagnostické protokolování
+EssentialProvisions/opt/InventoryDiagnostics/tip=Když true, Kontrola spotřeby a Prodej přebytků zaznamenávají denně podrobnosti za jednotlivé položky — pozorovanou denní míru, vypočtený cíl ponechání ve městě / rezervy, aktuální zásoby města (rozpad sklad vs. obchodní post) a co bylo kam zapsáno. Pouze cfg; v panelu KC se nezobrazuje. Použijte k ověření, že funkce fungují správně, pak vypněte zpět.
+EssentialProvisions/opt/LearnedHandsVerbose/label=Vzdělané ruce: podrobné protokolování
+EssentialProvisions/opt/LearnedHandsVerbose/tip=Když true, zaznamená jeden řádek za každého unikátního vesničana při prvním použití jeho bonusu. Pouze cfg; v panelu KC se nezobrazuje. Výchozí je jednorázový řádek 'první uplatnění', který se spustí vždy, abyste mohli potvrdit, že patch funguje, bez zahlcení logu.
+EssentialProvisions/opt/DiseaseRosterDump/label=Výpis seznamu nemocí (diagnostický)
+EssentialProvisions/opt/DiseaseRosterDump/tip=Když true, při prvním načtení mapy EP zaznamená do Latest.log klasifikaci léčitelnosti, nejlepší možné procento uzdravení a surová léčebná data (cureFactors, finalCureChance, křivka, effMin/Max) každé nemoci — slouží k ověření odvození léčby DiseaseInfoApi vůči seznamu nemocí. Pouze cfg; v panelu KC se nezobrazuje. Pro běžnou hru nechte VYPNUTO.
+EssentialProvisions/opt/ConsumableTrackedItems/label=Kontrola spotřeby: sledované položky
+EssentialProvisions/opt/ConsumableTrackedItems/tip=Seznam názvů ItemID oddělený čárkami, které bude Kontrola spotřeby spravovat. Upravte pole cfg přímo pro přidání/odebrání položek — v panelu KC se nezobrazuje. Pro projevení změn restartujte.
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=Manifest Delivery
+ManifestDelivery/meta/desc=Přestavba Vozového obchodu: režimy Tábor/Uzel, AI zpáteční vytíženosti, vylepšení Skladovacího vozu
+ManifestDelivery/cat/Master=Hlavní
+ManifestDelivery/opt/ModEnabled/label=Mod povolen
+ManifestDelivery/opt/ModEnabled/tip=Vypnutím se vrátíte k vanilla chování Vozového obchodu
+ManifestDelivery/cat/Wagon Caps=Limity vozů
+ManifestDelivery/opt/MaxWagonsStandard/label=Max. vozů — Standardní
+ManifestDelivery/opt/MaxWagonsStandard/tip=Max. vozů, které může vyprodukovat standardní Vozový obchod (1–4).
+ManifestDelivery/opt/MaxWagonsCamp/label=Max. vozů — Tábor
+ManifestDelivery/opt/MaxWagonsCamp/tip=Doporučeny 2: jeden veze výstup, druhý se vrací se zásobami
+ManifestDelivery/opt/MaxWagonsHub/label=Max. vozů — Uzel
+ManifestDelivery/opt/MaxWagonsHub/tip=Uzlové obchody obsluhují celé sídlo
+ManifestDelivery/cat/Backhaul AI=AI zpáteční jízdy
+ManifestDelivery/opt/ReturnTripEnabled/label=Vyzvednutí na zpáteční cestě
+ManifestDelivery/opt/ReturnTripEnabled/tip=Vozy vyhledávají blízké logistické požadavky při vykládce, než se vrátí prázdné
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=Okruh vyhledávání zpáteční jízdy
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=Okruh vyhledávání ve světových jednotkách pro obchody ve standardním režimu.
+ManifestDelivery/opt/PreferWorkshopInput/label=Upřednostnit dílny při zpáteční jízdě
+ManifestDelivery/opt/PreferWorkshopInput/tip=Upřednostnit zásobování výrobních budov (pekárna, kovárna, koželužna atd.) před přesouváním mezi sklady
+ManifestDelivery/cat/Camp & Hub=Tábor a uzel
+ManifestDelivery/opt/CampHaulEnabled/label=Aktivní vytíženost tábora
+ManifestDelivery/opt/CampHaulEnabled/tip=Táborové vozy aktivně vozí z blízké výroby do skladu uzlu
+ManifestDelivery/opt/HubHaulEnabled/label=Aktivní distribuce uzlu
+ManifestDelivery/opt/HubHaulEnabled/tip=Uzlové vozy aktivně obsluhují jakýkoli požadavek v okruhu (trhy, přístřešky, výrobci, sklady)
+ManifestDelivery/opt/HubMultiSourcePickup/label=Vyzvednutí z více zdrojů v uzlu (experimentální)
+ManifestDelivery/opt/HubMultiSourcePickup/tip=Uzlové vozy si nárokují pouze požadavky Doručit/doplnit (konkrétní požadavek, ne celou budovu), takže jeden vůz obsáhne více zdrojových skladů až po kapacitu místo jednoho téměř prázdného vyzvednutí. Pouze režim Uzel. Ve výchozím stavu vypnuto — experimentální.
+ManifestDelivery/opt/CampWorkRadius/label=Pracovní okruh tábora
+ManifestDelivery/opt/CampWorkRadius/tip=Výchozích 120u pokrývá typický vzdálený tábor
+ManifestDelivery/opt/HubWorkRadius/label=Pracovní okruh uzlu
+ManifestDelivery/opt/HubWorkRadius/tip=Výchozích 200u pokrývá celé centrum města
+ManifestDelivery/cat/Storage Cart=Skladovací vůz
+ManifestDelivery/opt/StorageCartCapacity/label=Kapacita
+ManifestDelivery/opt/StorageCartCapacity/tip=Vanilla 750
+ManifestDelivery/opt/StorageCartSpeedMult/label=Násobič rychlosti přesunu
+ManifestDelivery/opt/StorageCartSpeedMult/tip=Jak rychle se vůz sám 'přesune' na shromažďovací bod
+ManifestDelivery/cat/Hotkeys=Klávesové zkratky
+ManifestDelivery/opt/ModeCycleKey/label=Přepnout režim Vozového obchodu
+ManifestDelivery/opt/ModeCycleKey/tip=Název klávesy Unity KeyCode. Cyklicky přepíná Standardní / Tábor / Uzel, když je Vozový obchod vybrán.
+ManifestDelivery/cat/Diagnostics=Diagnostika
+ManifestDelivery/opt/HaulDiagnostics/label=Diagnostika vytíženosti
+ManifestDelivery/opt/HaulDiagnostics/tip=Zaznamená do logu MelonLoader úplný tvar každé jízdy vozu (zastávky vyzvednutí/vykládky, položky, parametry omezení obsluhovaného požadavku, nosnost). Vyšetřovací nástroj pro ladění vyzvedávání z více zdrojů. Ve výchozím stavu vypnuto.
+ManifestDelivery/cat/Other settings=Ostatní nastavení
+ManifestDelivery/opt/VerboseLogging/label=Podrobné protokolování
+ManifestDelivery/opt/VerboseLogging/tip=Když true, zaznamená do logu MelonLoader každou událost doručení a prohledávání (řádky DELIVER / ReturnTrip / CampHaul / HubHaul CLAIM + EMPTY). Užitečné pro diagnostiku směrování vozů, ale na rušné mapě zahlcuje log. Varování a chyby se zaznamenávají vždy. Výchozí false.
+ManifestDelivery/opt/StatsEnabled/label=Statistiky vytíženosti — povoleno
+ManifestDelivery/opt/StatsEnabled/tip=Když true, mod zaznamenává každé doručení vozu do statistického souboru pro daný obchod (celkové součty + od začátku roku, rozpad podle položek, poměr surové vs. vyrobené zboží). Stiskněte klávesu reportu (výchozí Ctrl+Shift+M) k výpisu formátovaného reportu do logu MelonLoader.
+ManifestDelivery/opt/StatsReportKey/label=Statistiky vytíženosti — klávesa reportu
+ManifestDelivery/opt/StatsReportKey/tip=Stiskněte CTRL+SHIFT+<tato klávesa> k výpisu reportu vytíženosti daného obchodu do logu MelonLoader. Použijte název Unity KeyCode (např. M, J, F8).
+# ── Rivers Restored ──
+RiversRestored/meta/name=Rivers Restored
+RiversRestored/meta/desc=Obnovuje generování řek na mapách FF a zpřístupňuje ladění hustoty/tvaru řek a rybaření
+RiversRestored/cat/Master=Hlavní
+RiversRestored/opt/RiversEnabled/label=Řeky povoleny
+RiversRestored/opt/RiversEnabled/tip=Hlavní přepínač. Vypnuto = vanilla (žádné řeky).
+RiversRestored/opt/RiverPreset/label=Předvolba řeky (podle biomu mapy)
+RiversRestored/opt/RiverPreset/tip=Předladěný soubor nastavení řek odpovídající názvům biomů FF. Když je nastaveno na cokoli kromě Vlastní, hodnoty předvolby přepíší podrobné posuvníky. Vyberte možnost odpovídající biomu vaší mapy pro rozumné výchozí hodnoty.
+RiversRestored/opt/GranularSettings/label=Zobrazit podrobná nastavení (pokročilé)
+RiversRestored/opt/GranularSettings/tip=Když je ZAPNUTO, níže se zobrazí ovládací prvky tvaru řeky pro jednotlivé posuvníky. Projeví se pouze, když je Předvolba řeky nastavena na Vlastní.
+RiversRestored/opt/EnableRibbonAnimation/label=Animace tekoucí vody
+RiversRestored/opt/EnableRibbonAnimation/tip=Zapnuto = animovaný tok vody. Vypnuto = pouze statická hladina vody (levnější, ve stylu jezer; šetří CPU/GPU na mapách bohatých na řeky).
+RiversRestored/opt/RiverPreferLakeWaterType/label=Upřednostnit jezerní (modrou) vodu pro řeky
+RiversRestored/opt/RiverPreferLakeWaterType/tip=Zapnuto (výchozí) = řeky používají vodu jezerního typu (čirá modrá). Vypnuto = řeky používají typ vody, který mapa přiřadí jako první (často rybník — zelený/kalný).
+RiversRestored/opt/PondUseLakeMaterial/label=Vynutit vykreslování rybniční vody jako jezerní (modré)
+RiversRestored/opt/PondUseLakeMaterial/tip=ZAPNUTO (výchozí) = každý rybník na každé mapě se vykresluje modrým jezerním materiálem místo zeleného rybničního. Klasifikace rybníku se nemění, mění se jen materiál. Také opravuje viditelnost vody po uložení/načtení — osiřelé WaterTypes se vrátí k (nyní modrému) materiálu rybníku.
+RiversRestored/opt/EnableMapPreviewRender/label=[Beta] Vykreslit náhledy mapy do PNG
+RiversRestored/opt/EnableMapPreviewRender/tip=Po každém generování RR zapíše náhledový PNG shora do UserData/RiversRestored/Previews/. Užitečné pro ověření výstupu generování RR bez spuštění sídla.
+RiversRestored/opt/ShowPreviewOverlay/label=[Beta] Zobrazit náhled přes hru
+RiversRestored/opt/ShowPreviewOverlay/tip=Zobrazí naposledy vykreslený náhled jako panel na pravé straně obrazovky během hraní. F8 přepíná viditelnost ve hře. Vyžaduje zapnuté Vykreslování náhledů mapy.
+RiversRestored/cat/Flow Direction=Směr toku
+RiversRestored/opt/RiverFlowBias/label=Sklon směru toku řeky
+RiversRestored/opt/RiverFlowBias/tip=Před generováním trasy řeky nakloní výškovou mapu, aby řeky statisticky tekly ze zvoleného vysokého rohu/okraje do zvoleného nízkého. Žádný = čistě podle seedu (vanilla chování).
+RiversRestored/opt/RiverFlowBiasStrength/label=Síla sklonu toku
+RiversRestored/opt/RiverFlowBiasStrength/tip=Jak silně naklonit výškovou mapu. 0,3 = jemné, 0,4 = vyvážené výchozí, 0,5 = silné, 0,7+ = viditelně nakloněné. Nemá efekt, když je Sklon směru nastaven na Žádný.
+RiversRestored/cat/Density=Hustota
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/cat/Shape — Width / Depth=Tvar — šířka / hloubka
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MinDepth/label=Min. hloubka (m)
+RiversRestored/opt/MinDepth/tip=-1 = ponechat vanilla
+RiversRestored/opt/MaxDepth/label=Max. hloubka (m)
+RiversRestored/opt/MaxDepth/tip=-1 = ponechat vanilla
+RiversRestored/cat/Carve Shape=Tvar koryta
+RiversRestored/opt/RiverInnerRadius/label=Vnitřní poloměr koryta (buňky)
+RiversRestored/opt/RiverInnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/RiverOuterRadius/label=Vnější poloměr břehu (buňky)
+RiversRestored/opt/RiverOuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/RiverTrenchDepth/label=Hloubka koryta (m)
+RiversRestored/opt/RiverTrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/RiverSmoothPasses/label=Průchody vyhlazení břehu
+RiversRestored/opt/RiverSmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/RiverJitterAmplitude/label=Amplituda meandrování (m)
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/RiverJitterFrequency/label=Frekvence meandrování
+RiversRestored/opt/RiverJitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/cat/Water Plane / Fishing=Vodní hladina / rybaření
+RiversRestored/opt/RiverRegisterAsWaterArea/label=Zaregistrovat jako vodní plochu
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=Zachází s řekami jako s vodními plochami (ve stylu jezer) — umožňuje rybaření a stabilní přetrvání
+RiversRestored/opt/RiverBlobRadius/label=Poloměr kruhového razítka (buňky)
+RiversRestored/opt/RiverBlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/RiverBlobStride/label=Rozestup kruhového razítka (buňky)
+RiversRestored/opt/RiverBlobStride/tip=Rozestup mezi kruhovými razítky podél trasy
+RiversRestored/opt/RiverFishingAreaMultiplier/label=Násobič rybářské plochy
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = vanilla hustota (řídká), 4 = hratelná hustota
+RiversRestored/cat/Generator Gating=Podmínky generátoru
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=Označit vodu jako konec řeky
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=HLAVNÍ podmínka — bez tohoto žádná řeka nikdy neprojde ověřením bez ohledu na počet
+RiversRestored/opt/ForceCoastlineTerrain/label=Vynutit pobřežní terén
+RiversRestored/opt/ForceCoastlineTerrain/tip=Diagnostika: vynutí pobřežní biom (dává oceán jako zaručený koncový bod řeky)
+RiversRestored/cat/Diagnostics=Diagnostika
+RiversRestored/opt/VerboseDiagnostics/label=Podrobná diagnostika
+RiversRestored/opt/VerboseDiagnostics/tip=Stav jednotlivých WaterArea při uložení, počty waterAreas podle fáze při generování. Při běžné hře zahlcuje log.
+RiversRestored/cat/Preset · IdyllicValley=Předvolba · Idylické údolí
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/InnerRadius/label=Šířka koryta (plná hloubka, buňky)
+RiversRestored/opt/InnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/OuterRadius/label=Šířka břehu (svah do terénu, buňky)
+RiversRestored/opt/OuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/BlobRadius/label=Viditelná šířka vody (buňky)
+RiversRestored/opt/BlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/BlobStride/label=Hustota vodní hladiny (pokročilé)
+RiversRestored/opt/BlobStride/tip=Rozestup mezi kruhovými razítky podél trasy; 3 = výchozí, vyšší = rychlejší generování
+RiversRestored/opt/TrenchDepth/label=Hloubka řeky (m pod vodou)
+RiversRestored/opt/TrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/SmoothPasses/label=Hladkost břehu
+RiversRestored/opt/SmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/JitterAmplitude/label=Síla meandrování řeky (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/JitterFrequency/label=Frekvence meandrování řeky
+RiversRestored/opt/JitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/opt/WaterMultiplier/label=Násobič množství vody
+RiversRestored/opt/WaterMultiplier/tip=Škáluje hodnotu vody daného seedu. 1,0 = vanilla. <1 = sušší, menší jezera. >1 = vlhčí. Ovlivňuje náhled i hru. Výchozí: Idylické údolí 0,75, Nížinná jezera 0,7, Horská údolí 0,85, ostatní 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Zvýšení produktivity rybaření na řece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (řídká), 4 = hratelná hustota, 8+ = bohatá
+RiversRestored/cat/Preset · LowlandLakes=Předvolba · Nížinná jezera
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/InnerRadius/label=Šířka koryta (plná hloubka, buňky)
+RiversRestored/opt/InnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/OuterRadius/label=Šířka břehu (svah do terénu, buňky)
+RiversRestored/opt/OuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/BlobRadius/label=Viditelná šířka vody (buňky)
+RiversRestored/opt/BlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/BlobStride/label=Hustota vodní hladiny (pokročilé)
+RiversRestored/opt/BlobStride/tip=Rozestup mezi kruhovými razítky podél trasy; 3 = výchozí, vyšší = rychlejší generování
+RiversRestored/opt/TrenchDepth/label=Hloubka řeky (m pod vodou)
+RiversRestored/opt/TrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/SmoothPasses/label=Hladkost břehu
+RiversRestored/opt/SmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/JitterAmplitude/label=Síla meandrování řeky (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/JitterFrequency/label=Frekvence meandrování řeky
+RiversRestored/opt/JitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/opt/WaterMultiplier/label=Násobič množství vody
+RiversRestored/opt/WaterMultiplier/tip=Škáluje hodnotu vody daného seedu. 1,0 = vanilla. <1 = sušší, menší jezera. >1 = vlhčí. Ovlivňuje náhled i hru. Výchozí: Idylické údolí 0,75, Nížinná jezera 0,7, Horská údolí 0,85, ostatní 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Zvýšení produktivity rybaření na řece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (řídká), 4 = hratelná hustota, 8+ = bohatá
+RiversRestored/cat/Preset · AridHighlands=Předvolba · Suché vysočiny
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/InnerRadius/label=Šířka koryta (plná hloubka, buňky)
+RiversRestored/opt/InnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/OuterRadius/label=Šířka břehu (svah do terénu, buňky)
+RiversRestored/opt/OuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/BlobRadius/label=Viditelná šířka vody (buňky)
+RiversRestored/opt/BlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/BlobStride/label=Hustota vodní hladiny (pokročilé)
+RiversRestored/opt/BlobStride/tip=Rozestup mezi kruhovými razítky podél trasy; 3 = výchozí, vyšší = rychlejší generování
+RiversRestored/opt/TrenchDepth/label=Hloubka řeky (m pod vodou)
+RiversRestored/opt/TrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/SmoothPasses/label=Hladkost břehu
+RiversRestored/opt/SmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/JitterAmplitude/label=Síla meandrování řeky (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/JitterFrequency/label=Frekvence meandrování řeky
+RiversRestored/opt/JitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/opt/WaterMultiplier/label=Násobič množství vody
+RiversRestored/opt/WaterMultiplier/tip=Škáluje hodnotu vody daného seedu. 1,0 = vanilla. <1 = sušší, menší jezera. >1 = vlhčí. Ovlivňuje náhled i hru. Výchozí: Idylické údolí 0,75, Nížinná jezera 0,7, Horská údolí 0,85, ostatní 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Zvýšení produktivity rybaření na řece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (řídká), 4 = hratelná hustota, 8+ = bohatá
+RiversRestored/cat/Preset · Plains=Předvolba · Roviny
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/InnerRadius/label=Šířka koryta (plná hloubka, buňky)
+RiversRestored/opt/InnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/OuterRadius/label=Šířka břehu (svah do terénu, buňky)
+RiversRestored/opt/OuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/BlobRadius/label=Viditelná šířka vody (buňky)
+RiversRestored/opt/BlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/BlobStride/label=Hustota vodní hladiny (pokročilé)
+RiversRestored/opt/BlobStride/tip=Rozestup mezi kruhovými razítky podél trasy; 3 = výchozí, vyšší = rychlejší generování
+RiversRestored/opt/TrenchDepth/label=Hloubka řeky (m pod vodou)
+RiversRestored/opt/TrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/SmoothPasses/label=Hladkost břehu
+RiversRestored/opt/SmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/JitterAmplitude/label=Síla meandrování řeky (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/JitterFrequency/label=Frekvence meandrování řeky
+RiversRestored/opt/JitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/opt/WaterMultiplier/label=Násobič množství vody
+RiversRestored/opt/WaterMultiplier/tip=Škáluje hodnotu vody daného seedu. 1,0 = vanilla. <1 = sušší, menší jezera. >1 = vlhčí. Ovlivňuje náhled i hru. Výchozí: Idylické údolí 0,75, Nížinná jezera 0,7, Horská údolí 0,85, ostatní 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Zvýšení produktivity rybaření na řece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (řídká), 4 = hratelná hustota, 8+ = bohatá
+RiversRestored/cat/Preset · AlpineValleys=Předvolba · Horská údolí
+RiversRestored/opt/NumRivers/label=Počet řek
+RiversRestored/opt/NumRivers/tip=Generátor se snaží dosáhnout tohoto počtu; skutečný počet závisí na proveditelnosti daného seedu
+RiversRestored/opt/MinPoints/label=Minimální délka řeky
+RiversRestored/opt/MinPoints/tip=Minimální počet kontrolních bodů, aby byla řeka přijata
+RiversRestored/opt/MinWidth/label=Min. šířka stuhy (buňky)
+RiversRestored/opt/MinWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/MaxWidth/label=Max. šířka stuhy (buňky)
+RiversRestored/opt/MaxWidth/tip=0 = ponechat vanilla
+RiversRestored/opt/InnerRadius/label=Šířka koryta (plná hloubka, buňky)
+RiversRestored/opt/InnerRadius/tip=Buňky v této vzdálenosti od osy jsou vyhloubeny na hloubku koryta
+RiversRestored/opt/OuterRadius/label=Šířka břehu (svah do terénu, buňky)
+RiversRestored/opt/OuterRadius/tip=Kde se břehy plynule napojují zpět na původní terén
+RiversRestored/opt/BlobRadius/label=Viditelná šířka vody (buňky)
+RiversRestored/opt/BlobRadius/tip=Poloměr kruhového razítka pro slučování polygonů vodní plochy
+RiversRestored/opt/BlobStride/label=Hustota vodní hladiny (pokročilé)
+RiversRestored/opt/BlobStride/tip=Rozestup mezi kruhovými razítky podél trasy; 3 = výchozí, vyšší = rychlejší generování
+RiversRestored/opt/TrenchDepth/label=Hloubka řeky (m pod vodou)
+RiversRestored/opt/TrenchDepth/tip=Jak hluboko pod hladinou vody je koryto vyhloubeno
+RiversRestored/opt/SmoothPasses/label=Hladkost břehu
+RiversRestored/opt/SmoothPasses/tip=0 = surové vyhloubení, 4 = dobrá výchozí hodnota, 8 = velmi jemné
+RiversRestored/opt/JitterAmplitude/label=Síla meandrování řeky (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = rovné, vyšší hodnota = více meandrující
+RiversRestored/opt/JitterFrequency/label=Frekvence meandrování řeky
+RiversRestored/opt/JitterFrequency/tip=Počet vlnových kmitů na jeden Voronoi segment
+RiversRestored/opt/WaterMultiplier/label=Násobič množství vody
+RiversRestored/opt/WaterMultiplier/tip=Škáluje hodnotu vody daného seedu. 1,0 = vanilla. <1 = sušší, menší jezera. >1 = vlhčí. Ovlivňuje náhled i hru. Výchozí: Idylické údolí 0,75, Nížinná jezera 0,7, Horská údolí 0,85, ostatní 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Zvýšení produktivity rybaření na řece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = vanilla (řídká), 4 = hratelná hustota, 8+ = bohatá
+RiversRestored/cat/Other settings=Ostatní nastavení
+RiversRestored/opt/RiversDontBlockWildlife/label=Řeky neblokují spawn divoké zvěře
+RiversRestored/opt/RiversDontBlockWildlife/tip=Když je ZAPNUTO, jelen a další divoká zvěř může spawnout na druhé straně řeky, místo aby byla blokována kvůli tomu, že oblast nemá pozemní cestu do vašeho města. Opravuje 'žádní jeleni za řekou' na nových mapách; na existující uložené hře také při načtení znovu zasídlí odříznuté oblasti. Ovlivňuje pouze spawn divoké zvěře — lov v pastech a pohyb vesničanů se nemění. VYPNUTO = vanilla chování (řeky blokují zvěř přes řeku).
+RiversRestored/opt/RiverFishPerCell/label=Ryby na vodní buňku řeky
+RiversRestored/opt/RiverFishPerCell/tip=Určuje základní zásobu ryb v řece podle skutečné velikosti řeky (počtu jejích vyplněných vodních buněk), místo plošné křivky FF, která má strop — takže obrovská, mapu protínající řeka má poměrně více ryb než malý potok bez ručního ladění. 1,0 = ~10-14 tis. ryb pro velkou, mapu protínající řeku (doporučeno). Zvyšte pro bohatší řeky, snižte pro chudší. 0 = vypnout (použít vanilla křivku). Násobič Zvýšení produktivity rybaření na řece se stále uplatní navrch.
+RiversRestored/opt/ScaleLakeFish/label=Škálovat ryby v jezeře/rybníku podle plochy také
+RiversRestored/opt/ScaleLakeFish/tip=Uplatní stejné škálování 'ryby na vodní buňku' (výše) i na jezera a rybníky, ne jen řeky — takže velké jezero má poměrně více ryb než malý rybník, místo křivky FF, která omezuje velké vodní plochy. Pouze navyšuje: vodní plocha nikdy nekončí s méně rybami než vanilla (násobič produktivity řeky se na jezera neuplatňuje). Ve výchozím stavu ZAPNUTO. Vypněte pro zachování vanilla počtu ryb v jezerech/rybnících.
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=Sovereign Boons
+SovereignBoons/meta/desc=Balíček skokového posílení: vybrané funkce z komunitních modů, které posílí vaše sídlo. Každé požehnání je ve výchozím stavu VYPNUTO. Sestaveno s poděkováním původním komunitním tvůrcům modů — tabulku původu najdete v README.
+SovereignBoons/cat/Economy=Ekonomika
+SovereignBoons/opt/EnableCrownsBounty/label=Královské požehnání
+SovereignBoons/opt/EnableCrownsBounty/tip=Znásobí zlato z výběru daní. Věrné svému jménu — prodeje/refundace/odměny z událostí nejsou ovlivněny. Výchozí: VYPNUTO.
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=Násobič daní
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=Násobič uplatněný na zlato z každé daňové události. Vanilla = 1,0. Výchozí: 2,0.
+SovereignBoons/opt/EnableWealthyCaravans/label=Bohaté karavany
+SovereignBoons/opt/EnableWealthyCaravans/tip=Bohatší kupečtí obchodníci + vyšší strop zásob obchodního postu. Výchozí: VYPNUTO.
+SovereignBoons/opt/WealthyCaravansGoldMul/label=Násobič zlata
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=Násobič zásoby zlata obchodníka. Vanilla = 1,0. Výchozí: 2,0.
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=Násobič zboží
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=Násobič množství zboží obchodníka. Vanilla = 1,0. Výchozí: 2,0.
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=Koupí cokoli
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=Obchodníci nakoupí jakoukoli položku ze svého seznamu zboží NEBO již ve skladu. Výchozí: ZAPNUTO.
+SovereignBoons/opt/WealthyCaravansMaxStock/label=Max. zásoby obchodního postu
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=Přepíše TradeManager.maxTradingPostStockCount. Vanilla = 100. Výchozí: 1000.
+SovereignBoons/opt/EnableMerchantsGambit/label=Kupecká sázka
+SovereignBoons/opt/EnableMerchantsGambit/tip=Stiskněte klávesovou zkratku pro prohledání přítomných obchodníků a najití výhodné arbitráže nákup-levně/prodej-draze a provedení celého schodiště najednou. Spouští se v režimu Zkušební běh (pouze report). Výchozí: VYPNUTO.
+SovereignBoons/opt/MerchantsGambitDryRun/label=Zkušební běh (pouze report)
+SovereignBoons/opt/MerchantsGambitDryRun/tip=Nahlásí projektovaný zisk přes oznámení + log bez přesunu jakéhokoli zboží/zlata. Ověřte čísla, poté toto vypněte pro povolení jednokliknutého provedení. Výchozí: ZAPNUTO.
+SovereignBoons/opt/MerchantsGambitScanKey/label=Klávesová zkratka
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCode nebo kombinace — Ctrl+B, F6, Alt+Shift+M (modifikátory: Ctrl/Alt/Shift). Výchozí: Ctrl+B.
+SovereignBoons/opt/MerchantsGambitMinProfit/label=Min. zisk / jednotka
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=Přeskočí arbitráž pod tímto ziskem zlata na jednotku. Výchozí: 1.
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=Max. cyklů
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=Bezpečnostní strop kroků nákup/prodej na jeden běh. Výchozí: 500.
+SovereignBoons/cat/Workforce=Pracovní síla
+SovereignBoons/opt/EnableSwiftFeet/label=Rychlé nohy
+SovereignBoons/opt/EnableSwiftFeet/tip=Rychlejší vesničané + odolnější přepravní vozy. Platí pro postavy/vozy vytvořené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/SwiftFeetShoeBonus/label=Bonus obuvi vesničana
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=Nahrazuje Character._shoeBonusBase. Ovlivňuje i nájezdníky. Vanilla = 0,15. Výchozí: 0,30.
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=Rychlost pohybu vozu
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=Přepis TransportWagon._movementSpeed. Vanilla ≈ 4,5. Výchozí: 8,0.
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=Nosnost vozu
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=Přepis TransportWagon.carryCapacity. Vanilla = 150. Výchozí: 300.
+SovereignBoons/opt/EnableEagerHands/label=Dychtivé ruce
+SovereignBoons/opt/EnableEagerHands/tip=Nižší věkové hranice pro pracovní sílu + rozsah zápisu do školy. Výchozí: VYPNUTO.
+SovereignBoons/opt/EagerHandsChildAge/label=Věková hranice dítěte
+SovereignBoons/opt/EagerHandsChildAge/tip=Minimální věk, kdy se vesničan stává dětským dělníkem. Vanilla = 15. Výchozí: 12.
+SovereignBoons/opt/EagerHandsAdolescentAge/label=Věková hranice dospívání
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=Věk, kdy vesničan přechází na dospělou práci. Vanilla = 25. Výchozí: 18.
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=Min. věk zápisu do školy
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=Vanilla = 5. Výchozí: 5.
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=Max. věk zápisu do školy
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=Nastavte velmi nízko pro faktické zrušení školní docházky. Vanilla = 10. Výchozí: 10.
+SovereignBoons/opt/EnableKingsHighway/label=Královská silnice
+SovereignBoons/opt/EnableKingsHighway/tip=Rychlejší cestování po silnicích + pomalejší agresivní zvířata. Bonus silnice se přepočítá při změně silnice/načtení; zpomalení zvířat je živé. Výchozí: VYPNUTO.
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=Zvýšit rychlost na silnici
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=Znásobí bonus rychlosti na silnici. Výchozí: ZAPNUTO (když je požehnání povoleno).
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=Násobič rychlosti na silnici
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=Násobič AIGridNode.nodeSpeedBonus. Vanilla = 1,0. Výchozí: 1,5.
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=Zpomalit agresivní zvířata
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=Vlci/medvědi/atd. se pohybují pomaleji — snáze se jim uteče, snáze se loví. Výchozí: ZAPNUTO.
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=Násobič rychlosti agresivních zvířat
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=Vanilla = 1,0. Nižší = pomalejší predátoři. Výchozí: 0,85.
+SovereignBoons/cat/Buildings=Budovy
+SovereignBoons/opt/EnableSpringsVigor/label=Vydatnější studny
+SovereignBoons/opt/EnableSpringsVigor/tip=Rychlejší doplňování studny + větší kapacita studny. Platí pro studny postavené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/SpringsVigorRechargeMult/label=Násobič doplňování
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=Násobič Well.waterGainPerSecond (vanilla = 0,01 za sekundu). Výchozí: 2,0 (×2 → 0,02 za sekundu).
+SovereignBoons/opt/SpringsVigorCapacityMult/label=Násobič kapacity
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=Násobič Well.maxWater (vanilla = 50). Výchozí: 2,0 (×2 → 100 max).
+SovereignBoons/cat/Combat=Boj
+SovereignBoons/opt/EnableLevysArms/label=Nouzová domobrana
+SovereignBoons/opt/EnableLevysArms/tip=Domobrana ovládaná klávesovou zkratkou. Vyzbrojí každého způsobilého vesničana bojovou výbavou + navýšením statistik. Výchozí: VYPNUTO.
+SovereignBoons/opt/LevysArmsArmKey/label=Klávesa mobilizace
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCode nebo kombinace — Ctrl+A, F4, Alt+Shift+M (modifikátory: Ctrl/Alt/Shift). Výchozí: Ctrl+A.
+SovereignBoons/opt/LevysArmsUnarmKey/label=Klávesa odzbrojení
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCode nebo kombinace (např. Alt+A; modifikátory Ctrl/Alt/Shift). Výchozí: Alt+A.
+SovereignBoons/opt/LevysArmsStatMagnitude/label=Velikost navýšení statistik
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=Uplatní se na každé pole statistik Perc (max. život, brnění, poškození zblízka/na dálku atd.). Vanilla = 0. Předvolba 'silné' zdrojového modu = 1000. Výchozí: 100.
+SovereignBoons/cat/Misc=Různé
+SovereignBoons/opt/EnableSteadfastResolve/label=Nepoctivé úspěchy
+SovereignBoons/opt/EnableSteadfastResolve/tip=Úspěchy se odemykají i s nevýchozím nastavením nebo mody. Výchozí: VYPNUTO.
+SovereignBoons/opt/EnableLongReach/label=Rozšíření dosahu
+SovereignBoons/opt/EnableLongReach/tip=Násobiče pracovního okruhu podle typu budovy. Platí pro budovy postavené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/LongReachWorkCampMul/label=Okruh pracovního tábora ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=Násobič pracovního okruhu Pracovního tábora (vanilla 60). 1,0 = beze změny, 1,5 = 1,5×, 2,0 = dvojnásobek. Výchozí: 1,0.
+SovereignBoons/opt/LongReachHunterMul/label=Okruh lovce ×
+SovereignBoons/opt/LongReachHunterMul/tip=Násobič okruhu Lovecké chaty (vanilla 60). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachFishingMul/label=Okruh rybářství ×
+SovereignBoons/opt/LongReachFishingMul/tip=Násobič okruhu Rybářské chaty (vanilla 30). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachArboristMul/label=Okruh zahradníka ×
+SovereignBoons/opt/LongReachArboristMul/tip=Násobič okruhu budovy Zahradníka (vanilla 100). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachMarketMul/label=Okruh trhu ×
+SovereignBoons/opt/LongReachMarketMul/tip=Násobič strategického plánovacího okruhu Trhu (vanilla 50). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachForagerMul/label=Okruh sběratelské chaty ×
+SovereignBoons/opt/LongReachForagerMul/tip=Násobič sběratelského okruhu Sběratelské chaty (vanilla 60). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachRatCatcherMul/label=Okruh krysaře ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=Násobič pracovního okruhu budovy Krysaře (vanilla 60). 1,0 = beze změny. Výchozí: 1,0.
+SovereignBoons/opt/LongReachDoghouseMul/label=Okruh psí boudy ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=Násobič obranného okruhu Psí boudy (vanilla 60) — obranná oblast psa. 1,0 = beze změny. Výchozí: 1,0. [DLC Psi/Kočky]
+SovereignBoons/opt/EnableCivicPride/label=Občanská hrdost
+SovereignBoons/opt/EnableCivicPride/tip=Znásobí okruh/bonus přitažlivosti Dekorativní budovy. Platí pro dekorace postavené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/CivicPrideRadiusMul/label=Násobič okruhu
+SovereignBoons/opt/CivicPrideRadiusMul/tip=Násobič Building._strategicPlanningRadius (vanilla = 50). Výchozí: 1,5.
+SovereignBoons/opt/CivicPrideBonusMul/label=Násobič bonusu
+SovereignBoons/opt/CivicPrideBonusMul/tip=Násobič velikosti Building._strategicPlanningBonus. Vanilla = 1,0. Výchozí: 1,5.
+SovereignBoons/opt/EnableHallowedReliquary/label=Posvátná relikviář
+SovereignBoons/opt/EnableHallowedReliquary/tip=Násobič bonusu spirituality + Uvolnění relikvií z počtu kněží. Výchozí: VYPNUTO.
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=Násobič bonusu spirituality
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=Násobič ReligionManager._spiritualityBonusPerRelic (vanilla = 50). Výchozí: 1,5.
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=Uvolnit relikvie z počtu kněží
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=1 kněz aktivuje každou přiřazenou relikvii. Vypnuto = vanilla (počet kněží podmiňuje aktivní relikvie). Výchozí: ZAPNUTO.
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=Odemknout všechny relikvie
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=Skokové posílení: odemkne při načtení mapy každou relikvii ve hře. Jakmile jsou získány, přetrvávají v uložené hře (později vypněte, aby se opětovně nespouštělo, ale co jste získali, si ponecháte). Výchozí: VYPNUTO.
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=Bonusové sloty pro relikvie
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=Extra sloty pro relikvie přidané do každého Chrámu (vanilla = 2). 0..13 → 2..15 celkem (odpovídá VC_ModifyTemple). Widgety slotů jsou klonovány z existující šablony UI a rozloženy do řad po max. 5. Výchozí: 4 (celkem 6). Vanilla zásoba relikvií FF je ~8, takže cokoli nad ~10 zanechá prázdné sloty. Projeví se při příštím načtení uložené hry.
+SovereignBoons/opt/EnableHoardedStores/label=Nahromaděné zásoby
+SovereignBoons/opt/EnableHoardedStores/tip=Násobič kapacity podle typu skladu. Platí pro skladovací budovy postavené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=Sklep na kořeny — použít
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=Uplatnit násobič kapacity na Sklepy na kořeny. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=Sklep na kořeny — násobič
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=Násobič kapacity pro Sklepy na kořeny. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=Sýpka — použít
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=Uplatnit násobič kapacity na Sýpky. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresGranaryMul/label=Sýpka — násobič
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=Násobič kapacity pro Sýpky. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=Skladiště — použít
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=Uplatnit násobič kapacity na Skladiště. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=Skladiště — násobič
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=Násobič kapacity pro Skladiště. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=Skladovací depo — použít
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=Uplatnit násobič kapacity na Skladovací depa. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=Skladovací depo — násobič
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=Násobič kapacity pro Skladovací depa. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=Skladiště surovin — použít
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=Uplatnit násobič kapacity na Skladiště surovin. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresStockyardMul/label=Skladiště surovin — násobič
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=Násobič kapacity pro Skladiště surovin. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=Pokladnice — použít
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=Uplatnit násobič kapacity na Pokladnice. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=Pokladnice — násobič
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=Násobič kapacity pro Pokladnice. Výchozí: 2,0.
+SovereignBoons/opt/HoardedStoresMarketEnable/label=Trh — použít
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=Uplatnit násobič kapacity na Trhy. Výchozí: VYPNUTO.
+SovereignBoons/opt/HoardedStoresMarketMul/label=Trh — násobič
+SovereignBoons/opt/HoardedStoresMarketMul/tip=Násobič kapacity pro Trhy. Výchozí: 2,0.
+SovereignBoons/opt/EnableGreaterHalls/label=Větší síně
+SovereignBoons/opt/EnableGreaterHalls/tip=Doplněk +Pracovníci / +Obyvatelé podle typu budovy pro ~52 typů budov. Seskupeno podle Chov zvířat / Výroba / Naleziště surovin / Práce v terénu / Občanské / Bydlení. Platí pro budovy postavené po zapnutí; pro obnovení stávajících znovu načtěte uloženou hru. Výchozí: VYPNUTO.
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=Barn +Pracovníci
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..6. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=CatKennel +Pracovníci
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=ChickenCoop +Pracovníci
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=DogKennel +Pracovníci
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=GoatBarn +Pracovníci
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=Stable +Pracovníci
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Chov zvířat. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=ApothecaryShop +Pracovníci
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=Armory +Pracovníci
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=Bakery +Pracovníci
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=BasketShop +Pracovníci
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=BlacksmithForge +Pracovníci
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=BookBinder +Pracovníci
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=Brewery +Pracovníci
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=Brickyard +Pracovníci
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=CandleShop +Pracovníci
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=CharcoalKiln +Pracovníci
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=Cheesemaker +Pracovníci
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=CobblerShop +Pracovníci
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=CooperBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=FletcherBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=Foundry +Pracovníci
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=FurnitureWorkshop +Pracovníci
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..5. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=Glassmaker +Pracovníci
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..6. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=PaperMill +Pracovníci
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..5. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=PotterBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=PreservistBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=SmokeHouse +Pracovníci
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=WeaverBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=Windmill +Pracovníci
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=WoodCutterBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Výroba. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=ClayPitBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..4. Výchozí: 0 (beze změny). Zahrnuje Jámu na hlínu — povrchovou i hlubinnou (nekonečnou) verzi.
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=MineralSiteMine +Pracovníci
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..4. Výchozí: 0 (beze změny). Jedna třída pro VŠECHNY hlubinné doly: každý důl na železo, zlato a uhlí, povrchový i hlubinný. Typ rudy je data, ne samostatná budova, takže toto nelze zacílit na jednu konkrétní rudu.
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=SandPitBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..4. Výchozí: 0 (beze změny). Zahrnuje Pískovnu — povrchovou i hlubinnou (nekonečnou) verzi.
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=SawPitBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=StonePitBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..8. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=WorkCamp +Pracovníci
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Naleziště surovin. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=ArboristBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Práce v terénu. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=FishingShack +Pracovníci
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Práce v terénu. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=ForagerShack +Pracovníci
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Práce v terénu. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=HunterBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Práce v terénu. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=CompostYard +Pracovníci
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=GuardTower +Pracovníci
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=GuildHall +Pracovníci
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=HealersHouse +Pracovníci
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=Library +Pracovníci
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..1. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=MarketBuilding +Pracovníci
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=Pub +Pracovníci
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_School_Addon/label=School +Pracovníci
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=Temple +Pracovníci
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..3. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=WagonShop +Pracovníci
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Občanské budovy. Rozsah: 0..2. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=Shelter +Pracovníci
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Bydlení. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=TemporaryShelter +Pracovníci
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=Extra pracovní/obytná místa navíc k vanilla maxWorkers. Kategorie: Bydlení. Rozsah: 0..4. Výchozí: 0 (beze změny).
+SovereignBoons/opt/EnableBountifulFields/label=Úrodná pole
+SovereignBoons/opt/EnableBountifulFields/tip=Ladění jednotlivých plodin + globální parametry zemědělství. Datové záznamy plodin se mění při načtení mapy — po změně hodnot znovu načtěte uloženou hru, aby se projevily.
+SovereignBoons/opt/EnableBountifulCrops/label=Úrodné plodiny — 8 nových plodin
+SovereignBoons/opt/EnableBountifulCrops/tip=Přidá do výběru sázení Papriku (→Koření), Kostival (→Léčivé kořeny), Konopí (→Vlákna), Sóju (→Ořechy), Kukuřici (→Obilí), Purpurovou vrbu (→Vrbové proutí), Žampiony hnědé (→Houby) a Bylinkovou zahradu (→Byliny, obnovuje úrodnost) do výběru sázení. Ladíte je jednotlivě posuvníky níže, stejně jako vanilla plodiny. BEZPEČNÉ PRO ULOŽENÉ HRY: vypnutím se odstraní jen ikony ve výběru — již zasazené plodiny v uložené hře fungují dál. Výchozí: false.
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=Zaznamenat vanilla hodnoty
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=Při načtení mapy zapíše do MelonLoader.log vanilla hodnoty VegetableFieldsRecord každé plodiny. Zapněte dočasně pro zjištění výchozích hodnot jednotlivých plodin; poté vypněte. Výchozí: false.
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=Zaznamenat nemoci plodin
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=Při načtení mapy zapíše do MelonLoader.log každou nemoc plodin (název, cílové plodiny, ladění nákazy/šíření) — ~80 řádků. Pouze diagnostické; jediný způsob, jak vidět seznamy cílových plodin nemocí (žijí v asset bundlech). Výchozí: false.
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=Násobič políček na farmáře
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=Násobič AgricultureManager._gridsPerFarmer. Výchozí: 1,0 (vanilla).
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=Délka údržby (dny)
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=Přepíše AgricultureManager._maintenanceLengthInDays. Rozsah 45..90 se uplatní; cokoli mimo tento rozsah je bráno jako beze změny. Výchozí: -1 (beze změny).
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=Vodnice — Použít
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=Hlavní přepínač úprav pro plodinu Vodnice. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=Vodnice — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Vodnice): 3.
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=Vodnice — Dny setí
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Vodnice): 10.
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=Vodnice — Dny do zrání
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Vodnice): 41.
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=Vodnice — Zaplevelení
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Vodnice): -5.0.
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=Vodnice — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Vodnice): 0.
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=Vodnice — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Vodnice): 35.
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=Mrkev — Použít
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=Hlavní přepínač úprav pro plodinu Mrkev. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=Mrkev — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Mrkev): 3.
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=Mrkev — Dny setí
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Mrkev): 10.
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=Mrkev — Dny do zrání
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Mrkev): 58.
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=Mrkev — Zaplevelení
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Mrkev): 0.0.
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=Mrkev — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Mrkev): 0.
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=Mrkev — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Mrkev): 50.
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=Pšenice — Použít
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=Hlavní přepínač úprav pro plodinu Pšenice. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=Pšenice — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Pšenice): 8.
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=Pšenice — Dny setí
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Pšenice): 10.
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=Pšenice — Dny do zrání
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Pšenice): 118.
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=Pšenice — Zaplevelení
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Pšenice): -4.0.
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=Pšenice — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pšenice): 20.
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=Pšenice — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pšenice): 0.
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=Pohanka — Použít
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=Hlavní přepínač úprav pro plodinu Pohanka. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=Pohanka — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Pohanka): 1.
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=Pohanka — Dny setí
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Pohanka): 10.
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=Pohanka — Dny do zrání
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Pohanka): 60.
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=Pohanka — Zaplevelení
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Pohanka): -10.0.
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=Pohanka — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pohanka): 80.
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=Pohanka — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pohanka): 0.
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=Žito — Použít
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=Hlavní přepínač úprav pro plodinu Žito. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=Žito — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Žito): 6.
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=Žito — Dny setí
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Žito): 10.
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=Žito — Dny do zrání
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Žito): 118.
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=Žito — Zaplevelení
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Žito): -6.0.
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=Žito — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Žito): 0.
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=Žito — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Žito): 0.
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=Fazole — Použít
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=Hlavní přepínač úprav pro plodinu Fazole. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=Fazole — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Fazole): -1.
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=Fazole — Dny setí
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Fazole): 10.
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=Fazole — Dny do zrání
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Fazole): 85.
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=Fazole — Zaplevelení
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Fazole): -2.0.
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=Fazole — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Fazole): 80.
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=Fazole — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Fazole): 0.
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=Hrách — Použít
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=Hlavní přepínač úprav pro plodinu Hrách. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=Hrách — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Hrách): -1.
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=Hrách — Dny setí
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Hrách): 10.
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=Hrách — Dny do zrání
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Hrách): 51.
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=Hrách — Zaplevelení
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Hrách): 0.0.
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=Hrách — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Hrách): 0.
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=Hrách — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Hrách): 75.
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=Zelí — Použít
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=Hlavní přepínač úprav pro plodinu Zelí. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=Zelí — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Zelí): 4.
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=Zelí — Dny setí
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Zelí): 10.
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=Zelí — Dny do zrání
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Zelí): 85.
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=Zelí — Zaplevelení
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Zelí): -3.0.
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=Zelí — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Zelí): 0.
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=Zelí — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Zelí): 0.
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=Pórek — Použít
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=Hlavní přepínač úprav pro plodinu Pórek. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=Pórek — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Pórek): 6.
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=Pórek — Dny setí
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Pórek): 10.
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=Pórek — Dny do zrání
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Pórek): 118.
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=Pórek — Zaplevelení
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Pórek): 0.0.
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=Pórek — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pórek): 0.
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=Pórek — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Pórek): 0.
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=Len — Použít
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=Hlavní přepínač úprav pro plodinu Len. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=Len — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Len): 5.
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=Len — Dny setí
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Len): 10.
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=Len — Dny do zrání
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Len): 95.
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=Len — Zaplevelení
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Len): 0.0.
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=Len — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Len): 0.
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=Len — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Len): 0.
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=Jetel — Použít
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=Hlavní přepínač úprav pro plodinu Jetel. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=Jetel — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Jetel): -3.
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=Jetel — Dny setí
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Jetel): 10.
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=Jetel — Dny do zrání
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Jetel): 64.
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=Jetel — Zaplevelení
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Jetel): -8.0.
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=Jetel — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Jetel): 0.
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=Jetel — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Jetel): 0.
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=Seno — Použít
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=Hlavní přepínač úprav pro plodinu Seno. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=Seno — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Seno): 1.
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=Seno — Dny setí
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Seno): 10.
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=Seno — Dny do zrání
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Seno): 128.
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=Seno — Zaplevelení
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Seno): -5.0.
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=Seno — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Seno): 0.
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=Seno — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Seno): 0.
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=Paprika — Použít
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=Hlavní přepínač úprav pro plodinu Paprika. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=Paprika — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Paprika): 10.
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=Paprika — Dny setí
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Paprika): 10.
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=Paprika — Dny do zrání
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Paprika): 70.
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=Paprika — Zaplevelení
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Paprika): 1.0.
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=Paprika — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Paprika): 80.
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=Paprika — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Paprika): 5.
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=Kostival — Použít
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=Hlavní přepínač úprav pro plodinu Kostival. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=Kostival — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Kostival): 8.
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=Kostival — Dny setí
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Kostival): 10.
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=Kostival — Dny do zrání
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Kostival): 65.
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=Kostival — Zaplevelení
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Kostival): 1.0.
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=Kostival — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Kostival): 30.
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=Kostival — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Kostival): 10.
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=Konopí — Použít
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=Hlavní přepínač úprav pro plodinu Konopí. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=Konopí — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Konopí): 12.
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=Konopí — Dny setí
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Konopí): 10.
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=Konopí — Dny do zrání
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Konopí): 60.
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=Konopí — Zaplevelení
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Konopí): 1.0.
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=Konopí — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Konopí): 25.
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=Konopí — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Konopí): 10.
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=Sója — Použít
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=Hlavní přepínač úprav pro plodinu Sója. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=Sója — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Sója): 5.
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=Sója — Dny setí
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Sója): 10.
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=Sója — Dny do zrání
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Sója): 70.
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=Sója — Zaplevelení
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Sója): 1.0.
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=Sója — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Sója): 45.
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=Sója — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Sója): 10.
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=Kukuřice — Použít
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=Hlavní přepínač úprav pro plodinu Kukuřice. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=Kukuřice — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Kukuřice): 12.
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=Kukuřice — Dny setí
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Kukuřice): 10.
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=Kukuřice — Dny do zrání
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Kukuřice): 75.
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=Kukuřice — Zaplevelení
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Kukuřice): 1.0.
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=Kukuřice — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Kukuřice): 70.
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=Kukuřice — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Kukuřice): 5.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=Purpurová vrba — Použít
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=Hlavní přepínač úprav pro plodinu Purpurová vrba. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=Purpurová vrba — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Purpurová vrba): 4.
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=Purpurová vrba — Dny setí
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Purpurová vrba): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=Purpurová vrba — Dny do zrání
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Purpurová vrba): 80.
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=Purpurová vrba — Zaplevelení
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Purpurová vrba): 1.0.
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=Purpurová vrba — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Purpurová vrba): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=Purpurová vrba — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Purpurová vrba): 30.
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=Žampiony hnědé — Použít
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=Hlavní přepínač úprav pro plodinu Žampiony hnědé. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=Žampiony hnědé — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Žampiony hnědé): 2.
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=Žampiony hnědé — Dny setí
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Žampiony hnědé): 10.
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=Žampiony hnědé — Dny do zrání
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Žampiony hnědé): 45.
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=Žampiony hnědé — Zaplevelení
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Žampiony hnědé): 1.0.
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=Žampiony hnědé — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Žampiony hnědé): 20.
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=Žampiony hnědé — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Žampiony hnědé): 40.
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=Byliny — Použít
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=Hlavní přepínač úprav pro plodinu Byliny. VYPNUTO → použijí se výchozí (vanilla) hodnoty (ovladače níže se ignorují). ZAPNUTO → hodnoty níže se při načtení mapy zapíší do datového záznamu plodiny. Výchozí: false.
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=Byliny — Úbytek úrodnosti
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=Úrodnost spotřebovaná za jeden cyklus setí. Záporná hodnota = obnovuje úrodnost. Rozsah: -10..10. Výchozí (vanilla Byliny): -3.
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=Byliny — Dny setí
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=Počet dní na zasetí, než začne růst. Nižší = rychlejší obrat. Rozsah: 1..30. Výchozí (vanilla Byliny): 10.
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=Byliny — Dny do zrání
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=Počet dní od zasetí do sklizně. Nižší = rychlejší plodina. Rozsah: 10..300. Výchozí (vanilla Byliny): 60.
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=Byliny — Zaplevelení
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=Procento zaplevelení přidané v každém cyklu setí/sklizně (`weedLevel += value / 100`). Záporná hodnota = odstraňuje plevel (většina vanilla plodin). Nižší = méně plevele. Rozsah: -20..10. Výchozí (vanilla Byliny): -4.0.
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=Byliny — Úmrtnost mrazem %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=Procento plodiny, které zahyne při mrazu. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Byliny): 15.
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=Byliny — Úmrtnost veder %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=Procento plodiny, které zahyne při vlně veder. 0 = imunní. Nižší = silnější efekt. Rozsah: 0..100. Výchozí (vanilla Byliny): 15.
+SovereignBoons/cat/Weather=Počasí
+SovereignBoons/opt/EnableTemperateSkies/label=Mírné nebe
+SovereignBoons/opt/EnableTemperateSkies/tip=Potlačí extrémní povětrnostní jevy. Odstranění vánice/vlny veder se projeví při inicializaci počasí (načtení); sucho/šance na extrém jsou živé. Výchozí: VYPNUTO.
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=Vypnout vánici
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=Odstraní vánici z hodů extrémního počasí. Výchozí: VYPNUTO.
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=Vypnout vlnu veder
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=Odstraní vlnu veder z hodů extrémního počasí. Výchozí: VYPNUTO.
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=Vypnout VŠECHNY extrémy
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=Vynutí chanceOfExtremeWeather na 0. Sčítá se s přepínači jednotlivých jevů. Výchozí: VYPNUTO.
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=Vypnout sucho
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=Přepis křivky WeatherProfile.chanceOfDrought na nulu. Výchozí: VYPNUTO.
+# ── Tended Wilds ──
+TendedWilds/meta/name=Tended Wilds
+TendedWilds/meta/desc=Přestavba Sběratelské chaty: celoroční pěstování, divoké sázení, priorita 1-9, přemístění sběratelných rostlin
+TendedWilds/cat/Master=Hlavní
+TendedWilds/opt/ModEnabled/label=Mod povolen
+TendedWilds/opt/ModEnabled/tip=Vypnutím se vrátíte k vanilla Sběratelské chatě
+TendedWilds/opt/RelocationEnabled/label=Přemístění povoleno
+TendedWilds/opt/RelocationEnabled/tip=Hlavní přepínač pro přemístění sběratelných rostlin
+TendedWilds/cat/Relocate by Type=Přemístit podle typu
+TendedWilds/opt/RelocateHerbs/label=Byliny
+TendedWilds/opt/RelocateHerbs/tip=Povolit přemísťování bylinných porostů.
+TendedWilds/opt/RelocateMushrooms/label=Houby
+TendedWilds/opt/RelocateMushrooms/tip=Povolit přemísťování houbových shluků.
+TendedWilds/opt/RelocateGreens/label=Zelenina
+TendedWilds/opt/RelocateGreens/tip=Povolit přemísťování porostů zeleniny.
+TendedWilds/opt/RelocateRoots/label=Kořeny
+TendedWilds/opt/RelocateRoots/tip=Povolit přemísťování koncentrací kořenů.
+TendedWilds/opt/RelocateNuts/label=Lísky
+TendedWilds/opt/RelocateNuts/tip=Povolit přemísťování lískových keřů.
+TendedWilds/opt/RelocateWillow/label=Vrba
+TendedWilds/opt/RelocateWillow/tip=Povolit přemísťování vrbových keřů.
+TendedWilds/opt/RelocateBerries/label=Bobulové keře
+TendedWilds/opt/RelocateBerries/tip=Hloh, škumpa
+TendedWilds/cat/Cost=Cena
+TendedWilds/opt/GoldCostToRelocate/label=Cena zlata za přemístění
+TendedWilds/opt/GoldCostToRelocate/tip=0 = zdarma, pouze práce
+TendedWilds/cat/Foraging=Sběr
+TendedWilds/opt/ExemptForagingBuildings/label=Vyjmout studny/lovecké chaty z penalizace sběru
+TendedWilds/opt/ExemptForagingBuildings/tip=Studny a lovecké chaty nesníží výnos blízkých sběratelných rostlin (sběratelské chaty jsou ve vanilla již vyňaty)
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=The Dockmaster's Dingy Boathouse
+TheDockmastersDingyBoathouse/meta/desc=Znovu aktivuje rybaření na loďce Farthest Frontier — pramička a dokmistrova loděnice.
+TheDockmastersDingyBoathouse/cat/Master=Hlavní
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=Mod povolen
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=Vypnutím se vrátíte k vanilla chování.
+TheDockmastersDingyBoathouse/cat/Boat=Loďka
+TheDockmastersDingyBoathouse/opt/BoatScale/label=Velikost pramičky
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=Vizuální velikost loďky. 1 = surový model.
+TheDockmastersDingyBoathouse/cat/Boathouse=Loděnice
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=Šířka otisku (buňky)
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=Otisk pokrývá jen domek; molo přesahuje nad vodu. Po změně znovu umístěte.
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=Hloubka otisku (buňky)
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=Ukotveno na pobřežní straně modelu. Po změně znovu umístěte.
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=Blikání lucerny
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=Plamenům lucerny podobné blikání svíčky. Vypnuto = stálé světlo.
+TheDockmastersDingyBoathouse/opt/PostDepth/label=Hloubka sloupů do vody
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=Jak hluboko konstrukce sedí ve vodě. 0 = autorská hladina vody. Živé.
+TheDockmastersDingyBoathouse/cat/Hotkeys=Klávesové zkratky
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=Umístit loděnici
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=Zaregistruje + spustí režim umisťování loděnice.
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=Vyvolat / plout pramičkou
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=Zaměřte na vodu: první stisk spustí vaši pramičku na vodu, další stisky ji tam popluje.
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=Uklidit pramičku
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=Odstraní vaši pramičku, abyste ji mohli nasadit jinde.
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=Pramička větší
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=Zvětší vaši pramičku.
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=Pramička menší
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=Zmenší vaši pramičku.
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=Výpis diagnostiky
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=Zapíše diagnostiku budov/prefabů do logu.
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=Warden of the Wilds
+WardenOfTheWilds/meta/desc=Přestavba lovce: větvící se cesty T2, uhýbací AI, ladění rybaření/udírny, násobiče spawnu velké zvěře.
+WardenOfTheWilds/cat/Master Toggles=Hlavní přepínače
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=Přestavba lovce
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=Větvící se cesty T2, uhýbací AI, bonusy dosahu z posedu
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=Přestavba rybaření
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=Režimy Rybář udicí/Rybář vrší, Rybářský přístav, vylepšení technologie Udržitelný rybolov
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=Přestavba udírny
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=Ladění okruhu/pracovníků/skladu udírny
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=Protokolování diagnostiky
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=Podrobné protokolování pro vývoj — v běžné hře nechte vypnuté
+WardenOfTheWilds/cat/Sub-systems=Podsystémy
+WardenOfTheWilds/opt/HunterCombatEnabled/label=Bojová AI lovce
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=Uhýbání, ústup, vyhýbání se více predátorům — hlavní bojová složka
+WardenOfTheWilds/opt/HunterRallyEnabled/label=Klávesové zkratky sboru lovců
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=Kontrola klávesových zkratek na snímek pro sbor/návrat/vybrat vše
+WardenOfTheWilds/opt/HunterUIEnabled/label=Vložení UI lovce
+WardenOfTheWilds/opt/HunterUIEnabled/tip=Vložení tlačítka a posuvníků Lovec velké zvěře / Mistr pastí
+WardenOfTheWilds/opt/FishingUIEnabled/label=Vložení UI rybaření
+WardenOfTheWilds/opt/FishingUIEnabled/tip=UI režimu Rybář udicí / Rybář vrší
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=Úprava stromu technologií
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=Přepis hodnoty Udržitelného rybolovu
+WardenOfTheWilds/cat/Smokehouse=Udírna
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=Vlastní pracovní okruh
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=Když je ZAPNUTO, Udírna zobrazí viditelný kruh pracovní oblasti (viditelný při výběru budovy) v nastaveném okruhu. Vypnutím se vizuál zcela vypne, ale bonusy skladu/pracovníků zůstanou.
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=Vynutit okruh
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=Odmítne práci mimo nastavený okruh
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=Pracovní okruh
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=Poloměr kruhu pracovní oblasti Udírny. Vanilla nemá u Udírny žádnou pracovní oblast — vizuál slouží čistě jako pomůcka pro umístění Loveckých chat / Rybářských chat v dosahu. 60u ≈ pohodlná zásobovací zóna. Snižte pro těsnější shluky, zvyšte pro rozlehlejší uspořádání.
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=Max. pracovníků
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=Počet pracovních míst u každé Udírny. Vanilla = 1. 2 = druhý uzenář může zpracovávat maso/ryby paralelně, čímž se zdvojnásobí propustnost. Nastavte na 1 pro vanilla paritu.
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=Strop skladu syrového masa
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=Kapacita pro PŘÍCHOZÍ syrové maso/ryby (nárazník čekající na uzení). Vanilla strop je malý a zastaví výrobu, když lovci přinesou velký úlovek. 200 jednotek poskytuje pohodlný nárazník. Pole se automaticky rozpozná při napojení — viz log.
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=Strop skladu uzeného masa
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=Kapacita pro ODCHOZÍ uzené maso/uzené ryby (čekající na vyzvednutí vozem). Větší výstupní nárazník = méně jízd vozem a žádné výpadky výroby, když jsou skladiště plná. 200 jednotek = pohodlný nárazník na náklad vozu.
+WardenOfTheWilds/cat/Hunter Cabin=Lovecká chata
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=Strop výstupního nárazníku
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=Kapacita na položku ve výrobním skladu chaty. Vyšší = více prostoru pro dýchání před zastavením.
+WardenOfTheWilds/cat/Hunting Lodge=Lovecký srub
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=Násobič okruhu
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=Násobič pracovního okruhu uplatněný na budovy Loveckého srubu. 1,35 = o 35 % větší okruh než vanilla.
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=Násobič masa
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=Malý násobič výnosu masa pro lovce Loveckého srubu. Hlavní výhodou Loveckého srubu je okruh a 2 pracovní místa (objem); toto je skromný bonus kvality navrch. 1,15 = o 15 % více masa na kus.
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=Násobič rychlosti mimo cestu
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=Násobič rychlosti pohybu pro lovce Loveckého srubu (BGH). Uplatněn na T2 jako výchozí bonus specializace cesty — sčítá se s technologickým vylepšením rychlosti mimo cestu (Průkopnictví). 1,35 = o 35 % rychlejší než vanilla lovec, dostatečné, aby BGH konzistentně vlky a kance uhýbáním předběhl. T1 lovci bez tohoto bonusu spoléhají na úkryt + počáteční vzdálenost střetu pro přežití. Rychlejší ústup = větší vzdálenost za cyklus nabíjení = bezpečnější uhýbání. Vyžaduje potvrzení názvu pole rychlosti z výpisu boje.
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=Násobič intervalu střelby na velkou zvěř
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=Nižší = rychlejší tempo střelby proti kanci/vlku/medvědovi
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=Uhýbací AI
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=Lovci ustupují do Loveckého posedu / chaty mezi výstřely proti nebezpečné kořisti
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=Násobič rychlosti bourání
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=Na pracovníka — kombinuje se se 2 pracovníky
+WardenOfTheWilds/cat/Trapper Lodge=Srub lapače
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=Násobič kožešin
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=Násobič výnosu kožešin/kožek pro Srub lapače. 1,6 = o 60 % více kožešin než vanilla Srub.
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=Max. nasazených pastí
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=Maximální počet pastí, které může Srub lapače nasadit současně. Vanilla T2 = 1 past (T1 nemá lapání). 3 = tři aktivní linie pastí, odpovídající 26denní cyklu: při násobiči kožešin ×1,6 klesne interval na ~16 dní, takže 3 pasti udrží lapače trvale zaneprázdněného bez nečinnosti. Vyšší hodnoty rozšíří dosah, ale jeden lapač zvládne obsloužit jen omezený počet linií.
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=Násobič rychlosti tiku pastí
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1,25 = o 25 % rychlejší intervaly pastí
+WardenOfTheWilds/opt/TrapperWaterBonus/label=Bonus u vody
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=Bonus výnosu kožešin, když je Srub lapače blízko vodní plochy. Lapači kladou linie podél řek a potoků — historicky nejbohatší lovná půda. 1,25 = o 25 % vyšší výnos kožešin u vody.
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=Okruh bonusu u vody
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=Poloměr ve světových jednotkách, v němž vodní plocha spouští bonus blízkosti vody pro Srub lapače.
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=Práh vodních dlaždic
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=Min. počet vzorkovaných vodních dlaždic, aby se bonus uplatnil
+WardenOfTheWilds/opt/TrapMasterBearChance/label=Šance na medvěda v pasti
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=Šance na chycení medvěda při každém spuštění pasti
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=Násobič rychlosti bourání
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=Stejný mechanismus pro Srub lapače. Malá zvěř z pastí prochází stejným procesem bourání — bonus se uplatní.
+WardenOfTheWilds/cat/Big Game Yields=Výnosy velké zvěře
+WardenOfTheWilds/opt/BearMegaYieldMult/label=Násobič výnosu medvěda
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=Sčítá se s ostatními bonusy pro medvědí zvěř
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=BGH bonus masa z medvěda
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=Bonusové maso (ItemMeat) uložené přímo do chaty lovce BGH, který medvěda zabil. Sčítá se s výnosem z bourání zvěře (vanilla obecná zvěř ≈ 30 masa). Výchozí 220 + 30 ≈ 250 masa/medvěda. Platí pouze pro lovce Loveckého srubu (BGH) — T1 a lapačská cesta používají pouze vanilla výnos z bourání.
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=BGH bonus kožešin z medvěda
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=Bonusové kožešiny (ItemHide — FF interně nazývá kožešiny 'kůže') uložené do chaty lovce BGH, který medvěda zabil. Sčítá se s výnosem z bourání (≈ 2 kůže). Výchozí 3 + 2 ≈ 5 kožešin/medvěda. Pouze BGH.
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=BGH bonus loje z medvěda
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=Bonusový lůj (ItemTallow) uložený do chaty lovce BGH, který medvěda zabil. Sčítá se s výnosem z bourání (≈ 3 lůj). Výchozí 5 + 3 ≈ 8 loje/medvěda. Pouze BGH.
+WardenOfTheWilds/cat/Spawn Multipliers=Násobiče spawnu
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=Populace medvědů
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=Násobič stropu populace medvědů na mapu. 1,5 = o 50 % více medvědů, což dává lovcům BGH smysluplné cíle velké zvěře. 1,0 = vanilla. Škáluje initialSpawnCount + maxAnimalCount pro skupinu Medvěd.
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=Populace vlků
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=Násobič stropu populace vlků. 1,25 = o 25 % více vlků. Častější vlci znamenají více střetů s lovci — nastavte níže, pokud je raná fáze hry příliš nebezpečná.
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=Populace kanců
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=Násobič stropu populace kanců. Vanilla výchozí hodnota je již štědrá; 1,0 zachová rovnováhu.
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=Populace jelenů
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=Násobič stropu populace jelenů. Ovlivňuje výnos masa lovce T1.
+WardenOfTheWilds/cat/Hunter AI=AI lovce
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=Procento zdraví pro ústup
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=Přeruší boj pod tímto podílem max. HP
+WardenOfTheWilds/opt/HunterMinArrows/label=Min. šípů před lovem
+WardenOfTheWilds/opt/HunterMinArrows/tip=Lovci s méně nesenými šípy, než je toto číslo, budou zablokováni od lovu / sběru zvěře / bourání, což je donutí nejprve doplnit zásoby, než se vrátí k práci. Také zvyšuje vanilla logistický práh vyhledávání šípů (vanilla = 2), takže dělníci doručí náhradu, jakmile nesený počet klesne pod toto číslo. 0 = vypnout pracovní zámek (vanilla logistický práh se stále zvýší).
+WardenOfTheWilds/opt/HunterDangerRadius/label=Okruh vnímání nebezpečí
+WardenOfTheWilds/opt/HunterDangerRadius/tip=Světové jednotky, v jejichž rámci vlk, kanec nebo medvěd spustí preventivní ústup — ještě před útokem. Lovci pronásledující jelena poblíž vlčího doupěte ustoupí, jakmile predátoři vstoupí do tohoto okruhu. 40 = zhruba 2× dosah luku. Nastavte na 0 pro vypnutí ústupů podle blízkosti.
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=Okruh sledování hrozby z úkrytu
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=Lovec čeká v úkrytu, dokud hrozby neopustí tento okruh
+WardenOfTheWilds/opt/T1MeleeThreshold/label=Práh HP pro boj zblízka T1
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=Lovec T1 se zaváže k boji zblízka pod tímto cílovým % HP
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=Násobič vodítka pronásledování
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=Přeruší pronásledování za hranicí (okruh chaty × toto)
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=Okruh sledování léčky
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=Vzdálenost kolem lovce v boji sledovaná kvůli hrozbám léčky. Pokud se v tomto dosahu během pronásledování objeví další agresivní zvířata (kromě aktuálního cíle), lovec ustoupí. Zachytí scénář 'kanec mě zavedl do vlčí smečky, kde jsem zemřel'.
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=Práh léčky
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=Počet nepřátel poblíž lovce, který spustí ústup
+WardenOfTheWilds/opt/BowReloadSeconds/label=Nabíjení luku (sekundy)
+WardenOfTheWilds/opt/BowReloadSeconds/tip=Interval nabíjení/útoku luku lovce v sekundách. Používá se k výpočtu optimální uhýbací vzdálenosti: ústup = čas nabíjení × rychlost lovce. Výchozí 3,0 je odhad — aktualizujte po potvrzení z výpisu nebo měření ve hře.
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=Nabíjení kuše (sekundy)
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=Interval nabíjení/útoku kuše lovce v sekundách. Kuše střílí pomaleji než luk, ale způsobí více poškození — delší nabíjení znamená, že se lovec musí odsunout dále na jeden cyklus výstřelu, aby udržel bezpečnou vzdálenost. Výchozí 4,5 je odhad — aktualizujte po potvrzení z výpisu.
+WardenOfTheWilds/cat/Hunting Blind=Lovecký posed
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=Bonus dosahu (dlaždice)
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=Bonusové světové jednotky přidané k dostřelu lovce, když je umístěn v Loveckém posedu. Představuje výškovou výhodu pevné vyvýšené plošiny. Sčítá se s vylepšeními dosahu ze stromu technologií.
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=Údržba zlatem
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=Údržba zlatem za obsazený Lovecký posed za herní období údržby. Kopíruje model civilního pracovníka strážní věže. Nastavte na 0 pro úplné vypnutí údržby. Vyžaduje pole údržby strážní věže z výpisu.
+WardenOfTheWilds/cat/Fishing — Angler=Rybaření — rybář udicí
+WardenOfTheWilds/opt/AnglerCatchMult/label=Násobič úlovku
+WardenOfTheWilds/opt/AnglerCatchMult/tip=Násobič výstupu úlovku pro pracovníky v režimu rybáře udicí. Uplatňuje se na cyklus rybaření přes GetNumFishCaught. 1,5 = o 50 % více ryb na úlovek.
+WardenOfTheWilds/opt/AnglerTimerReduction/label=Násobič časovače úlovku
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=Nižší = rychlejší úlovky
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=Bonus nosnosti
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=Extra nosnost ryb pro pracovníky rybáře udicí. Vanilla = 25. Bonus 15 = celkem 40. Méně cest zpět = více času rybařením.
+WardenOfTheWilds/cat/Fishing — Creeler=Rybaření — rybář vrší
+WardenOfTheWilds/opt/CreelerRodMult/label=Násobič výstupu udice
+WardenOfTheWilds/opt/CreelerRodMult/tip=Násobič výstupu rybaření na udici pro pracovníky rybáře vrší. Rybáři vrší tráví čas údržbou vrší, což snižuje jejich výstup na udici. Skutečný příjem pochází z denního tikového systému vrší. 0,5 = o 50 % snížené rybaření na udici.
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=Interval spuštění vrše (dny)
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=Dny mezi tiky výroby vrší rybáře vrší. Každé pracovní místo rybáře vrší vyprodukuje CrabTrapFishPerSpawn ryb každých tolik dní, automaticky uloženo do skladu chaty (abstrakce času sběru rybářem). Bonus vodních dlaždic tento interval dále zkracuje na mapách bohatých na vodu. Výchozí 8 dní počítá s časem sběru; nižší = rychlejší příjem.
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=Ryby na spuštění vrše
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=Ryby vyprodukované na jedno pracovní místo rybáře vrší při jednom spuštění. 2 pracovní místa rybáře vrší při 4 rybách / 5 dnech = ~584 ryb/rok pasivně. Snižte, pokud je to příliš silné.
+WardenOfTheWilds/opt/CreelerTrapCount/label=Počet nasazených vrší
+WardenOfTheWilds/opt/CreelerTrapCount/tip=Počet fyzických vrší, které rybářská chata v režimu rybáře vrší nasadí ve vodě v rámci svého rybářského okruhu. Doporučený rozsah 4-6. Každá vrš nezávisle hromadí ryby v 5denním cyklu a sklízí ji rybář chaty.
+WardenOfTheWilds/opt/CreelerRadiusMult/label=Násobič rybářského okruhu
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=Násobič rybářského okruhu, když je aktivní jakékoli pracovní místo rybáře vrší. 2,0 = 60u (vanilla 30u). Vrše rybáře vrší se rozprostírají na širší vodní plochu. Více vodních dlaždic v dosahu = lepší bonus vody.
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=Práh vodních dlaždic
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=Minimum vodních dlaždic v rozšířeném okruhu pro aktivaci bonusu vody rybáře vrší. 15 na 8u mřížku = mírný okraj jezera. Velká hluboká jezera tuto hodnotu snadno překročí — domovská půda rybáře vrší.
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=Násobič bonusu vody
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=Dělitel intervalu spuštění vrše, když je aktivní bonus vody. 1,25 = o 25 % rychlejší tiky vrší. Při výchozích hodnotách: 5d / 1,25 = interval 4d.
+WardenOfTheWilds/cat/Fishing — Shared=Rybaření — společné
+WardenOfTheWilds/opt/FishingDockOutputMult/label=Výstup rybářského přístavu
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=Násobič výstupu ryb u Rybářského přístavu úrovně 2 (samostatná budova). 1,5 = o 50 % více ryb. Zastaralá konfigurace pro budovy FishingDock.
+WardenOfTheWilds/opt/FishReplenishOverride/label=Udržitelný rybolov %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=Míra obnovy z technologického uzlu (vanilla 0,30)
+WardenOfTheWilds/opt/FishingShackStorageCap/label=Strop skladu chaty
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=Kapacita skladu ryb na chatu. Vanilla = 100. Nastavte na 200, aby odpovídalo vanilla nákladu vozu (~200 ryb při váze 2).
+WardenOfTheWilds/cat/Hotkeys=Klávesové zkratky
+WardenOfTheWilds/opt/HunterRallyKey/label=Svolat lovce
+WardenOfTheWilds/opt/HunterRallyKey/tip=Název klávesy Unity KeyCode (G, H, R atd.)
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=Lovci se vrátí domů
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=Pošle všechny lovce zpět do přidělených chat. Užitečné pro stažení z boje, když nájezdníci eskalují. Stejný formát klávesy jako klávesa sboru.
+WardenOfTheWilds/opt/HunterSelectAllKey/label=Vybrat všechny lovce
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=Vybere každého lovce do vanilla vícenásobného výběru. Poté klikněte pravým tlačítkem na terén pro jejich normální přesun (vanilla kliknutí-pro-pohyb funguje na civilisty jednou vybrané). Zachová stávající výběr jiných jednotek, pokud je chcete kombinovat.
+WardenOfTheWilds/opt/HunterPathKey/label=Přepnout cestu T2
+WardenOfTheWilds/opt/HunterPathKey/tip=Přepíná Vanilla / Lapač / Lovecký srub, když je vybraná chata T2
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=DLC Zvířata — lovecký pes
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=Provokace psa (tankuje predátory)
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=Pes násilně strhne jednoho predátora z lovce a tankuje ho
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=Puls provokace (s)
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=Sekundy mezi opětovným uplatněním provokace během tankování
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=Vyprchání provokace po útěku (s)
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=Predátor honí prchajícího psa takto dlouho, poté ho pustí
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=Dosah provokace
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=Max. vzdálenost lovec↔pes, aby provokace zabrala. Vyšší hodnota znamená, že opozdilý pes reaguje, i když se lovec zapojí zdálky (psi zaostávají při ručním pohybu lovce). Výchozí 100u (~pracovní okruh lovce).
+WardenOfTheWilds/opt/DogFleeHealthPct/label=Procento zdraví pro útěk psa
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=Podíl HP, při kterém lovecký pes uteče (vanilla 0,5)
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=Pes utíká s lovcem
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=Pes se odpojí a uteče, když lovec ustupuje
+WardenOfTheWilds/opt/DogHealthMult/label=Násobič zdraví psa (všichni psi)
+WardenOfTheWilds/opt/DogHealthMult/tip=Škáluje max. zdraví KAŽDÉHO psa (loveckých i strážních u boudy). 1,0 = vanilla, 1,5 = +50 % HP. Uplatní se při spawnu a při načtení mapy.
+WardenOfTheWilds/opt/DogArmorBonus/label=Bonus brnění psa (všichni psi)
+WardenOfTheWilds/opt/DogArmorBonus/tip=Pevný bonus brnění přidaný k základnímu brnění KAŽDÉHO psa. 0 = vanilla. Pomáhá psům přežít déle při tankování predátorů.
+WardenOfTheWilds/opt/DogSpeedMult/label=Násobič rychlosti psa (všichni psi)
+WardenOfTheWilds/opt/DogSpeedMult/tip=Rychlejší psi udrží krok s ručně přesouvaným lovcem
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=DLC Zvířata — hřbitov mazlíčků
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=Přepínač hřbitova mazlíčků
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=Přidá přepínač [Lidé]/[Mazlíčci] na hřbitovy; nastavením jednoho na Mazlíčci z něj uděláte zvířecí hřbitov
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=Hřbitovy začínají uzavřené
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=Nové hřbitovy nikoho nepohřbí, dokud je neurčíte jako Lidé nebo Mazlíčci (vyhradí čistý hřbitov mazlíčků)
+WardenOfTheWilds/cat/Other settings=Ostatní nastavení
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=Obranná palba lovecké chaty
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=Když je ZAPNUTO, lovci ukrytí ve své chatě budou na krátkou vzdálenost střílet po agresivních zvířatech (vlk / kanec / medvěd) namísto nečinného vyčkávání, zatímco dělníci bojují s hrozbou venku zblízka. Lovec vyjde ven, vystřelí jeden šíp a vrátí se do úkrytu — obrana ve stylu strážní věže. Přeskočí se, pokud je zraněn (viz HunterCabinDefenseMinHp).
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=Okruh obranné palby chaty (světové jednotky)
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=Maximální dostřel pro obrannou palbu chaty. Vanilla dostřel luku je ~40u; výchozí 30u udržuje chování jako krátkodosahovou 'domácí obranu' spíše než aby chatou vázaní lovci dosáhli přes celý svůj lovecký okruh. Kombinuje se s HunterCabinDefenseMinDist pro spodní hranici blízkosti.
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=Minimální vzdálenost hrozby pro obranu chaty
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=Nevysílat obrannou palbu, pokud je hrozba blíže k chatě než toto. Vyjít na dostřel na blízko dostane lovce do okamžitého boje zblízka — lepší nechat rány schytat zdi. Výchozí 20u: lovec zapojuje hrozby v pásmu 20-30u (bezpečný dostřel luku), zůstává v úkrytu na cokoli bližšího.
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=Min. HP pro obranu chaty (0–1)
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=Lovec musí mít ≥ tento podíl plného HP, aby se zapojil do obranné palby chaty. 0,5 = poloviční zdraví. Zranění lovci zůstávají v úkrytu bez ohledu na blízké hrozby. Nastavte na 0 pro povolení zapojení i zraněných.
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=DLC Zvířata: povolit funkce WotW DLC
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=Hlavní přepínač pro všechny funkce WotW závislé na DLC Zvířata Farthest Frontier (chytání lišek/svišťů, tankovací chování lovec+pes atd.). Automaticky vypnuto, pokud DLC není vlastněno. Nastavte na false pro hraní s věrností obsahu DLC bez doplňků WotW.
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=Šance mistra pastí na lišku
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=Šance při každém spuštění pasti, že Mistr pastí chytí lišku přepadající slepice ve vesnici. Při úspěchu upustí bonusovou kůži (bez zvěře — liščí maso se v tomto návrhu nespotřebovává). 0,10 = 10 %. Vyžaduje DLC Zvířata.
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=Šance mistra pastí na svišť
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=Šance při každém spuštění pasti, že Mistr pastí chytí svišť přepadající polní plodiny. Při úspěchu upustí malou zvěř + bonus malé kůže. 0,15 = 15 %. Vyžaduje DLC Zvířata.
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=Bonus kůže lišky mistra pastí
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=Jednotky kůže uložené za každé úspěšné chycení lišky. Lišky mají cenné kožešiny — méně za úlovek, ale vyšší výnos u kožešníka.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=Bonus zvěře ze svišťe mistra pastí
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=Jednotky malé zvěře uložené za každé úspěšné chycení svišťe. Směřuje do udírny jako jakákoli jiná malá zvěř.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=Bonus kůže svišťe mistra pastí
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=Jednotky kůže uložené za každé úspěšné chycení svišťe.
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=DLC Zvířata: zpoždění spawnu lišky (dny)
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=Dny po postavení prvního kurníku, než se lišky začnou pokoušet spawnout. -1 = ponechat vanilla hodnotu beze změny. Vyšší = pozdější první nájezd, což vám dá čas na výstavbu obrany pastmi.
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=DLC Zvířata: zpoždění spawnu svišťe (dny)
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=Dny po umístění prvního políčka, než se svišti začnou pokoušet spawnout. -1 = ponechat vanilla hodnotu beze změny.
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=DLC Zvířata: násobič spawnu lišek
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=Násobič počtu vln liščích nájezdů na počet slepic. Škáluje AnimationCurve, která mapuje 'kolik máte slepic' na 'kolik skupin lišek může spawnout'. 1,0 = vanilla. 2,0 = dvojnásobek. 0,5 = polovina. Užitečné pro ladění obtížnosti nebo hraní přátelské k BGH, kde chcete více akce vesnické obrany.
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=DLC Zvířata: násobič spawnu svišťů
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=Násobič počtu vln nájezdů svišťů na počet políček. 1,0 = vanilla, 2,0 = dvojnásobek, 0,5 = polovina.
+WardenOfTheWilds/opt/WildFoxEnabled/label=DLC Zvířata: divoká populace lišek (potulná)
+WardenOfTheWilds/opt/WildFoxEnabled/tip=Ve výchozím stavu VYPNUTO. Když je zapnuto (a je vlastněno DLC Zvířata), WotW spawnuje potulnou divokou populaci lišek, která se toulá mapou jako vlci, místo aby se objevovaly jen jako nájezdníci na kurníky. Toto je DODATEČNÁ divoká zvěř navrch vanilla DLC nájezdnických lišek (které spawnují podle počtu slepic bez ohledu na toto) — zapnutím se může výrazně zvýšit počet viditelných lišek. Přepněte v panelu nastavení Keep Clarity pod Warden of the Wilds.
+WardenOfTheWilds/opt/WildFoxMaxCount/label=DLC Zvířata: max. počet divokých lišek
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=Cílová populace divokých lišek udržovaná na mapě. Doplňovací smyčka obnovuje mrtvé lišky zpět na tento strop (vanilla nájezdnické lišky se nepočítají). 0 vypíná; vyšší = více lovné drobné zvěře pro BGH.
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=DLC Zvířata: interval doplňování divokých lišek (sekundy)
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=Sekundy reálného času mezi kontrolami populace divokých lišek. Nižší = rychlejší obnova po úlovcích, ale častější zahlcení logu. Doporučeno: 60–300.
+WardenOfTheWilds/opt/CatRatHuntRadius/label=DLC Zvířata: okruh vodítka pro lov krys kočkou
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=Maximální vzdálenost (jednotky) od domova kočky (obydlí/kočičince/nejbližšího přístřešku), při které kočka přijme úkol lovu krysy. Udrží volně se pohybující kočky uvnitř vesnice místo toho, aby se 40 jednotek toulaly do lesa za krysou. Kočky zaměstnané u Budovy krysaře používají vanilla okruh budovy a nejsou ovlivněny. Výchozí 25 ≈ těsné jádro vesnice.
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=DLC Zvířata: násobič dosahu detekce hrozby kočky
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=Násobič detekčního okruhu nepřítele u kočky. 2,0 = kočky spatří vlky a medvědy z dvojnásobné vzdálenosti, což jim dá více času na ústup. Vyšší = bezpečnější kočky, ale ustupují častěji (může přerušit lov krys).
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=DLC Zvířata: interval sledování hrozby kočkou (sekundy)
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=Jak často kočka znovu prohledává blízké hrozby. Vanilla je 5 sekund — vlk může přiběhnout a kousnout před dalším prohledáním. 1,0 = kočky si téměř okamžitě všimnou přicházejících vlků.
+WardenOfTheWilds/opt/DogLeashKeyName/label=DLC Zvířata: klávesa přepnutí vodítka psa
+WardenOfTheWilds/opt/DogLeashKeyName/tip=Se zvolenou loveckou chatou stiskněte tuto klávesu pro přepnutí vodítka 'psi zůstávají v pracovní oblasti'. Výchozí L. Použijte název Unity KeyCode.
+WardenOfTheWilds/opt/DogRallyKeyName/label=DLC Zvířata: klávesová zkratka sboru psů
+WardenOfTheWilds/opt/DogRallyKeyName/tip=Vybere každého psa přiřazeného lovci na mapě. Po stisku klikněte pravým tlačítkem pro přesun celé smečky. Výchozí Ctrl+D. Formát: 'Ctrl+D', 'Alt+R', nebo jedna klávesa 'D'.
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=DLC Zvířata: lovci útočí na lišky
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=Přidá tým lišek do masky lovných zvířat lovce, takže lovci aktivně střílí lišky během HuntSubTask, stejně jako vlky/medvědy/kance. Bez tohoto vanilla lovci lišky ignorují (lišky jsou v Team.Pests, což není ve vanilla masce cílů lovce).
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=DLC Zvířata: upozornění na predátory podle druhu
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=Nahradí obecné červené upozornění 'Predátoři útočí!' verzí podle druhu zvířete: zobrazí skutečný sprite zvířete a jantarovou (nízké riziko: spatřena liška / kanec prchá) nebo červenou (vlk/medvěd/útočící kanec) barvu. Kosmetické — nemění bojové chování.
+WardenOfTheWilds/opt/AutoNamePets/label=DLC Zvířata: automaticky pojmenovat psy a kočky
+WardenOfTheWilds/opt/AutoNamePets/tip=Novým psům a kočkám je přiděleno náhodné jméno z kurátorského seznamu místo obecného 'Pes'/'Kočka'. Stávající a hráčem přejmenovaní mazlíčci si ponechají svá jména. Kosmetické.
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=DLC Zvířata: kožešina za zabití svišťe
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=Jednotky kůže automaticky sebrané do nejbližší lovecké chaty (do 300u), když je svišť/sysel zabit v boji. Malá zvěř = malá odměna: výchozí 1 kožešina, žádná zvěř. 0 zcela vypíná kořist ze svišťů.
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=Lovec vyžaduje luk pro práci
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=Když je ZAPNUTO, lovci bez luku/kuše jsou zablokováni od lovu / sběru zvěře / bourání, dokud vanilla logistika nedoručí náhradu. Zabraňuje tomu, aby byl neozbrojený lovec sežrán při sběru zvěře. VYPNUTO = vanilla chování (neozbrojený lovec půjde pracovat a pravděpodobně zemře).
+# ── Keep Clarity ──
+KeepClarity/meta/name=Keep Clarity
+KeepClarity/meta/desc=Kvalita života UI: rozšířené popisky, připínatelný přehled surovin, klávesové zkratky budov, panel nastavení.
+KeepClarity/cat/Hotkeys — Reports & Panels=Klávesové zkratky — reporty a panely
+KeepClarity/opt/ReportsHotkey/label=Přepnout reporty
+KeepClarity/opt/ReportsHotkey/tip=Otevře/zavře okno 12měsíčního reportu
+KeepClarity/opt/ToggleOverlayHotkey/label=Přepnout přehledy
+KeepClarity/opt/ToggleOverlayHotkey/tip=Zobrazí/skryje přehledy připnutých surovin, fronty technologií, fronty staveb a vojenských oddílů
+KeepClarity/opt/SettingsPanelHotkey/label=Otevřít panel nastavení
+KeepClarity/opt/SettingsPanelHotkey/tip=Otevře přesně toto okno
+KeepClarity/cat/Overlay Settings=Nastavení přehledů
+KeepClarity/opt/PinnedCollapsed/label=Připnutý přehled se otevře sbalený
+KeepClarity/opt/PinnedCollapsed/tip=Připnutý přehled se otevře sbalený do záložky
+KeepClarity/opt/EnableCompanyOverlay/label=Přehled sestavy oddílu
+KeepClarity/opt/EnableCompanyOverlay/tip=Shift+levé kliknutí na prapor oddílu (dole na obrazovce) otevře přesouvatelný panel sestavy; Ctrl+levé kliknutí otevře kasárna daného oddílu.
+KeepClarity/opt/EnableInfoWindowDock/label=Posunout okno informací o budově mimo nabídku stavby (experimentální)
+KeepClarity/opt/EnableInfoWindowDock/tip=Když je otevřena nabídka Stavět, posune okno informací o budově doleva, aby ho nabídka nikdy nepřekrývala. Obnoví se po zavření nabídky.
+KeepClarity/opt/PinnedOverlayOpacity/label=Průhlednost připnutého přehledu
+KeepClarity/opt/PinnedOverlayOpacity/tip=Jak neprůhledný je rámeček Připnutých surovin. Text/tlačítka zůstávají čitelné. Uplatní se živě.
+KeepClarity/opt/TechQueueOverlayOpacity/label=Průhlednost přehledu fronty technologií
+KeepClarity/opt/TechQueueOverlayOpacity/tip=Jak neprůhledný je rámeček Fronty technologií. Text/tlačítka zůstávají čitelné. Uplatní se živě.
+KeepClarity/opt/CompanyOverlayOpacity/label=Průhlednost přehledu oddílu
+KeepClarity/opt/CompanyOverlayOpacity/tip=Jak neprůhledné je tělo sestavy oddílu. Záhlaví/text zůstávají plné. Uplatní se živě.
+KeepClarity/opt/PinnedOverlayScale/label=Měřítko připnutého přehledu
+KeepClarity/opt/PinnedOverlayScale/tip=Násobič velikosti panelu Připnuté suroviny. Nezávislé na měřítku UI FF. Uplatní se živě.
+KeepClarity/opt/TechQueueOverlayScale/label=Měřítko přehledu fronty technologií
+KeepClarity/opt/TechQueueOverlayScale/tip=Násobič velikosti panelu Fronta technologií. Nezávislé na měřítku UI FF. Uplatní se živě.
+KeepClarity/opt/CompanyOverlayScale/label=Měřítko přehledu oddílu
+KeepClarity/opt/CompanyOverlayScale/tip=Násobič velikosti panelu sestavy oddílu. Nezávislé na měřítku UI FF. Uplatní se živě.
+KeepClarity/opt/PinnedGrowDirection/label=Směr růstu připnutého přehledu
+KeepClarity/opt/PinnedGrowDirection/tip=Připnuté suroviny: seznam roste dolů od záhlaví (výchozí) nebo nahoru.
+KeepClarity/opt/TechQueueGrowDirection/label=Směr růstu fronty technologií
+KeepClarity/opt/TechQueueGrowDirection/tip=Fronta technologií: seznam roste dolů od záhlaví (výchozí) nebo nahoru.
+KeepClarity/opt/CompanyGrowDirection/label=Směr růstu oddílu
+KeepClarity/opt/CompanyGrowDirection/tip=Sestava oddílu: roste dolů od záhlaví (výchozí) nebo nahoru.
+KeepClarity/cat/Build Priority=Priorita stavby
+KeepClarity/opt/EnableBuildPriority/label=Priorita stavby
+KeepClarity/opt/EnableBuildPriority/tip=Přemění šipky počtu stavitelů na staveništi na prioritu 1-9. Stavitelé obsluhují staveniště s vyšší prioritou první; každé staveniště může mít plný počet stavitelů.
+KeepClarity/opt/BuildPriorityWeight/label=Síla priority
+KeepClarity/opt/BuildPriorityWeight/tip=Jak silně priorita převáží vzdálenost. 1000 = priorita rozhoduje pořadí. Uplatní se živě.
+KeepClarity/opt/EnableBuildQueueOverlay/label=Přehled fronty staveb
+KeepClarity/opt/EnableBuildQueueOverlay/tip=Přesouvatelný panel na obrazovce se seznamem 10 nejvyšších staveniš dle priority, nejvyšší jako první.
+KeepClarity/opt/BuildQueueShowSalvage/label=Fronta staveb: zahrnout demolice
+KeepClarity/opt/BuildQueueShowSalvage/tip=Zobrazí i budovy v demolici a opuštěné tábory v likvidaci, označené [SALV].
+KeepClarity/opt/BuildQueueShowExcavation/label=Fronta staveb: zahrnout vykopávky
+KeepClarity/opt/BuildQueueShowExcavation/tip=Zobrazí i ruiny vykopávané kvůli relikviím, označené [EXC].
+KeepClarity/opt/BuildQueueOverlayScale/label=Měřítko fronty staveb
+KeepClarity/opt/BuildQueueOverlayScale/tip=Velikost panelu Fronta staveb. Uplatní se živě.
+KeepClarity/opt/BuildQueueOverlayOpacity/label=Průhlednost fronty staveb
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=Průhlednost panelu Fronta staveb. Uplatní se živě.
+KeepClarity/opt/BuildQueueGrowDirection/label=Směr růstu fronty staveb
+KeepClarity/opt/BuildQueueGrowDirection/tip=Seznam roste dolů od záhlaví (výchozí) nebo nahoru (záhlaví dole).
+KeepClarity/cat/Snapping=Přichytávání
+KeepClarity/opt/SnapOverlaysEnabled/label=Přichytit přehledy
+KeepClarity/opt/SnapOverlaysEnabled/tip=Když přetáhnete přehled Keep Clarity, přichytí se do zarovnání s ostatními přehledy, minimapou a okraji obrazovky.
+KeepClarity/opt/SnapThresholdPx/label=Vzdálenost přichycení
+KeepClarity/opt/SnapThresholdPx/tip=Jak blízko (pixely) se musí okraj dostat, než se přichytí. 0 přichytávání vypne. Uplatní se živě.
+KeepClarity/cat/Building Variety=Rozmanitost budov
+KeepClarity/opt/EnableBuildingVariety/label=Barevná rozmanitost budov
+KeepClarity/opt/EnableBuildingVariety/tip=Každá stavba dostane jemný unikátní zvětralý nádech, aby stejné typy budov nevypadaly jako klony. Deterministické podle budovy (stabilní napříč znovunačtením).
+KeepClarity/opt/BuildingVarietyIntensity/label=Intenzita rozmanitosti
+KeepClarity/opt/BuildingVarietyIntensity/tip=Rozsah odchylky mezi budovami. 0 = identické, 1 = nejširší (stále vkusné). Uplatní se živě.
+KeepClarity/cat/Crisp Mode=Ostrý režim
+KeepClarity/opt/EnableCrispMode/label=Ostrý režim
+KeepClarity/opt/EnableCrispMode/tip=Nativní post-proces doostření + syté barvy — odlehčená vestavěná alternativa k presetu ReShade CAS. Pouze svět; HUD nedotčen.
+KeepClarity/opt/CrispSharpness/label=Ostrost
+KeepClarity/opt/CrispSharpness/tip=Síla kontrastně-adaptivního doostření. 0 = měkké, 1 = ostré. Uplatní se živě.
+KeepClarity/opt/CrispVibrance/label=Sytost barev
+KeepClarity/opt/CrispVibrance/tip=Zvýraznění barev / sytosti, váženo směrem k méně sytým pixelům. Uplatní se živě.
+KeepClarity/cat/Forage Calendar=Kalendář sběru
+KeepClarity/opt/EnableForageCalendar/label=Pruh sezóny sběru
+KeepClarity/opt/EnableForageCalendar/tip=Pruh pod pásem sezóny v horní liště, ukazující, kdy je každá sběratelná rostlina na vaší mapě v sezóně. Najetím myší na pruh nahlédnete; připněte vlastním přepínačem informací hry. Uplatní se živě.
+KeepClarity/opt/ForageCalendarAlwaysShow/label=Vždy zobrazit pruh
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=Udrží pruh sezóny viditelný stále, ne jen s vyskakovacím oknem sezóny. Uplatní se živě.
+KeepClarity/opt/EnableInSeasonReadout/label=Živý přehled sezóny
+KeepClarity/opt/EnableInSeasonReadout/tip=Přidá živý řádek 'V sezóně: ...' do vyskakovacího okna data/počasí. Uplatní se živě.
+KeepClarity/cat/Hotkeys — Building=Klávesové zkratky — budovy
+KeepClarity/opt/UpgradeHotkey/label=Vylepšit
+KeepClarity/opt/UpgradeHotkey/tip=Klávesová zkratka pro vylepšení vybrané budovy
+KeepClarity/opt/RelocateHotkey/label=Přemístit
+KeepClarity/opt/RelocateHotkey/tip=Klávesová zkratka pro přemístění vybrané budovy. Přemísťuje i sběratelné rostliny, pokud je nainstalován Tended Wilds.
+KeepClarity/opt/ToggleEmployHotkey/label=Přepnout výrobu budovy
+KeepClarity/opt/ToggleEmployHotkey/tip=Klávesová zkratka pro zastavení/spuštění výroby u vybrané budovy (přepíná zaškrtávátko zaměstnání).
+KeepClarity/opt/DemolishHotkey/label=Zlikvidovat budovu
+KeepClarity/opt/DemolishHotkey/tip=Výchozí T. Delete stále funguje jako pevná záloha bez ohledu na přeřazení.
+KeepClarity/opt/CycleBuildingLeftHotkey/label=Přepnout budovu doleva
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=Přepne na předchozí budovu stejného typu (odpovídá tlačítku < nahoře v informačním panelu)
+KeepClarity/opt/CycleBuildingRightHotkey/label=Přepnout budovu doprava
+KeepClarity/opt/CycleBuildingRightHotkey/tip=Přepne na další budovu stejného typu (odpovídá tlačítku > nahoře v informačním panelu)
+KeepClarity/opt/MoveWorkAreaHotkey/label=Přesunout pracovní oblast
+KeepClarity/opt/MoveWorkAreaHotkey/tip=Budovy s pracovní oblastí (lovci, lesníci, bylinkáři…) — spustí její přesun. Stejné jako tlačítko přecílení v panelu.
+KeepClarity/cat/Hotkeys — Build Site=Klávesové zkratky — staveniště
+KeepClarity/opt/DeleteBuildSiteHotkey/label=Smazat staveniště
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=Výchozí T. Delete stále funguje jako pevná záloha bez ohledu na přeřazení.
+KeepClarity/opt/ConstructionEnabledHotkey/label=Přepínač stavby
+KeepClarity/opt/ConstructionEnabledHotkey/tip=Klávesová zkratka pro přepnutí zaškrtávátka Stavba povolena na staveništi/demolici
+KeepClarity/opt/PrioritizeHotkey/label=Prioritizovat
+KeepClarity/opt/PrioritizeHotkey/tip=Klávesová zkratka pro přepnutí zaškrtávátka Prioritizováno na staveništi/demolici
+KeepClarity/opt/DecrementBuildersHotkey/label=Ubrat stavitele (-)
+KeepClarity/opt/DecrementBuildersHotkey/tip=Klávesová zkratka pro odebrání stavitele ze staveniště/demolice
+KeepClarity/opt/IncrementBuildersHotkey/label=Přidat stavitele (+)
+KeepClarity/opt/IncrementBuildersHotkey/tip=Klávesová zkratka pro přidání stavitele na staveniště/demolici
+KeepClarity/cat/Hotkeys — Forageables=Klávesové zkratky — sběratelné rostliny
+KeepClarity/opt/RelocateHotkey/label=Přemístit
+KeepClarity/opt/RelocateHotkey/tip=Pouze sběratelné rostliny — sdílí stejnou klávesu jako Přemístit budovu (přeřazení zde přeřadí i tam). Stromy, kamenná ložiska a ruiny nelze přemístit.
+KeepClarity/opt/ForageableHarvestHotkey/label=Sklidit
+KeepClarity/opt/ForageableHarvestHotkey/tip=Spustí nativní tlačítko Sklidit. Funguje na sběratelných rostlinách, stromech, kamenných ložiscích a vykopaných ruinách.
+KeepClarity/opt/ForageableDeleteHotkey/label=Smazat
+KeepClarity/opt/ForageableDeleteHotkey/tip=Spustí nativní tlačítko Smazat/Vyčistit. Funguje na sběratelných rostlinách, stromech, kamenných ložiscích a vykopaných ruinách.
+KeepClarity/opt/ForageablePrioritizeHotkey/label=Prioritizovat
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=Spustí nativní přepínač Prioritizovat. Funguje na sběratelných rostlinách, stromech, kamenných ložiscích, vykopaných ruinách a ovocných stromech.
+KeepClarity/opt/CullForWoodHotkey/label=Skácet ovocný strom na dřevo
+KeepClarity/opt/CullForWoodHotkey/tip=Pouze ovocné stromy — označí strom ke skácení na dřevo (nativní 'Skácet na dřevo').
+KeepClarity/cat/Hotkeys — Crop Field=Klávesové zkratky — políčko
+KeepClarity/opt/CropCopyHotkey/label=Kopírovat nastavení
+KeepClarity/opt/CropCopyHotkey/tip=Zkopíruje nastavení tohoto políčka (nativní tlačítko).
+KeepClarity/opt/CropPasteHotkey/label=Vložit nastavení
+KeepClarity/opt/CropPasteHotkey/tip=Vloží zkopírované nastavení políčka (nativní tlačítko).
+KeepClarity/opt/CropExpandHotkey/label=Rozšířit políčko
+KeepClarity/opt/CropExpandHotkey/tip=Rozšíří políčko (nativní tlačítko).
+KeepClarity/opt/CropClearHotkey/label=Vyčistit vybranou plodinu
+KeepClarity/opt/CropClearHotkey/tip=Vyčistí vybranou plodinu (nativní tlačítko).
+KeepClarity/opt/CropSalvageHotkey/label=Zlikvidovat
+KeepClarity/opt/CropSalvageHotkey/tip=Zlikviduje políčko (nativní tlačítko).
+KeepClarity/cat/Hotkeys — Confirmation Dialog=Klávesové zkratky — potvrzovací dialog
+KeepClarity/opt/ConfirmHotkey/label=Potvrdit
+KeepClarity/opt/ConfirmHotkey/tip=Výchozí Y. Enter také funguje jako pevná záloha.
+KeepClarity/opt/CancelHotkey/label=Zrušit
+KeepClarity/opt/CancelHotkey/tip=Výchozí N. Esc také funguje jako pevná záloha.
+KeepClarity/cat/Notifications=Oznámení
+KeepClarity/opt/TraderWarningDays/label=Dny upozornění na odjezd obchodníka
+KeepClarity/opt/TraderWarningDays/tip=Dny před odjezdem obchodníka, kdy se zobrazí oznámení 'Obchodník odjíždí' (0 vypíná)
+KeepClarity/opt/DismissibleResourceAlerts/label=Odklopitelná upozornění na suroviny
+KeepClarity/opt/DismissibleResourceAlerts/tip=Kliknutím na varování '!' v horní liště jej ztlumíte do další změny měsíce.
+KeepClarity/cat/Game and Map Settings=Nastavení hry a mapy
+KeepClarity/opt/KeepMapTypeOnReroll/label=Zachovat typ mapy při novém hodu
+KeepClarity/opt/KeepMapTypeOnReroll/tip=Tlačítko kostky znovu vylosuje seed v rámci vámi zvoleného biomu místo vynucení Náhodného.
+KeepClarity/opt/RememberCustomSettings/label=Zapamatovat vlastní nastavení
+KeepClarity/opt/RememberCustomSettings/tip=Uloží výběry panelu Vlastní nastavení při Potvrzení a obnoví je při příštím otevření.
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=Synchronizovat typ mapy s Rivers Restored
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=Obousměrná synchronizace mezi výběrem terénu FF a RiverPreset RR. Vypnuto, když je RR vypnut nebo nastaven na Vlastní.
+KeepClarity/opt/BridgeAnywhere/label=Mosty kdekoli (bez vody / jakákoli výška)
+KeepClarity/opt/BridgeAnywhere/tip=Zruší pravidla 'musí být nad vodou' a 'přichytit k hladině vody', takže lze překlenout suché rokle a vysoké břehy řek bez terénních úprav. Most sedí ve výšce terénu počátečních/koncových buněk.
+KeepClarity/cat/Game Flow=Průběh hry
+KeepClarity/opt/DoubleClickLoad/label=Dvojklik pro načtení
+KeepClarity/opt/DoubleClickLoad/tip=Dvojklikem na uloženou hru (úvodní obrazovka nebo nabídka Načíst ve hře) ji načtete bez potvrzovacího dotazu. Jednoduché kliknutí stále vyžaduje potvrzení.
+KeepClarity/opt/DoubleClickLoadWindow/label=Rychlost dvojkliku (sekundy)
+KeepClarity/opt/DoubleClickLoadWindow/tip=Max. mezera mezi dvěma kliknutími (a krátká výdrž před tím, než jednoduché kliknutí zobrazí dotaz).
+KeepClarity/opt/PauseOnLoad/label=Pozastavit při načtení
+KeepClarity/opt/PauseOnLoad/tip=Automaticky pozastaví hru, jakmile se dokončí načtení uložené hry
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=Zpoždění pozastavení při načtení (sekundy)
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Počká tolik sekund před pozastavením — dá scéně čas se vykreslit, aby první snímek nebyl černý. Zvyšte pro silně modované sestavy.
+KeepClarity/opt/SkipNewMapIntro/label=Přeskočit úvodní kinematiku
+KeepClarity/opt/SkipNewMapIntro/tip=Přeskočí úvodní video a přejde rovnou k načtení mapy.
+KeepClarity/opt/CustomPopulationCap/label=Vlastní strop populace
+KeepClarity/opt/CustomPopulationCap/tip=Přepíše čtyři zastavení posuvníku (200/500/1000/2000) libovolnou hodnotou. 0 = ponechat vanilla chování.
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorovat požadavek populace pro vylepšení
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Obejde populační podmínky pro zvýšení úrovně centra města, aby mohly postupovat i uložené hry s nízkou populací.
+KeepClarity/cat/Other Settings=Ostatní nastavení
+KeepClarity/opt/SettingsVerboseLog/label=Podrobný log nastavení
+KeepClarity/opt/SettingsVerboseLog/tip=Zaznamená každé rozhodnutí o nároku/objevení do MelonLoader/Latest.log. Ve výchozím stavu vypnuto; zapněte jen při ladění panelu.
+KeepClarity/cat/Other settings=Ostatní nastavení
+KeepClarity/opt/ShowPlannerButton/label=Zobrazit tlačítko plánovače
+KeepClarity/opt/ShowPlannerButton/tip=Zobrazí ikonu PLAN na horní liště, která otevře SageDragoonův plánovač Farthest Frontier ve vašem prohlížeči. Vyžaduje restart pro projevení.
+KeepClarity/opt/UseLegacyImguiPanel/label=Použít starší panel IMGUI
+KeepClarity/opt/UseLegacyImguiPanel/tip=Záloha fáze 1. Když je false (výchozí), F10 otevře vyladěné UGUI plátno. Když je true, F10 otevře původní prototyp IMGUI. Přepněte na true, pokud se panel UGUI chová nesprávně.
+# ── LootScaling ──
+LootScaling/meta/name=LootScaling
+LootScaling/cat/LootScaling=LootScaling
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=Setup
+Setup/opt/verboseLogging/label=verboseLogging

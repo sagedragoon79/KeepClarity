@@ -210,9 +210,11 @@ namespace FFUIOverhaul.Settings.UI
                 return;
             }
 
-            _nameText.text = info.DisplayName ?? modId;
+            // Localized at render time via implicit keys (KcLoc) — falls back to
+            // the registered English strings when no translation pack covers them.
+            _nameText.text = Localization.KcLoc.Tr(modId + "/meta/name", info.DisplayName ?? modId);
             _versionText.text = string.IsNullOrEmpty(info.Version) ? "" : "v" + info.Version;
-            _descText.text = info.Description ?? "";
+            _descText.text = Localization.KcLoc.Tr(modId + "/meta/desc", info.Description ?? "");
             _accentStripe.GetComponent<Image>().color = info.AccentColor ?? new Color(0.55f, 0.45f, 0.30f, 1f);
 
             bool onlyChanged = OnlyChangedProvider?.Invoke() ?? false;
@@ -331,7 +333,10 @@ namespace FFUIOverhaul.Settings.UI
             hdrLE.preferredHeight = 28;
             var hdrTxt = hdrGo.AddComponent<TextMeshProUGUI>();
             if (FFNativeAssets.FontHeader != null) hdrTxt.font = FFNativeAssets.FontHeader;
-            hdrTxt.text = categoryName;
+            // Category header localizes via the owning mod's implicit key.
+            hdrTxt.text = entries.Count > 0
+                ? Localization.KcLoc.Tr(entries[0].ModId + "/cat/" + categoryName, categoryName)
+                : categoryName;
             hdrTxt.fontSize = 16;
             hdrTxt.color = FFNativeAssets.TextPrimary;
             hdrTxt.alignment = TextAlignmentOptions.MidlineLeft;
@@ -418,7 +423,8 @@ namespace FFUIOverhaul.Settings.UI
             labelRT.sizeDelta = new Vector2(LABEL_W, 0);
             var labelTxt = labelGo.AddComponent<TextMeshProUGUI>();
             if (FFNativeAssets.FontBody != null) labelTxt.font = FFNativeAssets.FontBody;
-            labelTxt.text = e.Meta.Label ?? e.VanillaDisplayName ?? e.Key;
+            labelTxt.text = Localization.KcLoc.Tr(e.ModId + "/opt/" + e.Key + "/label",
+                e.Meta.Label ?? e.VanillaDisplayName ?? e.Key);
             labelTxt.fontSize = 13;
             labelTxt.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
             labelTxt.color = FFNativeAssets.TextPrimary;
@@ -431,6 +437,8 @@ namespace FFUIOverhaul.Settings.UI
             string? tip = !string.IsNullOrEmpty(e.Meta.Tooltip) ? e.Meta.Tooltip
                        : !string.IsNullOrEmpty(e.VanillaDescription) ? e.VanillaDescription
                        : null;
+            if (tip != null)
+                tip = Localization.KcLoc.Tr(e.ModId + "/opt/" + e.Key + "/tip", tip);
             if (!string.IsNullOrEmpty(tip))
             {
                 labelTxt.raycastTarget = true;

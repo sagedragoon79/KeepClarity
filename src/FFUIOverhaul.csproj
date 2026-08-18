@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <AssemblyName>KeepClarity</AssemblyName>
-    <AssemblyVersion>1.4.2.0</AssemblyVersion>
-    <FileVersion>1.4.2.0</FileVersion>
-    <Version>1.4.2</Version>
+    <AssemblyVersion>1.5.0.0</AssemblyVersion>
+    <FileVersion>1.5.0.0</FileVersion>
+    <Version>1.5.0</Version>
     <RootNamespace>FFUIOverhaul</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -86,6 +86,12 @@
          embedded so KC ships as a single DLL (no loose bundle file). -->
     <EmbeddedResource Include="Resources\crisp.bundle">
       <LogicalName>FFUIOverhaul.crisp.bundle</LogicalName>
+    </EmbeddedResource>
+    <!-- Built-in localization packs (all 15 FF languages) — embedded so every
+         player gets them with just the DLL. Disk packs in Mods/KCLocalization
+         override these (community corrections win). -->
+    <EmbeddedResource Include="Localization\packs\*.txt">
+      <LogicalName>FFUIOverhaul.pack.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

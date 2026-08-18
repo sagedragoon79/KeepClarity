@@ -85,6 +85,24 @@ namespace FFUIOverhaul.Settings.UI
             if (_instance != null) _instance.SetVisible(false);
         }
 
+        /// <summary>Re-render everything that shows localized strings. Called by
+        /// KcLoc when the game language changes: the mod list rebuilds its names
+        /// and the detail panel rebuilds its sections/labels (Select() early-outs
+        /// on the same mod, so a plain reopen kept stale labels — this doesn't).</summary>
+        public static void OnLanguageChanged()
+        {
+            if (_instance == null) return;
+            try
+            {
+                _instance._modList?.Refresh();
+                _instance._modDetail?.Refresh(); // rebuilds current mod's sections via ShowMod
+            }
+            catch (System.Exception ex)
+            {
+                FFUIOverhaulMod.Log.Warning("[Loc] language-change re-render failed: " + ex.Message);
+            }
+        }
+
         private System.Collections.IEnumerator? _animCoroutine;
 
         private void SetVisible(bool visible)

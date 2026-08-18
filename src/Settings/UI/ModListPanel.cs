@@ -372,7 +372,7 @@ namespace FFUIOverhaul.Settings.UI
             nameGo.transform.SetParent(textWrapGo.transform, false);
             var nameTxt = nameGo.AddComponent<TextMeshProUGUI>();
             if (FFNativeAssets.FontBody != null) nameTxt.font = FFNativeAssets.FontBody;
-            nameTxt.text = info.DisplayName ?? modId;
+            nameTxt.text = Localization.KcLoc.Tr(modId + "/meta/name", info.DisplayName ?? modId);
             nameTxt.fontSize = 14;
             nameTxt.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
             nameTxt.color = FFNativeAssets.TextPrimary;

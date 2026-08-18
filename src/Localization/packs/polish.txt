@@ -1,0 +1,1653 @@
+# Polish pack for the Keep Clarity mod fleet — machine-translated first pass; community corrections welcome (drop-in override packs win).
+language: Polish
+# ── Divine Hands ──
+DivineHands/meta/name=Divine Hands
+DivineHands/meta/desc=Boskie moce i narzędzia twórcy: rzeźbienie terenu, przywoływacze pod kursorem oraz boskie narzędzia mapy w jednym panelu w grze (domyślny skrót Ctrl+G). Moce zmieniające świat domyślnie WYŁĄCZONE.
+DivineHands/cat/General=Ogólne
+DivineHands/opt/MasterEnable/label=Włączone
+DivineHands/opt/MasterEnable/tip=Główny przełącznik Divine Hands. Gdy wyłączony, skrót panelu jest nieaktywny i żadna boska moc nie działa. Domyślnie: WŁ.
+DivineHands/opt/PanelHotkey/label=Skrót panelu
+DivineHands/opt/PanelHotkey/tip=Klawisz lub kombinacja przełączająca panel Divine Hands w grze. Nazwa Unity KeyCode lub kombinacja z Ctrl/Alt/Shift — np. Ctrl+G, F6, Alt+Shift+D. Domyślnie: Ctrl+G.
+DivineHands/opt/ShowPanelOnMap/label=Otwórz panel po wczytaniu mapy
+DivineHands/opt/ShowPanelOnMap/tip=Automatycznie otwiera panel po wczytaniu mapy. Domyślnie: WYŁ.
+DivineHands/opt/DebugLog/label=Logowanie debugowania
+DivineHands/opt/DebugLog/tip=Szczegółowe dane diagnostyczne do MelonLoader.log. Domyślnie: WYŁ.
+DivineHands/opt/DiagBuildingScare/label=Log: Tabela płoszenia zwierząt
+DivineHands/opt/DiagBuildingScare/tip=Zapisuje do MelonLoader.log tabelę referencyjną budynków płoszących dziką zwierzynę i tych, które tego nie robią. FF dzieli mapę na komórki spawnu 64 m; 3+ płoszące budynki w jednej komórce przeganiają stado gdzie indziej (pola upraw zawsze wypędzają, osobna zasada). Tylko do odczytu — nic nie zmienia w grze. Uruchamia się raz po włączeniu; wyłącz i włącz ponownie, aby powtórzyć. Domyślnie: WYŁ.
+DivineHands/opt/ClassicPanel/label=Klasyczny panel
+DivineHands/opt/ClassicPanel/tip=Użyj oryginalnego, lekkiego panelu IMGUI zamiast stylizowanego pod FF. Rozwiązanie awaryjne, gdy stylizowany panel zaczyna szwankować. Domyślnie: WYŁ.
+DivineHands/cat/God Tools=Boskie narzędzia
+DivineHands/opt/EnableRevealMap/label=Odkryj mapę
+DivineHands/opt/EnableRevealMap/tip=Udostępnia funkcję Odkryj mapę w panelu Divine Hands w grze — aktywujesz ją tam, nie tutaj. Po aktywacji usuwa całą mgłę wojny; wyłączenie w miarę możliwości przywraca odkryty wcześniej obszar. Uwaga: FF zapisuje stan odkrycia w save'ie — jeśli zapiszesz grę z odkrytą mgłą, cała mapa pozostanie odkryta. Domyślnie: WYŁ.
+DivineHands/opt/EnableBuildAnywhere/label=Buduj wszędzie
+DivineHands/opt/EnableBuildAnywhere/tip=Udostępnia funkcję Buduj wszędzie w panelu w grze — aktywujesz ją tam, nie tutaj. Po aktywacji pozwala stawiać ZWYKŁE budynki na terenie odrzucanym przez grę bazową (strome zbocza, brak dojścia do miasta, kolizja z wodą/drogą) i znosi limit 150 m długości drogi (ciągnij drogi dowolnej długości; koszt nadal skaluje się z rzeczywistą długością). Mosty pozostają nietknięte i nadal podlegają grze bazowej oraz funkcji Mosty wszędzie z Keep Clarity. Domyślnie: WYŁ.
+DivineHands/opt/PreserveOverlapTrees/label=Zachowaj nakładające się drzewa
+DivineHands/opt/PreserveOverlapTrees/tip=Zachowuje drzewa postawione na budowlach (np. drzewo na płycie placu dzięki Buduj wszędzie) po zapisie/wczytaniu. Gra bazowa usuwa drzewa z każdego śladu budynku przy WCZYTANIU — zbędne przy normalnych save'ach, więc pominięcie tego jest bezpieczne; budowa na żywo nadal normalnie usuwa drzewa. Drzewa na DROGACH nadal znikają po wczytaniu (osobne czyszczenie dróg). Domyślnie: WŁ.
+DivineHands/opt/EnableGodView/label=Boski widok
+DivineHands/opt/EnableGodView/tip=Udostępnia funkcję Boski widok w panelu w grze — aktywujesz ją tam, nie tutaj. Po aktywacji rozluźnia limity kamery RTS — oddal maksymalnie, przechyl do płaskiego/z góry kąta, obejrzyj całą mapę — przywracane dokładnie po wyłączeniu. Domyślnie: WYŁ.
+DivineHands/opt/ProportionalZoom/label=Proporcjonalny zoom
+DivineHands/opt/ProportionalZoom/tip=Gdy Boski widok jest aktywny, przybliżanie kółkiem myszy z bliska jest bardziej precyzyjne (koniec ze skokiem z normalnego widoku do zbyt bliskiego). Oddalanie pozostaje jak w grze bazowej. Wyłączone = płaski krok bazowy. Domyślnie: WŁ.
+DivineHands/opt/ZoomCellsPerNotch/label=Krok zoomu (Boski widok)
+DivineHands/opt/ZoomCellsPerNotch/tip=Liczba komórek, o jaką jedno kliknięcie kółka przesuwa kamerę boskiego widoku (2–50; 1 komórka ≈ 5 m, więc 2 ≈ 10 m, 50 ≈ 250 m). Wyższa wartość = większe skoki; niższa = precyzyjniej. Z bliska krok jest ~2× drobniejszy. Domyślnie: 10 (~50 m/klik).
+DivineHands/opt/GodViewMaxZoom/label=Maks. oddalenie (m)
+DivineHands/opt/GodViewMaxZoom/tip=Najdalszy zoom boskiego widoku, w metrach (200–900). Główny czynnik WYDAJNOŚCI — przy 900 kamera widzi niemal całą mapę i może się zacinać. Domyślnie 450; Pangu ogranicza do 600. Zmniejsz, jeśli boski widok obciąża grę, zwiększ dla szerszego przeglądu.
+DivineHands/opt/GodViewDisableFog/label=Wyłącz mgłę (Boski widok)
+DivineHands/opt/GodViewDisableFog/tip=Wyłącza mgłę odległości środowiskowej, gdy Boski widok jest aktywny (ostry obraz w stylu Pangu). Przywracana po wyjściu. Niezależne od mgły wojny / Odkryj mapę. Domyślnie: WYŁ. (mgła pozostaje, lżej dla klatek).
+DivineHands/opt/GodViewMinZoom/label=Min. przybliżenie (m)
+DivineHands/opt/GodViewMinZoom/tip=Najbliższy zoom boskiego widoku, w metrach (1–6). Gra bazowa ogranicza do ~6; 2 to mniej więcej wysokość głowy mieszkańca. Połącz z Min. kątem kamery 0 i bazowym przyciskiem Podążaj, by uzyskać widok zza ramienia mieszkańca. Na żywo — dostrajaj podczas podążania. Domyślnie: 6.
+DivineHands/opt/GodViewMinAngle/label=Min. kąt kamery (°)
+DivineHands/opt/GodViewMinAngle/tip=Najbardziej płaskie nachylenie kamery przy włączonym Boskim widoku (0–35). Gra bazowa zatrzymuje się na ~35 (zawsze patrząc w dół); 0 to poziom z horyzontem. Na żywo — dostrajaj podczas podążania. Domyślnie: 10.
+DivineHands/opt/HideFowHaze/label=Ukryj mgiełkę mgły wojny (wizualne)
+DivineHands/opt/HideFowHaze/tip=Wyłącza EFEKT WIZUALNY mgły wojny — szarą mgiełkę nieodkrytego obszaru unoszącą się nad niebem przy niskich kątach / w trybie Free Cam. Czysto wizualne: odkrywanie mapy jest nietknięte, nic nie zapisuje się w save'ie, wyłączenie natychmiast przywraca efekt. Domyślnie: WYŁ.
+DivineHands/opt/FreeCamClearsHaze/label=Free Cam: Usuń mgiełkę nieba
+DivineHands/opt/FreeCamClearsHaze/tip=Automatycznie ukrywa mgiełkę mgły wojny TYLKO podczas aktywnego trybu Free Cam — mgła wojny w normalnej grze, czyste niebo podczas latania, mgiełka wraca natychmiast po wyjściu. Czysto wizualne. Domyślnie: WYŁ.
+DivineHands/opt/EnableFreeCam/label=Free Cam
+DivineHands/opt/EnableFreeCam/tip=Udostępnia Free Cam w panelu w grze — aktywujesz go tam, nie tutaj. Naciśnij Ctrl+F (konfigurowalne), by wejść/wyjść, lub użyj przełącznika w panelu. WASD ruch, Space/Ctrl góra/dół, Shift przyspieszenie, mysz rozgląda się. Wyjście przywraca dokładnie normalną kamerę. Domyślnie: WYŁ.
+DivineHands/opt/FreeCamHotkey/label=Skrót Free Cam
+DivineHands/opt/FreeCamHotkey/tip=Klawisz/kombinacja przełączająca Free Cam w grze. Nazwa Unity KeyCode lub kombinacja z Ctrl/Alt/Shift — np. Ctrl+F, F8, Alt+C. Domyślnie: Ctrl+F.
+DivineHands/opt/FreeCamMoveSpeed/label=Prędkość ruchu Free Cam
+DivineHands/opt/FreeCamMoveSpeed/tip=Prędkość latania Free Cam w metrach świata na sekundę. Domyślnie: 40.
+DivineHands/opt/FreeCamFastMultiplier/label=Mnożnik przyspieszenia Free Cam
+DivineHands/opt/FreeCamFastMultiplier/tip=Mnożnik prędkości podczas przytrzymania Shift w Free Cam. Domyślnie: 3.
+DivineHands/opt/FreeCamSensitivity/label=Czułość myszy Free Cam
+DivineHands/opt/FreeCamSensitivity/tip=Czułość rozglądania się myszą w Free Cam. Domyślnie: 2.
+DivineHands/opt/FreeCamGroundFloor/label=Podłoga terenu Free Cam
+DivineHands/opt/FreeCamGroundFloor/tip=Utrzymuje Free Cam nad terenem, aby nie przenikał przez świat w pustkę pod spodem/niebo. Wyłącz dla ujęć spod mapy. Domyślnie: wł.
+DivineHands/opt/FreeCamFloorClearance/label=Prześwit podłogi Free Cam
+DivineHands/opt/FreeCamFloorClearance/tip=Metry, na jakie podłoga unosi się nad powierzchnią. Mała wartość = ujęcia tuż nad ziemią; 0 jedzie po powierzchni (może przecinać bliską płaszczyznę). Domyślnie: 1.0 m.
+DivineHands/opt/InstantBuildEnable/label=Natychmiastowa budowa
+DivineHands/opt/InstantBuildEnable/tip=Udostępnia Natychmiastową budowę w panelu w grze — aktywujesz ją tam, nie tutaj. Gdy aktywna, każda budowa (nowo postawiona i już w toku) kończy się w następnej klatce przez własną ścieżkę ukończenia gry. Resetuje się przy każdym wczytaniu mapy. Domyślnie: WYŁ.
+DivineHands/opt/InstantBuildUseMaterials/label=Natychmiastowa budowa zużywa materiały
+DivineHands/opt/InstantBuildUseMaterials/tip=Pobiera z magazynu miasta wymagane materiały budowlane z góry przy natychmiastowym ukończeniu budynku (praca zawsze darmowa). Budowy, na które miasta nie stać, budują się normalnie. Wyłączone = boskie budowanie bez materiałów. Domyślnie: WŁ.
+DivineHands/opt/PersistRevealActive/label=Odkryj mapę (stan zapisany)
+DivineHands/opt/PersistBuildAnywhereActive/label=Buduj wszędzie (stan zapisany)
+DivineHands/opt/PersistGodViewActive/label=Boski widok (stan zapisany)
+DivineHands/cat/Terrain Sculpting=Rzeźbienie terenu
+DivineHands/opt/TerrainEnable/label=Rzeźbienie terenu
+DivineHands/opt/TerrainEnable/tip=Włącza boską moc modyfikacji wysokości terenu. Po włączeniu wybierz Teren w panelu i nakładaj pędzel na świat klawiszem zastosowania. Domyślnie: WYŁ.
+DivineHands/opt/TerrainMode/label=Tryb pędzla
+DivineHands/opt/TerrainMode/tip=0 = Podnieś, 1 = Obniż, 2 = Wygładź, 3 = Wypłaszcz, 4 = Uśrednij. Przytrzymaj Shift, by odwrócić Podnieś<->Obniż. Uśrednij ściąga cały pędzel do jednego płaskiego poziomu średniego (styl TerrainHelper); Wygładź tylko usuwa nierówności i zachowuje zbocza.
+DivineHands/opt/TerrainStrength/label=Siła pędzla
+DivineHands/opt/TerrainStrength/tip=Zmiana wysokości Podnieś/Obniż w metrach świata na zastosowanie (dotyczy też kroku Wygładź i Uśrednij). Wypłaszcz ignoruje tę wartość. Domyślnie: 1.0.
+DivineHands/opt/TerrainGridWidth/label=Szerokość siatki pędzla
+DivineHands/opt/TerrainGridWidth/tip=Szerokość śladu (X) w komórkach mapy wysokości (1–20). Na żywo: strzałki Lewo/Prawo gdy uzbrojony. Każda komórka ≈ Rozdzielczość metrów (~5 m). Domyślnie: 3.
+DivineHands/opt/TerrainGridHeight/label=Głębokość siatki pędzla
+DivineHands/opt/TerrainGridHeight/tip=Głębokość śladu (Z) w komórkach mapy wysokości (1–20). Na żywo: strzałki Góra/Dół gdy uzbrojony; Tab zamienia szerokość/głębokość. Użyj np. 1×20, by wyrzeźbić ścieżkę. Domyślnie: 3.
+DivineHands/opt/TerrainGridFineSnap/label=Precyzyjne pozycjonowanie siatki
+DivineHands/opt/TerrainGridFineSnap/tip=Dla swobodnego budowania (klimat TerrainHelper): siatka porusza się po siatce ½-komórkowej i zatrzymuje się między krokami, dając niedopasowanemu duchowi budynku swobodę ustawienia w dowolnym miejscu okna pół-komórki bez przesuwania się siatki pod spodem. Prowadnica ustawienia — rzeźba nadal zaokrągla się do pełnych komórek przy zastosowaniu, więc zostaw wyłączone dla wyraźnych, płaskich placów. Domyślnie: wył.
+DivineHands/opt/TerrainApplyKey/label=Klawisz zastosowania
+DivineHands/opt/TerrainApplyKey/tip=Klawisz/przycisk stosujący pędzel pod kursorem. Nazwa Unity KeyCode lub kombinacja. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse0.
+DivineHands/opt/TerrainUndoKey/label=Klawisz cofnięcia
+DivineHands/opt/TerrainUndoKey/tip=Klawisz/kombinacja cofająca ostatnie pociągnięcie terenu. Domyślnie: Ctrl+Z.
+DivineHands/opt/TerrainArmHotkey/label=Skrót uzbrojenia terenu
+DivineHands/opt/TerrainArmHotkey/tip=Klawisz/kombinacja klawiatury uzbrajająca (ponowne naciśnięcie rozbraja) pędzel terenu bez klikania jego zakładki; otwiera panel przy uzbrajaniu. Domyślnie: End (konwencja TerrainHelper).
+DivineHands/cat/Cursor Spawners=Przywoływacze pod kursorem
+DivineHands/opt/SpawnEnable/label=Przywoływacze pod kursorem
+DivineHands/opt/SpawnEnable/tip=Włącza boską moc przywoływania pod kursorem. Wybierz rodzinę, uzbrój przywoływacz w panelu i naciśnij klawisz zastosowania nad światem, by umieścić rzeczy pod kursorem. Domyślnie: WYŁ.
+DivineHands/opt/SpawnFamily/label=Rodzina przywoływania
+DivineHands/opt/SpawnFamily/tip=0 = Zwierzę, 1 = Minerał, 2 = Mieszkaniec, 3 = Surowiec.
+DivineHands/opt/SpawnSubtype/label=Podtyp przywoływania
+DivineHands/opt/SpawnSubtype/tip=Indeks w ramach rodziny. Zwierzę: 0 Jeleń/1 Niedźwiedź/2 Dzik/3 Wilk/4 Lis/5 Świstak/6 Pies/7 Kot (4-7 wymagają DLC Cats & Dogs). Minerał: 0 Złoto/1 Żelazo/2 Węgiel/3 Kamień/4 Glina/5 Piasek. Surowiec: 0 Zbieractwo/1 Drzewo/2 Kamień/3 Głaz. Mieszkaniec ignoruje tę wartość.
+DivineHands/opt/SpawnCount/label=Liczba przywoływanych
+DivineHands/opt/SpawnCount/tip=Ile umieścić na jedno zastosowanie (1–50), rozproszonych w małym kręgu wokół kursora.
+DivineHands/opt/SpawnIsDeep/label=Głębokie złoże
+DivineHands/opt/SpawnIsDeep/tip=Tylko minerały. Gdy włączone, przywołane złoża (wszystkie sześć rodzajów) są głębokie/nieskończone — użyteczne WYŁĄCZNIE przez budynki Głęboka kopalnia / Głęboki dół. Gdy wyłączone, są skończonymi złożami powierzchniowymi dla zwykłych kopalń/dołów. Domyślnie: WYŁ.
+DivineHands/opt/SpawnAnnounceVillagers/label=Ogłoś mieszkańców
+DivineHands/opt/SpawnAnnounceVillagers/tip=Wyzwala powiadomienie o „przybyciu” imigracji przy przywoływaniu mieszkańców. Domyślnie: WYŁ.
+DivineHands/opt/SpawnPersistent/label=Trwałe (węzły/nory)
+DivineHands/opt/SpawnPersistent/tip=Tylko zwierzęta. Gdy WŁĄCZONE (domyślnie): Jeleń zostawia pod kursorem samoodnawiający się węzeł obszaru przywoływania (okrągły znacznik); Wilk/Dzik zostawiają norę. Gdy WYŁĄCZONE, przywoływane są luzem. Niedźwiedź zawsze jest luzem. Nory przetrwają zapis/wczytanie; węzeł jelenia odnawia się w tej sesji, ale nie jest zapisywany (odłóż ponownie po wczytaniu). Domyślnie: WŁ.
+DivineHands/opt/SpawnWolfDenGuid/label=GUID nory wilka
+DivineHands/opt/SpawnWolfDenGuid/tip=Opcjonalny zapasowy GUID prefabu nory wilka, używany TYLKO gdy nie da się rozwiązać ważonego prefabu nory grupy zwierząt. Zostaw domyślny, chyba że nory przestają się przywoływać.
+DivineHands/opt/SpawnForageableGuids/label=GUID-y zbieractwa
+DivineHands/opt/SpawnForageableGuids/tip=GUID-y prefabów oddzielone przecinkiem/spacją/nową linią, przywoływane dla typu Zbieractwo. Każde zastosowanie przechodzi przez listę. Nieznane GUID-y / z DLC są bezpiecznie pomijane.
+DivineHands/opt/SpawnTreeGuids/label=GUID-y drzew
+DivineHands/opt/SpawnTreeGuids/tip=Oddzielone GUID-y prefabów dla typu Drzewo (umieszczane przez system wzrostu drzew terenu). Zostaw PUSTE (domyślnie), by automatycznie użyć gatunków drzew z bieżącej mapy (Terrain2 TreePrototypes) — bez konfiguracji. Wpisz GUID-y tylko, by nadpisać, jakie drzewa są sadzone.
+DivineHands/opt/SpawnRockGuids/label=GUID-y kamieni
+DivineHands/opt/SpawnRockGuids/tip=Oddzielone GUID-y prefabów dla typu Kamień. Każde zastosowanie przechodzi przez listę.
+DivineHands/opt/SpawnGiantRockGuids/label=GUID-y głazów
+DivineHands/opt/SpawnGiantRockGuids/tip=Oddzielone GUID-y prefabów dla typu Głaz.
+DivineHands/opt/SpawnApplyKey/label=Klawisz przywołania
+DivineHands/opt/SpawnApplyKey/tip=Klawisz/przycisk przywołujący pod kursorem. Nazwa Unity KeyCode lub kombinacja. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse0.
+DivineHands/opt/SpawnerArmHotkey/label=Skrót uzbrojenia przywoływacza
+DivineHands/opt/SpawnerArmHotkey/tip=Klawisz/kombinacja klawiatury uzbrajająca (ponowne naciśnięcie rozbraja) przywoływacz bez klikania jego zakładki; otwiera panel przy uzbrajaniu. Domyślnie: Home.
+DivineHands/cat/Lake Stamp=Pieczątka jeziora
+DivineHands/opt/LakeEnable/label=Pieczątka jeziora / stawu
+DivineHands/opt/LakeEnable/tip=Dodaje zakładkę Jezioro do panelu w grze. Stempluje pod kursorem wyrzeźbione, wypełnione wodą jezioro (odzwierciedla Pangu) — trwa natywnie. Domyślnie: WYŁ.
+DivineHands/opt/LakeShape/label=Kształt
+DivineHands/opt/LakeShape/tip=0 = Prostokąt, 1 = Koło.
+DivineHands/opt/LakeGridWidth/label=Szerokość (komórki)
+DivineHands/opt/LakeGridWidth/tip=Połowa szerokości rdzenia śladu w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/LakeGridHeight/label=Głębokość (komórki)
+DivineHands/opt/LakeGridHeight/tip=Połowa głębokości rdzenia śladu w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/LakeCarveDepth/label=Głębokość wyrzeźbienia
+DivineHands/opt/LakeCarveDepth/tip=Głębokość dna jeziora poniżej płaszczyzny wody, w metrach (0,45–12). Domyślnie: 4,6.
+DivineHands/opt/LakeFillRatio/label=Współczynnik wypełnienia
+DivineHands/opt/LakeFillRatio/tip=Powiększa jezioro — mnoży Szerokość/Głębokość (1,0–2,0). Domyślnie: 1,0 (bez wzrostu).
+DivineHands/opt/LakeShoreWidth/label=Rozmycie brzegu
+DivineHands/opt/LakeShoreWidth/tip=Szerokość pierścienia brzegu przechodzącego z powrotem w ląd (2–40). Domyślnie: 16.
+DivineHands/opt/LakeNoGoWidth/label=Dodatkowy rozmiar
+DivineHands/opt/LakeNoGoWidth/tip=Dodatkowe komórki dodane do śladu jeziora z każdej strony (0–24). Domyślnie: 0.
+DivineHands/opt/LakeArmHotkey/label=Skrót uzbrojenia jeziora
+DivineHands/opt/LakeArmHotkey/tip=Klawisz/kombinacja uzbrajająca (ponowne naciśnięcie rozbraja) pieczątkę jeziora. Domyślnie: Insert.
+DivineHands/opt/LakeApplyKey/label=Klawisz zastosowania jeziora
+DivineHands/opt/LakeApplyKey/tip=Klawisz/przycisk stemplujący jezioro pod kursorem. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse0.
+DivineHands/opt/LakeStockFish/label=Zarybienie
+DivineHands/opt/LakeStockFish/tip=Zarybia nowe jezioro rybami + widocznymi ławicami (dopasowanymi do jeziora), więc można w nim łowić. Domyślnie: wł.
+DivineHands/opt/LakePersist/label=Trwałość jezior
+DivineHands/opt/LakePersist/tip=Sprawia, że stemplowane jeziora przetrwają zapis/wczytanie. FF zapisuje wodę w pliku mapy tylko przy generowaniu, więc normalny save zachowuje wyrzeźbioną nieckę, ale traci wodę — to zapisuje mały plik towarzyszący obok każdego save'a i odbudowuje wodę przy wczytaniu (usuwany po usunięciu save'a). Domyślnie: WŁ.
+DivineHands/cat/Fertility Painter=Malarz żyzności
+DivineHands/opt/FertilityEnable/label=Malarz żyzności
+DivineHands/opt/FertilityEnable/tip=Dodaje zakładkę Żyzność do panelu w grze. Maluje żyzność gleby na regulowanym obszarze (zapisywane z save'em). Domyślnie: WYŁ.
+DivineHands/opt/FertilityShape/label=Kształt
+DivineHands/opt/FertilityShape/tip=0 = Prostokąt, 1 = Koło.
+DivineHands/opt/FertilityGridWidth/label=Szerokość (komórki)
+DivineHands/opt/FertilityGridWidth/tip=Połowa szerokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/FertilityGridHeight/label=Głębokość (komórki)
+DivineHands/opt/FertilityGridHeight/tip=Połowa głębokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/FertilityAmount/label=Żyzność %
+DivineHands/opt/FertilityAmount/tip=Docelowa żyzność gleby malowana pędzlem (0–100%). Domyślnie: 80.
+DivineHands/opt/FertilityMult/label=Skuteczność nawozu %
+DivineHands/opt/FertilityMult/tip=Skuteczność nawozu/kompostu na komórkę ustawiana pędzlem (0–100%). Domyślnie: 100.
+DivineHands/opt/FertilityConditionSoil/label=Przygotuj glebę pod sady
+DivineHands/opt/FertilityConditionSoil/tip=Ustawia też teksturę gleby (piasek/glina) + wodę na idealne dla drzew owocowych (odczytane z krzywych kar gry), by sady nie były ograniczane przez słabą glebę. Świetne dla drzew owocowych, potencjalnie mniej idealne dla upraw. Domyślnie: wył.
+DivineHands/opt/FertilityArmHotkey/label=Skrót uzbrojenia żyzności
+DivineHands/opt/FertilityArmHotkey/tip=Klawisz/kombinacja uzbrajająca (ponowne naciśnięcie rozbraja) malarza żyzności — lub użyj zakładki Żyzność. Domyślnie: Alt+Insert.
+DivineHands/opt/FertilityApplyKey/label=Klawisz zastosowania żyzności
+DivineHands/opt/FertilityApplyKey/tip=Klawisz/przycisk malujący żyzność pod kursorem. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse1.
+DivineHands/cat/Forest Brush=Pędzel lasu
+DivineHands/opt/ForestEnable/label=Pędzel lasu
+DivineHands/opt/ForestEnable/tip=Dodaje zakładkę Las do panelu w grze. Sadzi rodzime drzewa mapy na regulowanym obszarze do docelowego pokrycia (istniejące drzewa się liczą, więc ponowne zastosowanie dosadza), opcjonalnie ustawiając też żyzność gleby. Drzewa + żyzność zapisywane z save'em. Domyślnie: WYŁ.
+DivineHands/opt/ForestShape/label=Kształt
+DivineHands/opt/ForestShape/tip=0 = Prostokąt, 1 = Koło.
+DivineHands/opt/ForestGridWidth/label=Szerokość (komórki)
+DivineHands/opt/ForestGridWidth/tip=Połowa szerokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/ForestGridHeight/label=Głębokość (komórki)
+DivineHands/opt/ForestGridHeight/tip=Połowa głębokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/ForestCoverage/label=Pokrycie %
+DivineHands/opt/ForestCoverage/tip=Docelowe pokrycie drzewami śladu (0–100%). Istniejące drzewa liczą się do niego. Domyślnie: 26.
+DivineHands/opt/ForestVariance/label=Wariancja
+DivineHands/opt/ForestVariance/tip=Losowe przesunięcie xz (w metrach) każdego posadzonego drzewa, by nie tworzyły siatki. Domyślnie: 1,1.
+DivineHands/opt/ForestSetFertility/label=Ustaw też żyzność
+DivineHands/opt/ForestSetFertility/tip=Zapisuje żyzność UPRAWY/gleby pod pędzlem (jak Pangu). NIE przyspiesza sadzonych drzew (ich wzrost zależy od systemu biomu/technologii, nie gleby) — jedynie przygotowuje grunt pod uprawy/sady uprawiane tam później. Wyłączone = sadzi tylko drzewa. Domyślnie: wył.
+DivineHands/opt/ForestFertility/label=Żyzność %
+DivineHands/opt/ForestFertility/tip=Żyzność gleby ustawiana, gdy „Ustaw też żyzność” jest włączone (0–100%). Domyślnie: 50.
+DivineHands/opt/ForestFertilityMult/label=Skuteczność nawozu %
+DivineHands/opt/ForestFertilityMult/tip=Skuteczność nawozu na komórkę ustawiana razem z żyznością (0–100%). Domyślnie: 100.
+DivineHands/opt/ForestArmHotkey/label=Skrót uzbrojenia lasu
+DivineHands/opt/ForestArmHotkey/tip=Klawisz/kombinacja uzbrajająca (ponowne naciśnięcie rozbraja) pędzel lasu — lub użyj zakładki Las. Domyślnie: Shift+Insert.
+DivineHands/opt/ForestApplyKey/label=Klawisz zastosowania lasu
+DivineHands/opt/ForestApplyKey/tip=Klawisz/przycisk sadzący las pod kursorem. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse1.
+DivineHands/cat/Mountain Brush=Pędzel gór
+DivineHands/opt/MountainEnable/label=Pędzel gór
+DivineHands/opt/MountainEnable/tip=Dodaje zakładkę Góry do panelu w grze. Podnosi skalisty teren (kopuła + poszarpany szum), przemalowuje grunt na skałę, ustawia biom górski, a — gdy suwaki ilości są powyżej 0 — rozrzuca złoża kamienia/rudy oraz górską zwierzynę. Zmiany terenu są trwałe (bez cofania). Domyślnie: WYŁ.
+DivineHands/opt/MountainShape/label=Kształt
+DivineHands/opt/MountainShape/tip=0 = Prostokąt, 1 = Koło.
+DivineHands/opt/MountainGridWidth/label=Szerokość (komórki)
+DivineHands/opt/MountainGridWidth/tip=Połowa szerokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/MountainGridHeight/label=Głębokość (komórki)
+DivineHands/opt/MountainGridHeight/tip=Połowa głębokości pędzla w komórkach (1–10). Strzałki zmieniają rozmiar, gdy uzbrojony.
+DivineHands/opt/MountainHeight/label=Wysokość
+DivineHands/opt/MountainHeight/tip=Metry wzniesienia na 100 m zasięgu pędzla. Domyślnie: 20.
+DivineHands/opt/MountainMaxHeight/label=Maks. wysokość
+DivineHands/opt/MountainMaxHeight/tip=Twardy limit całkowitego wzniesienia, w metrach. Domyślnie: 60.
+DivineHands/opt/MountainEdgeSoftness/label=Miękkość krawędzi
+DivineHands/opt/MountainEdgeSoftness/tip=Jak stopniowo góra przechodzi w otaczający teren (0 = klif, 1 = szeroka spódnica). Domyślnie: 0,72.
+DivineHands/opt/MountainRuggedness/label=Poszarpanie
+DivineHands/opt/MountainRuggedness/tip=Postrzępienie szczytów (0 = gładka kopuła, 100 = poszarpane). Domyślnie: 55.
+DivineHands/opt/MountainTexture/label=Tekstura skalna %
+DivineHands/opt/MountainTexture/tip=Jak mocno grunt jest przemalowywany na skałę (0–100%). Domyślnie: 90.
+DivineHands/opt/MountainRockOre/label=Ilość kamienia/rudy %
+DivineHands/opt/MountainRockOre/tip=Gęstość rozrzuconych złóż kamienia + minerałów (0–100%). Domyślnie: 0.
+DivineHands/opt/MountainWildlife/label=Szansa na zwierzynę %
+DivineHands/opt/MountainWildlife/tip=Szansa na przywołanie zwierząt górskich (jeleń/dzik/wilk/niedźwiedź) (0–100%). Domyślnie: 0.
+DivineHands/opt/MountainArmHotkey/label=Skrót uzbrojenia gór
+DivineHands/opt/MountainArmHotkey/tip=Klawisz/kombinacja uzbrajająca (ponowne naciśnięcie rozbraja) pędzel gór — lub użyj zakładki Góry. Domyślnie: Ctrl+Insert.
+DivineHands/opt/MountainApplyKey/label=Klawisz zastosowania gór
+DivineHands/opt/MountainApplyKey/tip=Klawisz/przycisk podnoszący górę pod kursorem. Przyciski myszy: Mouse0 = lewy klik, Mouse1 = prawy klik, Mouse2 = środkowy klik. Domyślnie: Ctrl+Mouse1.
+DivineHands/cat/Delete Selected=Usuń zaznaczone
+DivineHands/opt/DeleteEnable/label=Usuń zaznaczone
+DivineHands/opt/DeleteEnable/tip=Dodaje sekcję Usuń zaznaczone do panelu w grze i włącza skrót usuwania. Zaznacz kopalnię / kamieniołom / dół gliny-piasku / głęboką kopalnię / dowolny budynek — lub węzeł surowca (ruda, dół gliny/piasku/kamienia, drzewo, kamień, roślina do zbierania) — i usuń go natychmiast. Wszystko inne (mieszkańcy, zwierzęta, pola) to bezpieczny brak działania. Usunięcie węzła rudy jest TRWAŁĄ zmianą świata. Domyślnie: WYŁ.
+DivineHands/opt/DeleteHotkey/label=Skrót usuwania
+DivineHands/opt/DeleteHotkey/tip=Klawisz/kombinacja usuwająca bieżące zaznaczenie. Świadoma kombinacja jest bezpieczniejsza niż pojedynczy klawisz. Domyślnie: Ctrl+Delete.
+DivineHands/opt/DeleteRefund/label=Zwrot przy usuwaniu
+DivineHands/opt/DeleteRefund/tip=Zwraca materiały budowlane budynku przy usuwaniu (upuszcza też przechowywane przedmioty na ziemię). Wyłączone = czyste zniknięcie, bez sterty zwrotu. Domyślnie: WYŁ.
+DivineHands/cat/Kill Selected=Zabij zaznaczone
+DivineHands/opt/KillEnable/label=Zabij zaznaczone
+DivineHands/opt/KillEnable/tip=Dodaje sekcję Zabij zaznaczone do panelu w grze i włącza skrót zabijania. Zaznacz mieszkańca, najeźdźcę lub dowolne zwierzę (dzikie / hodowlane / zwierzę domowe) — jedno lub grupę — i zabij je natychmiast przez własną ścieżkę śmierci gry (poprawne usunięcie + zdarzenia śmierci). Budynki/węzły nigdy nie są dotykane (użyj Usuń zaznaczone). Głównie pomoc testowa, ale to boski mod. Domyślnie: WYŁ.
+DivineHands/opt/KillHotkey/label=Skrót zabijania
+DivineHands/opt/KillHotkey/tip=Klawisz/kombinacja zabijająca bieżące stworzenie. Świadoma kombinacja jest bezpieczniejsza niż pojedynczy klawisz. Domyślnie: Ctrl+D.
+DivineHands/cat/Selected Building=Wybrany budynek
+DivineHands/opt/InjectEnable/label=Wstrzykiwanie przedmiotów
+DivineHands/opt/InjectEnable/tip=Włącza wstrzykiwanie przedmiotów do WYBRANEGO budynku. Zaznacz budynek w grze, a następnie użyj sekcji Wybrany budynek w panelu, by dodać przedmioty, dodać inwentarz lub przełączyć nieskończony magazyn. Nieskończony magazyn działa TYLKO W SESJI — jest automatycznie usuwany przed każdym zapisem (ręcznym, autozapisem i wyjściem), więc nigdy nie trafia do pliku .sav. Domyślnie: WYŁ.
+DivineHands/opt/InjectItemIndex/label=Przedmiot do dodania
+DivineHands/opt/InjectItemIndex/tip=Który przedmiot wstrzykuje przycisk Dodaj przedmioty do magazynu wybranego budynku (indeks na liście przedmiotów panelu). Wybierz przedmiot w panelu.
+DivineHands/opt/InjectUnrestricted/label=Nieograniczone wstrzykiwanie
+DivineHands/opt/InjectUnrestricted/tip=Omija inteligentny filtr per-budynek — KAŻDY przedmiot staje się możliwy do wstrzyknięcia do dowolnego wybranego budynku z magazynem. Wyłączone = domyślny filtr: budynki magazynowe biorą swoją listę dozwolonych, producenci swoje surowce do receptur, zbieracze swoje towary handlowe, schronienia drewno opałowe+jedzenie, a każdy budynek dopełnia to, co już posiada. Domyślnie: WYŁ.
+DivineHands/opt/InjectItemCount/label=Liczba przedmiotów
+DivineHands/opt/InjectItemCount/tip=Ile wybranego przedmiotu dodać na kliknięcie (1–9999). Domyślnie: 100.
+DivineHands/opt/InjectLivestockKind/label=Inwentarz do dodania
+DivineHands/opt/InjectLivestockKind/tip=0 = Krowa (Obora), 1 = Kura (Kurnik), 2 = Koza (Zagroda dla kóz), 3 = Koń (Stajnia). Wybrany budynek musi pasować do zwierzęcia. Domyślnie: Krowa.
+DivineHands/opt/LivestockGuidCow/label=GUID prefabu krowy
+DivineHands/opt/LivestockGuidCow/tip=GUID prefabu tworzony przy dodawaniu krowy do obory. Edytowalny na wypadek, gdyby DLC lub aktualizacja gry go zmieniły. Nieznane GUID-y są bezpiecznie pomijane.
+DivineHands/opt/LivestockGuidChicken/label=GUID prefabu kury
+DivineHands/opt/LivestockGuidChicken/tip=GUID prefabu tworzony przy dodawaniu kury do kurnika.
+DivineHands/opt/LivestockGuidGoat/label=GUID prefabu kozy
+DivineHands/opt/LivestockGuidGoat/tip=GUID prefabu tworzony przy dodawaniu kozy do zagrody dla kóz.
+DivineHands/opt/LivestockGuidHorse/label=GUID prefabu konia
+DivineHands/opt/LivestockGuidHorse/tip=GUID prefabu tworzony przy dodawaniu konia do stajni.
+DivineHands/cat/Other settings=Pozostałe ustawienia
+DivineHands/opt/PersistOwnerFolder/label=PersistOwnerFolder
+
+# ── Essential Provisions ──
+EssentialProvisions/meta/name=Essential Provisions
+EssentialProvisions/meta/desc=Wyselekcjonowany zestaw opcjonalnych udogodnień. Nakładki informacyjne, alerty, pomoce tempa gry. Każda funkcja domyślnie WYŁĄCZONA. Połączone z uznaniem dla oryginalnych twórców społecznościowych — pełna tabela pochodzenia w README.
+EssentialProvisions/cat/Misc=Różne
+EssentialProvisions/opt/EnableFastForward/label=Przyspieszenie
+EssentialProvisions/opt/EnableFastForward/tip=Odblokowuje prędkości gry powyżej bazowego limitu 3x. Dostępne stają się prędkości do 50x. Powyżej 20x AI myśliwych i walki może zacząć się źle zachowywać — ostrzeżenie zapisywane w logu. Przełącznik działa natychmiast.
+EssentialProvisions/opt/EnableServiceBounds/label=Zasięgi usług
+EssentialProvisions/opt/EnableServiceBounds/tip=Kliknij dowolny postawiony budynek, by zobaczyć jego promień oddziaływania — woda, atrakcyjność, zasięg rynku, zasięg szkoły, obszar pracy. Ten sam okrąg, który FF pokazuje podczas stawiania.
+EssentialProvisions/opt/EnableClearcutting/label=Wyrąb
+EssentialProvisions/opt/EnableClearcutting/tip=Automatycznie oznacza surowce do zebrania w promieniu wokół Ratusza. Pomija strefy zagrożenia wokół najeźdźców, wilków i niedźwiedzi.
+EssentialProvisions/opt/ClearcuttingTrees/label=    Drzewa
+EssentialProvisions/opt/ClearcuttingTrees/tip=Uwzględnij drzewa w automatycznym oznaczaniu.
+EssentialProvisions/opt/ClearcuttingStones/label=    Kamienie
+EssentialProvisions/opt/ClearcuttingStones/tip=Uwzględnij kamienie w automatycznym oznaczaniu.
+EssentialProvisions/opt/ClearcuttingForageables/label=    Rośliny do zbierania
+EssentialProvisions/opt/ClearcuttingForageables/tip=Uwzględnij rośliny do zbierania (krzewy jagodowe, zioła, grzyby) w automatycznym oznaczaniu.
+EssentialProvisions/opt/ClearcuttingRadius/label=    Promień wyrębu
+EssentialProvisions/opt/ClearcuttingRadius/tip=Odległość od Ratusza, w której odbywa się automatyczne oznaczanie.
+EssentialProvisions/opt/ClearcuttingRescan/label=    Skanuj ponownie teraz
+EssentialProvisions/opt/ClearcuttingRescan/tip=Wywołuje natychmiastowe ponowne skanowanie. Automatycznie wraca do WYŁ. po uruchomieniu.
+EssentialProvisions/cat/Villager Improvements=Ulepszenia mieszkańców
+EssentialProvisions/opt/EnableShortWalks/label=Krótkie spacery
+EssentialProvisions/opt/EnableShortWalks/tip=Raz w miesiącu optymalizuje przydział domów mieszkańców, by mieszkali bliżej miejsca pracy. Żołnierze, strażnicy i zawody mieszkające w miejscu pracy są pomijane.
+EssentialProvisions/opt/EnableLongTravels/label=Długie podróże
+EssentialProvisions/opt/EnableLongTravels/tip=Oznacza budynki produkcyjne, których pracownicy spędzają za dużo czasu w podróży zamiast produkować.
+EssentialProvisions/opt/LongTravelsThreshold/label=    Próg długich podróży (%)
+EssentialProvisions/opt/LongTravelsThreshold/tip=Wywołuje alert, gdy czas podróży przekracza ten ułamek całkowitego czasu pracy.
+EssentialProvisions/opt/EnableSelfPreservation/label=Samozachowawczość
+EssentialProvisions/opt/EnableSelfPreservation/tip=Mieszkańcy uciekają przed pobliskimi najeźdźcami bez czekania na rozpoczęcie walki. Myśliwi zachowują bazowe zachowanie krótkiego zasięgu. Najeźdźcy broniący obozu są ignorowani.
+EssentialProvisions/opt/SelfPreservationRadius/label=    Promień wykrywania
+EssentialProvisions/opt/SelfPreservationRadius/tip=Kratki, w obrębie których agresywny najeźdźca wywołuje odwrót.
+EssentialProvisions/opt/EnableLaborShortage/label=Niedobór siły roboczej
+EssentialProvisions/opt/EnableLaborShortage/tip=Pokazuje odznakę alertu na górnym pasku, gdy liczba robotników i budowniczych spada poniżej zalecanej.
+EssentialProvisions/opt/EnableEfficientLabor/label=Wydajna praca
+EssentialProvisions/opt/EnableEfficientLabor/tip=Bezczynni mieszkańcy w rolach rzemieślniczych i terenowych pomagają jako robotnicy, gdy ich własna praca nie ma nic do roboty. Ich właściwa praca pozostaje priorytetem — wracają do niej natychmiast, gdy pojawi się prawdziwa robota.
+EssentialProvisions/opt/EfficientLaborPollDays/label=    Skanuj ponownie co N dni
+EssentialProvisions/opt/EfficientLaborPollDays/tip=Jak często (w dniach gry) skanować bezczynnych mieszkańców do wypożyczenia i zwalniać tych, którzy znaleźli pracę. Status bezczynności ledwo zmienia się dzień do dnia, więc 5 w zupełności wystarcza; niższa wartość = szybsza reakcja, wyższa = lżej na dużych mapach.
+EssentialProvisions/opt/EnablePennyPincher/label=Skąpiec
+EssentialProvisions/opt/EnablePennyPincher/tip=Automatycznie wyłącza szczurołapów, gdy brak inwazji, oraz wieże strażnicze, gdy brak najazdów. Automatycznie włącza ponownie, gdy zagrożenia się pojawią. Nie dotyka budynku, który masz aktualnie zaznaczony.
+EssentialProvisions/opt/PennyPincherGuardTowers/label=    Wyłączaj wieże strażnicze
+EssentialProvisions/opt/PennyPincherGuardTowers/tip=Wyłącza też wieże strażnicze w czasie pokoju (ponownie obsadzane, gdy zbliżają się najazdy). Wyłącz, by zachować pełną kontrolę nad wieżami strażniczymi przy nadal automatycznym zarządzaniu szczurołapami — wyłączenie natychmiast ponownie obsadza wszystkie wyłączone wieże. Aby wyłączyć z tego pojedyncze wieże, zaznacz wieżę i naciśnij Ctrl+P (przełącza; zapisywane w save'ie).
+EssentialProvisions/opt/EnableIdleHands/label=Bezczynne ręce
+EssentialProvisions/opt/EnableIdleHands/tip=Oznacza budynki produkcyjne, których pracownicy spędzają za dużo czasu bezczynnie.
+EssentialProvisions/opt/IdleHandsThreshold/label=    Próg bezczynności (%)
+EssentialProvisions/opt/IdleHandsThreshold/tip=Wywołuje alert, gdy czas bezczynności przekracza ten ułamek całkowitego czasu pracy.
+EssentialProvisions/opt/EnableLearnedHands/label=Wyuczone ręce
+EssentialProvisions/opt/EnableLearnedHands/tip=Wykształceni mieszkańcy pracują szybciej — zbieractwo, praca na polu ORAZ rzemiosło. +10% za każdy poziom edukacji. Zamyka lukę bazowej gry opisaną w oficjalnym przewodniku, ale nigdy niezaimplementowaną. Kumuluje się z Mistrzostwem stanowiska pracy. Wł./wył. — bez suwaka.
+EssentialProvisions/opt/EnableWorkplaceMastery/label=Mistrzostwo stanowiska pracy
+EssentialProvisions/opt/EnableWorkplaceMastery/tip=Mieszkańcy pracują szybciej im dłużej wykonują tę samą pracę — zbieractwo, praca na polu ORAZ rzemiosło. +1%/rok stażu, maksymalnie +25% (25 lat). Kumuluje się z Wyuczonymi rękami. Staż jest per zawód, zapisywany w save'ie; obecni mieszkańcy zaczynają od zera. Dodaje wskaźnik Mistrzostwa do panelu mieszkańca. Wł./wył. — bez suwaka.
+EssentialProvisions/opt/EnableRabiesTreatable/label=Wścieklizna: uleczalna (mała szansa)
+EssentialProvisions/opt/EnableRabiesTreatable/tip=Zamienia gwarantowanie śmiertelną w grze bazowej wściekliznę w niewielką, zależną od uzdrowiciela szansę. Chory mieszkaniec pada na łóżko chorych i jest leczony — ok. 9% w Domu uzdrowiciela, do ok. 18% w dobrze zaopatrzonym Szpitalu. Koszt: przestaje pracować i zajmuje łóżko chorych podczas choroby, umiera w domu, jeśli nie ma dostępnego łóżka uzdrowiciela. Świadoma zmiana balansu. Domyślnie WYŁ.
+EssentialProvisions/cat/Inventory Management=Zarządzanie magazynem
+EssentialProvisions/opt/EnableBroadShelves/label=Szerokie półki
+EssentialProvisions/opt/EnableBroadShelves/tip=Zagrody magazynowe przyjmują żelazo. Spichlerze przyjmują siano i len. Spichlerz jest zmieniony na „Silos” we wszystkich miejscach interfejsu. Wymaga ponownego wczytania save'a, by zadziałało na istniejących budynkach magazynowych.
+EssentialProvisions/opt/EnableSurplusSelling/label=Sprzedaż nadwyżek
+EssentialProvisions/opt/EnableSurplusSelling/tip=Automatycznie przenosi nadmiar zapasów do placówki handlowej na podstawie obserwowanego dziennego zużycia razy miesiące. Domyślnie tylko dobra niebędące żywnością — żywność ma osobny przełącznik z zabezpieczeniami różnorodności diety. Wymaga włączonej też Kontroli surowców zużywalnych: to ona zbiera dane dziennego tempa, których używa Sprzedaż nadwyżek do ustalania wielkości dostaw.
+EssentialProvisions/opt/SurplusSellingMonths/label=    Miesiące zapasu w mieście (poza żywnością)
+EssentialProvisions/opt/SurplusSellingMonths/tip=Miesiące zapasu utrzymywane w mieście dla każdego śledzonego przedmiotu niebędącego żywnością. Nadwyżka trafia do placówki handlowej.
+EssentialProvisions/opt/EnableSurplusSellingFood/label=    Uwzględnij żywność
+EssentialProvisions/opt/EnableSurplusSellingFood/tip=Automatycznie wysyła też nadwyżkę żywności. Zabezpieczenia: całkowita żywność musi przekraczać łączny próg oraz każdy rodzaj żywności pozostaje na poziomie co najmniej 1 miesiąca własnego zużycia.
+EssentialProvisions/opt/SurplusSellingFoodMonths/label=    Miesiące zapasu w mieście (żywność)
+EssentialProvisions/opt/SurplusSellingFoodMonths/tip=Miesiące zapasu żywności utrzymywane w mieście. Domyślne 10 odpowiada progowi imigracji w FF.
+EssentialProvisions/opt/SurplusSellingPollDays/label=    Przeliczaj co N dni
+EssentialProvisions/opt/SurplusSellingPollDays/tip=Jak często (w dniach gry) przeliczać cele zapasów placówki handlowej. 30-dniowa średnia krocząca ledwo zmienia się dzień do dnia, więc codzienne przeliczanie jest marnotrawne; 5 w zupełności wystarcza. Niższa wartość = szybsza reakcja, wyższa = lżej na dużych mapach.
+EssentialProvisions/opt/EnableConsumableControl/label=Kontrola surowców zużywalnych
+EssentialProvisions/opt/EnableConsumableControl/tip=Automatycznie konfiguruje minimalne zapasy placówki handlowej na podstawie obserwowanego dziennego zużycia razy miesiące. Pracownicy placówki handlowej nie pobiorą przedmiotu z magazynu do zaopatrzenia placówki, dopóki zapas miasta nie przekroczy rezerwy. (Przedmioty już w placówce handlowej są niedostępne dla mieszkańców niezależnie od tego.) Automatycznie skaluje się z populacją.
+EssentialProvisions/opt/ConsumableReserveMonths/label=    Miesiące rezerwy
+EssentialProvisions/opt/ConsumableReserveMonths/tip=Miesiące zapasu, które muszą znajdować się w magazynie miasta, zanim pracownicy zaczną pobierać przedmiot do zaopatrzenia placówki handlowej.
+EssentialProvisions/opt/ConsumableHeadroomPercent/label=    Margines wzrostu (%)
+EssentialProvisions/opt/ConsumableHeadroomPercent/tip=Zapas doliczany do celu opartego na tempie, przewidujący wzrost populacji (narodziny, imigracja). Wspólny dla Kontroli surowców zużywalnych i Sprzedaży nadwyżek.
+EssentialProvisions/opt/EnableProjectPrep/label=Przygotowanie projektu
+EssentialProvisions/opt/EnableProjectPrep/tip=Rezerwuje materiały budowlane przed zużyciem przez budynki produkcyjne. Poniższe suwaki ustalają minima dla poszczególnych materiałów. Budowa nadal ma dostęp do rezerwy; produkcja nie. 0 = brak rezerwy.
+EssentialProvisions/opt/ProjectPrepLogs/label=    Rezerwa drewna
+EssentialProvisions/opt/ProjectPrepLogs/tip=Minimalna ilość drewna utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepPlanks/label=    Rezerwa desek
+EssentialProvisions/opt/ProjectPrepPlanks/tip=Minimalna ilość desek utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepStone/label=    Rezerwa kamienia
+EssentialProvisions/opt/ProjectPrepStone/tip=Minimalna ilość kamienia utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepClay/label=    Rezerwa gliny
+EssentialProvisions/opt/ProjectPrepClay/tip=Minimalna ilość gliny utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepSand/label=    Rezerwa piasku
+EssentialProvisions/opt/ProjectPrepSand/tip=Minimalna ilość piasku utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepIron/label=    Rezerwa żelaza
+EssentialProvisions/opt/ProjectPrepIron/tip=Minimalna ilość żelaza utrzymywana na potrzeby budowy.
+EssentialProvisions/opt/ProjectPrepCoal/label=    Rezerwa węgla
+EssentialProvisions/opt/ProjectPrepCoal/tip=Minimalna ilość węgla utrzymywana na potrzeby budowy.
+EssentialProvisions/cat/Agriculture Alerts=Alerty rolnicze
+EssentialProvisions/opt/EnableSoilWisdom/label=Mądrość gleby
+EssentialProvisions/opt/EnableSoilWisdom/tip=Podświetla ryzykowne następstwa upraw w oknie informacji o polu — konflikty chorobowe i sezonowe ryzyko mrozu/upału.
+EssentialProvisions/opt/EnableBlightWatch/label=Strażnik zarazy
+EssentialProvisions/opt/EnableBlightWatch/tip=Przypina chore pola upraw na mapie, dopóki choroba nie zostanie zwalczona.
+EssentialProvisions/opt/EnableHarvestWatch/label=Strażnik zbiorów
+EssentialProvisions/opt/EnableHarvestWatch/tip=Raport roczny o tym, ile drzew owocowych w każdym sadzie pozostało niezebranych i zgniło, z trendem i liczbą pracowników budynku — sygnał, by dodać pracowników lub zmniejszyć obszar pracy. Zasila też panel Sadownika bieżącym licznikiem niezebranych drzew.
+EssentialProvisions/opt/HarvestWatchMinFruit/label=    Min. owoców do oznaczenia
+EssentialProvisions/opt/HarvestWatchMinFruit/tip=Minimalna liczba niezebranych owoców na drzewie, zanim zostanie ono policzone jako zaniedbane (roczne podsumowanie + bieżący licznik).
+EssentialProvisions/cat/Planting Almanac=Kalendarz siewu
+EssentialProvisions/opt/EnablePlantingAlmanac/label=Kalendarz siewu
+EssentialProvisions/opt/EnablePlantingAlmanac/tip=Dodaje gotowe schematy płodozmianu w jednym kliknięciu do okna pola uprawy. Zawiera wyselekcjonowane, bezpieczne pod względem chorób rotacje; zastosowanie jednej zastępuje cały harmonogram pola przez własny planer gry. Efekt widoczny przy następnym otwarciu okna pola uprawy.
+EssentialProvisions/cat/Other settings=Pozostałe ustawienia
+EssentialProvisions/opt/PennyPincherExemptKey/label=    Skrót wyjątku wieży (Ctrl + ten klawisz)
+EssentialProvisions/opt/PennyPincherExemptKey/tip=Z zaznaczoną wieżą strażniczą przytrzymaj Ctrl i naciśnij ten klawisz, by przełączyć wyjątek tej wieży od Skąpca. Wyjęte wieże nigdy nie są automatycznie wyłączane ani ponownie obsadzane — pozostają w pełni pod Twoją kontrolą. Wyjątki zapisywane są per save. Dowolna nazwa Unity KeyCode jest prawidłowa (np. P, F9, Slash); nieprawidłowe wartości wracają do P.
+EssentialProvisions/opt/EfficientLaborOccupations/label=Wydajna praca: Dozwolone zawody
+EssentialProvisions/opt/EfficientLaborOccupations/tip=Lista nazw enum zawodów FF oddzielona przecinkami. Mieszkańcy w tych zawodach będą kierowani do pracy robotniczej, gdy naprawdę są bezczynni. Edytuj to pole cfg bezpośrednio, by dodać/usunąć zawody — nie ujawnione w panelu KC, by go nie zaśmiecać. Wymaga restartu gry, by zmiany zadziałały.
+EssentialProvisions/opt/EfficientLaborVerbose/label=Wydajna praca: Szczegółowe logowanie
+EssentialProvisions/opt/EfficientLaborVerbose/tip=Gdy prawda, loguje każdego mieszkańca (zawód) w momencie rejestracji do / usunięcia z puli robotników. Domyślnie fałsz loguje tylko jedną linię podsumowania dziennie, i tylko w dniach, gdy coś się zmieniło. Tylko cfg; nie ujawnione w panelu KC.
+EssentialProvisions/opt/InventoryDiagnostics/label=Funkcje magazynowe: Logowanie diagnostyczne
+EssentialProvisions/opt/InventoryDiagnostics/tip=Gdy prawda, Kontrola surowców zużywalnych i Sprzedaż nadwyżek logują szczegóły każdego przedmiotu codziennie — obserwowane dzienne tempo, obliczony cel zapasu w mieście / rezerwy, bieżący zapas miasta (podział magazyn vs placówka handlowa) oraz co i gdzie zostało zapisane. Tylko cfg; nie ujawnione w panelu KC. Użyj, by zweryfikować działanie funkcji, potem wyłącz ponownie.
+EssentialProvisions/opt/LearnedHandsVerbose/label=Wyuczone ręce: Szczegółowe logowanie
+EssentialProvisions/opt/LearnedHandsVerbose/tip=Gdy prawda, loguje jedną linię na unikalnego mieszkańca przy pierwszym zastosowaniu jego bonusu. Tylko cfg; nie ujawnione w panelu KC. Domyślnie pojedyncza linia „pierwsze zastosowanie” pojawia się zawsze, byś mógł potwierdzić, że łatka działa, bez zaśmiecania logu.
+EssentialProvisions/opt/DiseaseRosterDump/label=Zrzut listy chorób (diagnostyczne)
+EssentialProvisions/opt/DiseaseRosterDump/tip=Gdy prawda, przy pierwszym wczytaniu mapy EP loguje do Latest.log klasyfikację leczenia, najlepszy szacowany procent wyzdrowienia i surowe dane leczenia (cureFactors, finalCureChance, curve, effMin/Max) każdej choroby — używane do weryfikacji wyliczeń DiseaseInfoApi względem listy chorób. Tylko cfg; nie ujawnione w panelu KC. Zostaw WYŁ. przy normalnej grze.
+EssentialProvisions/opt/ConsumableTrackedItems/label=Kontrola surowców zużywalnych: Śledzone przedmioty
+EssentialProvisions/opt/ConsumableTrackedItems/tip=Lista nazw ItemID oddzielona przecinkami, którymi zarządza Kontrola surowców zużywalnych. Edytuj pole cfg bezpośrednio, by dodać/usunąć przedmioty — nie ujawnione w panelu KC. Wymaga restartu, by zmiany zadziałały.
+
+# ── Manifest Delivery ──
+ManifestDelivery/meta/name=Manifest Delivery
+ManifestDelivery/meta/desc=Przebudowa Wozowni: tryby Obóz/Węzeł, AI transportu powrotnego, wzmocnienia Wozu magazynowego
+ManifestDelivery/cat/Master=Główne
+ManifestDelivery/opt/ModEnabled/label=Mod włączony
+ManifestDelivery/opt/ModEnabled/tip=Wyłącz, by wrócić do bazowego zachowania Wozowni
+ManifestDelivery/cat/Wagon Caps=Limity wozów
+ManifestDelivery/opt/MaxWagonsStandard/label=Maks. wozów — Standardowy
+ManifestDelivery/opt/MaxWagonsStandard/tip=Maks. liczba wozów, jaką może wyprodukować standardowa Wozownia (1–4).
+ManifestDelivery/opt/MaxWagonsCamp/label=Maks. wozów — Obóz
+ManifestDelivery/opt/MaxWagonsCamp/tip=Zalecane 2: jeden wywozi produkcję, drugi przywozi zaopatrzenie
+ManifestDelivery/opt/MaxWagonsHub/label=Maks. wozów — Węzeł
+ManifestDelivery/opt/MaxWagonsHub/tip=Wozownie typu Węzeł obsługują całą osadę
+ManifestDelivery/cat/Backhaul AI=AI transportu powrotnego
+ManifestDelivery/opt/ReturnTripEnabled/label=Odbiór w drodze powrotnej
+ManifestDelivery/opt/ReturnTripEnabled/tip=Wozy szukają pobliskich zleceń logistycznych przy rozładunku, zanim wrócą puste
+ManifestDelivery/opt/ReturnTripRadiusStandard/label=Promień poszukiwań w drodze powrotnej
+ManifestDelivery/opt/ReturnTripRadiusStandard/tip=Promień poszukiwań w jednostkach świata dla Wozowni w trybie Standardowym.
+ManifestDelivery/opt/PreferWorkshopInput/label=Preferuj warsztaty przy transporcie powrotnym
+ManifestDelivery/opt/PreferWorkshopInput/tip=Preferuj zaopatrywanie budynków produkcyjnych (Piekarnia, Kuźnia, Garbarnia itd.) zamiast przekładania zapasów w magazynach
+ManifestDelivery/cat/Camp & Hub=Obóz i Węzeł
+ManifestDelivery/opt/CampHaulEnabled/label=Proaktywny transport obozowy
+ManifestDelivery/opt/CampHaulEnabled/tip=Wozy obozowe proaktywnie transportują z pobliskiej produkcji do magazynu węzła
+ManifestDelivery/opt/HubHaulEnabled/label=Proaktywna dystrybucja węzłowa
+ManifestDelivery/opt/HubHaulEnabled/tip=Wozy węzłowe proaktywnie obsługują każde zlecenie w promieniu (rynki, schronienia, producentów, magazyny)
+ManifestDelivery/opt/HubMultiSourcePickup/label=Odbiór z wielu źródeł w węźle (eksperymentalne)
+ManifestDelivery/opt/HubMultiSourcePickup/tip=Wozy węzłowe przyjmują tylko zlecenia Dostarcz/uzupełnij (konkretne zlecenie, nie cały budynek), więc jeden wóz zbiera z kilku magazynów źródłowych aż do pełnej pojemności zamiast jednego niemal pustego odbioru. Tylko tryb Węzeł. Domyślnie wyłączone — eksperymentalne.
+ManifestDelivery/opt/CampWorkRadius/label=Promień pracy obozu
+ManifestDelivery/opt/CampWorkRadius/tip=Domyślne 120j obejmuje typowy zdalny obóz
+ManifestDelivery/opt/HubWorkRadius/label=Promień pracy węzła
+ManifestDelivery/opt/HubWorkRadius/tip=Domyślne 200j obejmuje całe centrum miasta
+ManifestDelivery/cat/Storage Cart=Wóz magazynowy
+ManifestDelivery/opt/StorageCartCapacity/label=Pojemność
+ManifestDelivery/opt/StorageCartCapacity/tip=Bazowo 750
+ManifestDelivery/opt/StorageCartSpeedMult/label=Mnożnik prędkości przenoszenia
+ManifestDelivery/opt/StorageCartSpeedMult/tip=Jak szybko wóz „jedzie” sam do punktu zbiórki
+ManifestDelivery/cat/Hotkeys=Skróty klawiszowe
+ManifestDelivery/opt/ModeCycleKey/label=Przełącz tryb Wozowni
+ManifestDelivery/opt/ModeCycleKey/tip=Nazwa Unity KeyCode. Przełącza Standardowy / Obóz / Węzeł, gdy Wozownia jest zaznaczona.
+ManifestDelivery/cat/Diagnostics=Diagnostyka
+ManifestDelivery/opt/HaulDiagnostics/label=Diagnostyka transportu
+ManifestDelivery/opt/HaulDiagnostics/tip=Loguje pełny kształt każdego transportu wozem (przystanki odbioru/rozładunku, przedmioty, parametry ograniczania obsłużonych zleceń, pojemność) do logu MelonLoader. Narzędzie badawcze do strojenia odbioru wielotransportowego. Domyślnie wyłączone.
+ManifestDelivery/cat/Other settings=Pozostałe ustawienia
+ManifestDelivery/opt/VerboseLogging/label=Szczegółowe logowanie
+ManifestDelivery/opt/VerboseLogging/tip=Gdy prawda, loguje każde zdarzenie dostawy i skanowania (linie DELIVER / ReturnTrip / CampHaul / HubHaul CLAIM + EMPTY) do logu MelonLoader. Przydatne przy diagnozowaniu tras wozów, ale hałaśliwe na ruchliwej mapie. Ostrzeżenia i błędy zawsze są logowane niezależnie. Domyślnie fałsz.
+ManifestDelivery/opt/StatsEnabled/label=Statystyki transportu — Włączone
+ManifestDelivery/opt/StatsEnabled/tip=Gdy prawda, mod zapisuje każdą dostawę wozem do pliku statystyk per Wozownia (sumy całościowe + od początku roku, podział na przedmioty, podział surowe vs wyprodukowane). Naciśnij klawisz raportu (domyślnie Ctrl+Shift+M), by zrzucić sformatowany raport do logu MelonLoader.
+ManifestDelivery/opt/StatsReportKey/label=Statystyki transportu — Klawisz raportu
+ManifestDelivery/opt/StatsReportKey/tip=Naciśnij CTRL+SHIFT+<ten klawisz>, by zrzucić raport transportu per Wozownia do logu MelonLoader. Użyj nazwy Unity KeyCode (np. M, J, F8).
+
+# ── Rivers Restored ──
+RiversRestored/meta/name=Rivers Restored
+RiversRestored/meta/desc=Przywraca generowanie rzek na mapach FF i udostępnia strojenie gęstości/kształtu rzek oraz łowienia ryb
+RiversRestored/cat/Master=Główne
+RiversRestored/opt/RiversEnabled/label=Rzeki włączone
+RiversRestored/opt/RiversEnabled/tip=Główny przełącznik. Wyłączone = gra bazowa (bez rzek).
+RiversRestored/opt/RiverPreset/label=Preset rzeki (dopasowany do biomu mapy)
+RiversRestored/opt/RiverPreset/tip=Wstępnie dostrojony zestaw ustawień rzek dopasowany do nazw biomów FF. Ustawiony na cokolwiek poza Custom, wartości presetu nadpisują suwaki szczegółowe. Wybierz opcję pasującą do biomu mapy dla sensownych domyślnych wartości.
+RiversRestored/opt/GranularSettings/label=Pokaż ustawienia szczegółowe (Zaawansowane)
+RiversRestored/opt/GranularSettings/tip=Gdy WŁĄCZONE, poniżej pojawiają się kontrolki kształtu rzeki dla poszczególnych suwaków. Działają tylko, gdy Preset rzeki jest ustawiony na Custom.
+RiversRestored/opt/EnableRibbonAnimation/label=Animacja płynącej wody
+RiversRestored/opt/EnableRibbonAnimation/tip=Wł. = animowany przepływ wstęgi. Wył. = tylko statyczna powierzchnia wody (tańsze, styl jezior; oszczędza CPU/GPU na mapach z dużą liczbą rzek).
+RiversRestored/opt/RiverPreferLakeWaterType/label=Preferuj wodę jeziorną (niebieską) dla rzek
+RiversRestored/opt/RiverPreferLakeWaterType/tip=Wł. (domyślnie) = rzeki używają wody typu Jezioro (czysta niebieska). Wył. = rzeki używają dowolnego typu wody przypisanego przez mapę jako pierwszy (często Staw — zielona/mętna).
+RiversRestored/opt/PondUseLakeMaterial/label=Wymuś renderowanie wody stawów jako jeziora (niebieska)
+RiversRestored/opt/PondUseLakeMaterial/tip=WŁ. (domyślnie) = każdy staw na każdej mapie renderuje się niebieskim materiałem Jezioro zamiast zielonego Staw. Klasyfikacja stawu bez zmian, zmienia się tylko materiał. Naprawia też widoczność wody po zapisie/wczytaniu — osierocone WaterTypes wracają do (teraz niebieskiego) materiału Stawu.
+RiversRestored/opt/EnableMapPreviewRender/label=[Beta] Renderuj podglądy mapy do PNG
+RiversRestored/opt/EnableMapPreviewRender/tip=Po każdym generowaniu RR zapisuje podgląd z góry jako PNG w UserData/RiversRestored/Previews/. Przydatne do weryfikacji wyniku generowania RR bez wchodzenia do osady.
+RiversRestored/opt/ShowPreviewOverlay/label=[Beta] Pokaż nakładkę podglądu w grze
+RiversRestored/opt/ShowPreviewOverlay/tip=Wyświetla ostatnio wyrenderowany podgląd jako panel po prawej stronie ekranu podczas gry. F8 przełącza widoczność w grze. Wymaga włączonego Renderowania podglądów mapy.
+RiversRestored/cat/Flow Direction=Kierunek przepływu
+RiversRestored/opt/RiverFlowBias/label=Odchylenie kierunku przepływu rzeki
+RiversRestored/opt/RiverFlowBias/tip=Przechyla mapę wysokości przed generowaniem trasy rzeki, by rzeki statystycznie płynęły z wybranego wysokiego rogu/krawędzi do wybranego niskiego. Brak = czysto losowe z ziarna (zachowanie bazowe).
+RiversRestored/opt/RiverFlowBiasStrength/label=Siła odchylenia przepływu
+RiversRestored/opt/RiverFlowBiasStrength/tip=Jak mocno przechylić mapę wysokości. 0,3 = subtelnie, 0,4 = zrównoważona wartość domyślna, 0,5 = mocno, 0,7+ = wyraźnie przechylone. Nie ma efektu, gdy Odchylenie kierunku jest ustawione na Brak.
+RiversRestored/cat/Density=Gęstość
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/cat/Shape — Width / Depth=Kształt — Szerokość / Głębokość
+RiversRestored/opt/MinWidth/label=Min. szerokość (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MinDepth/label=Min. głębokość (m)
+RiversRestored/opt/MinDepth/tip=-1 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxDepth/label=Maks. głębokość (m)
+RiversRestored/opt/MaxDepth/tip=-1 = pozostaw jak w grze bazowej
+RiversRestored/cat/Carve Shape=Kształt wyrzeźbienia
+RiversRestored/opt/RiverInnerRadius/label=Promień wewnętrzny koryta (komórki)
+RiversRestored/opt/RiverInnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/RiverOuterRadius/label=Promień zewnętrzny brzegu (komórki)
+RiversRestored/opt/RiverOuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/RiverTrenchDepth/label=Głębokość koryta (m)
+RiversRestored/opt/RiverTrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/RiverSmoothPasses/label=Przebiegi wygładzania brzegu
+RiversRestored/opt/RiverSmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/RiverJitterAmplitude/label=Amplituda meandrowania (m)
+RiversRestored/opt/RiverJitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/RiverJitterFrequency/label=Częstotliwość meandrowania
+RiversRestored/opt/RiverJitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/cat/Water Plane / Fishing=Powierzchnia wody / Łowienie ryb
+RiversRestored/opt/RiverRegisterAsWaterArea/label=Zarejestruj jako obszar wodny
+RiversRestored/opt/RiverRegisterAsWaterArea/tip=Traktuje rzeki jako obszary wodne (styl jezior) — włącza łowienie ryb i stabilną trwałość
+RiversRestored/opt/RiverBlobRadius/label=Promień pieczątki dysku (komórki)
+RiversRestored/opt/RiverBlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/RiverBlobStride/label=Odstęp pieczątki dysku (komórki)
+RiversRestored/opt/RiverBlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy
+RiversRestored/opt/RiverFishingAreaMultiplier/label=Mnożnik obszaru łowienia
+RiversRestored/opt/RiverFishingAreaMultiplier/tip=1 = gęstość bazowa (rzadka), 4 = gęstość grywalna
+RiversRestored/cat/Generator Gating=Bramkowanie generatora
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/label=Oznacz wodę jako koniec rzeki
+RiversRestored/opt/MarkWaterTypesAsRiverEnd/tip=GŁÓWNA brama — bez tego żadna rzeka nigdy się nie zwaliduje niezależnie od liczby
+RiversRestored/opt/ForceCoastlineTerrain/label=Wymuś teren wybrzeża
+RiversRestored/opt/ForceCoastlineTerrain/tip=Diagnostyka: wymusza biom Wybrzeże (daje ocean jako gwarantowany punkt końcowy rzeki)
+RiversRestored/cat/Diagnostics=Diagnostyka
+RiversRestored/opt/VerboseDiagnostics/label=Szczegółowa diagnostyka
+RiversRestored/opt/VerboseDiagnostics/tip=Stan per WaterArea przy zapisie, liczby waterAreas per etap podczas generowania. Hałaśliwe w normalnej grze.
+
+RiversRestored/cat/Preset · IdyllicValley=Preset · Sielska Dolina
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/opt/MinWidth/label=Min. szerokość wstęgi (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość wstęgi (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/InnerRadius/label=Szerokość koryta (pełna głębokość, komórki)
+RiversRestored/opt/InnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/OuterRadius/label=Szerokość brzegu (zbocze do gruntu, komórki)
+RiversRestored/opt/OuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/BlobRadius/label=Widoczna szerokość wody (komórki)
+RiversRestored/opt/BlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/BlobStride/label=Gęstość powierzchni wody (zaawansowane)
+RiversRestored/opt/BlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy; 3 = domyślnie, wyżej = szybsze generowanie
+RiversRestored/opt/TrenchDepth/label=Głębokość rzeki (m poniżej wody)
+RiversRestored/opt/TrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/SmoothPasses/label=Gładkość brzegu
+RiversRestored/opt/SmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/JitterAmplitude/label=Siła meandrowania rzeki (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/JitterFrequency/label=Częstotliwość meandrowania rzeki
+RiversRestored/opt/JitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/opt/WaterMultiplier/label=Mnożnik ilości wody
+RiversRestored/opt/WaterMultiplier/tip=Skaluje wartość wody ziarna. 1,0 = jak w grze bazowej. <1 = suszej, mniejsze jeziora. >1 = wilgotniej. Wpływa na podgląd i rozgrywkę. Wartości domyślne: IdyllicValley 0,75, LowlandLakes 0,7, AlpineValleys 0,85, pozostałe 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Wzmocnienie wydajności łowienia w rzece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = jak w grze bazowej (rzadko), 4 = gęstość grywalna, 8+ = obficie
+RiversRestored/cat/Preset · LowlandLakes=Preset · Niziny Jeziorne
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/opt/MinWidth/label=Min. szerokość wstęgi (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość wstęgi (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/InnerRadius/label=Szerokość koryta (pełna głębokość, komórki)
+RiversRestored/opt/InnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/OuterRadius/label=Szerokość brzegu (zbocze do gruntu, komórki)
+RiversRestored/opt/OuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/BlobRadius/label=Widoczna szerokość wody (komórki)
+RiversRestored/opt/BlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/BlobStride/label=Gęstość powierzchni wody (zaawansowane)
+RiversRestored/opt/BlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy; 3 = domyślnie, wyżej = szybsze generowanie
+RiversRestored/opt/TrenchDepth/label=Głębokość rzeki (m poniżej wody)
+RiversRestored/opt/TrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/SmoothPasses/label=Gładkość brzegu
+RiversRestored/opt/SmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/JitterAmplitude/label=Siła meandrowania rzeki (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/JitterFrequency/label=Częstotliwość meandrowania rzeki
+RiversRestored/opt/JitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/opt/WaterMultiplier/label=Mnożnik ilości wody
+RiversRestored/opt/WaterMultiplier/tip=Skaluje wartość wody ziarna. 1,0 = jak w grze bazowej. <1 = suszej, mniejsze jeziora. >1 = wilgotniej. Wpływa na podgląd i rozgrywkę. Wartości domyślne: IdyllicValley 0,75, LowlandLakes 0,7, AlpineValleys 0,85, pozostałe 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Wzmocnienie wydajności łowienia w rzece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = jak w grze bazowej (rzadko), 4 = gęstość grywalna, 8+ = obficie
+RiversRestored/cat/Preset · AridHighlands=Preset · Suche Wyżyny
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/opt/MinWidth/label=Min. szerokość wstęgi (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość wstęgi (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/InnerRadius/label=Szerokość koryta (pełna głębokość, komórki)
+RiversRestored/opt/InnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/OuterRadius/label=Szerokość brzegu (zbocze do gruntu, komórki)
+RiversRestored/opt/OuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/BlobRadius/label=Widoczna szerokość wody (komórki)
+RiversRestored/opt/BlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/BlobStride/label=Gęstość powierzchni wody (zaawansowane)
+RiversRestored/opt/BlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy; 3 = domyślnie, wyżej = szybsze generowanie
+RiversRestored/opt/TrenchDepth/label=Głębokość rzeki (m poniżej wody)
+RiversRestored/opt/TrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/SmoothPasses/label=Gładkość brzegu
+RiversRestored/opt/SmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/JitterAmplitude/label=Siła meandrowania rzeki (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/JitterFrequency/label=Częstotliwość meandrowania rzeki
+RiversRestored/opt/JitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/opt/WaterMultiplier/label=Mnożnik ilości wody
+RiversRestored/opt/WaterMultiplier/tip=Skaluje wartość wody ziarna. 1,0 = jak w grze bazowej. <1 = suszej, mniejsze jeziora. >1 = wilgotniej. Wpływa na podgląd i rozgrywkę. Wartości domyślne: IdyllicValley 0,75, LowlandLakes 0,7, AlpineValleys 0,85, pozostałe 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Wzmocnienie wydajności łowienia w rzece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = jak w grze bazowej (rzadko), 4 = gęstość grywalna, 8+ = obficie
+RiversRestored/cat/Preset · Plains=Preset · Równiny
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/opt/MinWidth/label=Min. szerokość wstęgi (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość wstęgi (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/InnerRadius/label=Szerokość koryta (pełna głębokość, komórki)
+RiversRestored/opt/InnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/OuterRadius/label=Szerokość brzegu (zbocze do gruntu, komórki)
+RiversRestored/opt/OuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/BlobRadius/label=Widoczna szerokość wody (komórki)
+RiversRestored/opt/BlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/BlobStride/label=Gęstość powierzchni wody (zaawansowane)
+RiversRestored/opt/BlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy; 3 = domyślnie, wyżej = szybsze generowanie
+RiversRestored/opt/TrenchDepth/label=Głębokość rzeki (m poniżej wody)
+RiversRestored/opt/TrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/SmoothPasses/label=Gładkość brzegu
+RiversRestored/opt/SmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/JitterAmplitude/label=Siła meandrowania rzeki (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/JitterFrequency/label=Częstotliwość meandrowania rzeki
+RiversRestored/opt/JitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/opt/WaterMultiplier/label=Mnożnik ilości wody
+RiversRestored/opt/WaterMultiplier/tip=Skaluje wartość wody ziarna. 1,0 = jak w grze bazowej. <1 = suszej, mniejsze jeziora. >1 = wilgotniej. Wpływa na podgląd i rozgrywkę. Wartości domyślne: IdyllicValley 0,75, LowlandLakes 0,7, AlpineValleys 0,85, pozostałe 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Wzmocnienie wydajności łowienia w rzece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = jak w grze bazowej (rzadko), 4 = gęstość grywalna, 8+ = obficie
+RiversRestored/cat/Preset · AlpineValleys=Preset · Alpejskie Doliny
+RiversRestored/opt/NumRivers/label=Liczba rzek
+RiversRestored/opt/NumRivers/tip=Generator dąży do tej liczby; ostateczna liczba zależy od wykonalności ziarna
+RiversRestored/opt/MinPoints/label=Minimalna długość rzeki
+RiversRestored/opt/MinPoints/tip=Min. liczba punktów kontrolnych, by rzeka została zaakceptowana
+RiversRestored/opt/MinWidth/label=Min. szerokość wstęgi (komórki)
+RiversRestored/opt/MinWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/MaxWidth/label=Maks. szerokość wstęgi (komórki)
+RiversRestored/opt/MaxWidth/tip=0 = pozostaw jak w grze bazowej
+RiversRestored/opt/InnerRadius/label=Szerokość koryta (pełna głębokość, komórki)
+RiversRestored/opt/InnerRadius/tip=Komórki w tej odległości od osi centralnej są wyrzeźbiane na pełną głębokość koryta
+RiversRestored/opt/OuterRadius/label=Szerokość brzegu (zbocze do gruntu, komórki)
+RiversRestored/opt/OuterRadius/tip=Gdzie brzegi łagodnie przechodzą z powrotem w pierwotny teren
+RiversRestored/opt/BlobRadius/label=Widoczna szerokość wody (komórki)
+RiversRestored/opt/BlobRadius/tip=Promień stempla dyskowego do łączenia poligonów obszarów wodnych
+RiversRestored/opt/BlobStride/label=Gęstość powierzchni wody (zaawansowane)
+RiversRestored/opt/BlobStride/tip=Odstęp między stemplami dyskowymi wzdłuż trasy; 3 = domyślnie, wyżej = szybsze generowanie
+RiversRestored/opt/TrenchDepth/label=Głębokość rzeki (m poniżej wody)
+RiversRestored/opt/TrenchDepth/tip=Jak głęboko poniżej powierzchni wody wyrzeźbione jest koryto
+RiversRestored/opt/SmoothPasses/label=Gładkość brzegu
+RiversRestored/opt/SmoothPasses/tip=0 = surowe wyrzeźbienie, 4 = dobra wartość domyślna, 8 = bardzo łagodne
+RiversRestored/opt/JitterAmplitude/label=Siła meandrowania rzeki (m)
+RiversRestored/opt/JitterAmplitude/tip=0 = prosto, więcej = bardziej kręto
+RiversRestored/opt/JitterFrequency/label=Częstotliwość meandrowania rzeki
+RiversRestored/opt/JitterFrequency/tip=Oscylacje fali na segment Voronoia
+RiversRestored/opt/WaterMultiplier/label=Mnożnik ilości wody
+RiversRestored/opt/WaterMultiplier/tip=Skaluje wartość wody ziarna. 1,0 = jak w grze bazowej. <1 = suszej, mniejsze jeziora. >1 = wilgotniej. Wpływa na podgląd i rozgrywkę. Wartości domyślne: IdyllicValley 0,75, LowlandLakes 0,7, AlpineValleys 0,85, pozostałe 1,0.
+RiversRestored/opt/FishingAreaMultiplier/label=Wzmocnienie wydajności łowienia w rzece
+RiversRestored/opt/FishingAreaMultiplier/tip=1 = jak w grze bazowej (rzadko), 4 = gęstość grywalna, 8+ = obficie
+
+RiversRestored/cat/Other settings=Pozostałe ustawienia
+RiversRestored/opt/RiversDontBlockWildlife/label=Rzeki nie blokują pojawiania się zwierzyny
+RiversRestored/opt/RiversDontBlockWildlife/tip=Gdy WŁĄCZONE, jelenie i inna zwierzyna mogą pojawiać się po drugiej stronie rzeki zamiast być blokowane, bo obszar nie ma lądowej ścieżki do miasta. Naprawia „brak jeleni za rzeką” na nowych mapach; na istniejącym save'ie ponownie zarybia też odcięte regiony przy wczytaniu. Wpływa tylko na pojawianie się zwierzyny — polowanie myśliwych i poruszanie się mieszkańców bez zmian. WYŁ. = zachowanie bazowe (rzeki blokują zwierzynę po drugiej stronie).
+RiversRestored/opt/RiverFishPerCell/label=Ryby rzeki na komórkę wody
+RiversRestored/opt/RiverFishPerCell/tip=Ustala bazową pulę ryb rzeki na podstawie faktycznego rozmiaru rzeki (liczby wypełnionych komórek wody), zamiast krzywej obszaru FF, która się wypłaszcza — więc ogromna rzeka przecinająca mapę ma proporcjonalnie więcej ryb niż mały strumień, bez ręcznego strojenia. 1,0 = ~10-14 tys. ryb dla dużej rzeki przecinającej mapę (zalecane). Zwiększ dla bogatszych rzek, zmniejsz dla skromniejszych. 0 = wyłącz (użyj krzywej bazowej). Mnożnik Wzmocnienia wydajności łowienia nadal działa na to jako dodatek.
+RiversRestored/opt/ScaleLakeFish/label=Skaluj ryby jeziora/stawu też wg obszaru
+RiversRestored/opt/ScaleLakeFish/tip=Stosuje to samo skalowanie „ryb na komórkę wody” (powyżej) do jezior i stawów, nie tylko rzek — więc duże jezioro ma proporcjonalnie więcej ryb niż mały staw, zamiast krzywej FF ograniczającej duże zbiorniki wodne. Tylko wzmocnienie: zbiornik wodny nigdy nie ma mniej ryb niż w grze bazowej (mnożnik wydajności rzeki nie stosuje się do jezior). Domyślnie WŁ. Wyłącz, by zachować bazowe liczby ryb jezior/stawów.
+
+# ── Sovereign Boons ──
+SovereignBoons/meta/name=Sovereign Boons
+SovereignBoons/meta/desc=Pakiet skoku mocy: wyselekcjonowane funkcje z modów społecznościowych, by wzmocnić Twoją osadę. Każdy bonus domyślnie WYŁĄCZONY. Połączone z uznaniem dla oryginalnych twórców społecznościowych — tabela pochodzenia w README.
+SovereignBoons/cat/Economy=Gospodarka
+SovereignBoons/opt/EnableCrownsBounty/label=Dar Korony
+SovereignBoons/opt/EnableCrownsBounty/tip=Mnoży złoto z wydarzeń poboru podatków. Zgodnie z nazwą — sprzedaż/zwroty/nagrody wydarzeń nietknięte. Domyślnie: WYŁ.
+SovereignBoons/opt/CrownsBountyTaxMultiplier/label=Mnożnik podatku
+SovereignBoons/opt/CrownsBountyTaxMultiplier/tip=Mnożnik zastosowany do złota z każdego wydarzenia podatkowego. Bazowo = 1,0. Domyślnie: 2,0.
+SovereignBoons/opt/EnableWealthyCaravans/label=Zamożne karawany
+SovereignBoons/opt/EnableWealthyCaravans/tip=Zasobniejsi wędrowni kupcy + wyższy limit zapasów placówki handlowej. Domyślnie: WYŁ.
+SovereignBoons/opt/WealthyCaravansGoldMul/label=Mnożnik złota
+SovereignBoons/opt/WealthyCaravansGoldMul/tip=Mnożnik puli złota kupca. Bazowo = 1,0. Domyślnie: 2,0.
+SovereignBoons/opt/WealthyCaravansGoodsMul/label=Mnożnik towarów
+SovereignBoons/opt/WealthyCaravansGoodsMul/tip=Mnożnik liczby towarów kupca. Bazowo = 1,0. Domyślnie: 2,0.
+SovereignBoons/opt/WealthyCaravansBuyAnything/label=Kupi wszystko
+SovereignBoons/opt/WealthyCaravansBuyAnything/tip=Kupcy kupią dowolny przedmiot z listy swoich towarów LUB już będący w magazynie. Domyślnie: WŁ.
+SovereignBoons/opt/WealthyCaravansMaxStock/label=Maks. zapas placówki handlowej
+SovereignBoons/opt/WealthyCaravansMaxStock/tip=Nadpisuje TradeManager.maxTradingPostStockCount. Bazowo = 100. Domyślnie: 1000.
+SovereignBoons/opt/EnableMerchantsGambit/label=Zagranie Kupca
+SovereignBoons/opt/EnableMerchantsGambit/tip=Naciśnij skrót, by przeskanować odwiedzających kupców pod kątem zyskownego arbitrażu kupna-taniej/sprzedaży-drogo i wykonać cały schemat za jednym razem. Startuje w trybie Suchy przebieg (tylko raport). Domyślnie: WYŁ.
+SovereignBoons/opt/MerchantsGambitDryRun/label=Suchy przebieg (tylko raport)
+SovereignBoons/opt/MerchantsGambitDryRun/tip=Raportuje przewidywany zysk przez powiadomienie + log bez przenoszenia towarów/złota. Zweryfikuj liczby, potem wyłącz to, by włączyć wykonanie jednym kliknięciem. Domyślnie: WŁ.
+SovereignBoons/opt/MerchantsGambitScanKey/label=Skrót klawiszowy
+SovereignBoons/opt/MerchantsGambitScanKey/tip=KeyCode lub kombinacja — Ctrl+B, F6, Alt+Shift+M (modyfikatory: Ctrl/Alt/Shift). Domyślnie: Ctrl+B.
+SovereignBoons/opt/MerchantsGambitMinProfit/label=Min. zysk / jednostkę
+SovereignBoons/opt/MerchantsGambitMinProfit/tip=Pomija arbitraż poniżej tego zysku w złocie na jednostkę. Domyślnie: 1.
+SovereignBoons/opt/MerchantsGambitMaxCycles/label=Maks. cykli
+SovereignBoons/opt/MerchantsGambitMaxCycles/tip=Limit bezpieczeństwa kroków kupna/sprzedaży na jedno uruchomienie. Domyślnie: 500.
+SovereignBoons/cat/Workforce=Siła robocza
+SovereignBoons/opt/EnableSwiftFeet/label=Szybkie stopy
+SovereignBoons/opt/EnableSwiftFeet/tip=Szybsi mieszkańcy + mocniejsze wozy transportowe. Dotyczy postaci/wozów przywołanych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/SwiftFeetShoeBonus/label=Bonus obuwia mieszkańca
+SovereignBoons/opt/SwiftFeetShoeBonus/tip=Zastępuje Character._shoeBonusBase. Dotyczy też najeźdźców. Bazowo = 0,15. Domyślnie: 0,30.
+SovereignBoons/opt/SwiftFeetWagonSpeed/label=Prędkość ruchu wozu
+SovereignBoons/opt/SwiftFeetWagonSpeed/tip=Nadpisanie TransportWagon._movementSpeed. Bazowo ≈ 4,5. Domyślnie: 8,0.
+SovereignBoons/opt/SwiftFeetWagonCapacity/label=Pojemność transportowa wozu
+SovereignBoons/opt/SwiftFeetWagonCapacity/tip=Nadpisanie TransportWagon.carryCapacity. Bazowo = 150. Domyślnie: 300.
+SovereignBoons/opt/EnableEagerHands/label=Skore ręce
+SovereignBoons/opt/EnableEagerHands/tip=Niższe progi wieku dla puli siły roboczej + zakresu zapisów do Szkoły. Domyślnie: WYŁ.
+SovereignBoons/opt/EagerHandsChildAge/label=Próg wieku dziecka
+SovereignBoons/opt/EagerHandsChildAge/tip=Min. wiek, w którym mieszkaniec staje się robotnikiem-dzieckiem. Bazowo = 15. Domyślnie: 12.
+SovereignBoons/opt/EagerHandsAdolescentAge/label=Próg wieku młodzieńca
+SovereignBoons/opt/EagerHandsAdolescentAge/tip=Wiek, w którym mieszkaniec awansuje do pracy dorosłej. Bazowo = 25. Domyślnie: 18.
+SovereignBoons/opt/EagerHandsSchoolMinAge/label=Min. wiek zapisu do szkoły
+SovereignBoons/opt/EagerHandsSchoolMinAge/tip=Bazowo = 5. Domyślnie: 5.
+SovereignBoons/opt/EagerHandsSchoolMaxAge/label=Maks. wiek zapisu do szkoły
+SovereignBoons/opt/EagerHandsSchoolMaxAge/tip=Ustaw bardzo nisko, by skutecznie wyłączyć edukację. Bazowo = 10. Domyślnie: 10.
+SovereignBoons/opt/EnableKingsHighway/label=Królewski Trakt
+SovereignBoons/opt/EnableKingsHighway/tip=Szybsza podróż po drogach + wolniejsze agresywne zwierzęta. Bonus drogi przelicza się przy zmianie drogi/wczytaniu, spowolnienie zwierząt działa na żywo. Domyślnie: WYŁ.
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/label=Wzmocnij prędkość na drodze
+SovereignBoons/opt/KingsHighwayBoostRoadSpeed/tip=Mnoży bonus prędkości na drodze. Domyślnie: WŁ. (gdy bonus jest włączony).
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/label=Mnożnik prędkości drogi
+SovereignBoons/opt/KingsHighwayRoadSpeedMul/tip=Mnożnik AIGridNode.nodeSpeedBonus. Bazowo = 1,0. Domyślnie: 1,5.
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/label=Spowolnij agresywne zwierzęta
+SovereignBoons/opt/KingsHighwaySlowAggressiveAnimals/tip=Wilki/niedźwiedzie itd. poruszają się wolniej — łatwiej uciec, łatwiej upolować. Domyślnie: WŁ.
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/label=Mnożnik prędkości agresywnych zwierząt
+SovereignBoons/opt/KingsHighwayAggressiveAnimalMul/tip=Bazowo = 1,0. Niżej = wolniejsze drapieżniki. Domyślnie: 0,85.
+SovereignBoons/cat/Buildings=Budynki
+SovereignBoons/opt/EnableSpringsVigor/label=Obfitsze studnie
+SovereignBoons/opt/EnableSpringsVigor/tip=Szybsze napełnianie studni + większa pojemność studni. Dotyczy studni postawionych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/SpringsVigorRechargeMult/label=Mnożnik napełniania
+SovereignBoons/opt/SpringsVigorRechargeMult/tip=Mnożnik Well.waterGainPerSecond (bazowo = 0,01 na sekundę). Domyślnie: 2,0 (×2 → 0,02 na sekundę).
+SovereignBoons/opt/SpringsVigorCapacityMult/label=Mnożnik pojemności
+SovereignBoons/opt/SpringsVigorCapacityMult/tip=Mnożnik Well.maxWater (bazowo = 50). Domyślnie: 2,0 (×2 → 100 maks.).
+SovereignBoons/cat/Combat=Walka
+SovereignBoons/opt/EnableLevysArms/label=Milicja awaryjna
+SovereignBoons/opt/EnableLevysArms/tip=Milicja aktywowana skrótem. Uzbraja każdego uprawnionego mieszkańca w konfigurację bojową + wzmocnienie statystyk. Domyślnie: WYŁ.
+SovereignBoons/opt/LevysArmsArmKey/label=Skrót mobilizacji
+SovereignBoons/opt/LevysArmsArmKey/tip=KeyCode lub kombinacja — Ctrl+A, F4, Alt+Shift+M (modyfikatory: Ctrl/Alt/Shift). Domyślnie: Ctrl+A.
+SovereignBoons/opt/LevysArmsUnarmKey/label=Skrót odwołania
+SovereignBoons/opt/LevysArmsUnarmKey/tip=KeyCode lub kombinacja (np. Alt+A; modyfikatory Ctrl/Alt/Shift). Domyślnie: Alt+A.
+SovereignBoons/opt/LevysArmsStatMagnitude/label=Wielkość statystyki
+SovereignBoons/opt/LevysArmsStatMagnitude/tip=Stosowane do każdego pola Perc (maks. życie, pancerz, obrażenia wręcz/dystansowe itd.). Bazowo = 0. Preset „potężny” moda źródłowego = 1000. Domyślnie: 100.
+SovereignBoons/cat/Misc=Różne
+SovereignBoons/opt/EnableSteadfastResolve/label=Osiągnięcia bez ograniczeń
+SovereignBoons/opt/EnableSteadfastResolve/tip=Osiągnięcia odblokowują się nawet przy niebazowych ustawieniach lub modach. Domyślnie: WYŁ.
+SovereignBoons/opt/EnableLongReach/label=Rozszerzenie Domeny
+SovereignBoons/opt/EnableLongReach/tip=Mnożniki promienia pracy per budynek. Dotyczy budynków postawionych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/LongReachWorkCampMul/label=Promień Obozu roboczego ×
+SovereignBoons/opt/LongReachWorkCampMul/tip=Mnożnik promienia pracy Obozu roboczego (bazowo 60). 1,0 = bez zmian, 1,5 = 1,5×, 2,0 = podwójnie. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachHunterMul/label=Promień Chaty myśliwego ×
+SovereignBoons/opt/LongReachHunterMul/tip=Mnożnik promienia HunterBuilding (bazowo 60). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachFishingMul/label=Promień Szopy rybackiej ×
+SovereignBoons/opt/LongReachFishingMul/tip=Mnożnik promienia FishingShack (bazowo 30). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachArboristMul/label=Promień Sadownika ×
+SovereignBoons/opt/LongReachArboristMul/tip=Mnożnik promienia ArboristBuilding (bazowo 100). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachMarketMul/label=Promień Rynku ×
+SovereignBoons/opt/LongReachMarketMul/tip=Mnożnik promienia planowania strategicznego Rynku (bazowo 50). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachForagerMul/label=Promień Szałasu zbieracza ×
+SovereignBoons/opt/LongReachForagerMul/tip=Mnożnik promienia zbieractwa ForagerShack (bazowo 60). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachRatCatcherMul/label=Promień Szczurołapa ×
+SovereignBoons/opt/LongReachRatCatcherMul/tip=Mnożnik promienia pracy RatCatcherBuilding (bazowo 60). 1,0 = bez zmian. Domyślnie: 1,0.
+SovereignBoons/opt/LongReachDoghouseMul/label=Promień strażniczy Budy dla psa ×
+SovereignBoons/opt/LongReachDoghouseMul/tip=Mnożnik promienia strażniczego Budy dla psa (bazowo 60) — obszar obrony psa. 1,0 = bez zmian. Domyślnie: 1,0. [DLC Psy/Koty]
+SovereignBoons/opt/EnableCivicPride/label=Duma obywatelska
+SovereignBoons/opt/EnableCivicPride/tip=Mnoży promień/bonus atrakcyjności DecorativeBuilding. Dotyczy dekoracji postawionych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/CivicPrideRadiusMul/label=Mnożnik promienia
+SovereignBoons/opt/CivicPrideRadiusMul/tip=Mnożnik Building._strategicPlanningRadius (bazowo = 50). Domyślnie: 1,5.
+SovereignBoons/opt/CivicPrideBonusMul/label=Mnożnik bonusu
+SovereignBoons/opt/CivicPrideBonusMul/tip=Mnożnik wielkości Building._strategicPlanningBonus. Bazowo = 1,0. Domyślnie: 1,5.
+SovereignBoons/opt/EnableHallowedReliquary/label=Uświęcone Relikwiarium
+SovereignBoons/opt/EnableHallowedReliquary/tip=Mnożnik bonusu duchowości + Uwolnienie relikwii od liczby kapłanów. Domyślnie: WYŁ.
+SovereignBoons/opt/HallowedReliquaryBonusMul/label=Mnożnik bonusu duchowości
+SovereignBoons/opt/HallowedReliquaryBonusMul/tip=Mnożnik ReligionManager._spiritualityBonusPerRelic (bazowo = 50). Domyślnie: 1,5.
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/label=Uwolnij relikwie od liczby kapłanów
+SovereignBoons/opt/HallowedReliquaryUnchainRelics/tip=1 kapłan aktywuje każdą przypisaną relikwię. Wyłączone = jak w grze bazowej (liczba kapłanów ogranicza aktywne relikwie). Domyślnie: WŁ.
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/label=Odblokuj wszystkie relikwie
+SovereignBoons/opt/HallowedReliquaryUnlockAllRelics/tip=Skok mocy: odblokowuje każdą relikwię w grze przy wczytaniu mapy. Po otrzymaniu pozostają w save'ie (wyłącz później, by zatrzymać ponowne wyzwalanie, ale zachowasz to, co masz). Domyślnie: WYŁ.
+SovereignBoons/opt/HallowedReliquaryBonusSlots/label=Dodatkowe sloty na relikwie
+SovereignBoons/opt/HallowedReliquaryBonusSlots/tip=Dodatkowe sloty relikwii dodane do każdej Świątyni (bazowo = 2). 0..13 → 2..15 łącznie (zgodne z VC_ModifyTemple). Widgety slotów są klonowane z istniejącego szablonu UI i układane w rzędach po maks. 5. Domyślnie: 4 (6 łącznie). Bazowa pula relikwii FF to ~8, więc powyżej ~10 zostają puste sloty. Efekt widoczny przy następnym wczytaniu save'a.
+SovereignBoons/opt/EnableHoardedStores/label=Zgromadzone Zapasy
+SovereignBoons/opt/EnableHoardedStores/tip=Mnożnik pojemności per typ magazynu. Dotyczy budynków magazynowych postawionych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresRootCellarEnable/label=Piwniczka — Zastosuj
+SovereignBoons/opt/HoardedStoresRootCellarEnable/tip=Zastosuj mnożnik pojemności do Piwniczek. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresRootCellarMul/label=Piwniczka — Mnożnik
+SovereignBoons/opt/HoardedStoresRootCellarMul/tip=Mnożnik pojemności Piwniczek. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresGranaryEnable/label=Spichlerz — Zastosuj
+SovereignBoons/opt/HoardedStoresGranaryEnable/tip=Zastosuj mnożnik pojemności do Spichlerzy. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresGranaryMul/label=Spichlerz — Mnożnik
+SovereignBoons/opt/HoardedStoresGranaryMul/tip=Mnożnik pojemności Spichlerzy. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresStorehouseEnable/label=Magazyn — Zastosuj
+SovereignBoons/opt/HoardedStoresStorehouseEnable/tip=Zastosuj mnożnik pojemności do Magazynów. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresStorehouseMul/label=Magazyn — Mnożnik
+SovereignBoons/opt/HoardedStoresStorehouseMul/tip=Mnożnik pojemności Magazynów. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/label=Skład magazynowy — Zastosuj
+SovereignBoons/opt/HoardedStoresStorageDepotEnable/tip=Zastosuj mnożnik pojemności do Składów magazynowych. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresStorageDepotMul/label=Skład magazynowy — Mnożnik
+SovereignBoons/opt/HoardedStoresStorageDepotMul/tip=Mnożnik pojemności Składów magazynowych. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresStockyardEnable/label=Zagroda magazynowa — Zastosuj
+SovereignBoons/opt/HoardedStoresStockyardEnable/tip=Zastosuj mnożnik pojemności do Zagród magazynowych. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresStockyardMul/label=Zagroda magazynowa — Mnożnik
+SovereignBoons/opt/HoardedStoresStockyardMul/tip=Mnożnik pojemności Zagród magazynowych. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresTreasuryEnable/label=Skarbiec — Zastosuj
+SovereignBoons/opt/HoardedStoresTreasuryEnable/tip=Zastosuj mnożnik pojemności do Skarbców. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresTreasuryMul/label=Skarbiec — Mnożnik
+SovereignBoons/opt/HoardedStoresTreasuryMul/tip=Mnożnik pojemności Skarbców. Domyślnie: 2,0.
+SovereignBoons/opt/HoardedStoresMarketEnable/label=Rynek — Zastosuj
+SovereignBoons/opt/HoardedStoresMarketEnable/tip=Zastosuj mnożnik pojemności do Rynków. Domyślnie: WYŁ.
+SovereignBoons/opt/HoardedStoresMarketMul/label=Rynek — Mnożnik
+SovereignBoons/opt/HoardedStoresMarketMul/tip=Mnożnik pojemności Rynków. Domyślnie: 2,0.
+SovereignBoons/opt/EnableGreaterHalls/label=Wielkie Sale
+SovereignBoons/opt/EnableGreaterHalls/tip=Dodatek +Pracownicy / +Mieszkańcy per budynek dla ~52 typów budynków. Pogrupowane na Inwentarz / Produkcja / Miejsca surowcowe / Praca w terenie / Publiczne / Mieszkalne. Dotyczy budynków postawionych po włączeniu; wczytaj ponownie save, by odświeżyć istniejące. Domyślnie: WYŁ.
+SovereignBoons/opt/GreaterHalls_Barn_Addon/label=Obora +Pracownicy
+SovereignBoons/opt/GreaterHalls_Barn_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..6. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/label=Kojec dla kotów +Pracownicy
+SovereignBoons/opt/GreaterHalls_CatKennel_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/label=Kurnik +Pracownicy
+SovereignBoons/opt/GreaterHalls_ChickenCoop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/label=Buda dla psów +Pracownicy
+SovereignBoons/opt/GreaterHalls_DogKennel_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/label=Zagroda dla kóz +Pracownicy
+SovereignBoons/opt/GreaterHalls_GoatBarn_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Stable_Addon/label=Stajnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Stable_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Inwentarz. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/label=Apteka +Pracownicy
+SovereignBoons/opt/GreaterHalls_ApothecaryShop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Armory_Addon/label=Zbrojownia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Armory_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/label=Piekarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Bakery_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/label=Wikliniarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_BasketShop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/label=Kuźnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_BlacksmithForge_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/label=Introligatornia +Pracownicy
+SovereignBoons/opt/GreaterHalls_BookBinder_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/label=Browar +Pracownicy
+SovereignBoons/opt/GreaterHalls_Brewery_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/label=Cegielnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Brickyard_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/label=Wytwórnia świec +Pracownicy
+SovereignBoons/opt/GreaterHalls_CandleShop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/label=Mielerz +Pracownicy
+SovereignBoons/opt/GreaterHalls_CharcoalKiln_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/label=Serowarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Cheesemaker_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/label=Szewc +Pracownicy
+SovereignBoons/opt/GreaterHalls_CobblerShop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/label=Bednarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_CooperBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/label=Płatnerstwo strzał +Pracownicy
+SovereignBoons/opt/GreaterHalls_FletcherBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/label=Odlewnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Foundry_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/label=Warsztat meblarski +Pracownicy
+SovereignBoons/opt/GreaterHalls_FurnitureWorkshop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..5. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/label=Huta szkła +Pracownicy
+SovereignBoons/opt/GreaterHalls_Glassmaker_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..6. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/label=Papiernia +Pracownicy
+SovereignBoons/opt/GreaterHalls_PaperMill_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..5. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/label=Garncarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_PotterBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/label=Przetwórnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_PreservistBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/label=Wędzarnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_SmokeHouse_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/label=Tkalnia +Pracownicy
+SovereignBoons/opt/GreaterHalls_WeaverBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/label=Wiatrak +Pracownicy
+SovereignBoons/opt/GreaterHalls_Windmill_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/label=Tartak +Pracownicy
+SovereignBoons/opt/GreaterHalls_WoodCutterBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Produkcja. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/label=Kopalnia gliny +Pracownicy
+SovereignBoons/opt/GreaterHalls_ClayPitBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..4. Domyślnie: 0 (bez zmian). Obejmuje kopalnię gliny — zarówno wersję powierzchniową, jak i głęboką (nieskończoną).
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/label=Kopalnia rud +Pracownicy
+SovereignBoons/opt/GreaterHalls_MineralSiteMine_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..4. Domyślnie: 0 (bez zmian). Jedna klasa dla WSZYSTKICH głębokich kopalń: każda kopalnia żelaza, złota i węgla, powierzchniowa i głęboka. Rodzaj rudy to dane, a nie osobny budynek, więc nie da się wskazać jednej konkretnej rudy.
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/label=Piaskownia +Pracownicy
+SovereignBoons/opt/GreaterHalls_SandPitBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..4. Domyślnie: 0 (bez zmian). Obejmuje piaskownię — zarówno wersję powierzchniową, jak i głęboką (nieskończoną).
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/label=Trak +Pracownicy
+SovereignBoons/opt/GreaterHalls_SawPitBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/label=Kamieniołom +Pracownicy
+SovereignBoons/opt/GreaterHalls_StonePitBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..8. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/label=Obóz roboczy +Pracownicy
+SovereignBoons/opt/GreaterHalls_WorkCamp_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Miejsca surowcowe. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/label=Sadownik +Pracownicy
+SovereignBoons/opt/GreaterHalls_ArboristBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Praca w terenie. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/label=Szopa rybacka +Pracownicy
+SovereignBoons/opt/GreaterHalls_FishingShack_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Praca w terenie. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/label=Szałas zbieracza +Pracownicy
+SovereignBoons/opt/GreaterHalls_ForagerShack_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Praca w terenie. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/label=Chata myśliwego +Pracownicy
+SovereignBoons/opt/GreaterHalls_HunterBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Praca w terenie. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/label=Kompostownik +Pracownicy
+SovereignBoons/opt/GreaterHalls_CompostYard_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/label=Wieża strażnicza +Pracownicy
+SovereignBoons/opt/GreaterHalls_GuardTower_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/label=Ratusz cechowy +Pracownicy
+SovereignBoons/opt/GreaterHalls_GuildHall_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/label=Dom uzdrowiciela +Pracownicy
+SovereignBoons/opt/GreaterHalls_HealersHouse_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Library_Addon/label=Biblioteka +Pracownicy
+SovereignBoons/opt/GreaterHalls_Library_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..1. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/label=Rynek +Pracownicy
+SovereignBoons/opt/GreaterHalls_MarketBuilding_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Pub_Addon/label=Karczma +Pracownicy
+SovereignBoons/opt/GreaterHalls_Pub_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_School_Addon/label=Szkoła +Pracownicy
+SovereignBoons/opt/GreaterHalls_School_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Temple_Addon/label=Świątynia +Pracownicy
+SovereignBoons/opt/GreaterHalls_Temple_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..3. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/label=Wozownia +Pracownicy
+SovereignBoons/opt/GreaterHalls_WagonShop_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Publiczne. Zakres: 0..2. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/label=Schronienie +Pracownicy
+SovereignBoons/opt/GreaterHalls_Shelter_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Mieszkalne. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/label=Tymczasowe schronienie +Pracownicy
+SovereignBoons/opt/GreaterHalls_TemporaryShelter_Addon/tip=Dodatkowe miejsca pracownicze/mieszkalne ponad bazowe maxWorkers. Kategoria: Mieszkalne. Zakres: 0..4. Domyślnie: 0 (bez zmian).
+SovereignBoons/opt/EnableBountifulFields/label=Obfite Pola
+SovereignBoons/opt/EnableBountifulFields/tip=Strojenie per uprawa + globalne ustawienia rolnictwa. Rekordy danych upraw są modyfikowane przy wczytaniu mapy — wczytaj ponownie save po zmianie wartości, by zaczęły działać.
+SovereignBoons/opt/EnableBountifulCrops/label=Obfite Uprawy — 8 nowych upraw
+SovereignBoons/opt/EnableBountifulCrops/tip=Dodaje Paprykę (→Przyprawa), Ziele Mnicha (→Korzenie lecznicze), Konopie (→Włókna), Soję (→Orzechy), Kukurydzę (→Zboże), Purpurową Wierzbę (→Wiklina), Pieczarki Kremowe (→Grzyby) i Ogród Ziołowy (→Zioła, przywraca żyzność) do wyboru sadzenia. Dostrój je per uprawa poniższymi suwakami, tak samo jak uprawy bazowe. BEZPIECZNE DLA SAVE'A: wyłączenie usuwa tylko ikony wyboru — uprawy już zasadzone w save'ie nadal działają. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFieldsLogVanilla/label=Loguj wartości bazowe
+SovereignBoons/opt/BountifulFieldsLogVanilla/tip=Zrzuca do MelonLoader.log bazowe wartości VegetableFieldsRecord każdej uprawy przy wczytaniu mapy. Włącz tymczasowo, by odkryć wartości domyślne per uprawa; wyłącz po zakończeniu. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFieldsLogDiseases/label=Loguj choroby upraw
+SovereignBoons/opt/BountifulFieldsLogDiseases/tip=Zrzuca do MelonLoader.log każdą chorobę uprawy (nazwa, uprawy docelowe, strojenie infekcji/rozprzestrzeniania) przy wczytaniu mapy — ~80 linii. Tylko diagnostyka; jedyny sposób, by zobaczyć listy upraw docelowych chorób (żyją w paczkach zasobów). Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/label=Mnożnik siatek na rolnika
+SovereignBoons/opt/BountifulFieldsGridsPerFarmerMul/tip=Mnożnik AgricultureManager._gridsPerFarmer. Domyślnie: 1,0 (jak w grze bazowej).
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/label=Długość konserwacji (dni)
+SovereignBoons/opt/BountifulFieldsMaintenanceDays/tip=Nadpisuje AgricultureManager._maintenanceLengthInDays. Zakres 45..90, by zastosować; wartości poza tym zakresem są traktowane jako brak zmian. Domyślnie: -1 (bez zmian).
+SovereignBoons/opt/BountifulFields_Turnip_Apply/label=Rzepa — Zastosuj
+SovereignBoons/opt/BountifulFields_Turnip_Apply/tip=Główny przełącznik nadpisań dla uprawy Rzepa. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/label=Rzepa — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Turnip_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Rzepa): 3.
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/label=Rzepa — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Turnip_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Rzepa): 10.
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/label=Rzepa — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Turnip_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Rzepa): 41.
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/label=Rzepa — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Turnip_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Rzepa): -5.0.
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/label=Rzepa — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Turnip_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Rzepa): 0.
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/label=Rzepa — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Turnip_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Rzepa): 35.
+SovereignBoons/opt/BountifulFields_Carrot_Apply/label=Marchew — Zastosuj
+SovereignBoons/opt/BountifulFields_Carrot_Apply/tip=Główny przełącznik nadpisań dla uprawy Marchew. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/label=Marchew — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Carrot_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Marchew): 3.
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/label=Marchew — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Carrot_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Marchew): 10.
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/label=Marchew — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Carrot_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Marchew): 58.
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/label=Marchew — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Carrot_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Marchew): 0.0.
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/label=Marchew — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Carrot_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Marchew): 0.
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/label=Marchew — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Carrot_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Marchew): 50.
+SovereignBoons/opt/BountifulFields_Wheat_Apply/label=Pszenica — Zastosuj
+SovereignBoons/opt/BountifulFields_Wheat_Apply/tip=Główny przełącznik nadpisań dla uprawy Pszenica. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/label=Pszenica — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Wheat_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Pszenica): 8.
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/label=Pszenica — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Wheat_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Pszenica): 10.
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/label=Pszenica — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Wheat_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Pszenica): 118.
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/label=Pszenica — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Wheat_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Pszenica): -4.0.
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/label=Pszenica — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Wheat_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Pszenica): 20.
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/label=Pszenica — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Wheat_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Pszenica): 0.
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/label=Gryka — Zastosuj
+SovereignBoons/opt/BountifulFields_Buckwheat_Apply/tip=Główny przełącznik nadpisań dla uprawy Gryka. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/label=Gryka — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Buckwheat_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Gryka): 1.
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/label=Gryka — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Buckwheat_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Gryka): 10.
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/label=Gryka — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Buckwheat_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Gryka): 60.
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/label=Gryka — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Buckwheat_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Gryka): -10.0.
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/label=Gryka — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Buckwheat_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Gryka): 80.
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/label=Gryka — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Buckwheat_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Gryka): 0.
+SovereignBoons/opt/BountifulFields_Rye_Apply/label=Żyto — Zastosuj
+SovereignBoons/opt/BountifulFields_Rye_Apply/tip=Główny przełącznik nadpisań dla uprawy Żyto. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Rye_Fertility/label=Żyto — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Rye_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Żyto): 6.
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/label=Żyto — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Rye_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Żyto): 10.
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/label=Żyto — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Rye_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Żyto): 118.
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/label=Żyto — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Rye_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Żyto): -6.0.
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/label=Żyto — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Rye_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Żyto): 0.
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/label=Żyto — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Rye_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Żyto): 0.
+SovereignBoons/opt/BountifulFields_Bean_Apply/label=Fasola — Zastosuj
+SovereignBoons/opt/BountifulFields_Bean_Apply/tip=Główny przełącznik nadpisań dla uprawy Fasola. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Bean_Fertility/label=Fasola — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Bean_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Fasola): -1.
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/label=Fasola — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Bean_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Fasola): 10.
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/label=Fasola — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Bean_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Fasola): 85.
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/label=Fasola — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Bean_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Fasola): -2.0.
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/label=Fasola — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Bean_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Fasola): 80.
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/label=Fasola — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Bean_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Fasola): 0.
+SovereignBoons/opt/BountifulFields_Pea_Apply/label=Groch — Zastosuj
+SovereignBoons/opt/BountifulFields_Pea_Apply/tip=Główny przełącznik nadpisań dla uprawy Groch. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Pea_Fertility/label=Groch — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Pea_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Groch): -1.
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/label=Groch — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Pea_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Groch): 10.
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/label=Groch — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Pea_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Groch): 51.
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/label=Groch — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Pea_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Groch): 0.0.
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/label=Groch — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Pea_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Groch): 0.
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/label=Groch — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Pea_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Groch): 75.
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/label=Kapusta — Zastosuj
+SovereignBoons/opt/BountifulFields_Cabbage_Apply/tip=Główny przełącznik nadpisań dla uprawy Kapusta. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/label=Kapusta — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Cabbage_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Kapusta): 4.
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/label=Kapusta — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Cabbage_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Kapusta): 10.
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/label=Kapusta — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Cabbage_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Kapusta): 85.
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/label=Kapusta — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Cabbage_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Kapusta): -3.0.
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/label=Kapusta — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Cabbage_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Kapusta): 0.
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/label=Kapusta — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Cabbage_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Kapusta): 0.
+SovereignBoons/opt/BountifulFields_Leek_Apply/label=Por — Zastosuj
+SovereignBoons/opt/BountifulFields_Leek_Apply/tip=Główny przełącznik nadpisań dla uprawy Por. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Leek_Fertility/label=Por — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Leek_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Por): 6.
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/label=Por — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Leek_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Por): 10.
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/label=Por — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Leek_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Por): 118.
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/label=Por — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Leek_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Por): 0.0.
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/label=Por — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Leek_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Por): 0.
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/label=Por — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Leek_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Por): 0.
+SovereignBoons/opt/BountifulFields_Flax_Apply/label=Len — Zastosuj
+SovereignBoons/opt/BountifulFields_Flax_Apply/tip=Główny przełącznik nadpisań dla uprawy Len. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Flax_Fertility/label=Len — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Flax_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Len): 5.
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/label=Len — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Flax_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Len): 10.
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/label=Len — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Flax_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Len): 95.
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/label=Len — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Flax_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Len): 0.0.
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/label=Len — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Flax_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Len): 0.
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/label=Len — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Flax_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Len): 0.
+SovereignBoons/opt/BountifulFields_Clover_Apply/label=Koniczyna — Zastosuj
+SovereignBoons/opt/BountifulFields_Clover_Apply/tip=Główny przełącznik nadpisań dla uprawy Koniczyna. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Clover_Fertility/label=Koniczyna — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Clover_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Koniczyna): -3.
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/label=Koniczyna — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Clover_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Koniczyna): 10.
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/label=Koniczyna — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Clover_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Koniczyna): 64.
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/label=Koniczyna — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Clover_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Koniczyna): -8.0.
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/label=Koniczyna — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Clover_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Koniczyna): 0.
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/label=Koniczyna — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Clover_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Koniczyna): 0.
+SovereignBoons/opt/BountifulFields_Hay_Apply/label=Siano — Zastosuj
+SovereignBoons/opt/BountifulFields_Hay_Apply/tip=Główny przełącznik nadpisań dla uprawy Siano. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Hay_Fertility/label=Siano — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Hay_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Siano): 1.
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/label=Siano — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Hay_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Siano): 10.
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/label=Siano — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Hay_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Siano): 128.
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/label=Siano — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Hay_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Siano): -5.0.
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/label=Siano — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Hay_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Siano): 0.
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/label=Siano — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Hay_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Siano): 0.
+SovereignBoons/opt/BountifulFields_Pepper_Apply/label=Papryka — Zastosuj
+SovereignBoons/opt/BountifulFields_Pepper_Apply/tip=Główny przełącznik nadpisań dla uprawy Papryka. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/label=Papryka — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Pepper_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Papryka): 10.
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/label=Papryka — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Pepper_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Papryka): 10.
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/label=Papryka — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Pepper_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Papryka): 70.
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/label=Papryka — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Pepper_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Papryka): 1.0.
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/label=Papryka — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Pepper_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Papryka): 80.
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/label=Papryka — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Pepper_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Papryka): 5.
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/label=Ziele Mnicha — Zastosuj
+SovereignBoons/opt/BountifulFields_MonksComfort_Apply/tip=Główny przełącznik nadpisań dla uprawy Ziele Mnicha. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/label=Ziele Mnicha — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_MonksComfort_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Ziele Mnicha): 8.
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/label=Ziele Mnicha — Dni sadzenia
+SovereignBoons/opt/BountifulFields_MonksComfort_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Ziele Mnicha): 10.
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/label=Ziele Mnicha — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_MonksComfort_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Ziele Mnicha): 65.
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/label=Ziele Mnicha — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_MonksComfort_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Ziele Mnicha): 1.0.
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/label=Ziele Mnicha — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_MonksComfort_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Ziele Mnicha): 30.
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/label=Ziele Mnicha — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_MonksComfort_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Ziele Mnicha): 10.
+SovereignBoons/opt/BountifulFields_Hemp_Apply/label=Konopie — Zastosuj
+SovereignBoons/opt/BountifulFields_Hemp_Apply/tip=Główny przełącznik nadpisań dla uprawy Konopie. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/label=Konopie — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Hemp_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Konopie): 12.
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/label=Konopie — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Hemp_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Konopie): 10.
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/label=Konopie — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Hemp_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Konopie): 60.
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/label=Konopie — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Hemp_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Konopie): 1.0.
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/label=Konopie — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Hemp_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Konopie): 25.
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/label=Konopie — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Hemp_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Konopie): 10.
+SovereignBoons/opt/BountifulFields_Soybean_Apply/label=Soja — Zastosuj
+SovereignBoons/opt/BountifulFields_Soybean_Apply/tip=Główny przełącznik nadpisań dla uprawy Soja. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/label=Soja — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Soybean_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Soja): 5.
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/label=Soja — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Soybean_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Soja): 10.
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/label=Soja — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Soybean_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Soja): 70.
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/label=Soja — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Soybean_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Soja): 1.0.
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/label=Soja — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Soybean_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Soja): 45.
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/label=Soja — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Soybean_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Soja): 10.
+SovereignBoons/opt/BountifulFields_Corn_Apply/label=Kukurydza — Zastosuj
+SovereignBoons/opt/BountifulFields_Corn_Apply/tip=Główny przełącznik nadpisań dla uprawy Kukurydza. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Corn_Fertility/label=Kukurydza — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Corn_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Kukurydza): 12.
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/label=Kukurydza — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Corn_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Kukurydza): 10.
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/label=Kukurydza — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Corn_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Kukurydza): 75.
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/label=Kukurydza — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Corn_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Kukurydza): 1.0.
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/label=Kukurydza — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Corn_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Kukurydza): 70.
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/label=Kukurydza — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Corn_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Kukurydza): 5.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/label=Purpurowa Wierzba — Zastosuj
+SovereignBoons/opt/BountifulFields_PurpleWillow_Apply/tip=Główny przełącznik nadpisań dla uprawy Purpurowa Wierzba. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/label=Purpurowa Wierzba — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_PurpleWillow_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Purpurowa Wierzba): 4.
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/label=Purpurowa Wierzba — Dni sadzenia
+SovereignBoons/opt/BountifulFields_PurpleWillow_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Purpurowa Wierzba): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/label=Purpurowa Wierzba — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_PurpleWillow_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Purpurowa Wierzba): 80.
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/label=Purpurowa Wierzba — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_PurpleWillow_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Purpurowa Wierzba): 1.0.
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/label=Purpurowa Wierzba — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_PurpleWillow_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Purpurowa Wierzba): 10.
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/label=Purpurowa Wierzba — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_PurpleWillow_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Purpurowa Wierzba): 30.
+SovereignBoons/opt/BountifulFields_Cremini_Apply/label=Pieczarki Kremowe — Zastosuj
+SovereignBoons/opt/BountifulFields_Cremini_Apply/tip=Główny przełącznik nadpisań dla uprawy Pieczarki Kremowe. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/label=Pieczarki Kremowe — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Cremini_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Pieczarki Kremowe): 2.
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/label=Pieczarki Kremowe — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Cremini_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Pieczarki Kremowe): 10.
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/label=Pieczarki Kremowe — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Cremini_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Pieczarki Kremowe): 45.
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/label=Pieczarki Kremowe — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Cremini_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Pieczarki Kremowe): 1.0.
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/label=Pieczarki Kremowe — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Cremini_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Pieczarki Kremowe): 20.
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/label=Pieczarki Kremowe — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Cremini_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Pieczarki Kremowe): 40.
+SovereignBoons/opt/BountifulFields_Herbs_Apply/label=Zioła — Zastosuj
+SovereignBoons/opt/BountifulFields_Herbs_Apply/tip=Główny przełącznik nadpisań dla uprawy Zioła. WYŁ. → używane są wartości bazowe (poniższe pola ignorowane). WŁ. → poniższe wartości są zapisywane do danych uprawy przy wczytaniu mapy. Domyślnie: fałsz.
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/label=Zioła — Zużycie żyzności
+SovereignBoons/opt/BountifulFields_Herbs_Fertility/tip=Żyzność zużywana w każdym cyklu uprawy. Wartość ujemna = przywraca żyzność. Zakres: -10..10. Wartość bazowa (Zioła): -3.
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/label=Zioła — Dni sadzenia
+SovereignBoons/opt/BountifulFields_Herbs_PlantingDays/tip=Liczba dni sadzenia przed rozpoczęciem wzrostu. Mniej = szybszy cykl. Zakres: 1..30. Wartość bazowa (Zioła): 10.
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/label=Zioła — Dni dojrzewania
+SovereignBoons/opt/BountifulFields_Herbs_MatureDays/tip=Liczba dni od zasadzenia do gotowości do zbioru. Mniej = szybsza uprawa. Zakres: 10..300. Wartość bazowa (Zioła): 60.
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/label=Zioła — Zachwaszczenie
+SovereignBoons/opt/BountifulFields_Herbs_WeedLevel/tip=Procent poziomu chwastów dodawany w każdym cyklu sadzenia/zbioru (`weedLevel += wartość / 100`). Wartość ujemna = usuwa chwasty (większość upraw bazowych). Mniej = mniej chwastów. Zakres: -20..10. Wartość bazowa (Zioła): -4.0.
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/label=Zioła — Śmierć od mrozu %
+SovereignBoons/opt/BountifulFields_Herbs_FrostDiePct/tip=Procent uprawy, który ginie podczas przymrozków. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Zioła): 15.
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/label=Zioła — Śmierć od upału %
+SovereignBoons/opt/BountifulFields_Herbs_HeatDiePct/tip=Procent uprawy, który ginie podczas fali upałów. 0 = odporność. Mniej = silniejszy efekt. Zakres: 0..100. Wartość bazowa (Zioła): 15.
+SovereignBoons/cat/Weather=Pogoda
+SovereignBoons/opt/EnableTemperateSkies/label=Łagodne Niebo
+SovereignBoons/opt/EnableTemperateSkies/tip=Tłumi ekstremalne zjawiska pogodowe. Usunięcie zamieci/fali upałów działa przy inicjalizacji pogody (wczytanie); susza/szansa na ekstrema działają na żywo. Domyślnie: WYŁ.
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/label=Wyłącz zamieć
+SovereignBoons/opt/TemperateSkiesDisableBlizzard/tip=Usuwa Zamieć z losowań ekstremalnej pogody. Domyślnie: WYŁ.
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/label=Wyłącz falę upałów
+SovereignBoons/opt/TemperateSkiesDisableHeatwave/tip=Usuwa Falę upałów z losowań ekstremalnej pogody. Domyślnie: WYŁ.
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/label=Wyłącz WSZYSTKIE ekstrema
+SovereignBoons/opt/TemperateSkiesDisableAllExtreme/tip=Wymusza chanceOfExtremeWeather na 0. Kumuluje się z przełącznikami per wydarzenie. Domyślnie: WYŁ.
+SovereignBoons/opt/TemperateSkiesDisableDrought/label=Wyłącz suszę
+SovereignBoons/opt/TemperateSkiesDisableDrought/tip=Nadpisanie krzywej WeatherProfile.chanceOfDrought na płaskie zero. Domyślnie: WYŁ.
+
+# ── Tended Wilds ──
+TendedWilds/meta/name=Tended Wilds
+TendedWilds/meta/desc=Przebudowa Szałasu zbieracza: całoroczna uprawa, dzikie sadzenie, priorytet 1-9, relokacja roślin do zbierania
+TendedWilds/cat/Master=Główne
+TendedWilds/opt/ModEnabled/label=Mod włączony
+TendedWilds/opt/ModEnabled/tip=Wyłącz, by wrócić do bazowego Szałasu zbieracza
+TendedWilds/opt/RelocationEnabled/label=Relokacja włączona
+TendedWilds/opt/RelocationEnabled/tip=Główny przełącznik relokacji roślin do zbierania
+TendedWilds/cat/Relocate by Type=Relokacja wg typu
+TendedWilds/opt/RelocateHerbs/label=Zioła
+TendedWilds/opt/RelocateHerbs/tip=Zezwól na relokację poletek ziół.
+TendedWilds/opt/RelocateMushrooms/label=Grzyby
+TendedWilds/opt/RelocateMushrooms/tip=Zezwól na relokację skupisk grzybów.
+TendedWilds/opt/RelocateGreens/label=Warzywa liściaste
+TendedWilds/opt/RelocateGreens/tip=Zezwól na relokację poletek warzyw liściastych.
+TendedWilds/opt/RelocateRoots/label=Korzenie
+TendedWilds/opt/RelocateRoots/tip=Zezwól na relokację skupisk korzeni.
+TendedWilds/opt/RelocateNuts/label=Orzechy laskowe
+TendedWilds/opt/RelocateNuts/tip=Zezwól na relokację krzewów orzechów laskowych.
+TendedWilds/opt/RelocateWillow/label=Wiklina
+TendedWilds/opt/RelocateWillow/tip=Zezwól na relokację krzewów wikliny.
+TendedWilds/opt/RelocateBerries/label=Krzewy jagodowe
+TendedWilds/opt/RelocateBerries/tip=Głóg, sumak
+TendedWilds/cat/Cost=Koszt
+TendedWilds/opt/GoldCostToRelocate/label=Koszt złota za relokację
+TendedWilds/opt/GoldCostToRelocate/tip=0 = darmowe, tylko praca
+TendedWilds/cat/Foraging=Zbieractwo
+TendedWilds/opt/ExemptForagingBuildings/label=Wyłącz studnie/chaty myśliwych z kary za zbieractwo
+TendedWilds/opt/ExemptForagingBuildings/tip=Studnie i Chaty myśliwych nie zmniejszają plonu pobliskich roślin do zbierania (Szałasy zbieracza już wyłączone w grze bazowej)
+
+# ── The Dockmaster's Dingy Boathouse ──
+TheDockmastersDingyBoathouse/meta/name=The Dockmaster's Dingy Boathouse
+TheDockmastersDingyBoathouse/meta/desc=Przywraca łowienie ryb z łodzi w Farthest Frontier — łódka i przystań dokmistrza.
+TheDockmastersDingyBoathouse/cat/Master=Główne
+TheDockmastersDingyBoathouse/opt/ModEnabled/label=Mod włączony
+TheDockmastersDingyBoathouse/opt/ModEnabled/tip=Wyłącz, by wrócić do zachowania bazowego.
+TheDockmastersDingyBoathouse/cat/Boat=Łódka
+TheDockmastersDingyBoathouse/opt/BoatScale/label=Skala łódki
+TheDockmastersDingyBoathouse/opt/BoatScale/tip=Wizualny rozmiar łodzi. 1 = surowy model.
+TheDockmastersDingyBoathouse/cat/Boathouse=Przystań
+TheDockmastersDingyBoathouse/opt/DockGridWidth/label=Szerokość śladu (komórki)
+TheDockmastersDingyBoathouse/opt/DockGridWidth/tip=Ślad obejmuje tylko domek; pomost wysuwa się nad wodę. Postaw ponownie po zmianie.
+TheDockmastersDingyBoathouse/opt/DockGridDepth/label=Głębokość śladu (komórki)
+TheDockmastersDingyBoathouse/opt/DockGridDepth/tip=Zakotwiczone po stronie brzegu modelu. Postaw ponownie po zmianie.
+TheDockmastersDingyBoathouse/opt/LanternFlicker/label=Migotanie latarni
+TheDockmastersDingyBoathouse/opt/LanternFlicker/tip=Migotanie płomieni latarni jak świeca. Wyłączone = stałe światło.
+TheDockmastersDingyBoathouse/opt/PostDepth/label=Głębokość słupów w wodzie
+TheDockmastersDingyBoathouse/opt/PostDepth/tip=Jak głęboko konstrukcja siedzi w wodzie. 0 = autorska linia wodna. Na żywo.
+TheDockmastersDingyBoathouse/cat/Hotkeys=Skróty klawiszowe
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/label=Postaw przystań
+TheDockmastersDingyBoathouse/opt/Key_PlaceBoathouse/tip=Rejestruje + wchodzi w tryb stawiania przystani.
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/label=Przywołaj / Żegluj łódką
+TheDockmastersDingyBoathouse/opt/Key_TestBoat/tip=Wyceluj na wodę: pierwsze naciśnięcie stawia łódkę, kolejne żegluje nią tam.
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/label=Schowaj łódkę
+TheDockmastersDingyBoathouse/opt/Key_RemoveBoat/tip=Usuwa Twoją łódkę, byś mógł wystawić ją gdzie indziej.
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/label=Powiększ łódkę
+TheDockmastersDingyBoathouse/opt/Key_BoatBigger/tip=Powiększa Twoją łódkę.
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/label=Pomniejsz łódkę
+TheDockmastersDingyBoathouse/opt/Key_BoatSmaller/tip=Pomniejsza Twoją łódkę.
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/label=Zrzut diagnostyczny
+TheDockmastersDingyBoathouse/opt/Key_Diagnostics/tip=Zrzuca diagnostykę budynku/prefabu do logu.
+
+# ── Warden of the Wilds ──
+WardenOfTheWilds/meta/name=Warden of the Wilds
+WardenOfTheWilds/meta/desc=Przebudowa Myśliwego: rozgałęzione ścieżki T2, AI unikania w ruchu, strojenie łowienia ryb/wędzarni, mnożniki pojawiania się grubej zwierzyny.
+WardenOfTheWilds/cat/Master Toggles=Główne przełączniki
+WardenOfTheWilds/opt/HunterOverhaulEnabled/label=Przebudowa Myśliwego
+WardenOfTheWilds/opt/HunterOverhaulEnabled/tip=Rozgałęzione ścieżki T2, AI unikania w ruchu, bonusy zasięgu z ambony
+WardenOfTheWilds/opt/FishingOverhaulEnabled/label=Przebudowa Łowienia ryb
+WardenOfTheWilds/opt/FishingOverhaulEnabled/tip=Tryby Wędkarz/Sieciarz, Pomost rybacki, wzmocnienie technologii Zrównoważonego łowienia
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/label=Przebudowa Wędzarni
+WardenOfTheWilds/opt/SmokehouseOverhaulEnabled/tip=Strojenie promienia/pracowników/magazynu Wędzarni
+WardenOfTheWilds/opt/DiagnosticsEnabled/label=Logowanie diagnostyczne
+WardenOfTheWilds/opt/DiagnosticsEnabled/tip=Szczegółowe logowanie na potrzeby rozwoju — zostaw wyłączone w normalnej grze
+WardenOfTheWilds/cat/Sub-systems=Podsystemy
+WardenOfTheWilds/opt/HunterCombatEnabled/label=AI walki myśliwego
+WardenOfTheWilds/opt/HunterCombatEnabled/tip=Unikanie w ruchu, odwrót, unikanie wielu drapieżników — główny mechanizm epoki walki
+WardenOfTheWilds/opt/HunterRallyEnabled/label=Skróty zbiórki myśliwych
+WardenOfTheWilds/opt/HunterRallyEnabled/tip=Odpytywanie skrótów zbiórki/powrotu/zaznacz-wszystkich co klatkę
+WardenOfTheWilds/opt/HunterUIEnabled/label=Wstrzykiwanie UI myśliwego
+WardenOfTheWilds/opt/HunterUIEnabled/tip=Wstrzykiwanie przycisku i suwaka Wielkiego Łowcy / Mistrza Sideł
+WardenOfTheWilds/opt/FishingUIEnabled/label=Wstrzykiwanie UI łowienia ryb
+WardenOfTheWilds/opt/FishingUIEnabled/tip=UI trybu Wędkarz / Sieciarz
+WardenOfTheWilds/opt/TechTreePatchEnabled/label=Łatka drzewka technologii
+WardenOfTheWilds/opt/TechTreePatchEnabled/tip=Nadpisanie wartości Zrównoważonego łowienia
+WardenOfTheWilds/cat/Smokehouse=Wędzarnia
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/label=Własny promień pracy
+WardenOfTheWilds/opt/SmokehouseRadiusEnabled/tip=Gdy WŁĄCZONE, Wędzarnia wyświetla widoczny okrąg obszaru pracy (widoczny po zaznaczeniu budynku) o skonfigurowanym promieniu. Ustaw WYŁ., by całkowicie wyłączyć wizualizację, zachowując wzmocnienia magazynu/pracowników.
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/label=Wymuś promień
+WardenOfTheWilds/opt/SmokehouseRadiusEnforce/tip=Odmawia pracy poza skonfigurowanym promieniem
+WardenOfTheWilds/opt/SmokehouseWorkRadius/label=Promień pracy
+WardenOfTheWilds/opt/SmokehouseWorkRadius/tip=Promień okręgu obszaru pracy Wędzarni. Gra bazowa nie ma WorkArea na Wędzarni — wizualizacja jest czysto poglądowa do stawiania Chat myśliwego / Szop rybackich w zasięgu. 60j ≈ wygodna strefa zaopatrzenia. Niżej dla ciaśniejszych skupisk, wyżej dla rozległych układów.
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/label=Maks. pracowników
+WardenOfTheWilds/opt/SmokehouseMaxWorkers/tip=Liczba stanowisk pracy w każdej Wędzarni. Bazowo = 1. 2 = drugi wędzarz może przetwarzać mięso/ryby równolegle, podwajając przepustowość. Ustaw na 1, by zachować bazową parytet.
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/label=Limit magazynu surowego mięsa
+WardenOfTheWilds/opt/SmokehouseRawMeatStorageCap/tip=Pojemność na PRZYCHODZĄCE surowe mięso/ryby (bufor czekający na wędzenie). Bazowy limit jest mały i zatrzymuje produkcję, gdy myśliwi przynoszą duży połów. 200 jednostek daje wygodny bufor. Pole jest automatycznie wykrywane przy podłączeniu — patrz log.
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/label=Limit magazynu wędzonego mięsa
+WardenOfTheWilds/opt/SmokehouseSmokedMeatStorageCap/tip=Pojemność na WYCHODZĄCE wędzone mięso/ryby (czekające na odbiór wozem). Większy bufor wyjściowy = mniej kursów wozem i brak zatorów produkcji, gdy magazyny są pełne. 200 jednostek = wygodny bufor pełnego załadunku wozu.
+WardenOfTheWilds/cat/Hunter Cabin=Chata myśliwego
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/label=Limit bufora wyjściowego
+WardenOfTheWilds/opt/HunterCabinOutputStorageCap/tip=Pojemność na przedmiot w magazynie produkcyjnym chaty. Wyżej = więcej luzu przed zatorami.
+WardenOfTheWilds/cat/Hunting Lodge=Loża myśliwska
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/label=Mnożnik promienia
+WardenOfTheWilds/opt/HuntingLodgeRadiusMult/tip=Mnożnik promienia pracy zastosowany do budynków Loży myśliwskiej. 1,35 = promień o 35% większy niż bazowo.
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/label=Mnożnik mięsa
+WardenOfTheWilds/opt/HuntingLodgeMeatMult/tip=Niewielki mnożnik plonu mięsa dla myśliwych z Loży myśliwskiej. Głównym atutem Loży myśliwskiej jest promień i 2 stanowiska pracy (wolumen); to skromny bonus jakości na dodatek. 1,15 = 15% więcej mięsa z tuszy.
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/label=Mnożnik prędkości poza drogą
+WardenOfTheWilds/opt/HuntingLodgeSpeedMult/tip=Mnożnik prędkości ruchu dla myśliwych Loży myśliwskiej (BGH). Zastosowany na T2 jako bazowy bonus specjalizacji ścieżki — kumuluje się z ulepszeniem prędkości poza drogą z drzewka technologii (Trailblazing). 1,35 = 35% szybciej niż bazowy myśliwy, wystarczająco, by BGH konsekwentnie wymijał wilki i dziki. Myśliwi T1 bez tego bonusu polegają na schronieniu + początkowym dystansie zaangażowania, by przetrwać. Szybszy odwrót = więcej dystansu pokonanego na cykl przeładowania = bezpieczniejsze unikanie. Wymaga potwierdzenia nazwy pola prędkości ze zrzutu walki.
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/label=Mnożnik interwału strzału na grubą zwierzynę
+WardenOfTheWilds/opt/HuntingLodgeBigGameShootMult/tip=Niżej = szybsza szybkostrzelność vs Dzik/Wilk/Niedźwiedź
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/label=AI unikania w ruchu
+WardenOfTheWilds/opt/HuntingLodgeKitingEnabled/tip=Myśliwi wycofują się do Ambony myśliwskiej / chaty między strzałami przeciw niebezpiecznej zwierzynie
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/label=Mnożnik prędkości oprawiania
+WardenOfTheWilds/opt/HuntingLodgeButcherSpeedMult/tip=Na pracownika — połączony z 2 pracownikami
+WardenOfTheWilds/cat/Trapper Lodge=Loża traperska
+WardenOfTheWilds/opt/TrapperLodgePeltMult/label=Mnożnik futer
+WardenOfTheWilds/opt/TrapperLodgePeltMult/tip=Mnożnik plonu futer/skór dla Loży traperskiej. 1,6 = 60% więcej futer niż bazowa Loża.
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/label=Maks. rozstawionych sideł
+WardenOfTheWilds/opt/TrapperLodgeTrapCount/tip=Maksymalna liczba jednoczesnych sideł, jakie może rozstawić Loża traperska. Bazowo T2 = 1 sidło (T1 nie ma pułapkowania). 3 = trzy aktywne linie sideł, zgodne z 26-dniowym cyklem: przy mnożniku futer ×1,6 interwał spada do ~16 dni, więc 3 sidła utrzymują trapera stale zajętym bez przestojów. Wyższe wartości wydłużają zasięg, ale jeden traper obsłuży ograniczoną liczbę linii.
+WardenOfTheWilds/opt/TrapMasterSpeedMult/label=Mnożnik szybkości sideł
+WardenOfTheWilds/opt/TrapMasterSpeedMult/tip=1,25 = o 25% krótsze interwały sideł
+WardenOfTheWilds/opt/TrapperWaterBonus/label=Bonus przy wodzie
+WardenOfTheWilds/opt/TrapperWaterBonus/tip=Bonus plonu futer, gdy Loża traperska jest blisko zbiornika wodnego. Traperzy stawiają linie wzdłuż rzek i strumieni — historycznie najbogatszych terenów łowieckich. 1,25 = 25% więcej futer w pobliżu wody.
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/label=Promień bonusu wodnego
+WardenOfTheWilds/opt/TrapperWaterBonusRadius/tip=Promień w jednostkach świata, w którym zbiornik wodny wyzwala bonus bliskości wody Loży traperskiej.
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/label=Próg kratek wody
+WardenOfTheWilds/opt/TrapperWaterTileThreshold/tip=Min. próbkowanych kratek wody, by bonus zadziałał
+WardenOfTheWilds/opt/TrapMasterBearChance/label=Szansa na niedźwiedzia w sidle
+WardenOfTheWilds/opt/TrapMasterBearChance/tip=Szansa na złapanie niedźwiedzia przy każdym uruchomieniu sidła
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/label=Mnożnik prędkości oprawiania
+WardenOfTheWilds/opt/TrapperLodgeButcherSpeedMult/tip=Ten sam mechanizm dla Loży traperskiej. Małe tusze z sideł przechodzą przez ten sam proces oprawiania — bonus się stosuje.
+WardenOfTheWilds/cat/Big Game Yields=Plony grubej zwierzyny
+WardenOfTheWilds/opt/BearMegaYieldMult/label=Mnożnik plonu niedźwiedzia
+WardenOfTheWilds/opt/BearMegaYieldMult/tip=Kumuluje się z innymi bonusami dla tusz niedźwiedzia
+WardenOfTheWilds/opt/BGHBearBonusMeat/label=BGH: Bonus mięsa z niedźwiedzia
+WardenOfTheWilds/opt/BGHBearBonusMeat/tip=Bonusowe mięso (ItemMeat) trafiające bezpośrednio do chaty myśliwego BGH, który zabił niedźwiedzia. Kumuluje się z plonem z oprawiania tuszy (bazowa ogólna tusza ≈ 30 mięsa). Domyślnie 220 + 30 ≈ 250 mięsa/niedźwiedź. Dotyczy tylko myśliwych Loży myśliwskiej (BGH) — ścieżki T1 i Traperska używają bazowego plonu tylko z tuszy.
+WardenOfTheWilds/opt/BGHBearBonusPelt/label=BGH: Bonus futer z niedźwiedzia
+WardenOfTheWilds/opt/BGHBearBonusPelt/tip=Bonusowe futra (ItemHide — FF wewnętrznie nazywa futra „skórami”) trafiające do chaty myśliwego BGH, który zabił niedźwiedzia. Kumuluje się z plonem z oprawiania (≈ 2 skóry). Domyślnie 3 + 2 ≈ 5 futer/niedźwiedź. Tylko BGH.
+WardenOfTheWilds/opt/BGHBearBonusTallow/label=BGH: Bonus łoju z niedźwiedzia
+WardenOfTheWilds/opt/BGHBearBonusTallow/tip=Bonusowy łój (ItemTallow) trafiający do chaty myśliwego BGH, który zabił niedźwiedzia. Kumuluje się z plonem z oprawiania (≈ 3 łoju). Domyślnie 5 + 3 ≈ 8 łoju/niedźwiedź. Tylko BGH.
+WardenOfTheWilds/cat/Spawn Multipliers=Mnożniki pojawiania się
+WardenOfTheWilds/opt/BearSpawnMultiplier/label=Populacja niedźwiedzi
+WardenOfTheWilds/opt/BearSpawnMultiplier/tip=Mnożnik limitu populacji niedźwiedzi na mapę. 1,5 = 50% więcej niedźwiedzi, dając myśliwym BGH sensowne cele grubej zwierzyny. 1,0 = jak w grze bazowej. Skaluje initialSpawnCount + maxAnimalCount grupy Niedźwiedź.
+WardenOfTheWilds/opt/WolfSpawnMultiplier/label=Populacja wilków
+WardenOfTheWilds/opt/WolfSpawnMultiplier/tip=Mnożnik limitu populacji wilków. 1,25 = 25% więcej wilków. Częstsze wilki oznaczają więcej starć myśliwych — ustaw niżej, jeśli wczesna gra jest zbyt niebezpieczna.
+WardenOfTheWilds/opt/BoarSpawnMultiplier/label=Populacja dzików
+WardenOfTheWilds/opt/BoarSpawnMultiplier/tip=Mnożnik limitu populacji dzików. Bazowa wartość domyślna jest już hojna; 1,0 zachowuje balans.
+WardenOfTheWilds/opt/DeerSpawnMultiplier/label=Populacja jeleni
+WardenOfTheWilds/opt/DeerSpawnMultiplier/tip=Mnożnik limitu populacji jeleni. Wpływa na plon mięsa myśliwego T1.
+WardenOfTheWilds/cat/Hunter AI=AI myśliwego
+WardenOfTheWilds/opt/HunterLowHealthThreshold/label=% zdrowia do odwrotu
+WardenOfTheWilds/opt/HunterLowHealthThreshold/tip=Wycofuje się poniżej tego ułamka maks. HP
+WardenOfTheWilds/opt/HunterMinArrows/label=Min. strzał przed polowaniem
+WardenOfTheWilds/opt/HunterMinArrows/tip=Myśliwi mający mniej niż tyle noszonych strzał zostaną zablokowani przed polowaniem / zbieraniem tusz / oprawianiem, zmuszeni najpierw uzupełnić zapas. Podnosi też bazowy próg logistyki poszukiwania strzał (bazowo = 2), więc robotnicy dostarczają zapas natychmiast, gdy nosowana liczba spadnie poniżej tej wartości. 0 = wyłącza blokadę pracy (bazowy próg logistyki nadal podniesiony).
+WardenOfTheWilds/opt/HunterDangerRadius/label=Promień świadomości zagrożenia
+WardenOfTheWilds/opt/HunterDangerRadius/tip=Jednostki świata, w których Wilk, Dzik lub Niedźwiedź wyzwalają proaktywny odwrót — jeszcze zanim zaatakują. Myśliwi ścigający jelenia blisko wilczej nory wycofają się, gdy drapieżniki wejdą w ten promień. 40 = mniej więcej 2× zasięg łuku. Ustaw na 0, by wyłączyć odwroty z bliskości.
+WardenOfTheWilds/opt/HunterShelterSearchRadius/label=Promień skanowania zagrożeń przy schronieniu
+WardenOfTheWilds/opt/HunterShelterSearchRadius/tip=Myśliwy czeka w schronieniu, aż zagrożenia opuszczą ten promień
+WardenOfTheWilds/opt/T1MeleeThreshold/label=Próg HP walki wręcz T1
+WardenOfTheWilds/opt/T1MeleeThreshold/tip=Myśliwy T1 angażuje się w walkę wręcz poniżej tego % HP celu
+WardenOfTheWilds/opt/HunterPursuitLeashMult/label=Mnożnik smyczy pościgu
+WardenOfTheWilds/opt/HunterPursuitLeashMult/tip=Przerywa pościg poza (promień chaty × ta wartość)
+WardenOfTheWilds/opt/HunterAmbushScanRadius/label=Promień skanowania zasadzki
+WardenOfTheWilds/opt/HunterAmbushScanRadius/tip=Odległość wokół zaangażowanego myśliwego skanowana pod kątem zagrożeń zasadzki. Jeśli dodatkowe agresywne zwierzęta (poza obecnym celem) pojawią się w tym zasięgu podczas pościgu, myśliwy się wycofuje. Zapobiega scenariuszowi „dzik zaprowadził mnie w wilczą watahę”.
+WardenOfTheWilds/opt/HunterAmbushThreshold/label=Próg zasadzki
+WardenOfTheWilds/opt/HunterAmbushThreshold/tip=Liczba wrogów blisko myśliwego wyzwalająca odwrót
+WardenOfTheWilds/opt/BowReloadSeconds/label=Przeładowanie łuku (sekundy)
+WardenOfTheWilds/opt/BowReloadSeconds/tip=Interwał przeładowania/ataku łuku myśliwego w sekundach. Używane do obliczenia optymalnego dystansu unikania: odwrót = czasPrzeładowania × prędkośćMyśliwego. Domyślne 3,0 to szacunek — zaktualizuj po potwierdzeniu ze zrzutu lub czasu w grze.
+WardenOfTheWilds/opt/CrossbowReloadSeconds/label=Przeładowanie kuszy (sekundy)
+WardenOfTheWilds/opt/CrossbowReloadSeconds/tip=Interwał przeładowania/ataku kuszy myśliwego w sekundach. Kusze strzelają wolniej niż łuki, ale zadają więcej obrażeń — dłuższe przeładowanie oznacza, że myśliwy powinien cofnąć się dalej na cykl strzału, by utrzymać bezpieczny dystans. Domyślne 4,5 to szacunek — zaktualizuj po potwierdzeniu ze zrzutu.
+WardenOfTheWilds/cat/Hunting Blind=Ambona myśliwska
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/label=Bonus zasięgu (kratki)
+WardenOfTheWilds/opt/HuntingBlindRangeBonus/tip=Bonusowe jednostki świata dodane do zasięgu strzału myśliwego, gdy stacjonuje w Ambonie myśliwskiej. Reprezentuje przewagę wysokości stałej, podniesionej platformy. Kumuluje się z ulepszeniami zasięgu z drzewka technologii.
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/label=Utrzymanie w złocie
+WardenOfTheWilds/opt/HuntingBlindGoldUpkeep/tip=Koszt utrzymania w złocie na obsadzoną Ambonę myśliwską na okres konserwacji w grze. Odzwierciedla model cywilnego pracownika wieży strażniczej. Ustaw na 0, by całkowicie wyłączyć utrzymanie. Wymaga pola utrzymania wieży strażniczej ze zrzutu.
+WardenOfTheWilds/cat/Fishing — Angler=Łowienie ryb — Wędkarz
+WardenOfTheWilds/opt/AnglerCatchMult/label=Mnożnik połowu
+WardenOfTheWilds/opt/AnglerCatchMult/tip=Mnożnik plonu połowu dla pracowników w trybie Wędkarz. Zastosowany na cykl łowienia przez GetNumFishCaught. 1,5 = 50% więcej ryb na połów.
+WardenOfTheWilds/opt/AnglerTimerReduction/label=Mnożnik czasu połowu
+WardenOfTheWilds/opt/AnglerTimerReduction/tip=Niżej = szybsze połowy
+WardenOfTheWilds/opt/AnglerCapacityBonus/label=Bonus pojemności transportowej
+WardenOfTheWilds/opt/AnglerCapacityBonus/tip=Dodatkowa pojemność ryb dla pracowników Wędkarz. Bazowo = 25. Bonus 15 = 40 łącznie. Mniej powrotów = więcej czasu na łowienie.
+WardenOfTheWilds/cat/Fishing — Creeler=Łowienie ryb — Sieciarz
+WardenOfTheWilds/opt/CreelerRodMult/label=Mnożnik połowu wędką
+WardenOfTheWilds/opt/CreelerRodMult/tip=Mnożnik plonu łowienia wędką dla pracowników Sieciarz. Sieciarze spędzają czas na konserwacji sideł, zmniejszając plon wędki. Prawdziwy dochód pochodzi z codziennego systemu sideł. 0,5 = 50% mniej łowienia wędką.
+WardenOfTheWilds/opt/CrabTrapSpawnDays/label=Interwał sideł (dni)
+WardenOfTheWilds/opt/CrabTrapSpawnDays/tip=Dni między cyklami produkcji sideł Sieciarza. Każde stanowisko pracy Sieciarza produkuje CrabTrapFishPerSpawn ryb co tyle dni, automatycznie deponowanych w magazynie szopy (abstrakcja czasu zbierania przez rybaka). Bonus kratek wody dzieli ten interwał dalej na mapach bogatych w wodę. Domyślne 8 dni uwzględnia czas zbierania; niżej = szybszy dochód.
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/label=Ryb na cykl sideł
+WardenOfTheWilds/opt/CrabTrapFishPerSpawn/tip=Ryby produkowane na stanowisko Sieciarza na zdarzenie. 2 stanowiska Sieciarz przy 4 rybach / 5 dni = ~584 ryb/rok pasywnie. Zmniejsz, jeśli za mocne.
+WardenOfTheWilds/opt/CreelerTrapCount/label=Liczba rozstawionych sideł
+WardenOfTheWilds/opt/CreelerTrapCount/tip=Liczba fizycznych sideł na skorupiaki, jakie rozstawia szopa rybacka w trybie Sieciarz na wodzie w swoim promieniu łowienia. Zalecany zakres 4-6. Każde sidło niezależnie gromadzi ryby w cyklu 5-dniowym i jest zbierane przez rybaków szopy.
+WardenOfTheWilds/opt/CreelerRadiusMult/label=Mnożnik promienia łowienia
+WardenOfTheWilds/opt/CreelerRadiusMult/tip=Mnożnik promienia łowienia, gdy dowolne stanowisko Sieciarz jest aktywne. 2,0 = 60j (bazowo 30j). Sidła Sieciarza rozkładają się na szerszej wodzie. Więcej kratek wody w zasięgu = lepszy bonus wodny.
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/label=Próg kratek wody
+WardenOfTheWilds/opt/CreelerWaterTileThreshold/tip=Minimalna liczba kratek wody w rozszerzonym promieniu, by aktywować bonus wodny Sieciarza. 15 przy siatce 8j = umiarkowany brzeg jeziora. Duże głębokie jeziora łatwo to przekraczają — naturalne terytorium Sieciarza.
+WardenOfTheWilds/opt/CreelerWaterTileBonus/label=Mnożnik bonusu wodnego
+WardenOfTheWilds/opt/CreelerWaterTileBonus/tip=Dzielnik interwału sideł, gdy bonus wodny aktywny. 1,25 = o 25% szybsze cykle sideł. Przy domyślnych: 5d / 1,25 = interwał 4d.
+WardenOfTheWilds/cat/Fishing — Shared=Łowienie ryb — Wspólne
+WardenOfTheWilds/opt/FishingDockOutputMult/label=Wydajność Pomostu rybackiego
+WardenOfTheWilds/opt/FishingDockOutputMult/tip=Mnożnik plonu ryb dla Pomostu rybackiego poziomu 2 (osobny budynek). 1,5 = 50% więcej ryb. Konfiguracja przestarzała dla budynków FishingDock.
+WardenOfTheWilds/opt/FishReplenishOverride/label=Zrównoważone łowienie %
+WardenOfTheWilds/opt/FishReplenishOverride/tip=Tempo odnawiania z węzła technologii (bazowo 0,30)
+WardenOfTheWilds/opt/FishingShackStorageCap/label=Limit magazynu szopy
+WardenOfTheWilds/opt/FishingShackStorageCap/tip=Pojemność magazynu ryb na szopę. Bazowo = 100. Ustaw na 200, by dopasować bazowy załadunek wozu (~200 ryb przy wadze 2).
+WardenOfTheWilds/cat/Hotkeys=Skróty klawiszowe
+WardenOfTheWilds/opt/HunterRallyKey/label=Zbiórka myśliwych
+WardenOfTheWilds/opt/HunterRallyKey/tip=Nazwa Unity KeyCode (G, H, R itd.)
+WardenOfTheWilds/opt/HunterReturnHomeKey/label=Myśliwi wracają do domu
+WardenOfTheWilds/opt/HunterReturnHomeKey/tip=Odsyła wszystkich myśliwych do przypisanych chat. Przydatne, by wycofać ich z walki, gdy najeźdźcy eskalują. Ten sam format klawisza co skrót zbiórki.
+WardenOfTheWilds/opt/HunterSelectAllKey/label=Zaznacz wszystkich myśliwych
+WardenOfTheWilds/opt/HunterSelectAllKey/tip=Zaznacza każdego myśliwego w bazowym zaznaczeniu grupowym. Następnie kliknij prawym na terenie, by przenieść ich normalnie (bazowe kliknij-by-iść działa na cywilach po zaznaczeniu). Zachowuje istniejące zaznaczenia nie-myśliwych, jeśli chcesz mieszać.
+WardenOfTheWilds/opt/HunterPathKey/label=Przełącz ścieżkę T2
+WardenOfTheWilds/opt/HunterPathKey/tip=Przełącza Bazowa / Traperska / Loża myśliwska, gdy chata T2 jest zaznaczona
+WardenOfTheWilds/cat/Pets DLC — Hunter Dog=DLC Zwierzęta — Pies myśliwski
+WardenOfTheWilds/opt/HunterDogTauntEnabled/label=Prowokacja psa (blokuje drapieżniki)
+WardenOfTheWilds/opt/HunterDogTauntEnabled/tip=Pies siłą ściąga jednego drapieżnika z myśliwego i go blokuje
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/label=Puls prowokacji (s)
+WardenOfTheWilds/opt/HunterDogTauntPulseSeconds/tip=Sekundy między ponownym wymuszeniem prowokacji podczas blokowania
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/label=Zanik prowokacji po ucieczce (s)
+WardenOfTheWilds/opt/HunterDogTauntFadeSeconds/tip=Drapieżnik ściga uciekającego psa przez tyle czasu, potem odpuszcza
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/label=Zasięg prowokacji
+WardenOfTheWilds/opt/HunterDogTauntLeashRange/tip=Maks. dystans myśliwy↔pies, by prowokacja zadziałała. Większy oznacza, że pies wlokący się z tyłu nadal reaguje, gdy myśliwy angażuje się z daleka (psy zostają w tyle, gdy ręcznie przesuwasz myśliwego). Domyślnie 100j (~promień pracy myśliwego).
+WardenOfTheWilds/opt/DogFleeHealthPct/label=% zdrowia ucieczki psa
+WardenOfTheWilds/opt/DogFleeHealthPct/tip=Ułamek HP, przy którym pies myśliwski ucieka (bazowo 0,5)
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/label=Pies ucieka z myśliwym
+WardenOfTheWilds/opt/DogAutoFleeWithHunter/tip=Pies wycofuje się i ucieka, gdy myśliwy się wycofuje
+WardenOfTheWilds/opt/DogHealthMult/label=Mnożnik zdrowia psa (wszystkie psy)
+WardenOfTheWilds/opt/DogHealthMult/tip=Skaluje maks. zdrowie KAŻDEGO psa (myśliwskich + strażniczych z bud). 1,0 = jak w grze bazowej, 1,5 = +50% HP. Zastosowane przy przywołaniu i wczytaniu mapy.
+WardenOfTheWilds/opt/DogArmorBonus/label=Bonus pancerza psa (wszystkie psy)
+WardenOfTheWilds/opt/DogArmorBonus/tip=Płaski pancerz dodany do bazowego pancerza KAŻDEGO psa. 0 = jak w grze bazowej. Pomaga psom przetrwać dłużej podczas blokowania drapieżników.
+WardenOfTheWilds/opt/DogSpeedMult/label=Mnożnik prędkości psa (wszystkie psy)
+WardenOfTheWilds/opt/DogSpeedMult/tip=Szybsze psy nadążają za ręcznie przesuwanym myśliwym
+WardenOfTheWilds/cat/Pets DLC — Pet Graveyard=DLC Zwierzęta — Cmentarz zwierząt
+WardenOfTheWilds/opt/PetGraveyardEnabled/label=Przełącznik cmentarza zwierząt
+WardenOfTheWilds/opt/PetGraveyardEnabled/tip=Dodaje przełącznik [Ludzie]/[Zwierzęta] do cmentarzy; ustaw jeden na Zwierzęta, by zrobić z niego cmentarz dla zwierząt domowych
+WardenOfTheWilds/opt/GraveyardDefaultClosed/label=Cmentarze zaczynają zamknięte
+WardenOfTheWilds/opt/GraveyardDefaultClosed/tip=Nowe cmentarze nikogo nie chowają, dopóki nie oznaczysz ich jako Ludzie lub Zwierzęta (zarezerwuj czysty cmentarz dla zwierząt)
+WardenOfTheWilds/cat/Other settings=Pozostałe ustawienia
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/label=Ogień obronny chaty myśliwego
+WardenOfTheWilds/opt/HunterCabinDefenseEnabled/tip=Gdy WŁĄCZONE, myśliwi schronieni w chacie będą strzelać do agresywnych zwierząt (Wilk / Dzik / Niedźwiedź) w krótkim zasięgu zamiast bezczynnie siedzieć, gdy robotnicy walczą wręcz z zagrożeniem na zewnątrz. Myśliwy wychodzi, strzela jedną strzałą i wraca do schronienia — obrona w stylu wieży strażniczej. Pomija, gdy ranny (patrz HunterCabinDefenseMinHp).
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/label=Promień obrony chaty myśliwego (jednostki świata)
+WardenOfTheWilds/opt/HunterCabinDefenseRadius/tip=Maksymalny zasięg zaangażowania dla ognia obronnego chaty. Bazowy zasięg łuku to ~40j; domyślne 30j utrzymuje zachowanie jako krótkozasięgową „obronę domu”, zamiast pozwalać myśliwym przywiązanym do chaty sięgać przez cały ich promień łowiecki. Współpracuje z HunterCabinDefenseMinDist jako dolną granicą bliskiego zasięgu.
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/label=Minimalny dystans zagrożenia obrony chaty myśliwego
+WardenOfTheWilds/opt/HunterCabinDefenseMinDist/tip=Nie wysyłaj ognia obronnego, jeśli zagrożenie jest bliżej chaty niż ta wartość. Wyjście na wprost przy zagrożeniu w upor stawia myśliwego w natychmiastowej walce wręcz — lepiej niech ściany przyjmą trafienie. Domyślnie 20j: myśliwy angażuje zagrożenia w paśmie 20-30j (bezpieczny zasięg łuku), pozostaje schroniony przy czymkolwiek bliższym.
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/label=Min. HP obrony chaty myśliwego (0–1)
+WardenOfTheWilds/opt/HunterCabinDefenseMinHp/tip=Myśliwy musi mieć ≥ ten ułamek pełnego HP, by zaangażować się w ogień obronny chaty. 0,5 = połowa zdrowia. Ranni myśliwi pozostają schronieni niezależnie od pobliskich zagrożeń. Ustaw na 0, by zezwolić na zaangażowanie rannych.
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/label=DLC Zwierzęta: Włącz funkcje DLC WotW
+WardenOfTheWilds/opt/PetsDlcFeaturesEnabled/tip=Główny przełącznik wszystkich funkcji WotW zależnych od DLC Farthest Frontier Pets (chwytanie lisów/świstaków, zachowanie blokowania myśliwy+pies itd.). Automatycznie wyłączane, jeśli DLC nie jest posiadane. Ustaw fałsz, by grać z wiernością zawartości DLC bez dodatków WotW.
+WardenOfTheWilds/opt/TrapMasterFoxChance/label=Szansa na lisa w sidle Mistrza Sideł
+WardenOfTheWilds/opt/TrapMasterFoxChance/tip=Szansa na każde uruchomienie sidła, że Mistrz Sideł złapie lisa napadającego na wioskowe kury. Przy sukcesie upuszcza bonusową skórę (bez tuszy — mięso lisa nie jest zużywane w tym projekcie). 0,10 = 10%. Wymaga DLC Pets.
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/label=Szansa na świstaka w sidle Mistrza Sideł
+WardenOfTheWilds/opt/TrapMasterGroundhogChance/tip=Szansa na każde uruchomienie sidła, że Mistrz Sideł złapie świstaka napadającego na pola upraw. Przy sukcesie upuszcza małą tuszę + bonus małej skóry. 0,15 = 15%. Wymaga DLC Pets.
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/label=Mistrz Sideł: Bonus skóry lisa
+WardenOfTheWilds/opt/TrapMasterFoxBonusHide/tip=Jednostki skóry deponowane za każde udane złapanie lisa. Lisy mają cenne futra — mniej na złapanie, ale wyższy plon u kuśnierza.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/label=Mistrz Sideł: Bonus tuszy świstaka
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusCarcass/tip=Jednostki małej tuszy deponowane za każde udane złapanie świstaka. Trafia do wędzarni jak każda inna mała tusza.
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/label=Mistrz Sideł: Bonus skóry świstaka
+WardenOfTheWilds/opt/TrapMasterGroundhogBonusHide/tip=Jednostki skóry deponowane za każde udane złapanie świstaka.
+WardenOfTheWilds/opt/FoxSpawnDelayDays/label=DLC Zwierzęta: Opóźnienie pojawienia lisa (dni)
+WardenOfTheWilds/opt/FoxSpawnDelayDays/tip=Dni po postawieniu pierwszego kurnika, zanim lisy zaczną próbować się pojawiać. -1 = pozostaw wartość bazową bez zmian. Wyżej = późniejszy pierwszy najazd, dając czas na budowę obrony sidłami.
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/label=DLC Zwierzęta: Opóźnienie pojawienia świstaka (dni)
+WardenOfTheWilds/opt/GroundhogSpawnDelayDays/tip=Dni po postawieniu pierwszego pola uprawy, zanim świstaki zaczną próbować się pojawiać. -1 = pozostaw wartość bazową bez zmian.
+WardenOfTheWilds/opt/FoxSpawnMultiplier/label=DLC Zwierzęta: Mnożnik pojawiania lisów
+WardenOfTheWilds/opt/FoxSpawnMultiplier/tip=Mnożnik liczby fal najazdów lisów na liczbę kur. Skaluje krzywą animacji mapującą „ile masz kur” na „ile grup lisów może się pojawić”. 1,0 = jak w grze bazowej. 2,0 = dwa razy więcej. 0,5 = o połowę mniej. Przydatne do strojenia trudności lub rozgrywek przyjaznych BGH, gdzie chcesz więcej akcji obronnej wioski.
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/label=DLC Zwierzęta: Mnożnik pojawiania świstaków
+WardenOfTheWilds/opt/GroundhogSpawnMultiplier/tip=Mnożnik liczby fal najazdów świstaków na liczbę pól upraw. 1,0 = jak w grze bazowej, 2,0 = dwa razy więcej, 0,5 = o połowę mniej.
+WardenOfTheWilds/opt/WildFoxEnabled/label=DLC Zwierzęta: Dzika populacja lisów (wędrujące)
+WardenOfTheWilds/opt/WildFoxEnabled/tip=Domyślnie WYŁ. Gdy włączone (i posiadane DLC Pets), WotW przywołuje wędrującą dziką populację lisów, która włóczy się po mapie jak wilki, zamiast pojawiać się tylko jako najeźdźcy kurników. To DODATKOWA zwierzyna ponad bazowe lisy-najeźdźcy z DLC (które pojawiają się na podstawie liczby kur niezależnie) — włączenie tego może zauważalnie zwiększyć liczbę widywanych lisów. Przełącz w panelu ustawień Keep Clarity pod Warden of the Wilds.
+WardenOfTheWilds/opt/WildFoxMaxCount/label=DLC Zwierzęta: Maks. liczba dzikich lisów
+WardenOfTheWilds/opt/WildFoxMaxCount/tip=Docelowa populacja dzikich lisów utrzymywana na mapie. Pętla uzupełniania odradza martwe lisy z powrotem do tego limitu (bazowe lisy-najeźdźcy się nie liczą). 0 wyłącza; wyżej = więcej możliwych do upolowania małych drapieżników dla BGH.
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/label=DLC Zwierzęta: Interwał uzupełniania dzikich lisów (sekundy)
+WardenOfTheWilds/opt/WildFoxRespawnIntervalSeconds/tip=Sekundy rzeczywistego czasu między sprawdzeniami populacji dzikich lisów. Niżej = szybsze odradzanie po zabiciach, ale częstszy szum w logu. Zalecane: 60–300.
+WardenOfTheWilds/opt/CatRatHuntRadius/label=DLC Zwierzęta: Promień smyczy polowania kota na szczury
+WardenOfTheWilds/opt/CatRatHuntRadius/tip=Maksymalna odległość (jednostki) od domu kota (rezydencja/Kojec dla kotów/najbliższe Schronienie), przy której kot zaakceptuje zadanie polowania na szczury. Utrzymuje wolno chodzące koty w obrębie wioski zamiast wędrówki 40 jednostek w las za szczurem. Koty zatrudnione przez Budynek szczurołapa używają promienia budynku i nie są dotknięte. Domyślnie 25 ≈ ciasny rdzeń wioski.
+WardenOfTheWilds/opt/CatRetreatDetectionMult/label=DLC Zwierzęta: Mnożnik zasięgu wykrywania zagrożeń kota
+WardenOfTheWilds/opt/CatRetreatDetectionMult/tip=Mnożnik promienia wykrywania wrogów kota. 2,0 = koty dostrzegają wilki i niedźwiedzie z dwa razy większej odległości, dając im więcej czasu na odwrót. Wyżej = bezpieczniejsze koty, ale częściej się wycofują (może przerywać polowania na szczury).
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/label=DLC Zwierzęta: Interwał skanowania zagrożeń kota (sekundy)
+WardenOfTheWilds/opt/CatEnemyScanIntervalSeconds/tip=Jak często kot ponownie skanuje pobliskie zagrożenia. Bazowo to 5 sekund — wilk może wpaść i ugryźć przed kolejnym skanem. 1,0 = koty zauważają nadchodzące wilki niemal natychmiast.
+WardenOfTheWilds/opt/DogLeashKeyName/label=DLC Zwierzęta: Skrót smyczy psa
+WardenOfTheWilds/opt/DogLeashKeyName/tip=Gdy chata myśliwego jest zaznaczona, naciśnij ten klawisz, by przełączyć jej smycz „psy zostają w obszarze pracy”. Domyślnie L. Użyj nazwy Unity KeyCode.
+WardenOfTheWilds/opt/DogRallyKeyName/label=DLC Zwierzęta: Skrót zbiórki psów
+WardenOfTheWilds/opt/DogRallyKeyName/tip=Zaznacza każdego psa przypisanego do myśliwego na mapie. Kliknij prawym po naciśnięciu, by przenieść całą sforę. Domyślnie Ctrl+D. Format: „Ctrl+D”, „Alt+R” lub pojedynczy klawisz „D”.
+WardenOfTheWilds/opt/HuntersTargetFoxes/label=DLC Zwierzęta: Myśliwi atakują lisy
+WardenOfTheWilds/opt/HuntersTargetFoxes/tip=Dodaje drużynę lisów do maski zwierząt możliwych do upolowania przez myśliwego, więc myśliwi aktywnie strzelają do lisów podczas HuntSubTask, tak samo jak do wilków/niedźwiedzi/dzików. Bez tego bazowi myśliwi ignorują lisy (lisy są w Team.Pests, którego nie ma w bazowej masce celów myśliwego).
+WardenOfTheWilds/opt/PredatorAlertsEnabled/label=DLC Zwierzęta: Alerty drapieżników per zwierzę
+WardenOfTheWilds/opt/PredatorAlertsEnabled/tip=Zastępuje ogólny czerwony alert „Drapieżniki atakują!” wersją per zwierzę: pokazuje faktyczny sprite zwierzęcia i kolor bursztynowy (niskie zagrożenie: zauważony lis / uciekający dzik) vs czerwony (wilk/niedźwiedź/atakujący dzik). Kosmetyczne — nie zmienia zachowania walki.
+WardenOfTheWilds/opt/AutoNamePets/label=DLC Zwierzęta: Automatyczne imiona psów i kotów
+WardenOfTheWilds/opt/AutoNamePets/tip=Nowe psy i koty otrzymują losowe imię z wyselekcjonowanej listy zamiast ogólnego „Pies”/„Kot”. Istniejące i przemianowane przez gracza zwierzęta zachowują imiona. Kosmetyczne.
+WardenOfTheWilds/opt/GroundhogKillBonusHide/label=DLC Zwierzęta: Skóra z zabicia świstaka
+WardenOfTheWilds/opt/GroundhogKillBonusHide/tip=Jednostki skóry automatycznie trafiające do najbliższej chaty myśliwego (w promieniu 300j), gdy świstak/świstak zostanie zabity w walce. Mała zwierzyna = mała nagroda: domyślnie 1 skóra, bez tuszy. 0 całkowicie wyłącza łup ze świstaka.
+WardenOfTheWilds/opt/HunterRequiresBowForWork/label=Myśliwy wymaga łuku do pracy
+WardenOfTheWilds/opt/HunterRequiresBowForWork/tip=Gdy WŁĄCZONE, myśliwi bez łuku/kuszy są zablokowani przed polowaniem / zbieraniem tusz / oprawianiem, dopóki bazowa logistyka nie dostarczy zamiennika. Zapobiega zjedzeniu bezbronnego myśliwego podczas zbierania tusz. WYŁ. = zachowanie bazowe (myśliwy bez łuku idzie do pracy i prawdopodobnie zginie).
+
+# ── Keep Clarity ──
+KeepClarity/meta/name=Keep Clarity
+KeepClarity/meta/desc=Wygoda UI: rozszerzone podpowiedzi, przypinana nakładka surowców, skróty budynków, panel ustawień.
+KeepClarity/cat/Hotkeys — Reports & Panels=Skróty — Raporty i panele
+KeepClarity/opt/ReportsHotkey/label=Przełącz raporty
+KeepClarity/opt/ReportsHotkey/tip=Otwiera/zamyka okno raportu 12 miesięcy
+KeepClarity/opt/ToggleOverlayHotkey/label=Przełącz nakładki
+KeepClarity/opt/ToggleOverlayHotkey/tip=Pokazuje/ukrywa przypiętą nakładkę, kolejkę technologii, kolejkę budowy i nakładki kompanii wojskowych
+KeepClarity/opt/SettingsPanelHotkey/label=Otwórz panel ustawień
+KeepClarity/opt/SettingsPanelHotkey/tip=Otwiera właśnie to okno
+KeepClarity/cat/Overlay Settings=Ustawienia nakładek
+KeepClarity/opt/PinnedCollapsed/label=Przypięta nakładka startuje zwinięta
+KeepClarity/opt/PinnedCollapsed/tip=Przypięta nakładka otwiera się zwinięta do zakładki
+KeepClarity/opt/EnableCompanyOverlay/label=Nakładka składu kompanii
+KeepClarity/opt/EnableCompanyOverlay/tip=Shift+lewy klik na sztandarze kompanii (dół ekranu) otwiera przeciągalny panel składu; Ctrl+lewy klik otwiera koszary tej kompanii.
+KeepClarity/opt/EnableInfoWindowDock/label=Przesuń info budynku poza menu budowy (eksperymentalne)
+KeepClarity/opt/EnableInfoWindowDock/tip=Gdy menu Budowy jest otwarte, przesuwa okno informacji o budynku w lewo, by menu nigdy go nie zasłaniało. Przywracane po zamknięciu menu.
+KeepClarity/opt/PinnedOverlayOpacity/label=Przezroczystość przypiętej nakładki
+KeepClarity/opt/PinnedOverlayOpacity/tip=Jak nieprzezroczyste jest tło Przypiętych zasobów. Tekst/przyciski pozostają czytelne. Działa na żywo.
+KeepClarity/opt/TechQueueOverlayOpacity/label=Przezroczystość nakładki kolejki technologii
+KeepClarity/opt/TechQueueOverlayOpacity/tip=Jak nieprzezroczyste jest tło Kolejki technologii. Tekst/przyciski pozostają czytelne. Działa na żywo.
+KeepClarity/opt/CompanyOverlayOpacity/label=Przezroczystość nakładki kompanii
+KeepClarity/opt/CompanyOverlayOpacity/tip=Jak nieprzezroczyste jest ciało panelu składu Kompanii. Nagłówek/tekst pozostają pełne. Działa na żywo.
+KeepClarity/opt/PinnedOverlayScale/label=Skala przypiętej nakładki
+KeepClarity/opt/PinnedOverlayScale/tip=Mnożnik rozmiaru panelu Przypiętych zasobów. Niezależny od Skali UI gry FF. Działa na żywo.
+KeepClarity/opt/TechQueueOverlayScale/label=Skala nakładki kolejki technologii
+KeepClarity/opt/TechQueueOverlayScale/tip=Mnożnik rozmiaru panelu Kolejki technologii. Niezależny od Skali UI gry FF. Działa na żywo.
+KeepClarity/opt/CompanyOverlayScale/label=Skala nakładki kompanii
+KeepClarity/opt/CompanyOverlayScale/tip=Mnożnik rozmiaru panelu składu Kompanii. Niezależny od Skali UI gry FF. Działa na żywo.
+KeepClarity/opt/PinnedGrowDirection/label=Kierunek rozrostu przypiętych
+KeepClarity/opt/PinnedGrowDirection/tip=Przypięte zasoby: lista rośnie W dół od nagłówka (domyślnie) lub W górę.
+KeepClarity/opt/TechQueueGrowDirection/label=Kierunek rozrostu kolejki technologii
+KeepClarity/opt/TechQueueGrowDirection/tip=Kolejka technologii: lista rośnie W dół od nagłówka (domyślnie) lub W górę.
+KeepClarity/opt/CompanyGrowDirection/label=Kierunek rozrostu kompanii
+KeepClarity/opt/CompanyGrowDirection/tip=Skład kompanii: rośnie W dół od nagłówka (domyślnie) lub W górę.
+KeepClarity/cat/Build Priority=Priorytet budowy
+KeepClarity/opt/EnableBuildPriority/label=Priorytet budowy
+KeepClarity/opt/EnableBuildPriority/tip=Przekształca strzałki liczby budowniczych placu budowy w priorytet 1-9. Budowniczy obsługują najpierw place o wyższym priorytecie; każdy plac może przyjąć pełną liczbę budowniczych.
+KeepClarity/opt/BuildPriorityWeight/label=Siła priorytetu
+KeepClarity/opt/BuildPriorityWeight/tip=Jak mocno priorytet przeważa nad odległością. 1000 = priorytet decyduje o kolejności. Działa na żywo.
+KeepClarity/opt/EnableBuildQueueOverlay/label=Nakładka kolejki budowy
+KeepClarity/opt/EnableBuildQueueOverlay/tip=Przesuwalny panel na ekranie z listą 10 najwyżej priorytetowych placów budowy, od najwyższego.
+KeepClarity/opt/BuildQueueShowSalvage/label=Kolejka budowy: Uwzględnij demontaż
+KeepClarity/opt/BuildQueueShowSalvage/tip=Wylicza też demontowane budynki i odzyskiwane porzucone obozy, oznaczone [SALV].
+KeepClarity/opt/BuildQueueShowExcavation/label=Kolejka budowy: Uwzględnij wykopaliska
+KeepClarity/opt/BuildQueueShowExcavation/tip=Wylicza też ruiny wykopywane pod kątem relikwii, oznaczone [EXC].
+KeepClarity/opt/BuildQueueOverlayScale/label=Skala kolejki budowy
+KeepClarity/opt/BuildQueueOverlayScale/tip=Rozmiar panelu Kolejki budowy. Działa na żywo.
+KeepClarity/opt/BuildQueueOverlayOpacity/label=Przezroczystość kolejki budowy
+KeepClarity/opt/BuildQueueOverlayOpacity/tip=Przezroczystość panelu Kolejki budowy. Działa na żywo.
+KeepClarity/opt/BuildQueueGrowDirection/label=Kierunek rozrostu kolejki budowy
+KeepClarity/opt/BuildQueueGrowDirection/tip=Lista rośnie W dół od nagłówka (domyślnie) lub W górę (nagłówek na dole).
+KeepClarity/cat/Snapping=Przyciąganie
+KeepClarity/opt/SnapOverlaysEnabled/label=Przyciąganie nakładek
+KeepClarity/opt/SnapOverlaysEnabled/tip=Podczas przeciągania nakładki Keep Clarity przyciąga ją do wyrównania z innymi nakładkami, minimapą i krawędziami ekranu.
+KeepClarity/opt/SnapThresholdPx/label=Odległość przyciągania
+KeepClarity/opt/SnapThresholdPx/tip=Jak blisko (w pikselach) krawędź musi się znaleźć, by przyciągnąć. 0 wyłącza przyciąganie. Działa na żywo.
+KeepClarity/cat/Building Variety=Różnorodność budynków
+KeepClarity/opt/EnableBuildingVariety/label=Różnorodność koloru budynków
+KeepClarity/opt/EnableBuildingVariety/tip=Każda budowla otrzymuje subtelny, unikalny zwietrzały odcień, by identyczne typy budynków nie wyglądały jak kopie ze sztancy. Deterministyczne per budynek (stabilne po ponownym wczytaniu).
+KeepClarity/opt/BuildingVarietyIntensity/label=Intensywność różnorodności
+KeepClarity/opt/BuildingVarietyIntensity/tip=Zakres zróżnicowania między budynkami. 0 = identyczne, 1 = najszersze (nadal ze smakiem). Działa na żywo.
+KeepClarity/cat/Crisp Mode=Tryb ostrości
+KeepClarity/opt/EnableCrispMode/label=Tryb ostrości
+KeepClarity/opt/EnableCrispMode/tip=Natywne wyostrzanie + wzmocnienie żywości kolorów jako lekka wbudowana alternatywa dla presetu ReShade CAS. Tylko świat; HUD nietknięty.
+KeepClarity/opt/CrispSharpness/label=Ostrość
+KeepClarity/opt/CrispSharpness/tip=Siła wyostrzania adaptacyjnego kontrastu. 0 = miękko, 1 = ostro. Działa na żywo.
+KeepClarity/opt/CrispVibrance/label=Żywość kolorów
+KeepClarity/opt/CrispVibrance/tip=Wzmocnienie nasycenia kolorów, ważone w stronę mniej nasyconych pikseli. Działa na żywo.
+KeepClarity/cat/Forage Calendar=Kalendarz zbieractwa
+KeepClarity/opt/EnableForageCalendar/label=Pasek sezonu zbieractwa
+KeepClarity/opt/EnableForageCalendar/tip=Pasek pod paskiem sezonu na górnym pasku pokazujący, kiedy każda roślina do zbierania na Twojej mapie jest w sezonie. Najedź na pasek, by zerknąć; przypnij bazowym przełącznikiem informacji. Działa na żywo.
+KeepClarity/opt/ForageCalendarAlwaysShow/label=Zawsze pokazuj pasek
+KeepClarity/opt/ForageCalendarAlwaysShow/tip=Utrzymuje pasek sezonu widoczny cały czas zamiast tylko przy wyskakującym okienku sezonu. Działa na żywo.
+KeepClarity/opt/EnableInSeasonReadout/label=Odczyt sezonu
+KeepClarity/opt/EnableInSeasonReadout/tip=Dodaje żywą linię „W sezonie: ...” do wyskakującego okienka daty/pogody. Działa na żywo.
+KeepClarity/cat/Hotkeys — Building=Skróty — Budynki
+KeepClarity/opt/UpgradeHotkey/label=Ulepsz
+KeepClarity/opt/UpgradeHotkey/tip=Skrót ulepszający zaznaczony budynek
+KeepClarity/opt/RelocateHotkey/label=Przenieś
+KeepClarity/opt/RelocateHotkey/tip=Skrót przenoszący zaznaczony budynek. Przenosi też rośliny do zbierania, gdy Tended Wilds jest zainstalowany.
+KeepClarity/opt/ToggleEmployHotkey/label=Przełącz produkcję budynku
+KeepClarity/opt/ToggleEmployHotkey/tip=Skrót uruchamiający/zatrzymujący produkcję zaznaczonego budynku (przełącza pole zatrudnienia).
+KeepClarity/opt/DemolishHotkey/label=Rozbierz budynek
+KeepClarity/opt/DemolishHotkey/tip=Domyślnie T. Delete nadal działa jako stały zapasowy skrót niezależnie od zmiany przypisania.
+KeepClarity/opt/CycleBuildingLeftHotkey/label=Przełącz budynek w lewo
+KeepClarity/opt/CycleBuildingLeftHotkey/tip=Przełącza na poprzedni budynek tego samego typu (odzwierciedla przycisk < na górze panelu informacji)
+KeepClarity/opt/CycleBuildingRightHotkey/label=Przełącz budynek w prawo
+KeepClarity/opt/CycleBuildingRightHotkey/tip=Przełącza na następny budynek tego samego typu (odzwierciedla przycisk > na górze panelu informacji)
+KeepClarity/opt/MoveWorkAreaHotkey/label=Przenieś obszar pracy
+KeepClarity/opt/MoveWorkAreaHotkey/tip=Budynki z obszarem pracy (myśliwi, leśnicy, zielarze…) — zaczyna go przenosić. To samo co przycisk przekierowania w panelu.
+KeepClarity/cat/Hotkeys — Build Site=Skróty — Plac budowy
+KeepClarity/opt/DeleteBuildSiteHotkey/label=Usuń plac budowy
+KeepClarity/opt/DeleteBuildSiteHotkey/tip=Domyślnie T. Delete nadal działa jako stały zapasowy skrót niezależnie od zmiany przypisania.
+KeepClarity/opt/ConstructionEnabledHotkey/label=Przełącznik budowy
+KeepClarity/opt/ConstructionEnabledHotkey/tip=Skrót przełączający pole Budowa włączona na placu budowy/demontażu
+KeepClarity/opt/PrioritizeHotkey/label=Priorytetyzuj
+KeepClarity/opt/PrioritizeHotkey/tip=Skrót przełączający pole Priorytetowe na placu budowy/demontażu
+KeepClarity/opt/DecrementBuildersHotkey/label=Zmniejsz liczbę budowniczych (-)
+KeepClarity/opt/DecrementBuildersHotkey/tip=Skrót usuwający budowniczego z placu budowy/demontażu
+KeepClarity/opt/IncrementBuildersHotkey/label=Zwiększ liczbę budowniczych (+)
+KeepClarity/opt/IncrementBuildersHotkey/tip=Skrót dodający budowniczego do placu budowy/demontażu
+KeepClarity/cat/Hotkeys — Forageables=Skróty — Rośliny do zbierania
+KeepClarity/opt/RelocateHotkey/label=Przenieś
+KeepClarity/opt/RelocateHotkey/tip=Tylko rośliny do zbierania — dzieli ten sam klawisz co Przenieś budynek (zmiana przypisania tutaj zmienia je też tam). Drzew, złóż kamienia i ruin nie da się przenosić.
+KeepClarity/opt/ForageableHarvestHotkey/label=Zbierz
+KeepClarity/opt/ForageableHarvestHotkey/tip=Wywołuje natywny przycisk Zbierz. Działa na roślinach do zbierania, drzewach, złożach kamienia i odkopanych ruinach.
+KeepClarity/opt/ForageableDeleteHotkey/label=Usuń
+KeepClarity/opt/ForageableDeleteHotkey/tip=Wywołuje natywny przycisk Usuń/Wyczyść. Działa na roślinach do zbierania, drzewach, złożach kamienia i odkopanych ruinach.
+KeepClarity/opt/ForageablePrioritizeHotkey/label=Priorytetyzuj
+KeepClarity/opt/ForageablePrioritizeHotkey/tip=Wywołuje natywny przełącznik Priorytetyzuj. Działa na roślinach do zbierania, drzewach, złożach kamienia, odkopanych ruinach i drzewach owocowych.
+KeepClarity/opt/CullForWoodHotkey/label=Wytnij drzewo owocowe na drewno
+KeepClarity/opt/CullForWoodHotkey/tip=Tylko drzewa owocowe — oznacza drzewo do wycięcia na drewno (natywne „Wytnij na drewno”).
+KeepClarity/cat/Hotkeys — Crop Field=Skróty — Pole uprawy
+KeepClarity/opt/CropCopyHotkey/label=Kopiuj ustawienia
+KeepClarity/opt/CropCopyHotkey/tip=Kopiuje ustawienia tego pola uprawy (natywny przycisk).
+KeepClarity/opt/CropPasteHotkey/label=Wklej ustawienia
+KeepClarity/opt/CropPasteHotkey/tip=Wkleja skopiowane ustawienia pola uprawy (natywny przycisk).
+KeepClarity/opt/CropExpandHotkey/label=Rozszerz pole
+KeepClarity/opt/CropExpandHotkey/tip=Rozszerza pole uprawy (natywny przycisk).
+KeepClarity/opt/CropClearHotkey/label=Wyczyść wybraną uprawę
+KeepClarity/opt/CropClearHotkey/tip=Czyści wybraną uprawę (natywny przycisk).
+KeepClarity/opt/CropSalvageHotkey/label=Demontuj
+KeepClarity/opt/CropSalvageHotkey/tip=Demontuje pole uprawy (natywny przycisk).
+KeepClarity/cat/Hotkeys — Confirmation Dialog=Skróty — Okno potwierdzenia
+KeepClarity/opt/ConfirmHotkey/label=Potwierdź
+KeepClarity/opt/ConfirmHotkey/tip=Domyślnie Y. Enter również działa jako stały zapasowy skrót.
+KeepClarity/opt/CancelHotkey/label=Anuluj
+KeepClarity/opt/CancelHotkey/tip=Domyślnie N. Esc również działa jako stały zapasowy skrót.
+KeepClarity/cat/Notifications=Powiadomienia
+KeepClarity/opt/TraderWarningDays/label=Dni ostrzeżenia przed odjazdem handlarza
+KeepClarity/opt/TraderWarningDays/tip=Dni przed odjazdem handlarza, kiedy pokazać powiadomienie „Handlarz odjeżdża” (0 wyłącza)
+KeepClarity/opt/DismissibleResourceAlerts/label=Alerty surowców do wyciszenia
+KeepClarity/opt/DismissibleResourceAlerts/tip=Kliknij ostrzeżenie „!” na górnym pasku, by wyciszyć je do zmiany miesiąca.
+KeepClarity/cat/Game and Map Settings=Ustawienia gry i mapy
+KeepClarity/opt/KeepMapTypeOnReroll/label=Zachowaj typ mapy przy przerzucie
+KeepClarity/opt/KeepMapTypeOnReroll/tip=Przycisk kostki przerzuca ziarno w obrębie wybranego biomu zamiast wymuszać Losowy.
+KeepClarity/opt/RememberCustomSettings/label=Zapamiętaj ustawienia niestandardowe
+KeepClarity/opt/RememberCustomSettings/tip=Zapisuje wybory panelu Ustawień niestandardowych przy Potwierdzeniu i przywraca przy następnym otwarciu.
+KeepClarity/opt/SyncMapTypeWithRiverPreset/label=Synchronizuj typ mapy z Rivers Restored
+KeepClarity/opt/SyncMapTypeWithRiverPreset/tip=Dwukierunkowa synchronizacja między selektorem terenu FF a RiverPreset RR. Wyłączona, gdy RR jest wyłączony lub ustawiony na Custom.
+KeepClarity/opt/BridgeAnywhere/label=Mosty wszędzie (bez wody / dowolna wysokość)
+KeepClarity/opt/BridgeAnywhere/tip=Znosi zasady „musi być nad wodą” i „przyciągnij do poziomu wody”, więc możesz przerzucać mosty przez suche wąwozy i wysokie brzegi rzek bez formowania terenu. Most siada na wysokości terenu komórek początku/końca.
+KeepClarity/cat/Game Flow=Przebieg gry
+KeepClarity/opt/DoubleClickLoad/label=Podwójne kliknięcie, by wczytać
+KeepClarity/opt/DoubleClickLoad/tip=Podwójne kliknięcie na save (ekran startowy lub menu Wczytaj w grze) wczytuje go bez okna potwierdzenia. Pojedyncze kliknięcie nadal wymaga potwierdzenia.
+KeepClarity/opt/DoubleClickLoadWindow/label=Szybkość podwójnego kliknięcia (sekundy)
+KeepClarity/opt/DoubleClickLoadWindow/tip=Maks. odstęp między dwoma kliknięciami (i krótkie przytrzymanie przed pokazaniem okna potwierdzenia przy pojedynczym kliknięciu).
+KeepClarity/opt/PauseOnLoad/label=Pauza po wczytaniu
+KeepClarity/opt/PauseOnLoad/tip=Automatyczna pauza po zakończeniu wczytywania save'a
+KeepClarity/opt/PauseOnLoadDelaySeconds/label=Opóźnienie pauzy po wczytaniu (sekundy)
+KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Czeka tyle sekund przed pauzą — daje scenie czas na wyrenderowanie, by pierwsza klatka nie była czarna. Zwiększ dla mocno zmodowanych zestawów.
+KeepClarity/opt/SkipNewMapIntro/label=Pomiń intro nowej gry
+KeepClarity/opt/SkipNewMapIntro/tip=Pomija wideo wprowadzające i przechodzi prosto do wczytania mapy.
+KeepClarity/opt/CustomPopulationCap/label=Niestandardowy limit populacji
+KeepClarity/opt/CustomPopulationCap/tip=Nadpisuje cztery progi suwaka (200/500/1000/2000) dowolną wartością. 0 = pozostaw zachowanie bazowe.
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignoruj wymóg populacji do ulepszenia
+KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Omija bramki populacji przy podnoszeniu poziomu Ratusza, by save'y z niską populacją mogły nadal się rozwijać.
+KeepClarity/cat/Other Settings=Pozostałe ustawienia
+KeepClarity/opt/SettingsVerboseLog/label=Szczegółowy log ustawień
+KeepClarity/opt/SettingsVerboseLog/tip=Loguje każdą decyzję rejestracji/wykrycia do MelonLoader/Latest.log. Domyślnie wyłączone; włącz tylko podczas debugowania panelu.
+KeepClarity/cat/Other settings=Pozostałe ustawienia
+KeepClarity/opt/ShowPlannerButton/label=Pokaż przycisk Planera
+KeepClarity/opt/ShowPlannerButton/tip=Pokazuje ikonę PLAN na górnym pasku, otwierającą Planer Farthest Frontier SageDragoon w przeglądarce. Wymaga restartu, by zadziałało.
+KeepClarity/opt/UseLegacyImguiPanel/label=Użyj klasycznego panelu IMGUI
+KeepClarity/opt/UseLegacyImguiPanel/tip=Rezerwa etapu 1. Gdy fałsz (domyślnie), F10 otwiera dopracowane płótno UGUI. Gdy prawda, F10 otwiera oryginalny prototyp IMGUI. Przełącz na prawda, jeśli panel UGUI zaczyna szwankować.
+
+# ── LootScaling ──
+LootScaling/meta/name=LootScaling
+LootScaling/cat/LootScaling=LootScaling
+LootScaling/opt/dropChanceAdjustmentIntervalInSeconds/label=dropChanceAdjustmentIntervalInSeconds
+LootScaling/opt/lostItemsBonusInPercentPoints/label=lostItemsBonusInPercentPoints
+LootScaling/opt/lostItemsThreshold/label=lostItemsThreshold
+LootScaling/opt/producedItemsPenaltyInPercentPoints/label=producedItemsPenaltyInPercentPoints
+LootScaling/opt/producedItemsThreshold/label=producedItemsThreshold
+LootScaling/opt/unusedItemsPenaltyInPercentPoints/label=unusedItemsPenaltyInPercentPoints
+LootScaling/opt/unusedItemsThreshold/label=unusedItemsThreshold
+
+# ── Setup ──
+Setup/meta/name=Setup
+Setup/cat/Setup=Setup
+Setup/opt/verboseLogging/label=verboseLogging

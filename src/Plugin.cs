@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.4.2", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.5.0", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -521,6 +521,10 @@ namespace FFUIOverhaul
             // confirmation once the double-click window lapses.
             Patches.DoubleClickLoad.Tick();
 
+            // Localization: arms once I2's sources exist (menu included), loads
+            // drop-in packs from Mods/KCLocalization/, registers pending terms.
+            Localization.KcLoc.Tick();
+
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
 
@@ -705,6 +709,16 @@ namespace FFUIOverhaul
         {
             bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
             bool ctrlHeldNow = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            bool altHeld = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
+
+            // Ctrl+Alt+F10 → export the localization template (every settings
+            // string in the fleet, pack format) to Mods/KCLocalization/. The
+            // translator kit — see Localization.KcLoc.
+            if (Input.GetKeyDown(SettingsPanelHotkey.Value) && altHeld && ctrlHeldNow)
+            {
+                Localization.KcLoc.ExportTemplate();
+                return;
+            }
 
             // Ctrl+Shift+F10 → export every loaded sprite to PNG + an HTML
             // gallery under MelonLoader/KC_SpriteExport_*/. Offline reference so
