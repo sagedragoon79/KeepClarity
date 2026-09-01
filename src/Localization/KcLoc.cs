@@ -109,7 +109,7 @@ namespace FFUIOverhaul.Localization
             _nextLangCheck = Time.unscaledTime + 1f;
             try
             {
-                var lang = I2.Loc.LocalizationManager.CurrentLanguage;
+                var lang = ResolveGameLanguage();
                 if (!string.IsNullOrEmpty(lang) && lang != _lang)
                 {
                     _lang = lang;
@@ -126,6 +126,52 @@ namespace FFUIOverhaul.Localization
                 }
             }
             catch { /* I2 not up yet — keep default English */ }
+        }
+
+        /// <summary>The language the GAME is actually displaying.
+        ///
+        /// Source of truth is FF's own <c>SettingsManager.currentLanguage</c>, NOT
+        /// I2's CurrentLanguage. They diverge: FF syncs I2 at startup with
+        /// <c>I2.LocalizationManager.CurrentLanguage = PlayerPrefs.GetString("currentLanguage")</c>,
+        /// but PlayerPrefs returns "" when the player has never changed language,
+        /// and I2's setter ignores empty input — so I2 keeps whatever
+        /// SelectStartupLanguage() chose, which is the DEVICE locale. FF meanwhile
+        /// falls back to its own default of "English". Result on a non-English
+        /// Windows: English game, mod panel in the system language (reported by a
+        /// player 2026-08-31, Chinese). Reading FF's setting first makes KC follow
+        /// what the player actually sees. I2 stays as the fallback.</summary>
+        private static string ResolveGameLanguage()
+        {
+            // Explicit player override wins over everything — the escape hatch if
+            // detection is ever wrong on a machine we can't reproduce.
+            try
+            {
+                var ov = FFUIOverhaulMod.LanguageOverride?.Value;
+                if (!string.IsNullOrEmpty(ov) && ov != "Auto"
+                    && Array.IndexOf(LanguageNames, ov) >= 0)
+                    return ov;
+            }
+            catch { }
+
+            try
+            {
+                var sm = UnitySingletonPersistent<SettingsManager>.Instance;
+                if (sm != null)
+                {
+                    var ff = sm.currentLanguage;
+                    if (!string.IsNullOrEmpty(ff) && Array.IndexOf(LanguageNames, ff) >= 0)
+                        return ff;
+                }
+            }
+            catch { /* SettingsManager not up yet — fall through */ }
+
+            try
+            {
+                var i2 = I2.Loc.LocalizationManager.CurrentLanguage;
+                if (!string.IsNullOrEmpty(i2)) return i2;
+            }
+            catch { }
+            return "English";
         }
 
         // ── packs ───────────────────────────────────────────────────────────

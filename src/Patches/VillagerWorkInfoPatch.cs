@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
+using UnityEngine;
 using TMPro;
 
 namespace FFUIOverhaul.Patches
@@ -90,6 +91,7 @@ namespace FFUIOverhaul.Patches
                 var edu = GetField(hostType, host, "educationValue", _eduField) as TMP_Text;
                 var age = GetField(hostType, host, "ageValue", _ageField) as TMP_Text;
 
+
                 if (_epEdu != null && _epMastery != null)
                 {
                     // Split API: mastery → AGE line (has room for the full label without
@@ -121,8 +123,18 @@ namespace FFUIOverhaul.Patches
 
         // Full wording now that each bonus has its own roomy line — leading "+" and one
         // optional decimal. Renders e.g. "+3.1% Job Mastery" / "+10% Output Bonus".
+        /// <summary>Append our bonus text to a row, ONCE. Idempotency matters: we
+        /// rely on FF rebuilding the row string on every UpdateText, but another
+        /// mod can re-drive the villager window without a clean rebuild (Better UI
+        /// runs a 0.2s icon ticker and a 0.5s heartbeat over this same window). If
+        /// our label is already present we return the string untouched, so the row
+        /// can never accumulate "+5% Job Mastery +5% Job Mastery ...".</summary>
         private static string Append(string baseText, float pct, string label)
-            => baseText + "  <color=" + Green + ">+" + pct.ToString("0.#") + "% " + label + "</color>";
+        {
+            if (baseText != null && baseText.IndexOf(label, StringComparison.Ordinal) >= 0)
+                return baseText;
+            return baseText + "  <color=" + Green + ">+" + pct.ToString("0.#") + "% " + label + "</color>";
+        }
 
         private static void EnsureEpResolved()
         {

@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.5.0", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.5.1", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -130,6 +130,9 @@ namespace FFUIOverhaul
         public static MelonPreferences_Entry<bool> EnableCrispMode { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CrispSharpness { get; private set; } = null!;
         public static MelonPreferences_Entry<float> CrispVibrance { get; private set; } = null!;
+
+        // Localization: force a UI language for the mod panel ("Auto" = follow the game)
+        public static MelonPreferences_Entry<string> LanguageOverride { get; private set; } = null!;
 
         // Forage Calendar (seasonality bar under the top-bar season strip + in-season popup line)
         public static MelonPreferences_Entry<bool> EnableForageCalendar { get; private set; } = null!;
@@ -474,6 +477,10 @@ namespace FFUIOverhaul
             CrispVibrance = _prefs.CreateEntry("CrispVibrance", 0.6f,
                 display_name: "Crisp Vibrance",
                 description: "Color pop / saturation boost, weighted toward less-saturated pixels. 0 = none. Applies live.");
+
+            LanguageOverride = _prefs.CreateEntry("LanguageOverride", "Auto",
+                display_name: "Mod Panel Language",
+                description: "Language for mod settings text. 'Auto' follows Farthest Frontier's own language setting. Set it explicitly if the panel ever shows the wrong language.");
 
             EnableForageCalendar = _prefs.CreateEntry("EnableForageCalendar", true,
                 display_name: "Forage Season Bar",
@@ -1004,6 +1011,18 @@ namespace FFUIOverhaul
 
             // ── Other Settings (debug / advanced) ────────────────────────
             _order = 0;
+            {
+                var langOpts = new System.Collections.Generic.List<string> { "Auto" };
+                langOpts.AddRange(Localization.KcLoc.LanguageNames);
+                SettingsAPI.Register(id, name, "Other Settings", LanguageOverride,
+                    new SettingsMeta
+                    {
+                        Label = "Mod Panel Language",
+                        Tooltip = "Language for mod settings text. 'Auto' follows Farthest Frontier's own language setting. Set explicitly if the panel shows the wrong language.",
+                        EnumOptions = langOpts.ToArray(),
+                        Order = Next(),
+                    });
+            }
             R("Other Settings", SettingsVerboseLog, "Verbose Settings Log",
                 "Log every claim/discovery decision to MelonLoader/Latest.log. Off by default; turn on only when debugging the panel.");
         }
