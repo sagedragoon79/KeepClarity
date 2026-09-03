@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.5.1", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.5.2", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -133,6 +133,9 @@ namespace FFUIOverhaul
 
         // Localization: force a UI language for the mod panel ("Auto" = follow the game)
         public static MelonPreferences_Entry<string> LanguageOverride { get; private set; } = null!;
+
+        // Road length counter: live tile count while dragging a road
+        public static MelonPreferences_Entry<bool> EnableRoadLengthCounter { get; private set; } = null!;
 
         // Forage Calendar (seasonality bar under the top-bar season strip + in-season popup line)
         public static MelonPreferences_Entry<bool> EnableForageCalendar { get; private set; } = null!;
@@ -482,6 +485,10 @@ namespace FFUIOverhaul
                 display_name: "Mod Panel Language",
                 description: "Language for mod settings text. 'Auto' follows Farthest Frontier's own language setting. Set it explicitly if the panel ever shows the wrong language.");
 
+            EnableRoadLengthCounter = _prefs.CreateEntry("EnableRoadLengthCounter", true,
+                display_name: "Road Length Counter",
+                description: "While dragging a road, show how many grid squares it will cover next to the cursor.");
+
             EnableForageCalendar = _prefs.CreateEntry("EnableForageCalendar", true,
                 display_name: "Forage Season Bar",
                 description: "Gantt-style bar under the top-bar season strip showing when each forageable on your map is in season. Shows with the game's own season popup (hover the strip, or pin it with FF's info toggle).");
@@ -531,6 +538,7 @@ namespace FFUIOverhaul
             // Localization: arms once I2's sources exist (menu included), loads
             // drop-in packs from Mods/KCLocalization/, registers pending terms.
             Localization.KcLoc.Tick();
+            UI.RoadLengthCounter.Tick();
 
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
@@ -918,6 +926,11 @@ namespace FFUIOverhaul
             RF("Crisp Mode", CrispVibrance, "Vibrance", 0f, 1f,
                 "Color pop / saturation boost, weighted toward less-saturated pixels. Applies live.",
                 visibleWhen: () => EnableCrispMode.Value);
+
+            // ── Building ─────────────────────────────────────────────────
+            _order = 0;
+            R("Building", EnableRoadLengthCounter, "Road Length Counter",
+                "While dragging a road, show how many grid squares it will cover next to the cursor. Applies live.");
 
             // ── Forage Calendar ──────────────────────────────────────────
             _order = 0;
