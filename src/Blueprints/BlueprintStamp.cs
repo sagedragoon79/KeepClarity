@@ -10,12 +10,11 @@ namespace FFUIOverhaul.Blueprints
     /// layout, Tab rotates it in 90° steps (the game's own rotate convention),
     /// click commits, right-click/Esc cancels.
     ///
-    /// PREVIEW is a footprint outline per building rather than mesh ghosts: it
-    /// shows placement, rotation and — the part that matters — WHICH entries will
-    /// actually be placed. Locked or missing buildings draw red and are named in
-    /// the readout before you click, so a partial stamp is never a surprise.
-    /// Mesh ghosts (porting BoatKeys' meshChild/showMeshChild technique) are the
-    /// nicer end state; outlines get the mechanic correct first.
+    /// PREVIEW is translucent building meshes (StampGhostRenderer) over footprint
+    /// outlines. Both are tinted green where the building will be placed and red
+    /// where it won't — locked by tech, missing mod/DLC, or already at its cap —
+    /// so a partial stamp is visible before you click rather than a surprise
+    /// afterwards. If ghosts can't be built the outlines carry the preview alone.
     ///
     /// PLACEMENT is spread across frames. Each Construct instantiates GridCell
     /// objects, so a large blueprint placed in one frame visibly hitches.
@@ -33,6 +32,7 @@ namespace FFUIOverhaul.Blueprints
         private static Vector3 _cursor;
         private static int _placedThisRun;
         private static Chord? _rotate;
+        private static readonly StampGhostRenderer _ghosts = new StampGhostRenderer();
         private static int _lastRotateFrame = -1;
 
         /// <summary>Buildings placed per frame while committing. Small enough that
@@ -52,6 +52,7 @@ namespace FFUIOverhaul.Blueprints
             _rot90 = 0;
             StampGate.Reset();
             CaptureBoxRenderer.Clear();
+            _ghosts.Clear();
             _rotate = Chord.Parse(FFUIOverhaulMod.RotateHotkey.Value, KeyCode.Tab);
         }
 
@@ -71,6 +72,7 @@ namespace FFUIOverhaul.Blueprints
             _blueprint = bp;
             _rot90 = 0;
             _state = State.Aiming;
+            _ghosts.Build(bp);
             TopDownCamera.SetActive(true);
             FFUIOverhaulMod.Log.Msg($"[Stamp] armed '{bp.name}' ({bp.entries.Count} building(s)) — " +
                 $"move to aim, {_rotate} to rotate, click to place, right-click or Esc to cancel.");
@@ -142,6 +144,7 @@ namespace FFUIOverhaul.Blueprints
             _state = State.Idle;
             TopDownCamera.SetActive(false);
             CaptureBoxRenderer.Clear();
+            _ghosts.Clear();
             FFUIOverhaulMod.Log.Msg($"[Stamp] {why}.");
         }
 
@@ -205,9 +208,17 @@ namespace FFUIOverhaul.Blueprints
             ok = 0; blocked = 0;
             if (_blueprint == null) return;
 
+            // Mesh ghosts show the real buildings; outlines stay underneath so the
+            // grid footprint is still legible (and carry the whole preview if
+            // ghosts couldn't be built on this machine).
+            bool useGhosts = !_ghosts.Failed;
+            if (useGhosts) _ghosts.Build(_blueprint);
+            useGhosts = !_ghosts.Failed && _ghosts.Count > 0;
+
             float cell = CellSize();
             CaptureBoxRenderer.Begin();
 
+            int i = 0;
             foreach (var e in _blueprint.entries)
             {
                 var block = StampGate.Check(e.id, out _);
@@ -215,12 +226,23 @@ namespace FFUIOverhaul.Blueprints
                 if (good) ok++; else blocked++;
 
                 var p = WorldPosOf(e);
+                float yaw = ((e.rot90 + _rot90) & 3) * 90f;
                 var size = FootprintOf(e.id, (e.rot90 + _rot90) & 3, cell);
+
                 CaptureBoxRenderer.AddFootprint(p, size.x, size.y,
                     good ? OkColor : BlockedColor);
+
+                if (useGhosts)
+                {
+                    var groundPos = p;
+                    try { groundPos = MeshUtilities.SetWorldPositionToTerrain(p); } catch { }
+                    _ghosts.Place(i, groundPos, yaw, good);
+                }
+                i++;
             }
 
             CaptureBoxRenderer.End();
+            if (useGhosts) _ghosts.SetVisible(true);
         }
 
         /// <summary>Footprint in world units, from the building's own grid size.
@@ -261,6 +283,7 @@ namespace FFUIOverhaul.Blueprints
             if (_blueprint == null) return;
             _state = State.Placing;
             CaptureBoxRenderer.Clear();
+            _ghosts.Clear();
             _placedThisRun = 0;
             MelonLoader.MelonCoroutines.Start(PlaceAll(_blueprint, _cursor, _rot90));
         }
