@@ -137,6 +137,13 @@ namespace FFUIOverhaul
         // Road length counter: live tile count while dragging a road
         public static MelonPreferences_Entry<bool> EnableRoadLengthCounter { get; private set; } = null!;
 
+        // Blueprints (Master Mason): capture a layout and stamp it elsewhere
+        public static MelonPreferences_Entry<bool> EnableBlueprints { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> CaptureHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> StampHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> PanelHotkey { get; private set; } = null!;
+        public static MelonPreferences_Entry<string> RotateHotkey { get; private set; } = null!;
+
         // Forage Calendar (seasonality bar under the top-bar season strip + in-season popup line)
         public static MelonPreferences_Entry<bool> EnableForageCalendar { get; private set; } = null!;
         public static MelonPreferences_Entry<bool> ForageCalendarAlwaysShow { get; private set; } = null!;
@@ -485,6 +492,22 @@ namespace FFUIOverhaul
                 display_name: "Mod Panel Language",
                 description: "Language for mod settings text. 'Auto' follows Farthest Frontier's own language setting. Set it explicitly if the panel ever shows the wrong language.");
 
+            EnableBlueprints = _prefs.CreateEntry("EnableBlueprints", true,
+                display_name: "Blueprints",
+                description: "Capture a group of placed buildings and stamp the layout elsewhere as build orders.");
+            CaptureHotkey = _prefs.CreateEntry("BlueprintCaptureHotkey", "Shift+C",
+                display_name: "Capture Layout",
+                description: "Arms capture: click one corner, move, click again to copy the buildings inside.");
+            StampHotkey = _prefs.CreateEntry("BlueprintStampHotkey", "Shift+V",
+                display_name: "Stamp Layout",
+                description: "Arms stamping with the selected blueprint. Click to place.");
+            PanelHotkey = _prefs.CreateEntry("BlueprintPanelHotkey", "Shift+B",
+                display_name: "Blueprint Library",
+                description: "Opens the blueprint library: name and save captures, pick one to stamp.");
+            RotateHotkey = _prefs.CreateEntry("BlueprintRotateHotkey", "Tab",
+                display_name: "Rotate Blueprint",
+                description: "Rotates the blueprint 90 degrees while stamping.");
+
             EnableRoadLengthCounter = _prefs.CreateEntry("EnableRoadLengthCounter", true,
                 display_name: "Road Length Counter",
                 description: "While dragging a road, show how many grid squares it will cover next to the cursor.");
@@ -521,6 +544,12 @@ namespace FFUIOverhaul
             LoggerInstance.Msg("Keep Clarity initialized");
         }
 
+        /// <summary>IMGUI pass — currently only the blueprint library panel.</summary>
+        public override void OnGUI()
+        {
+            if (EnableBlueprints.Value) Blueprints.BlueprintPanel.OnGUI();
+        }
+
         public override void OnUpdate()
         {
             if (!Application.isPlaying) return;
@@ -539,6 +568,13 @@ namespace FFUIOverhaul
             // drop-in packs from Mods/KCLocalization/, registers pending terms.
             Localization.KcLoc.Tick();
             UI.RoadLengthCounter.Tick();
+
+            if (EnableBlueprints.Value)
+            {
+                Blueprints.CaptureInput.OnUpdate();
+                Blueprints.PanelInput.OnUpdate();
+                Blueprints.StampInput.OnUpdate();
+            }
 
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
@@ -661,6 +697,15 @@ namespace FFUIOverhaul
 
                 if (_buildQueueOverlay == null) _buildQueueOverlay = new BuildQueueOverlay();
                 _buildQueueOverlay.Visible = true; // clear the toggle-hidden latch each load, like the siblings above
+
+                if (EnableBlueprints.Value)
+                {
+                    Blueprints.BlueprintCapture.OnMapLoaded();
+                    Blueprints.BlueprintStamp.OnMapLoaded();
+                    Blueprints.CaptureInput.OnMapLoaded();
+                    Blueprints.PanelInput.OnMapLoaded();
+                    Blueprints.StampInput.OnMapLoaded();
+                }
 
                 Patches.InfoWindowDock.ResetState(); // clear stale dock baseline on each save load
                 UI.ForageCalendarBar.ResetState();   // scene objects died with the old map; rebuild lazily
@@ -931,6 +976,29 @@ namespace FFUIOverhaul
             _order = 0;
             R("Building", EnableRoadLengthCounter, "Road Length Counter",
                 "While dragging a road, show how many grid squares it will cover next to the cursor. Applies live.");
+            R("Building", EnableBlueprints, "Blueprints",
+                "Capture a group of placed buildings and stamp the layout elsewhere as build orders. Opens with the Blueprint Library hotkey.");
+            // Chord strings ("Shift+C"), not KeyCode, so these can carry modifiers
+            // and stay clear of the game's own single-key bindings. KC renders a
+            // string pref as a text field, which is enough for typing a chord.
+            void RBK(MelonPreferences_Entry<string> entry, string label, string tip) =>
+                SettingsAPI.Register(id, name, "Building", entry,
+                    new SettingsMeta
+                    {
+                        Label = label,
+                        Tooltip = tip,
+                        Order = Next(),
+                        VisibleWhen = () => EnableBlueprints.Value,
+                    });
+
+            RBK(CaptureHotkey, "Blueprint: Capture Layout",
+                "Arms capture: click one corner, move, click again to copy the buildings inside. A key or chord, e.g. Shift+C.");
+            RBK(StampHotkey, "Blueprint: Stamp Layout",
+                "Arms stamping with the selected blueprint. Click to place. A key or chord, e.g. Shift+V.");
+            RBK(PanelHotkey, "Blueprint: Library Panel",
+                "Opens the blueprint library: name and save captures, pick one to stamp. A key or chord, e.g. Shift+B.");
+            RBK(RotateHotkey, "Blueprint: Rotate",
+                "Rotates the blueprint 90 degrees while stamping. Default Tab.");
 
             // ── Forage Calendar ──────────────────────────────────────────
             _order = 0;

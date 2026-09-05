@@ -73,6 +73,13 @@
       <Private>false</Private>
     </Reference>
 
+    <!-- Shipped with the game. Used by the blueprint library: Unity's JsonUtility
+         silently drops List<T> fields, writing a file with no entries and no error. -->
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(GameDir)\Farthest Frontier (Mono)\Farthest Frontier_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
     <!-- Game assembly -->
     <Reference Include="Assembly-CSharp">
       <HintPath>$(GameDir)\Farthest Frontier (Mono)\Farthest Frontier_Data\Managed\Assembly-CSharp.dll</HintPath>
