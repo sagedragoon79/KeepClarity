@@ -574,6 +574,7 @@ namespace FFUIOverhaul
                 Blueprints.CaptureInput.OnUpdate();
                 Blueprints.PanelInput.OnUpdate();
                 Blueprints.StampInput.OnUpdate();
+                Blueprints.BlueprintPanel.Tick();
             }
 
             var gm = UnitySingleton<GameManager>.Instance;
@@ -705,6 +706,7 @@ namespace FFUIOverhaul
                     Blueprints.CaptureInput.OnMapLoaded();
                     Blueprints.PanelInput.OnMapLoaded();
                     Blueprints.StampInput.OnMapLoaded();
+                    Blueprints.BlueprintPanel.OnMapLoaded();
                 }
 
                 Patches.InfoWindowDock.ResetState(); // clear stale dock baseline on each save load

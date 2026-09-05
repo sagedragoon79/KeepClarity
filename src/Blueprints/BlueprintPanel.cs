@@ -15,6 +15,47 @@ namespace FFUIOverhaul.Blueprints
     /// </summary>
     internal static class BlueprintPanel
     {
+        // ── uGUI front end ──────────────────────────────────────────────────
+        // The panel is uGUI now, styled from FFNativeAssets so it matches the mod
+        // manager. The IMGUI implementation below is kept as a runtime fallback:
+        // if the canvas fails to build on some machine, the library degrades to a
+        // plain window instead of vanishing. _useUgui latches false on the first
+        // failure so we don't retry a broken build every frame.
+        private static BlueprintPanelUgui? _ugui;
+        private static bool _useUgui = true;
+
+        private static BlueprintPanelUgui? Ugui
+        {
+            get
+            {
+                if (!_useUgui) return null;
+                return _ugui ??= new BlueprintPanelUgui();
+            }
+        }
+
+        /// <summary>Per-frame upkeep for the uGUI panel. Driven from Plugin.</summary>
+        public static void Tick()
+        {
+            if (!_useUgui || _ugui == null) return;
+            try { _ugui.Tick(); }
+            catch (Exception e) { Fallback("tick", e); }
+        }
+
+        public static void OnMapLoaded()
+        {
+            // Canvas objects don't survive a map change cleanly; rebuild lazily.
+            try { _ugui?.Destroy(); } catch { }
+            _ugui = null;
+        }
+
+        private static void Fallback(string where, Exception e)
+        {
+            _useUgui = false;
+            _ugui = null;
+            FFUIOverhaulMod.Log.Warning(
+                $"[Blueprints] uGUI panel failed ({where}: {e.Message}) — falling back to the simple panel.");
+        }
+
         private static bool _open;
         private static Rect _window = new Rect(60f, 90f, 380f, 460f);
         private static Vector2 _scroll;
@@ -26,7 +67,8 @@ namespace FFUIOverhaul.Blueprints
 
         private const int WindowId = 0x4D4D01;   // "MM" + 1, unlikely to collide
 
-        internal static bool IsOpen => _open;
+        internal static bool IsOpen =>
+            (_useUgui && _ugui != null) ? _ugui.IsOpen : _open;
 
         /// <summary>True when the cursor is over the panel. IMGUI windows don't
         /// participate in FF's pointerIsOverUI, so the game treats a click on this
@@ -37,6 +79,10 @@ namespace FFUIOverhaul.Blueprints
         {
             get
             {
+                if (_useUgui && _ugui != null)
+                {
+                    try { return _ugui.PointerOverPanel; } catch { return false; }
+                }
                 if (!_open) return false;
                 // Input.mousePosition is bottom-left origin; GUI rects are top-left.
                 var m = Input.mousePosition;
@@ -44,11 +90,23 @@ namespace FFUIOverhaul.Blueprints
             }
         }
 
-        /// <summary>The blueprint the player picked to stamp (M2 will consume this).</summary>
-        internal static Blueprint? Selected { get; private set; }
+        /// <summary>The blueprint the player picked to stamp.</summary>
+        internal static Blueprint? Selected
+        {
+            get => (_useUgui && _ugui != null) ? _ugui.Selected : _imguiSelected;
+            private set => _imguiSelected = value;
+        }
+        private static Blueprint? _imguiSelected;
 
         public static void Toggle()
         {
+            var u = Ugui;
+            if (u != null)
+            {
+                try { u.Toggle(); return; }
+                catch (Exception e) { Fallback("toggle", e); }
+            }
+
             _open = !_open;
             if (_open)
             {
@@ -59,10 +117,18 @@ namespace FFUIOverhaul.Blueprints
             _confirmDelete = null;
         }
 
-        public static void Close() { _open = false; _confirmDelete = null; }
+        public static void Close()
+        {
+            if (_useUgui && _ugui != null)
+            {
+                try { _ugui.Close(); return; } catch (Exception e) { Fallback("close", e); }
+            }
+            _open = false; _confirmDelete = null;
+        }
 
         public static void OnGUI()
         {
+            if (_useUgui) return;   // uGUI panel owns the display
             if (!_open) return;
             _window = GUI.Window(WindowId, _window, DrawWindow, "Master Mason — Blueprints");
         }
