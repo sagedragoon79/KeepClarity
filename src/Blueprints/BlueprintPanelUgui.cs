@@ -38,8 +38,12 @@ namespace FFUIOverhaul.Blueprints
         // settings canvas (30) so the mod manager still wins.
         private const int CanvasSortingOrder = 20;
         private const float PanelWidth = 420f;
-        private const float PanelHeight = 520f;
-        private const float RowHeight = 46f;
+        private const float PanelHeight = 560f;
+        private const float RowHeight = 42f;
+        private const float ButtonHeight = 26f;
+        // The list is the point of the panel — give it a floor so the fixed rows
+        // above and below can never squeeze it down to a sliver.
+        private const float ListMinHeight = 260f;
 
         private static readonly Color PanelBg = new Color(0.09f, 0.09f, 0.10f, 0.96f);
         private static readonly Color Ink = new Color(0.93f, 0.90f, 0.82f, 1f);
@@ -181,7 +185,7 @@ namespace FFUIOverhaul.Blueprints
         private void BuildHeader(GameObject parent)
         {
             var header = NewChild(parent, "Header");
-            header.AddComponent<LayoutElement>().preferredHeight = 30f;
+            var hle = header.AddComponent<LayoutElement>(); hle.preferredHeight = 28f; hle.minHeight = 28f;
             var hlg = header.AddComponent<HorizontalLayoutGroup>();
             hlg.childForceExpandWidth = false;
             hlg.childControlWidth = true;
@@ -201,7 +205,7 @@ namespace FFUIOverhaul.Blueprints
             title.GetComponent<LayoutElement>().flexibleWidth = 1f;
             if (FFNativeAssets.FontTitle != null) title.font = FFNativeAssets.FontTitle;
 
-            NewButton(header, "Close", "✕", 32f, Close);
+            NewButton(header, "Close", "X", 30f, Close);
         }
 
         private void BuildCaptureRow(GameObject parent)
@@ -214,7 +218,7 @@ namespace FFUIOverhaul.Blueprints
         private void BuildNameRow(GameObject parent)
         {
             var row = NewChild(parent, "NameRow");
-            row.AddComponent<LayoutElement>().preferredHeight = 30f;
+            var nle = row.AddComponent<LayoutElement>(); nle.preferredHeight = 30f; nle.minHeight = 30f;
             var hlg = row.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 6;
             hlg.childForceExpandWidth = false;
@@ -271,7 +275,7 @@ namespace FFUIOverhaul.Blueprints
         private void BuildActionRow(GameObject parent)
         {
             var row = NewChild(parent, "ActionRow");
-            row.AddComponent<LayoutElement>().preferredHeight = 32f;
+            var ale = row.AddComponent<LayoutElement>(); ale.preferredHeight = ButtonHeight + 4f; ale.minHeight = ButtonHeight + 4f;
             var hlg = row.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 6;
             hlg.childForceExpandWidth = true;
@@ -300,6 +304,8 @@ namespace FFUIOverhaul.Blueprints
             var scrollGo = NewChild(parent, "ListScroll");
             var sle = scrollGo.AddComponent<LayoutElement>();
             sle.flexibleHeight = 1f;
+            sle.minHeight = ListMinHeight;
+            sle.preferredHeight = ListMinHeight;
             var scrollBg = scrollGo.AddComponent<Image>();
             scrollBg.color = new Color(0f, 0f, 0f, 0.25f);
             scrollGo.AddComponent<RectMask2D>();
@@ -340,7 +346,7 @@ namespace FFUIOverhaul.Blueprints
             _statusLabel.GetComponent<LayoutElement>().preferredHeight = 18f;
 
             var row = NewChild(parent, "Footer");
-            row.AddComponent<LayoutElement>().preferredHeight = 28f;
+            var fle2 = row.AddComponent<LayoutElement>(); fle2.preferredHeight = ButtonHeight + 4f; fle2.minHeight = ButtonHeight + 4f;
             var hlg = row.AddComponent<HorizontalLayoutGroup>();
             hlg.spacing = 6;
             hlg.childForceExpandWidth = true;
@@ -422,7 +428,7 @@ namespace FFUIOverhaul.Blueprints
             bool selected = Selected != null && Selected.name == bp.name;
 
             var row = NewChild(_listContent!, "Row_" + bp.name);
-            row.AddComponent<LayoutElement>().preferredHeight = RowHeight;
+            var rle = row.AddComponent<LayoutElement>(); rle.preferredHeight = RowHeight; rle.minHeight = RowHeight; rle.flexibleHeight = 0f;
             var bg = row.AddComponent<Image>();
             bg.color = selected ? RowBgSelected : RowBg;
 
@@ -444,7 +450,7 @@ namespace FFUIOverhaul.Blueprints
             ivlg.childForceExpandWidth = true;
             ivlg.childControlWidth = true;
 
-            var nameText = NewText(info, "Name", (selected ? "▸ " : "") + bp.name,
+            var nameText = NewText(info, "Name", (selected ? "> " : "") + bp.name,
                 15f, selected ? FontStyles.Bold : FontStyles.Normal,
                 selected ? Accent : Ink, TextAlignmentOptions.Left);
             nameText.GetComponent<LayoutElement>().preferredHeight = 20f;
@@ -462,7 +468,7 @@ namespace FFUIOverhaul.Blueprints
             });
 
             bool confirming = _confirmDelete == bp.name;
-            NewButton(row, "Delete", confirming ? "Sure?" : "✕", confirming ? 56f : 30f, () =>
+            NewButton(row, "Delete", confirming ? "Sure?" : "X", confirming ? 58f : 28f, () =>
             {
                 if (_confirmDelete == bp.name)
                 {
@@ -543,8 +549,15 @@ namespace FFUIOverhaul.Blueprints
         {
             var go = NewChild(parent, name);
             var le = go.AddComponent<LayoutElement>();
-            if (width > 0f) le.preferredWidth = width; else le.flexibleWidth = 1f;
-            le.preferredHeight = 26f;
+            if (width > 0f) { le.preferredWidth = width; le.minWidth = width; }
+            else le.flexibleWidth = 1f;
+            // minHeight MUST be set, not just preferredHeight: a sliced Image
+            // reports its 9-slice border thickness as a layout minimum through
+            // ILayoutElement, and FF's button sprites have fat borders — that is
+            // what made these render roughly twice their intended height.
+            le.preferredHeight = ButtonHeight;
+            le.minHeight = ButtonHeight;
+            le.flexibleHeight = 0f;
 
             var bg = go.AddComponent<Image>();
             bg.color = ButtonNormal;
