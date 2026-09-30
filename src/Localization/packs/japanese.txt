@@ -1614,7 +1614,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=一時停止する前にこの秒数
 KeepClarity/opt/SkipNewMapIntro/label=ゲーム開始時のムービーをスキップ
 KeepClarity/opt/SkipNewMapIntro/tip=イントロ動画を飛ばし、マップ読み込みに直行する。
 KeepClarity/opt/CustomPopulationCap/label=カスタム人口上限
-KeepClarity/opt/CustomPopulationCap/tip=4つのスライダー停止点（200/500/1000/2000）を任意の値で上書きする。0=バニラの挙動を維持。
+KeepClarity/opt/CustomPopulationCap/tip=ゲームのスライダーの段階に限らず、任意の人口上限を設定します。厳密な上限として適用され、出生・季節ごとの移住・移民団はすべてこの値で止まります。設定中はゲームのスライダーがロックされます。0 = ゲームのスライダーを使用。ライブ反映。
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=アップグレード人口要件を無視
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=町の中心の段階アップにかかる人口ゲートを回避し、低人口のセーブでも進行できるようにする。
 KeepClarity/cat/Other Settings=その他の設定
@@ -1625,6 +1625,16 @@ KeepClarity/opt/ShowPlannerButton/label=プランナーボタンを表示
 KeepClarity/opt/ShowPlannerButton/tip=トップバーにブラウザでSageDragoonのFarthest Frontier Plannerを開くPLANアイコンを表示する。反映には再起動が必要。
 KeepClarity/opt/UseLegacyImguiPanel/label=レガシーIMGUIパネルを使用
 KeepClarity/opt/UseLegacyImguiPanel/tip=ステージ1フォールバック。false（デフォルト）のときF10は洗練されたUGUIキャンバスを開く。trueのときF10は元のIMGUIプロトタイプを開く。UGUIパネルが不具合を起こす場合はtrueに切り替える。
+KeepClarity/cat/Workers=作業員
+KeepClarity/opt/EnableWorkerPicker/label=作業員ピッカー
+KeepClarity/opt/EnableWorkerPicker/tip=建物ウィンドウの作業員枠を右クリックすると、そこで働く村人を選べます。空き枠を埋めるか、現在の作業員と交代させます（交代した作業員は労働者になります）。他の建物で既にこの仕事をしている村人も一覧に含まれます。ライブ反映。
+KeepClarity/opt/EnablePickerMasteryColumn/label=ピッカーの熟練度列
+KeepClarity/opt/EnablePickerMasteryColumn/tip=村人ピッカーに「熟練度」列を追加します。職場熟練度に基づく各村人の上位3つの仕事を表示し、この建物の仕事を強調表示します。ピッカーはこの建物の仕事の熟練度が高い順に並んだ状態で開きます。列見出しをクリックすると順序が逆になります。Essential Provisions の職場熟練度がオンである必要があります。ライブ反映。
+KeepClarity/picker/mastery=熟練度
+KeepClarity/picker/replaceTitle={0} を交代（{1}）
+KeepClarity/opt/EnableSlotMastery/label=作業員枠の熟練度
+KeepClarity/opt/EnableSlotMastery/tip=建物ウィンドウの作業員枠に、各作業員の現在の仕事での熟練度を表示します。交代させる前に比較できます。Essential Provisions の職場熟練度がオンである必要があります。ライブ反映。
+KeepClarity/slot/mastery=熟練度 +{0}%
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling
 LootScaling/cat/LootScaling=LootScaling

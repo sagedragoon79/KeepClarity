@@ -64,6 +64,43 @@ namespace FFUIOverhaul.Utils
         }
 
         /// <summary>
+        /// True if a state of this type is anywhere on the input stack, not just
+        /// on top. Input_NewGame, for example, sits under the Town Center
+        /// placement state while the player is placing.
+        /// </summary>
+        public static bool IsOnStack(string stateTypeName)
+        {
+            try
+            {
+                var gm = UnitySingleton<GameManager>.Instance;
+                var inputMgr = gm != null ? gm.inputManager : null;
+                if (inputMgr == null) return false;
+
+                if (_inputStateMachineField == null)
+                    _inputStateMachineField = typeof(InputManager).GetField("inputStateMachine",
+                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                var stateMachine = _inputStateMachineField?.GetValue(inputMgr) as StateMachine;
+                if (stateMachine == null) return false;
+
+                if (_currentStateField == null)
+                    _currentStateField = typeof(StateMachine).GetField("currentState",
+                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                if (_pushedStateField == null)
+                    _pushedStateField = typeof(StackState).GetField("pushedState",
+                        BindingFlags.Instance | BindingFlags.NonPublic);
+
+                var state = _currentStateField?.GetValue(stateMachine) as State;
+                for (int guard = 0; state != null && guard < 32; guard++)
+                {
+                    if (state.GetType().Name == stateTypeName) return true;
+                    state = state is StackState ss ? _pushedStateField?.GetValue(ss) as State : null;
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        /// <summary>
         /// True when the game is in the "normal" input state — no menus open, no modal,
         /// no placement mode. This is when main-game hotkeys should fire.
         /// </summary>

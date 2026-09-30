@@ -9,7 +9,7 @@ using FFUIOverhaul.Utils;
 using FFUIOverhaul.TechTree;
 using FFUIOverhaul.Settings;
 
-[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.6.0", "sagedragoon79")]
+[assembly: MelonInfo(typeof(FFUIOverhaul.FFUIOverhaulMod), "Keep Clarity", "1.7.0", "sagedragoon79")]
 [assembly: MelonGame("Crate Entertainment", "Farthest Frontier")]
 
 namespace FFUIOverhaul
@@ -136,6 +136,11 @@ namespace FFUIOverhaul
 
         // Road length counter: live tile count while dragging a road
         public static MelonPreferences_Entry<bool> EnableRoadLengthCounter { get; private set; } = null!;
+
+        // Worker Picker: right-click a worker slot to choose who works there
+        public static MelonPreferences_Entry<bool> EnableWorkerPicker { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> EnablePickerMasteryColumn { get; private set; } = null!;
+        public static MelonPreferences_Entry<bool> EnableSlotMastery { get; private set; } = null!;
 
         // Blueprints (Master Mason): capture a layout and stamp it elsewhere
         public static MelonPreferences_Entry<bool> EnableBlueprints { get; private set; } = null!;
@@ -399,7 +404,7 @@ namespace FFUIOverhaul
 
             CustomPopulationCap = _prefs.CreateEntry("CustomPopulationCap", 0,
                 display_name: "Custom Population Cap",
-                description: "Override the population cap with any value. 0 = use whatever you set in the game's slider (200/500/1000/etc). Anything else = exact cap. Useful for picking values between the slider stops (e.g. 250, 750).");
+                description: "Set any population cap, not just the game's slider stops (e.g. 250, 750). Kept as a hard cap: births, seasonal arrivals, and immigrant groups all stop at it, and the game's slider locks while it's set. 0 = use the game's slider.");
 
             IgnoreUpgradePopulationRequirement = _prefs.CreateEntry("IgnoreUpgradePopulationRequirement", false,
                 display_name: "Ignore Upgrade Population Requirement",
@@ -429,7 +434,7 @@ namespace FFUIOverhaul
 
             PauseOnLoadDelay = _prefs.CreateEntry("PauseOnLoadDelaySeconds", 2.5f,
                 display_name: "Pause on Load Delay (seconds)",
-                description: "How many seconds to wait after the game finishes loading before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
+                description: "How many seconds to wait, after the game has finished loading and faded in, before pausing. Gives lighting/post-processing time to settle so the player doesn't see a black 'void' frame.");
 
             EnableBuildPriority = _prefs.CreateEntry("EnableBuildPriority", false,
                 display_name: "Build Priority",
@@ -512,6 +517,16 @@ namespace FFUIOverhaul
                 display_name: "Road Length Counter",
                 description: "While dragging a road, show how many grid squares it will cover next to the cursor.");
 
+            EnableWorkerPicker = _prefs.CreateEntry("EnableWorkerPicker", true,
+                display_name: "Worker Picker",
+                description: "Right-click any worker slot in a building's window to choose who works there: fill an empty slot, or replace the worker in it.");
+            EnablePickerMasteryColumn = _prefs.CreateEntry("EnablePickerMasteryColumn", true,
+                display_name: "Picker Mastery Column",
+                description: "Adds a Mastery column to the villager picker showing each villager's top 3 jobs, and opens the picker sorted by mastery in the building's job. Needs Essential Provisions with Workplace Mastery on.");
+            EnableSlotMastery = _prefs.CreateEntry("EnableSlotMastery", true,
+                display_name: "Worker Slot Mastery",
+                description: "Shows each worker's mastery in their job on the worker slots of a building's window. Needs Essential Provisions with Workplace Mastery on.");
+
             EnableForageCalendar = _prefs.CreateEntry("EnableForageCalendar", true,
                 display_name: "Forage Season Bar",
                 description: "Gantt-style bar under the top-bar season strip showing when each forageable on your map is in season. Shows with the game's own season popup (hover the strip, or pin it with FF's info toggle).");
@@ -579,6 +594,8 @@ namespace FFUIOverhaul
 
             var gm = UnitySingleton<GameManager>.Instance;
             if (gm == null) return;
+
+            Patches.PopulationCapOverride.Tick();
 
             // Compute context flags once per frame from the input state machine —
             // it's the source of truth for which input context owns the keyboard.
@@ -651,29 +668,97 @@ namespace FFUIOverhaul
             UI.BuildingVariety.Tick();
         }
 
+        /// <summary>
+        /// Pause once the game is visible and playable after a load or a new
+        /// settlement — never earlier.
+        ///
+        /// It takes BOTH flags, because they flip in opposite orders:
+        ///   - Loading a save sets gameFullyInitialized FIRST, then keeps loading
+        ///     (sliced resource pass, a 3.5 s real-time wait, a nav-mesh rebuild),
+        ///     un-pauses the game if anything paused it, and only then sets
+        ///     gameReadyToPlay, hides the loading screen, and fades in from black
+        ///     (UIManager.FadeInScreen, 1 s). The old gate used gameFullyInitialized
+        ///     plus the delay alone, so on a slow load the pause landed inside
+        ///     that tail — undone by the game, or stuck on the black transition
+        ///     where the pause key doesn't reach the game yet.
+        ///   - A NEW settlement sets BOTH flags at the end of world setup, before
+        ///     the intro: welcome message, Town Center placement, a fade to black,
+        ///     then the fade back in. That intro runs on game-time waits
+        ///     (InitialSetupManager.StartRoutine_Stage1/2, Timing.WaitForSeconds),
+        ///     and Input_NewGame swallows the pause key until it ends. Pause
+        ///     anywhere inside it and the waits never finish — the welcome message
+        ///     never appears, or the screen stays black after placement — with no
+        ///     way to unpause. The game holds TimeManager.simulationPaused true for
+        ///     the whole intro and clears it at the very end, right after it gives
+        ///     the pause key back; that is the signal to wait for.
+        /// Then it waits for the fade to finish, and counts the delay from there so
+        /// lighting and post-processing have settled on screen.
+        /// </summary>
         private void HandlePauseOnLoad(GameManager gm)
         {
             if (_pauseOnLoadDone || !PauseOnLoad.Value) return;
-            // Gate on gameFullyInitialized, NOT gameReadyToPlay: the latter is already true
-            // during a NEW game's Town Center placement screen, so pausing there traps the
-            // player (you can't unpause during placement). gameFullyInitialized flips only
-            // once the simulation actually starts — after the TC is placed, or after a save
-            // finishes loading. (It's the same flag FF's own sim loop gates on.)
-            if (!GameManager.gameFullyInitialized) return;
+            if (!GameManager.gameFullyInitialized || !GameManager.gameReadyToPlay) return;
 
-            // Tick the delay only once the sim is live. Lighting and post-processing take a
-            // bit to settle after that flag flips, so pausing immediately puts the player in
-            // a black "void" frame. Use unscaled time so a paused-by-something-else state
-            // doesn't freeze the timer.
+            if (IsNewGameIntroPending(gm) || IsScreenFading(gm))
+            {
+                _pauseOnLoadTimer = 0f;   // count the delay from a playable, fully visible screen
+                return;
+            }
+
+            // Unscaled, so a pause from elsewhere doesn't freeze the timer.
             _pauseOnLoadTimer += Time.unscaledDeltaTime;
             if (_pauseOnLoadTimer < PauseOnLoadDelay.Value) return;
 
-            gm.TogglePause();
+            // SetPaused, not TogglePause: if the player already paused, keep it paused.
+            if (!gm.paused) gm.SetPaused(true);
             _pauseOnLoadDone = true;
         }
 
         private bool _pauseOnLoadDone;
         private float _pauseOnLoadTimer;
+        private bool _newGameIntroSeen;
+        private static FieldInfo? _fadeImageField;
+
+        /// <summary>
+        /// True until a new settlement's intro has started AND finished. The intro
+        /// starts from a background job, so there's a moment after the flags flip
+        /// when it hasn't begun; a new game therefore has to show the intro running
+        /// (simulationPaused) once before its absence counts as "finished".
+        /// Always false for a loaded save, which has no intro.
+        /// </summary>
+        private bool IsNewGameIntroPending(GameManager gm)
+        {
+            try
+            {
+                // The pause key is swallowed while this state is on the stack.
+                if (InputStateHelper.IsOnStack("Input_NewGame")) { _newGameIntroSeen = true; return true; }
+
+                var tm = gm.timeManager;
+                if (tm != null && tm.simulationPaused) { _newGameIntroSeen = true; return true; }
+
+                return !gm.isLoadedGame && !_newGameIntroSeen;
+            }
+            catch
+            {
+                // Can't tell — don't pause. A missed pause costs nothing; a pause
+                // inside the intro locks the player out.
+                return true;
+            }
+        }
+
+        /// <summary>True while the game's full-screen fade (UIManager.fadeImage)
+        /// is up: the black transition after a load, before the world shows.</summary>
+        private static bool IsScreenFading(GameManager gm)
+        {
+            try
+            {
+                var ui = gm.uiManager;
+                if (ui == null) return false;
+                if (_fadeImageField == null) _fadeImageField = AccessTools.Field(typeof(UIManager), "fadeImage");
+                return _fadeImageField?.GetValue(ui) is Image fade && fade != null && fade.gameObject.activeInHierarchy;
+            }
+            catch { return false; }
+        }
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
@@ -713,6 +798,7 @@ namespace FFUIOverhaul
                 UI.ForageCalendarBar.ResetState();   // scene objects died with the old map; rebuild lazily
 
                 _pauseOnLoadDone = false; // re-arm pause-on-load for this Map session
+                _newGameIntroSeen = false;
                 _pauseOnLoadTimer = 0f;
 
                 // Snapshot every setting's value as of this save load — the
@@ -745,6 +831,7 @@ namespace FFUIOverhaul
                 // Manually patch UIVillagerWindow once the game types are loaded
                 // (self-guarded; appends EP education/mastery bonuses to the panel).
                 Patches.VillagerWorkInfoPatch.Initialize();
+                Workers.WorkerPicker.Initialize();
                 Patches.VillagerDiseaseInfoPatch.Initialize();
                 Patches.ForageCalendarPatch.Initialize();
             }
@@ -1002,6 +1089,15 @@ namespace FFUIOverhaul
             RBK(RotateHotkey, "Blueprint: Rotate",
                 "Rotates the blueprint 90 degrees while stamping. Default Tab.");
 
+            // ── Workers ──────────────────────────────────────────────────
+            _order = 0;
+            R("Workers", EnableWorkerPicker, "Worker Picker",
+                "Right-click any worker slot in a building's window to choose who works there: fill an empty slot, or replace the current worker (they become a laborer). The list also includes villagers already doing this job at other buildings. Applies live.");
+            R("Workers", EnablePickerMasteryColumn, "Picker Mastery Column",
+                "Adds a Mastery column to the villager picker: each villager's top 3 jobs by Workplace Mastery, with this building's job highlighted. The picker opens sorted by mastery in this building's job, best first; click the column header to reverse the order. Needs Essential Provisions with Workplace Mastery on. Applies live.");
+            R("Workers", EnableSlotMastery, "Worker Slot Mastery",
+                "Shows each worker's mastery in their job on the worker slots of a building's window, so you can compare before replacing them. Needs Essential Provisions with Workplace Mastery on. Applies live.");
+
             // ── Forage Calendar ──────────────────────────────────────────
             _order = 0;
             R("Forage Calendar", EnableForageCalendar, "Forage Season Bar",
@@ -1088,7 +1184,7 @@ namespace FFUIOverhaul
             R("Game Flow", SkipNewMapIntro, "Skip Start-of-Game Cinematic",
                 "Bypass the intro video and go straight to map load.");
             RI("Game Flow", CustomPopulationCap, "Custom Population Cap", 0, 5000,
-                "Override the four slider stops (200/500/1000/2000) with any value. 0 = leave vanilla behavior.");
+                "Set any population cap, not just the game's slider stops. Kept as a hard cap: births, seasonal arrivals, and immigrant groups all stop at it, and the game's own slider locks while it's set. 0 = use the game's slider. Applies live.");
             R("Game Flow", IgnoreUpgradePopulationRequirement, "Ignore Upgrade Population Requirement",
                 "Bypass population gates on Town Center tier ups so low-pop saves can still progress.");
 

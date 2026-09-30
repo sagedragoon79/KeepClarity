@@ -1614,7 +1614,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Počká tolik sekund před pozastave
 KeepClarity/opt/SkipNewMapIntro/label=Přeskočit úvodní kinematiku
 KeepClarity/opt/SkipNewMapIntro/tip=Přeskočí úvodní video a přejde rovnou k načtení mapy.
 KeepClarity/opt/CustomPopulationCap/label=Vlastní strop populace
-KeepClarity/opt/CustomPopulationCap/tip=Přepíše čtyři zastavení posuvníku (200/500/1000/2000) libovolnou hodnotou. 0 = ponechat vanilla chování.
+KeepClarity/opt/CustomPopulationCap/tip=Nastaví libovolný limit populace, nejen stupně posuvníku ve hře. Platí jako pevný limit: narození, sezónní příchody i skupiny přistěhovalců se u něj zastaví a posuvník hry je po dobu nastavení uzamčen. 0 = použít posuvník hry. Uplatní se živě.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorovat požadavek populace pro vylepšení
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Obejde populační podmínky pro zvýšení úrovně centra města, aby mohly postupovat i uložené hry s nízkou populací.
 KeepClarity/cat/Other Settings=Ostatní nastavení
@@ -1625,6 +1625,16 @@ KeepClarity/opt/ShowPlannerButton/label=Zobrazit tlačítko plánovače
 KeepClarity/opt/ShowPlannerButton/tip=Zobrazí ikonu PLAN na horní liště, která otevře SageDragoonův plánovač Farthest Frontier ve vašem prohlížeči. Vyžaduje restart pro projevení.
 KeepClarity/opt/UseLegacyImguiPanel/label=Použít starší panel IMGUI
 KeepClarity/opt/UseLegacyImguiPanel/tip=Záloha fáze 1. Když je false (výchozí), F10 otevře vyladěné UGUI plátno. Když je true, F10 otevře původní prototyp IMGUI. Přepněte na true, pokud se panel UGUI chová nesprávně.
+KeepClarity/cat/Workers=Pracovníci
+KeepClarity/opt/EnableWorkerPicker/label=Výběr pracovníka
+KeepClarity/opt/EnableWorkerPicker/tip=Kliknutím pravým tlačítkem na libovolné pracovní místo v okně budovy vyberete, kdo tam bude pracovat: obsadíte volné místo, nebo nahradíte současného pracovníka (ten se stane nádeníkem). Seznam obsahuje i vesničany, kteří tuto práci už dělají v jiných budovách. Uplatní se živě.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Sloupec mistrovství ve výběru
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Přidá do výběru vesničanů sloupec Mistrovství: 3 nejlepší práce každého vesničana podle Osvojeného mistrovství, práce této budovy je zvýrazněna. Výběr se otevře seřazený podle mistrovství v práci této budovy, od nejlepšího; kliknutím na záhlaví sloupce pořadí obrátíte. Vyžaduje Essential Provisions se zapnutým Osvojeným mistrovstvím. Uplatní se živě.
+KeepClarity/picker/mastery=Mistrovství
+KeepClarity/picker/replaceTitle=Nahradit: {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Mistrovství na pracovních místech
+KeepClarity/opt/EnableSlotMastery/tip=Zobrazí mistrovství každého pracovníka v jeho práci na pracovních místech v okně budovy, abyste je mohli porovnat před nahrazením. Vyžaduje Essential Provisions se zapnutým Osvojeným mistrovstvím. Uplatní se živě.
+KeepClarity/slot/mastery=+{0}% mistrovství
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling
 LootScaling/cat/LootScaling=LootScaling

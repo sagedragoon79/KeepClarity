@@ -92,6 +92,36 @@ namespace FFUIOverhaul
             return false;
         }
 
+        /// <summary>
+        /// True when the game is actually offering relocation for the selected
+        /// resource — i.e. its relocate button is visible and usable.
+        ///
+        /// The window enables that button only for a ForageableResource with a
+        /// non-null buildingData, and its Relocate() assumes exactly that. Reading
+        /// the button is more robust than re-deriving the condition: if FF changes
+        /// what is relocatable, the hotkey follows automatically.
+        /// </summary>
+        private static bool RelocateOffered()
+        {
+            try
+            {
+                if (_cachedWindow == null || _windowType == null) return false;
+                if (_relocateButtonField == null)
+                {
+                    _relocateButtonField = _windowType.GetField("relocateButton",
+                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                }
+                if (_relocateButtonField == null) return true;   // can't tell — don't block
+
+                var btn = _relocateButtonField.GetValue(_cachedWindow) as UnityEngine.UI.Button;
+                if (btn == null) return true;                     // ditto
+                return btn.gameObject.activeInHierarchy && btn.interactable;
+            }
+            catch { return true; }
+        }
+
+        private static FieldInfo? _relocateButtonField;
+
         public static void TryRelocate()
         {
             try
@@ -107,6 +137,22 @@ namespace FFUIOverhaul
                     if (found is UnityEngine.Object uo) _cachedWindow = uo;
                 }
                 if (_cachedWindow == null) { FFUIOverhaulMod.Log.Warning("[Forageable] No active UIHarvestableResourceWindow instance"); return; }
+
+                // GATE ON THE GAME'S OWN BUTTON. UIHarvestableResourceWindow does:
+                //   relocateButton.SetActive(forageable != null && forageable.buildingData != null)
+                // and its Relocate() then dereferences buildingData.identifier
+                // unguarded. Invoking it for a forageable the game won't offer
+                // relocation for therefore throws inside the game — reported by a
+                // player as "Relocate herbs doesn't work", with only a
+                // TargetInvocationException in the log. If the button isn't shown,
+                // R must do nothing, same as clicking would.
+                if (!RelocateOffered())
+                {
+                    FFUIOverhaulMod.Log.Msg("[Forageable] This resource can't be relocated " +
+                        "(the game offers no relocate button for it — Tended Wilds or " +
+                        "Forageable Transplantation may be required for this type).");
+                    return;
+                }
 
                 if (_windowRelocateMethod == null)
                 {
@@ -137,7 +183,15 @@ namespace FFUIOverhaul
             }
             catch (Exception e)
             {
-                FFUIOverhaulMod.Log.Warning($"[Forageable] Relocate via R failed: {e.Message}");
+                // Invoke wraps anything the game throws in a TargetInvocationException
+                // whose own message is the useless "Exception has been thrown by the
+                // target of an invocation." Report the inner cause, or a bug report
+                // can't be acted on.
+                var cause = (e as System.Reflection.TargetInvocationException)?.InnerException ?? e;
+                FFUIOverhaulMod.Log.Warning(
+                    $"[Forageable] Relocate via R failed: {cause.GetType().Name}: {cause.Message}");
+                if (FFUIOverhaulMod.SettingsVerboseLog?.Value == true)
+                    FFUIOverhaulMod.Log.Warning(cause.ToString());
             }
         }
 

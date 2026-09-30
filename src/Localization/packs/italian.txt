@@ -1623,7 +1623,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Attendi questo numero di secondi pri
 KeepClarity/opt/SkipNewMapIntro/label=Salta Cinematica di Inizio Gioco
 KeepClarity/opt/SkipNewMapIntro/tip=Salta il video introduttivo e va direttamente al caricamento mappa.
 KeepClarity/opt/CustomPopulationCap/label=Limite Popolazione Personalizzato
-KeepClarity/opt/CustomPopulationCap/tip=Sovrascrive i quattro fermi del cursore (200/500/1000/2000) con qualsiasi valore. 0 = lascia il comportamento vanilla.
+KeepClarity/opt/CustomPopulationCap/tip=Imposta qualsiasi limite di popolazione, non solo gli scatti del cursore del gioco. Applicato come limite rigido: nascite, arrivi stagionali e gruppi di immigrati si fermano tutti a questo valore, e il cursore del gioco resta bloccato finché è impostato. 0 = usa il cursore del gioco. Si applica live.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignora Requisito Popolazione per Aggiornamento
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Bypassa i vincoli di popolazione sugli aggiornamenti di livello del Centro Città così i salvataggi a bassa popolazione possano comunque progredire.
 KeepClarity/cat/Other Settings=Altre Impostazioni
@@ -1634,6 +1634,16 @@ KeepClarity/opt/ShowPlannerButton/label=Mostra Pulsante Pianificatore
 KeepClarity/opt/ShowPlannerButton/tip=Mostra l'icona PLAN nella barra superiore che apre il Farthest Frontier Planner di SageDragoon nel tuo browser. Richiede riavvio per avere effetto.
 KeepClarity/opt/UseLegacyImguiPanel/label=Usa Pannello IMGUI Legacy
 KeepClarity/opt/UseLegacyImguiPanel/tip=Ripiego Fase 1. Quando falso (predefinito), F10 apre il canvas UGUI rifinito. Quando vero, F10 apre il prototipo IMGUI originale. Passa a vero se il pannello UGUI si comporta male.
+KeepClarity/cat/Workers=Lavoratori
+KeepClarity/opt/EnableWorkerPicker/label=Selettore lavoratori
+KeepClarity/opt/EnableWorkerPicker/tip=Fai clic destro su qualsiasi posto di lavoro nella finestra di un edificio per scegliere chi ci lavora: occupa un posto libero o sostituisci il lavoratore attuale (che diventa un manovale). L'elenco include anche gli abitanti che svolgono già questo lavoro in altri edifici. Si applica live.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Colonna Maestria nel selettore
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Aggiunge al selettore degli abitanti una colonna Maestria: i 3 lavori migliori di ogni abitante secondo la Maestria sul Lavoro, con evidenziato il lavoro di questo edificio. Il selettore si apre ordinato per maestria nel lavoro di questo edificio, dal migliore; fai clic sull'intestazione della colonna per invertire l'ordine. Richiede Essential Provisions con Maestria sul Lavoro attiva. Si applica live.
+KeepClarity/picker/mastery=Maestria
+KeepClarity/picker/replaceTitle=Sostituisci {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Maestria sui posti di lavoro
+KeepClarity/opt/EnableSlotMastery/tip=Mostra la maestria di ogni lavoratore nel suo lavoro sui posti di lavoro della finestra di un edificio, per confrontare prima di sostituirlo. Richiede Essential Provisions con Maestria sul Lavoro attiva. Si applica live.
+KeepClarity/slot/mastery=+{0}% maestria
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

@@ -1614,7 +1614,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Чекати стільки секу
 KeepClarity/opt/SkipNewMapIntro/label=Пропустити вступний ролик гри
 KeepClarity/opt/SkipNewMapIntro/tip=Пропускає вступне відео й одразу переходить до завантаження карти.
 KeepClarity/opt/CustomPopulationCap/label=Власна межа населення
-KeepClarity/opt/CustomPopulationCap/tip=Перевизначає чотири позиції повзунка (200/500/1000/2000) будь-яким значенням. 0 = лишити ванільну поведінку.
+KeepClarity/opt/CustomPopulationCap/tip=Задає будь-яку межу населення, а не лише поділки повзунка гри. Діє як жорстка межа: народження, сезонні прибуття та групи іммігрантів зупиняються на ній, а повзунок гри блокується, доки значення задано. 0 = використовувати повзунок гри. Застосовується наживо.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ігнорувати вимогу населення для покращення
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Обходить обмеження населення при покращенні рівня ратуші, щоб збереження з малим населенням могли прогресувати.
 KeepClarity/cat/Other Settings=Інші налаштування
@@ -1625,6 +1625,16 @@ KeepClarity/opt/ShowPlannerButton/label=Показати кнопку плану
 KeepClarity/opt/ShowPlannerButton/tip=Показує іконку ПЛАН на верхній панелі, що відкриває Планувальник Farthest Frontier від SageDragoon у вашому браузері. Потрібен перезапуск для набуття чинності.
 KeepClarity/opt/UseLegacyImguiPanel/label=Використовувати застарілу панель IMGUI
 KeepClarity/opt/UseLegacyImguiPanel/tip=Запасний варіант етапу 1. Коли вимкнено (за замовчуванням), F10 відкриває доопрацьований інтерфейс UGUI. Коли увімкнено, F10 відкриває оригінальний прототип IMGUI. Перемкніть на увімкнено, якщо панель UGUI дає збій.
+KeepClarity/cat/Workers=Працівники
+KeepClarity/opt/EnableWorkerPicker/label=Вибір працівника
+KeepClarity/opt/EnableWorkerPicker/tip=Клацніть правою кнопкою на будь-якому робочому місці у вікні будівлі, щоб вибрати, хто там працює: заповнити вільне місце або замінити поточного працівника (він стане різноробом). До списку також входять жителі, які вже виконують цю роботу в інших будівлях. Застосовується наживо.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Стовпець майстерності у виборі
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Додає до вікна вибору жителів стовпець «Майстерність»: 3 найкращі професії кожного жителя за Майстерністю на робочому місці, професію цієї будівлі виділено. Вікно вибору відкривається відсортованим за майстерністю в професії цієї будівлі, від найкращих; клацніть заголовок стовпця, щоб змінити порядок на зворотний. Потрібен Essential Provisions з увімкненою Майстерністю на робочому місці. Застосовується наживо.
+KeepClarity/picker/mastery=Майстерність
+KeepClarity/picker/replaceTitle=Замінити: {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Майстерність на робочих місцях
+KeepClarity/opt/EnableSlotMastery/tip=Показує на робочих місцях у вікні будівлі майстерність кожного працівника в його професії, щоб порівняти перед заміною. Потрібен Essential Provisions з увімкненою Майстерністю на робочому місці. Застосовується наживо.
+KeepClarity/slot/mastery=+{0}% майстерності
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling
 LootScaling/cat/LootScaling=LootScaling

@@ -1627,7 +1627,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Wartet so viele Sekunden vor dem Pau
 KeepClarity/opt/SkipNewMapIntro/label=Spielstart-Intro überspringen
 KeepClarity/opt/SkipNewMapIntro/tip=Überspringt das Introvideo und geht direkt zum Kartenladen.
 KeepClarity/opt/CustomPopulationCap/label=Benutzerdefinierte Bevölkerungsobergrenze
-KeepClarity/opt/CustomPopulationCap/tip=Überschreibt die vier Regler-Stufen (200/500/1000/2000) mit einem beliebigen Wert. 0 = Vanilla-Verhalten belassen.
+KeepClarity/opt/CustomPopulationCap/tip=Legt eine beliebige Bevölkerungsobergrenze fest, nicht nur die Stufen des Spielreglers. Gilt als feste Grenze: Geburten, saisonale Zuzüge und Einwanderergruppen stoppen alle dort, und der Regler des Spiels ist gesperrt, solange sie gesetzt ist. 0 = Regler des Spiels verwenden. Wirkt live.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ausbau-Bevölkerungsanforderung ignorieren
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Umgeht Bevölkerungssperren bei Stadtzentrum-Stufenaufstiegen, damit Spielstände mit geringer Bevölkerung weiter fortschreiten können.
 KeepClarity/cat/Other Settings=Weitere Einstellungen
@@ -1638,6 +1638,16 @@ KeepClarity/opt/ShowPlannerButton/label=Planer-Button anzeigen
 KeepClarity/opt/ShowPlannerButton/tip=Zeigt das PLAN-Symbol in der oberen Leiste, das SageDragoons Farthest-Frontier-Planer im Browser öffnet. Neustart erforderlich, damit es wirkt.
 KeepClarity/opt/UseLegacyImguiPanel/label=Legacy-IMGUI-Panel verwenden
 KeepClarity/opt/UseLegacyImguiPanel/tip=Stufe-1-Ausweichoption. Wenn falsch (Standard), öffnet F10 die aufpolierte UGUI-Oberfläche. Wenn wahr, öffnet F10 den ursprünglichen IMGUI-Prototyp. Auf wahr umschalten, wenn sich das UGUI-Panel fehlerhaft verhält.
+KeepClarity/cat/Workers=Arbeiter
+KeepClarity/opt/EnableWorkerPicker/label=Arbeiterauswahl
+KeepClarity/opt/EnableWorkerPicker/tip=Rechtsklick auf einen beliebigen Arbeitsplatz im Gebäudefenster, um zu wählen, wer dort arbeitet: einen freien Platz besetzen oder den aktuellen Arbeiter ersetzen (er wird zum Tagelöhner). Die Liste enthält auch Dorfbewohner, die diesen Beruf bereits in anderen Gebäuden ausüben. Wirkt live.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Meisterschaftsspalte in der Auswahl
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Fügt der Dorfbewohnerauswahl eine Spalte Meisterschaft hinzu: die 3 besten Berufe jedes Dorfbewohners nach Arbeitsplatzmeisterschaft, der Beruf dieses Gebäudes hervorgehoben. Die Auswahl öffnet sich nach Meisterschaft im Beruf dieses Gebäudes sortiert, die Besten zuerst; ein Klick auf die Spaltenüberschrift kehrt die Reihenfolge um. Benötigt Essential Provisions mit aktivierter Arbeitsplatzmeisterschaft. Wirkt live.
+KeepClarity/picker/mastery=Meisterschaft
+KeepClarity/picker/replaceTitle={0} ersetzen ({1})
+KeepClarity/opt/EnableSlotMastery/label=Meisterschaft an Arbeitsplätzen
+KeepClarity/opt/EnableSlotMastery/tip=Zeigt an den Arbeitsplätzen im Gebäudefenster die Meisterschaft jedes Arbeiters in seinem Beruf, damit du vor dem Ersetzen vergleichen kannst. Benötigt Essential Provisions mit aktivierter Arbeitsplatzmeisterschaft. Wirkt live.
+KeepClarity/slot/mastery=+{0}% Meisterschaft
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

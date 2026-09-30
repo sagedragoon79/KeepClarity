@@ -1624,7 +1624,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Czeka tyle sekund przed pauzą — d
 KeepClarity/opt/SkipNewMapIntro/label=Pomiń intro nowej gry
 KeepClarity/opt/SkipNewMapIntro/tip=Pomija wideo wprowadzające i przechodzi prosto do wczytania mapy.
 KeepClarity/opt/CustomPopulationCap/label=Niestandardowy limit populacji
-KeepClarity/opt/CustomPopulationCap/tip=Nadpisuje cztery progi suwaka (200/500/1000/2000) dowolną wartością. 0 = pozostaw zachowanie bazowe.
+KeepClarity/opt/CustomPopulationCap/tip=Ustawia dowolny limit populacji, nie tylko stopnie suwaka w grze. Działa jako twardy limit: narodziny, sezonowi przybysze i grupy imigrantów zatrzymują się na nim, a suwak gry jest zablokowany, dopóki limit jest ustawiony. 0 = użyj suwaka gry. Działa na żywo.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignoruj wymóg populacji do ulepszenia
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Omija bramki populacji przy podnoszeniu poziomu Ratusza, by save'y z niską populacją mogły nadal się rozwijać.
 KeepClarity/cat/Other Settings=Pozostałe ustawienia
@@ -1635,6 +1635,16 @@ KeepClarity/opt/ShowPlannerButton/label=Pokaż przycisk Planera
 KeepClarity/opt/ShowPlannerButton/tip=Pokazuje ikonę PLAN na górnym pasku, otwierającą Planer Farthest Frontier SageDragoon w przeglądarce. Wymaga restartu, by zadziałało.
 KeepClarity/opt/UseLegacyImguiPanel/label=Użyj klasycznego panelu IMGUI
 KeepClarity/opt/UseLegacyImguiPanel/tip=Rezerwa etapu 1. Gdy fałsz (domyślnie), F10 otwiera dopracowane płótno UGUI. Gdy prawda, F10 otwiera oryginalny prototyp IMGUI. Przełącz na prawda, jeśli panel UGUI zaczyna szwankować.
+KeepClarity/cat/Workers=Pracownicy
+KeepClarity/opt/EnableWorkerPicker/label=Wybór pracownika
+KeepClarity/opt/EnableWorkerPicker/tip=Kliknij prawym przyciskiem dowolne miejsce pracy w oknie budynku, aby wybrać, kto tam pracuje: obsadź wolne miejsce lub zastąp obecnego pracownika (stanie się robotnikiem). Lista obejmuje też osadników, którzy już wykonują tę pracę w innych budynkach. Działa na żywo.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Kolumna mistrzostwa w wyborze
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Dodaje do wyboru osadników kolumnę Mistrzostwo: 3 najlepsze zawody każdego osadnika według Mistrzostwa stanowiska pracy, z wyróżnionym zawodem tego budynku. Wybór otwiera się posortowany według mistrzostwa w zawodzie tego budynku, od najlepszych; kliknij nagłówek kolumny, aby odwrócić kolejność. Wymaga Essential Provisions z włączonym Mistrzostwem stanowiska pracy. Działa na żywo.
+KeepClarity/picker/mastery=Mistrzostwo
+KeepClarity/picker/replaceTitle=Zastąp: {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Mistrzostwo na stanowiskach
+KeepClarity/opt/EnableSlotMastery/tip=Pokazuje na stanowiskach pracy w oknie budynku mistrzostwo każdego pracownika w jego zawodzie, aby porównać przed zastąpieniem. Wymaga Essential Provisions z włączonym Mistrzostwem stanowiska pracy. Działa na żywo.
+KeepClarity/slot/mastery=+{0}% mistrzostwa
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

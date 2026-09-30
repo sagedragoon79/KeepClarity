@@ -1623,7 +1623,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Attend ce nombre de secondes avant d
 KeepClarity/opt/SkipNewMapIntro/label=Passer la cinématique de début de partie
 KeepClarity/opt/SkipNewMapIntro/tip=Contourne la vidéo d'intro et va directement au chargement de la carte.
 KeepClarity/opt/CustomPopulationCap/label=Plafond de population personnalisé
-KeepClarity/opt/CustomPopulationCap/tip=Remplace les quatre paliers du curseur (200/500/1000/2000) par n'importe quelle valeur. 0 = laisser le comportement vanilla.
+KeepClarity/opt/CustomPopulationCap/tip=Définit n'importe quel plafond de population, pas seulement les crans du curseur du jeu. Appliqué comme plafond strict : naissances, arrivées saisonnières et groupes d'immigrants s'arrêtent tous à cette valeur, et le curseur du jeu est verrouillé tant qu'il est défini. 0 = utiliser le curseur du jeu. S'applique en direct.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorer la condition de population d'amélioration
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Contourne les seuils de population des montées de niveau du Centre-ville afin que les sauvegardes à faible population puissent tout de même progresser.
 KeepClarity/cat/Other Settings=Autres paramètres
@@ -1634,6 +1634,16 @@ KeepClarity/opt/ShowPlannerButton/label=Afficher le bouton du planificateur
 KeepClarity/opt/ShowPlannerButton/tip=Affiche l'icône PLAN dans la barre supérieure qui ouvre le Planificateur Farthest Frontier de SageDragoon dans votre navigateur. Redémarrage requis pour prendre effet.
 KeepClarity/opt/UseLegacyImguiPanel/label=Utiliser le panneau IMGUI historique
 KeepClarity/opt/UseLegacyImguiPanel/tip=Solution de repli d'étape 1. Si false (par défaut), F10 ouvre le canevas UGUI abouti. Si true, F10 ouvre le prototype IMGUI d'origine. Passez à true si le panneau UGUI se comporte mal.
+KeepClarity/cat/Workers=Travailleurs
+KeepClarity/opt/EnableWorkerPicker/label=Choix des travailleurs
+KeepClarity/opt/EnableWorkerPicker/tip=Faites un clic droit sur n'importe quel poste de travail dans la fenêtre d'un bâtiment pour choisir qui y travaille : pourvoir un poste vacant, ou remplacer le travailleur actuel (qui redevient manœuvre). La liste inclut aussi les villageois qui exercent déjà ce métier dans d'autres bâtiments. S'applique en direct.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Colonne Maîtrise du sélecteur
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Ajoute une colonne Maîtrise au sélecteur de villageois : les 3 meilleurs métiers de chaque villageois selon la Maîtrise du poste, le métier de ce bâtiment étant mis en évidence. Le sélecteur s'ouvre trié par maîtrise du métier de ce bâtiment, de la meilleure à la plus faible ; cliquez sur l'en-tête de la colonne pour inverser l'ordre. Nécessite Essential Provisions avec la Maîtrise du poste activée. S'applique en direct.
+KeepClarity/picker/mastery=Maîtrise
+KeepClarity/picker/replaceTitle=Remplacer {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Maîtrise sur les postes
+KeepClarity/opt/EnableSlotMastery/tip=Affiche la maîtrise de chaque travailleur dans son métier sur les postes de la fenêtre d'un bâtiment, pour comparer avant de le remplacer. Nécessite Essential Provisions avec la Maîtrise du poste activée. S'applique en direct.
+KeepClarity/slot/mastery=+{0}% maîtrise
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

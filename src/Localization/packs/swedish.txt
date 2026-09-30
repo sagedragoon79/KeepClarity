@@ -1623,7 +1623,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Vänta så här många sekunder inna
 KeepClarity/opt/SkipNewMapIntro/label=Hoppa över introfilm
 KeepClarity/opt/SkipNewMapIntro/tip=Hoppa över introvideon och gå direkt till kartladdning.
 KeepClarity/opt/CustomPopulationCap/label=Anpassat befolkningstak
-KeepClarity/opt/CustomPopulationCap/tip=Åsidosätt de fyra reglagestoppen (200/500/1000/2000) med valfritt värde. 0 = lämna vanilla-beteende.
+KeepClarity/opt/CustomPopulationCap/tip=Ange valfritt befolkningstak, inte bara spelets reglagesteg. Gäller som ett fast tak: födslar, säsongsinflyttning och invandrargrupper stannar alla vid det, och spelets reglage låses så länge det är satt. 0 = använd spelets reglage. Gäller direkt.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorera befolkningskrav för uppgradering
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Kringgå befolkningsspärrar vid uppgradering av stadscentrum så lågbefolkade sparfiler fortfarande kan gå vidare.
 KeepClarity/cat/Other Settings=Övriga inställningar
@@ -1634,6 +1634,16 @@ KeepClarity/opt/ShowPlannerButton/label=Visa planerarknapp
 KeepClarity/opt/ShowPlannerButton/tip=Visa PLAN-ikonen i toppfältet som öppnar SageDragoons Farthest Frontier Planner i din webbläsare. Omstart krävs för att träda i kraft.
 KeepClarity/opt/UseLegacyImguiPanel/label=Använd äldre IMGUI-panel
 KeepClarity/opt/UseLegacyImguiPanel/tip=Steg 1-reserv. När falskt (standard) öppnar F10 den polerade UGUI-canvasen. När sant öppnar F10 den ursprungliga IMGUI-prototypen. Byt till sant om UGUI-panelen krånglar.
+KeepClarity/cat/Workers=Arbetare
+KeepClarity/opt/EnableWorkerPicker/label=Arbetarväljare
+KeepClarity/opt/EnableWorkerPicker/tip=Högerklicka på valfri arbetsplats i en byggnads fönster för att välja vem som arbetar där: fyll en ledig plats eller ersätt den nuvarande arbetaren (som blir grovarbetare). Listan innehåller även bybor som redan har det här yrket i andra byggnader. Gäller direkt.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Mästerskapskolumn i väljaren
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Lägger till en Mästerskap-kolumn i byborväljaren: varje bybos 3 främsta yrken enligt Arbetsplatsmästerskap, med den här byggnadens yrke markerat. Väljaren öppnas sorterad efter mästerskap i den här byggnadens yrke, bäst först; klicka på kolumnrubriken för att vända ordningen. Kräver Essential Provisions med Arbetsplatsmästerskap påslaget. Gäller direkt.
+KeepClarity/picker/mastery=Mästerskap
+KeepClarity/picker/replaceTitle=Ersätt {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Mästerskap på arbetsplatser
+KeepClarity/opt/EnableSlotMastery/tip=Visar varje arbetares mästerskap i sitt yrke på arbetsplatserna i en byggnads fönster, så att du kan jämföra innan du ersätter dem. Kräver Essential Provisions med Arbetsplatsmästerskap påslaget. Gäller direkt.
+KeepClarity/slot/mastery=+{0}% mästerskap
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

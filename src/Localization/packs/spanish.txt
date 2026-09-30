@@ -1623,7 +1623,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Espera esta cantidad de segundos ant
 KeepClarity/opt/SkipNewMapIntro/label=Omitir Cinemática de Inicio de Partida
 KeepClarity/opt/SkipNewMapIntro/tip=Omite el video de introducción y va directo a la carga del mapa.
 KeepClarity/opt/CustomPopulationCap/label=Límite de Población Personalizado
-KeepClarity/opt/CustomPopulationCap/tip=Sobrescribe las cuatro paradas del deslizador (200/500/1000/2000) con cualquier valor. 0 = dejar el comportamiento del juego base.
+KeepClarity/opt/CustomPopulationCap/tip=Establece cualquier límite de población, no solo las marcas del control deslizante del juego. Se aplica como límite estricto: nacimientos, llegadas de temporada y grupos de inmigrantes se detienen en él, y el control deslizante del juego queda bloqueado mientras esté configurado. 0 = usar el control deslizante del juego. Se aplica en vivo.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorar Requisito de Población para Mejorar
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Omite las restricciones de población en las mejoras de nivel del Centro del Pueblo, para que las partidas con poca población puedan seguir progresando.
 KeepClarity/cat/Other Settings=Otros Ajustes
@@ -1634,6 +1634,16 @@ KeepClarity/opt/ShowPlannerButton/label=Mostrar Botón de Planificador
 KeepClarity/opt/ShowPlannerButton/tip=Muestra el icono PLAN en la barra superior que abre el Planificador de Farthest Frontier de SageDragoon en tu navegador. Se requiere reiniciar para que surta efecto.
 KeepClarity/opt/UseLegacyImguiPanel/label=Usar Panel IMGUI Antiguo
 KeepClarity/opt/UseLegacyImguiPanel/tip=Alternativa de Etapa 1. Cuando es falso (predeterminado), F10 abre el lienzo UGUI pulido. Cuando es verdadero, F10 abre el prototipo IMGUI original. Cámbialo a verdadero si el panel UGUI falla.
+KeepClarity/cat/Workers=Trabajadores
+KeepClarity/opt/EnableWorkerPicker/label=Selector de trabajadores
+KeepClarity/opt/EnableWorkerPicker/tip=Haz clic derecho en cualquier puesto de trabajo de la ventana de un edificio para elegir quién trabaja allí: cubre un puesto vacío o sustituye al trabajador actual (pasa a ser peón). La lista también incluye aldeanos que ya ejercen este oficio en otros edificios. Se aplica en vivo.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Columna de maestría del selector
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Añade una columna Maestría al selector de aldeanos: los 3 mejores oficios de cada aldeano según la Maestría Laboral, con el oficio de este edificio resaltado. El selector se abre ordenado por maestría en el oficio de este edificio, de mayor a menor; haz clic en el encabezado de la columna para invertir el orden. Requiere Essential Provisions con Maestría Laboral activada. Se aplica en vivo.
+KeepClarity/picker/mastery=Maestría
+KeepClarity/picker/replaceTitle=Sustituir a {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Maestría en los puestos
+KeepClarity/opt/EnableSlotMastery/tip=Muestra la maestría de cada trabajador en su oficio en los puestos de trabajo de la ventana de un edificio, para comparar antes de sustituirlo. Requiere Essential Provisions con Maestría Laboral activada. Se aplica en vivo.
+KeepClarity/slot/mastery=+{0}% maestría
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

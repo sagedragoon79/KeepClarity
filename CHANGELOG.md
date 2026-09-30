@@ -1,5 +1,46 @@
 # Keep Clarity — Changelog
 
+## v1.7.0 (2026-09-30) — Worker Picker, population cap, tech queue and Pause on Load fixes
+
+### Added
+- **Worker Picker.** Right-click any worker slot in a building's window to open
+  the game's villager picker, whether or not laborers are free. Fill an empty slot,
+  or replace the worker in a filled one (they become a laborer). The list also
+  includes villagers already doing that job at other buildings. Left-click is
+  unchanged. Crop fields and barracks are not covered.
+- **Mastery in the picker** (needs Essential Provisions with Workplace Mastery on).
+  A Mastery column shows each villager's top 3 jobs with the building's own job
+  highlighted. The picker opens sorted best-first for that job and pre-selects the
+  top villager; click the column header to reverse. When replacing, the title
+  shows the current worker's mastery.
+- **Mastery on worker slots.** Each filled worker slot in a building's window
+  shows that worker's mastery in their job.
+- Settings under **Workers**: Worker Picker, Picker Mastery Column, Worker Slot
+  Mastery. All on by default, all live, translated into all 14 other languages.
+
+### Fixed
+- **Custom Population Cap didn't hold.** Opening the pause menu reset any value
+  that wasn't one of the game's slider stops (to 500), and the game's own cap has
+  gaps: the tech-tree immigration bonus is applied after the cap check, and
+  immigrant groups never check it. The custom cap is now kept, applies live, and
+  is a hard cap on births, seasonal arrivals and immigrant groups. The game's
+  slider locks and shows the custom value while one is set.
+- **Auto tech queue bought techs without applying them.** A tech bought by the
+  queue with the tech tree closed had no effect, and its buildings stayed locked
+  in the build menu, until a save reload or a manual Confirm in the tech tree. The
+  queue now confirms each purchase itself. Background spending waits while the
+  tech tree is open and runs when it closes.
+- **Pause on Load could lock the game.** It could pause during the last steps of a
+  load, or during a new settlement's intro, where the game's timers stop and the
+  pause key is blocked — leaving a frozen map or a permanent black screen. It now
+  waits until the game is visible and playable: after the fade-in on a load, and
+  after the whole intro on a new settlement.
+- **Relocate (R) on a forageable** no longer fails with a log error when the game
+  isn't offering Relocate for it.
+
+*For v1.3.0 through v1.6.0, see the
+[GitHub releases](https://github.com/sagedragoon79/KeepClarity/releases).*
+
 ## v1.2.9 (2026-06-19) — Build Priority, Build Queue, crop hotkeys, villager work info
 
 ### Added

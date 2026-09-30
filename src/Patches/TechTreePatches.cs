@@ -33,6 +33,25 @@ namespace FFUIOverhaul.Patches
     }
 
     /// <summary>
+    /// Background spending waits while the tech tree is open (see
+    /// TechAutoQueue.TrySpendAll). Every way the tree closes — Confirm, Undo,
+    /// or closing with nothing pending — ends in CloseInternal, which clears
+    /// isOpen; spend then, so those ranks are bought and confirmed at once.
+    /// </summary>
+    [HarmonyPatch(typeof(UITechTreeOverview), "CloseInternal")]
+    static class TechSpendOnTreeClosePatch
+    {
+        static void Postfix()
+        {
+            try { TechAutoQueue.TrySpendAll(); }
+            catch (System.Exception e)
+            {
+                FFUIOverhaulMod.Log.Warning($"[TechQueue] Spend on tree close failed: {e.Message}");
+            }
+        }
+    }
+
+    /// <summary>
     /// When the tech tree window opens, attach a numbered pin to every node so
     /// queued items show their position. Also injects a header strip at the top
     /// of the window listing the queue.

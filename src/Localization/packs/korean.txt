@@ -1623,7 +1623,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=일시정지 전 대기하는 초 �
 KeepClarity/opt/SkipNewMapIntro/label=게임 시작 영상 건너뛰기
 KeepClarity/opt/SkipNewMapIntro/tip=인트로 영상을 건너뛰고 바로 맵 로드로 넘어갑니다.
 KeepClarity/opt/CustomPopulationCap/label=사용자 지정 인구 상한
-KeepClarity/opt/CustomPopulationCap/tip=슬라이더의 4단계(200/500/1000/2000)를 원하는 값으로 재정의합니다. 0 = 바닐라 동작 그대로.
+KeepClarity/opt/CustomPopulationCap/tip=게임 슬라이더 단계에 국한되지 않고 원하는 인구 상한을 설정합니다. 엄격한 상한으로 적용되어 출생, 계절 이주, 이민 무리가 모두 이 값에서 멈추며, 설정되어 있는 동안 게임 자체 슬라이더는 잠깁니다. 0 = 게임 슬라이더 사용. 실시간 적용.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=업그레이드 인구 요구치 무시
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=타운 센터 등급업의 인구 조건을 우회해 인구가 적은 세이브도 계속 진행할 수 있게 합니다.
 KeepClarity/cat/Other Settings=기타 설정
@@ -1634,6 +1634,16 @@ KeepClarity/opt/ShowPlannerButton/label=플래너 버튼 표시
 KeepClarity/opt/ShowPlannerButton/tip=브라우저에서 SageDragoon의 Farthest Frontier 플래너를 여는 PLAN 아이콘을 상단 바에 표시합니다. 적용하려면 재시작이 필요합니다.
 KeepClarity/opt/UseLegacyImguiPanel/label=레거시 IMGUI 패널 사용
 KeepClarity/opt/UseLegacyImguiPanel/tip=1단계 대체 옵션. false(기본값)이면 F10이 다듬어진 UGUI 캔버스를 엽니다. true이면 F10이 원조 IMGUI 프로토타입을 엽니다. UGUI 패널이 오작동하면 true로 전환하세요.
+KeepClarity/cat/Workers=작업자
+KeepClarity/opt/EnableWorkerPicker/label=작업자 선택기
+KeepClarity/opt/EnableWorkerPicker/tip=건물 창에서 아무 작업 슬롯이나 우클릭하여 그곳에서 일할 사람을 고르세요: 빈 슬롯을 채우거나 현재 작업자를 교체합니다(교체된 사람은 노동자가 됩니다). 목록에는 이미 다른 건물에서 이 일을 하는 주민도 포함됩니다. 실시간 적용.
+KeepClarity/opt/EnablePickerMasteryColumn/label=선택기 숙련도 열
+KeepClarity/opt/EnablePickerMasteryColumn/tip=주민 선택기에 숙련도 열을 추가합니다: 직장 숙련도 기준으로 각 주민의 상위 3개 직업을 보여 주며, 이 건물의 직업은 강조 표시됩니다. 선택기는 이 건물 직업의 숙련도가 높은 순으로 정렬되어 열리며, 열 제목을 클릭하면 순서가 반대로 바뀝니다. 직장 숙련도가 켜진 Essential Provisions가 필요합니다. 실시간 적용.
+KeepClarity/picker/mastery=숙련도
+KeepClarity/picker/replaceTitle={0} 교체 ({1})
+KeepClarity/opt/EnableSlotMastery/label=작업 슬롯 숙련도
+KeepClarity/opt/EnableSlotMastery/tip=건물 창의 작업 슬롯에 각 작업자의 현재 직업 숙련도를 표시하여 교체하기 전에 비교할 수 있게 합니다. 직장 숙련도가 켜진 Essential Provisions가 필요합니다. 실시간 적용.
+KeepClarity/slot/mastery=숙련도 +{0}%
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

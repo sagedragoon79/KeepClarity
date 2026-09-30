@@ -14,6 +14,17 @@ namespace FFUIOverhaul.TechTree
     /// met), we recurse through `prereqNodeIds` until we find an ancestor in
     /// `PrereqsMet` state and spend there. This means queueing a Tier 4 tech with
     /// nothing else researched will auto-research the full chain.
+    ///
+    /// SPENDING = BUY + CONFIRM. The game splits research in two:
+    /// TechTreeManager.ActivateTechOrRank only buys the rank (rank, KP, node
+    /// state). The tech's effects, its buildings in the build menu, and the next
+    /// tier unlock all happen later, in UITechTreeOverview's Confirm step
+    /// (UndoOrConfirmCachedTechTreeNodeInfo) — or on the next save load. The
+    /// window only confirms ranks bought while it's OPEN. So a rank this queue
+    /// buys with the tree closed must be confirmed here (<see cref="ApplyPurchase"/>),
+    /// or its bonus is missing and its building stays locked until a reload.
+    /// Ranks bought while the tree is open are left to the window's own
+    /// Confirm/Undo, exactly like a manual click, so nothing applies twice.
     /// </summary>
     public static class TechAutoQueue
     {
@@ -163,7 +174,9 @@ namespace FFUIOverhaul.TechTree
             TechQueueStrip.RefreshText();
             // Spend any KP banked before the queue was set up. The
             // AddKnowledgePoints postfix only catches new awards, not retro.
-            TrySpendAll();
+            // A pin placed in the open tree spends at once, like a manual click;
+            // the window then shows it as a change to confirm or undo.
+            TrySpendAll(userInitiated: true);
         }
 
         public static void Clear()
@@ -177,13 +190,19 @@ namespace FFUIOverhaul.TechTree
         /// <summary>
         /// Spend every available knowledge point on the queue (with prereq walking).
         /// Returns the number of points actually spent.
+        ///
+        /// Background callers (the KP-award hook, the overlay's 1 s check) wait
+        /// while the tech tree is open: its Undo refunds points through
+        /// AddKnowledgePoints mid-loop, and spending then would buy ranks the
+        /// Undo is busy restoring. The tree's close hook spends them instead.
         /// </summary>
-        public static int TrySpendAll()
+        public static int TrySpendAll(bool userInitiated = false)
         {
             EnsureLoadedForCurrentSave();
             var gm = UnitySingleton<GameManager>.Instance;
             var tm = gm?.techTreeManager;
             if (tm == null || _queue.Count == 0) return 0;
+            if (!userInitiated && IsTreeOpen(tm)) return 0;
 
             int spent = 0;
             bool changed = true;
@@ -332,10 +351,12 @@ namespace FFUIOverhaul.TechTree
                 if (twCap > 0 || effectiveMax != numRanks)
                     FFUIOverhaulMod.Log.Msg($"[TechQueue] cap-check id={targetId} curRank={curRank} numRanks={numRanks} twCap={twCap} effMax={effectiveMax} → spending rank {curRank + 1}");
                 tm.ActivateTechOrRank(targetId, 1, onLoad: false);
-                // Audit log so if a player reports a research-completed-but-
-                // building-still-locked desync, we can correlate the spend to
-                // the affected tech. Single line per KP spent.
-                FFUIOverhaulMod.Log.Msg($"[TechQueue] Spent KP on tech id={targetId} rank {curRank + 1}/{numRanks}");
+                bool confirmed = !IsTreeOpen(tm);
+                if (confirmed) ApplyPurchase(tm, targetId);
+                // Audit log: one line per KP spent, and whether KC confirmed it
+                // (tree closed) or left it to the open tree's Confirm/Undo.
+                FFUIOverhaulMod.Log.Msg($"[TechQueue] Spent KP on tech id={targetId} rank {curRank + 1}/{numRanks}"
+                    + (confirmed ? " (confirmed)" : " (pending the tech tree's Confirm)"));
                 return true;
             }
 
@@ -346,6 +367,62 @@ namespace FFUIOverhaul.TechTree
                     if (TrySpendForTarget(tm, prereqId)) return true;
             }
             return false;
+        }
+
+        /// <summary>True while the game's tech tree window is showing. Ranks
+        /// bought then are counted by the window and settled by its Confirm or
+        /// Undo.</summary>
+        internal static bool IsTreeOpen(TechTreeManager tm)
+        {
+            try
+            {
+                var window = tm.uiTechTreeOverview;
+                return window != null && window.isOpen;
+            }
+            catch { return false; }
+        }
+
+        private static bool _loggedApplyError;
+
+        /// <summary>
+        /// The Confirm step for one rank bought with the tree closed — the same
+        /// calls UITechTreeOverview.UndoOrConfirmCachedTechTreeNodeInfo(confirm: true)
+        /// makes per researched rank: turn on the tech's effects (stacking for
+        /// multi-rank techs), unlock its buildings once the tech is complete,
+        /// announce it, and unlock the next tier if enough points are now spent.
+        /// </summary>
+        private static void ApplyPurchase(TechTreeManager tm, int id)
+        {
+            try
+            {
+                var gm = UnitySingleton<GameManager>.Instance;
+                var node = tm.techTreeNodeData?.Find(x => x != null && x.GetId() == id);
+                if (gm == null || node == null) return;
+
+                if (node.gameEffectsEntries != null && node.gameEffectsEntries.Count > 0)
+                {
+                    bool stackIfActive = node.GetNumRanks() > 1;
+                    foreach (var effect in node.gameEffectsEntries)
+                        effect?.ActivateEffect(stackIfActive);
+                    // The tutorial objective the game completes when a researched
+                    // tech takes effect.
+                    gm.eventManager?.Raise(new UIBlurbObjectives.BlurbSubObjectiveEvent("dc677d75-45f8-473e-9477-a3dcb1fed5d2"));
+                }
+
+                if (node.state == TechTreeNodeData.State.Active)
+                    gm.buildManager?.ActivateTech(id);   // marks its buildings' prereqs met; the build menu updates at once
+
+                gm.eventManager?.Raise(new TechTreeManager.TechTreeEvent(TechTreeManager.TechTreeEvent.Type.TechActivated, id));
+
+                tm.SetTCTierFromTownCenter();
+                tm.UnlockTierOnKnowledgePointsSpent();
+            }
+            catch (System.Exception e)
+            {
+                if (_loggedApplyError) return;
+                _loggedApplyError = true;
+                FFUIOverhaulMod.Log.Warning($"[TechQueue] Could not apply tech {id} (bonus/building may wait for a reload): {e.Message}");
+            }
         }
     }
 }

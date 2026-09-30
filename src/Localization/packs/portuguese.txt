@@ -1622,7 +1622,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=Espera este número de segundos ante
 KeepClarity/opt/SkipNewMapIntro/label=Pular Cinemática de Início de Jogo
 KeepClarity/opt/SkipNewMapIntro/tip=Ignora o vídeo de introdução e vai direto ao carregamento do mapa.
 KeepClarity/opt/CustomPopulationCap/label=Limite de População Personalizado
-KeepClarity/opt/CustomPopulationCap/tip=Sobrepõe os quatro pontos de parada do slider (200/500/1000/2000) com qualquer valor. 0 = manter o comportamento padrão do jogo.
+KeepClarity/opt/CustomPopulationCap/tip=Define qualquer limite de população, não só as marcas do controle deslizante do jogo. Aplicado como limite rígido: nascimentos, chegadas sazonais e grupos de imigrantes param nesse valor, e o controle deslizante do jogo fica bloqueado enquanto estiver definido. 0 = usar o controle deslizante do jogo. Aplica-se em tempo real.
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=Ignorar Requisito de População para Melhoria
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=Ignora os limites de população nos aumentos de nível do Centro da Cidade, para que saves com pouca população ainda possam progredir.
 KeepClarity/cat/Other Settings=Outras Configurações
@@ -1633,6 +1633,16 @@ KeepClarity/opt/ShowPlannerButton/label=Mostrar Botão do Planejador
 KeepClarity/opt/ShowPlannerButton/tip=Mostra o ícone PLAN na barra superior que abre o Planejador de Farthest Frontier do SageDragoon no seu navegador. Requer reinício para surtir efeito.
 KeepClarity/opt/UseLegacyImguiPanel/label=Usar Painel IMGUI Legado
 KeepClarity/opt/UseLegacyImguiPanel/tip=Alternativa de Estágio 1. Quando falso (padrão), F10 abre o canvas UGUI polido. Quando verdadeiro, F10 abre o protótipo IMGUI original. Mude para verdadeiro se o painel UGUI se comportar mal.
+KeepClarity/cat/Workers=Trabalhadores
+KeepClarity/opt/EnableWorkerPicker/label=Seletor de Trabalhadores
+KeepClarity/opt/EnableWorkerPicker/tip=Clique com o botão direito em qualquer vaga de trabalho na janela de um edifício para escolher quem trabalha lá: preencha uma vaga livre ou substitua o trabalhador atual (que vira operário). A lista também inclui aldeões que já exercem essa função em outros edifícios. Aplica-se em tempo real.
+KeepClarity/opt/EnablePickerMasteryColumn/label=Coluna de Maestria no Seletor
+KeepClarity/opt/EnablePickerMasteryColumn/tip=Adiciona uma coluna Maestria ao seletor de aldeões: as 3 principais funções de cada aldeão pela Maestria no Trabalho, com a função deste edifício destacada. O seletor abre ordenado pela maestria na função deste edifício, da maior para a menor; clique no cabeçalho da coluna para inverter a ordem. Requer Essential Provisions com Maestria no Trabalho ativada. Aplica-se em tempo real.
+KeepClarity/picker/mastery=Maestria
+KeepClarity/picker/replaceTitle=Substituir {0} ({1})
+KeepClarity/opt/EnableSlotMastery/label=Maestria nas Vagas
+KeepClarity/opt/EnableSlotMastery/tip=Mostra a maestria de cada trabalhador na sua função nas vagas de trabalho da janela de um edifício, para comparar antes de substituí-lo. Requer Essential Provisions com Maestria no Trabalho ativada. Aplica-se em tempo real.
+KeepClarity/slot/mastery=+{0}% maestria
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling

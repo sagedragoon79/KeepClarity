@@ -1622,7 +1622,7 @@ KeepClarity/opt/PauseOnLoadDelaySeconds/tip=暂停前等待的秒数——给场
 KeepClarity/opt/SkipNewMapIntro/label=跳过开局动画
 KeepClarity/opt/SkipNewMapIntro/tip=跳过开场视频，直接进入地图加载。
 KeepClarity/opt/CustomPopulationCap/label=自定义人口上限
-KeepClarity/opt/CustomPopulationCap/tip=用任意数值覆盖四档滑块停点（200/500/1000/2000）。0=保持原版行为。
+KeepClarity/opt/CustomPopulationCap/tip=设置任意人口上限，而不仅限于游戏滑块的档位。作为硬性上限执行：出生、季节性移民和移民团队都会在此数值停止，设置期间游戏自带的滑块会被锁定。0 = 使用游戏滑块。实时生效。
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/label=忽略升级人口要求
 KeepClarity/opt/IgnoreUpgradePopulationRequirement/tip=绕过城镇中心升级的人口门槛，使低人口存档也能继续推进。
 KeepClarity/cat/Other Settings=其他设置
@@ -1633,6 +1633,16 @@ KeepClarity/opt/ShowPlannerButton/label=显示规划器按钮
 KeepClarity/opt/ShowPlannerButton/tip=在顶部栏显示PLAN图标，点击后在浏览器中打开SageDragoon的《远方边境》规划器。需要重启生效。
 KeepClarity/opt/UseLegacyImguiPanel/label=使用旧版IMGUI面板
 KeepClarity/opt/UseLegacyImguiPanel/tip=第一阶段的备用方案。为false（默认）时，F10打开精美的UGUI画布。为true时，F10打开原始的IMGUI原型。若UGUI面板出现异常，可切换为true。
+KeepClarity/cat/Workers=工人
+KeepClarity/opt/EnableWorkerPicker/label=工人选择器
+KeepClarity/opt/EnableWorkerPicker/tip=在建筑窗口中右键点击任意工位，即可选择由谁在此工作：填补空缺，或替换当前工人（被替换者会成为劳工）。列表还包含已在其他建筑从事此工作的村民。实时生效。
+KeepClarity/opt/EnablePickerMasteryColumn/label=选择器精通列
+KeepClarity/opt/EnablePickerMasteryColumn/tip=在村民选择器中添加“精通”列：按工作精通显示每位村民排名前 3 的工作，并高亮此建筑的工作。选择器打开时按此建筑工作的精通度从高到低排序；点击列标题可反转顺序。需要 Essential Provisions 并开启工作精通。实时生效。
+KeepClarity/picker/mastery=精通
+KeepClarity/picker/replaceTitle=在 {1} 替换 {0}
+KeepClarity/opt/EnableSlotMastery/label=工位精通显示
+KeepClarity/opt/EnableSlotMastery/tip=在建筑窗口的工位上显示每位工人在其工作中的精通度，方便你在替换前进行比较。需要 Essential Provisions 并开启工作精通。实时生效。
+KeepClarity/slot/mastery=精通 +{0}%
 
 # ── LootScaling ──
 LootScaling/meta/name=LootScaling
